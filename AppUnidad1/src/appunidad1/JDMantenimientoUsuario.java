@@ -68,7 +68,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         btnPregunta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Mantenimiento Categoria");
+        setTitle("Mantenimiento Usuario");
         setResizable(false);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
@@ -337,12 +337,16 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                 txtCodigo.setText(String.valueOf(objUsuario.generarCodigoUsuario()));
                 txtUsuario.requestFocus();
             }else{
-                btnNuevo.setText("NUEVO");
-                String clave = objUsuario.generarClave();
-                objUsuario.registrar(Integer.parseInt(txtCodigo.getText()), txtUsuario.getText(), clave, txtNombre.getText(), txtCargo.getText(), chkVigencia.isSelected());
-                JOptionPane.showMessageDialog(rootPane, "Contraseña: " + clave, "REGISTRO EXITOSO", JOptionPane.INFORMATION_MESSAGE);
-                limpiarControles();
-                listarUsuarios();
+                if (validarDatos()){
+                    btnNuevo.setText("NUEVO");
+                    String clave = objUsuario.generarClave();
+                    objUsuario.registrar(Integer.parseInt(txtCodigo.getText()), txtUsuario.getText(), clave, txtNombre.getText(), txtCargo.getText(), chkVigencia.isSelected());
+                    JOptionPane.showMessageDialog(rootPane, "Contraseña: " + clave, "REGISTRO EXITOSO", JOptionPane.INFORMATION_MESSAGE);
+                    limpiarControles();
+                    listarUsuarios();
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -424,6 +428,13 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         txtCodigo.setText(String.valueOf(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 0)));
         btnBuscarActionPerformed(null);
         btnNuevo.setText("NUEVO");
+        if(txtUsuario.getText().equals("admin")){
+            btnPregunta.setEnabled(true);
+            user = "admin";
+        }else{
+            btnPregunta.setEnabled(false);
+            user = "";
+        }
     }//GEN-LAST:event_tblUsuariosMouseClicked
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -485,7 +496,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
 
     private void btnPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreguntaActionPerformed
         // TODO add your handling code here:
-        JDCambiarPreguntaSecreta objCambiarPregunta = new JDCambiarPreguntaSecreta((Frame) SwingUtilities.getWindowAncestor(this), modoPerfil);
+        JDCambiarPreguntaSecreta objCambiarPregunta = new JDCambiarPreguntaSecreta((Frame) SwingUtilities.getWindowAncestor(this), true);
         objCambiarPregunta.setUser(txtUsuario.getText());
         objCambiarPregunta.setLocationRelativeTo(this);
         objCambiarPregunta.setVisible(true);
@@ -574,6 +585,14 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
     
     public int getSizePerfil(){
         return contenedor.getHeight()+60;
+    }
+    
+    private boolean validarDatos(){
+        boolean valido = false;
+        if(txtNombre.getText().replace(" ", "").length()!=0 && txtUsuario.getText().replace(" ", "").length()!=0 && txtCargo.getText().replace(" ", "").length()!=0){
+            valido = true;
+        }
+        return valido;
     }
     
     /**
