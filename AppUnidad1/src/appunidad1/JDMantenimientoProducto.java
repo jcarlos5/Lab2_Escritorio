@@ -351,10 +351,14 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
                 txtCodigo.setText(String.valueOf(objProducto.generarCodigoProducto()));
                 txtNombre.requestFocus();
             }else{
-                btnNuevo.setText("NUEVO");
-                objProducto.registrar(Integer.parseInt(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Double.parseDouble(txtPrecio.getText()), (int)spnStock.getValue(), chkVigencia.isSelected(), objMarca.getCodigo(cboMarca.getSelectedItem().toString()), objCategoria.getCodigo(cboCategoria.getSelectedItem().toString()));
-                limpiarControles();
-                listarProductos();
+                if(validarDatos()){
+                    btnNuevo.setText("NUEVO");
+                    objProducto.registrar(Integer.parseInt(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Double.parseDouble(txtPrecio.getText()), (int)spnStock.getValue(), chkVigencia.isSelected(), objMarca.getCodigo(cboMarca.getSelectedItem().toString()), objCategoria.getCodigo(cboCategoria.getSelectedItem().toString()));
+                    limpiarControles();
+                    listarProductos();
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -412,9 +416,13 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         try {
-            objProducto.modificarProducto(Integer.parseInt(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Double.parseDouble(txtPrecio.getText()), (int)spnStock.getValue(), chkVigencia.isSelected(), objMarca.getCodigo(cboMarca.getSelectedItem().toString()), objCategoria.getCodigo(cboCategoria.getSelectedItem().toString()));
-            limpiarControles();
-            listarProductos();
+            if(validarDatos()){
+                objProducto.modificarProducto(Integer.parseInt(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), Double.parseDouble(txtPrecio.getText()), (int)spnStock.getValue(), chkVigencia.isSelected(), objMarca.getCodigo(cboMarca.getSelectedItem().toString()), objCategoria.getCodigo(cboCategoria.getSelectedItem().toString()));
+                limpiarControles();
+                listarProductos();
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -549,6 +557,16 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
             cboCategoria.setSelectedIndex(1);
         }catch(Exception e){
         }
+    }
+    
+    private boolean validarDatos(){
+        boolean valido = false;
+        
+        if(txtCodigo.getText().replace(" ", "").length()!=0 && txtNombre.getText().replace(" ", "").length()!=0 && txtDescripcion.getText().replace(" ", "").length()!=0 && txtPrecio.getText().replace(" ", "").length()!=0){
+            valido = true;
+        }
+        
+        return valido;
     }
     /**
      * @param args the command line arguments

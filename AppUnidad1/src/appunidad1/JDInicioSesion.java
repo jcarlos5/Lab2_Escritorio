@@ -295,10 +295,10 @@ public class JDInicioSesion extends javax.swing.JDialog {
     }//GEN-LAST:event_txtUsuarioActionPerformed
     
     public void iniciarSesion(){
-        if(txtUsuario.getText().equals("")){
+        if(txtUsuario.getText().replace(" ", "").length()==0){
             JOptionPane.showMessageDialog(rootPane, "Debe ingresar el nombre de Usuario", "ALERTA", JOptionPane.WARNING_MESSAGE);
             txtUsuario.requestFocus();
-        }else if(txtContraseña.getText().equals("")){
+        }else if(txtContraseña.getText().replace(" ", "").length()==0){
             JOptionPane.showMessageDialog(rootPane, "Debe ingresar su contraseña", "ALERTA", JOptionPane.WARNING_MESSAGE);
             txtContraseña.requestFocus();
         }else{
@@ -380,7 +380,7 @@ public class JDInicioSesion extends javax.swing.JDialog {
                 objContraseña.setVisible(true);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
     

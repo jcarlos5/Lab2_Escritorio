@@ -258,8 +258,8 @@ public class JDCambiarContraseña extends javax.swing.JDialog {
     // SÓLO LLEGARÁ HASTA ESTE PUNTO SI YA VERIFICÓ SU IDENTIDAD
     void cambiarContraseña(){
         try {
-            if(!txtNuevaContraseña.getText().equals("")){
-                if(!txtConfirmarContraseña.getText().equals("") && txtConfirmarContraseña.getText().equals(txtNuevaContraseña.getText())){
+            if(txtNuevaContraseña.getText().replace(" ", "").length()!=0){
+                if(txtConfirmarContraseña.getText().equals(txtNuevaContraseña.getText())){
                     objUsuario.cambiarContraseña(txtNuevaContraseña.getText(), usuario);
                     String exito = objUsuario.login(lblUsuario.getText(), txtNuevaContraseña.getText());
                     if(!exito.equals("")){

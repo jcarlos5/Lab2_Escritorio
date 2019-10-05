@@ -332,10 +332,14 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
                 txtCodigo.setText(String.valueOf(objCliente.generarCodigoCliente()));
                 txtNombre.requestFocus();
             }else{
-                btnNuevo.setText("NUEVO");
-                objCliente.registrar(txtCodigo.getText(), txtDni.getText(), txtRuc.getText(), txtNombre.getText(), txtTelefono.getText(), txtCorreo.getText(), txtDireccion.getText(), chkVigencia.isSelected(), cboTipo.getSelectedIndex()+1);
-                limpiarControles();
-                listarClientes();
+                if(validarDatos()){
+                    btnNuevo.setText("NUEVO");
+                    objCliente.registrar(txtCodigo.getText(), txtDni.getText(), txtRuc.getText(), txtNombre.getText(), txtTelefono.getText(), txtCorreo.getText(), txtDireccion.getText(), chkVigencia.isSelected(), cboTipo.getSelectedIndex()+1);
+                    limpiarControles();
+                    listarClientes();
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
+                }
             }
         } catch (Exception e) {
         }
@@ -402,9 +406,13 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         try {
-            objCliente.modificarCliente(txtCodigo.getText(), txtDni.getText(), txtRuc.getText(), txtNombre.getText(), txtTelefono.getText(), txtCorreo.getText(), txtDireccion.getText(), chkVigencia.isSelected(), cboTipo.getSelectedIndex()+1);
-            limpiarControles();
-            listarClientes();
+            if(validarDatos()){
+                objCliente.modificarCliente(txtCodigo.getText(), txtDni.getText(), txtRuc.getText(), txtNombre.getText(), txtTelefono.getText(), txtCorreo.getText(), txtDireccion.getText(), chkVigencia.isSelected(), cboTipo.getSelectedIndex()+1);
+                limpiarControles();
+                listarClientes();
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
+            }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -501,6 +509,18 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
+    }
+    
+    private boolean validarDatos(){
+        boolean valido = false;
+        
+        if(txtCodigo.getText().replace(" ", "").length()!=0 && txtNombre.getText().replace(" ", "").length()!=0){
+            if((cboTipo.getSelectedIndex()==0 && txtDni.getText().replace(" ", "").length()!=0) || (cboTipo.getSelectedIndex()==1 && txtRuc.getText().replace(" ", "").length()!=0) || (txtDni.getText().replace(" ", "").length()!=0 && txtRuc.getText().replace(" ", "").length()!=0)){
+                valido = true;
+            }
+        }
+        
+        return valido;
     }
     /**
      * @param args the command line arguments

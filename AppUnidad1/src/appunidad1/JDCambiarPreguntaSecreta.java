@@ -174,7 +174,7 @@ public class JDCambiarPreguntaSecreta extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowActivated
 
     public void cambiarPregunta(){
-        if (!txtRespuesta.getText().equals("") && !txtPregunta.getText().equals("")){
+        if (txtRespuesta.getText().replace(" ", "").length()!=0 && txtPregunta.getText().replace(" ", "").length()!=0){
             try {
                 objUsuario.cambiarPreguntaSecreta(user, txtPregunta.getText(), txtRespuesta.getText());
                 JOptionPane.showMessageDialog(rootPane, "Operación Exitosa");
@@ -183,7 +183,7 @@ public class JDCambiarPreguntaSecreta extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, e.getMessage());
             }
         }else{
-            JOptionPane.showMessageDialog(this, "Revise los datos");
+            JOptionPane.showMessageDialog(this, "Complete los datos");
             txtPregunta.requestFocus();
         }
     }

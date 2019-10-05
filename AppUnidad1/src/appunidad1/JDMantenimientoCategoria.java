@@ -292,12 +292,17 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
                 txtCodigo.setText(String.valueOf(objCategoria.generarCodigoCategoria()));
                 txtNombre.requestFocus();
             }else{
-                btnNuevo.setText("NUEVO");
-                objCategoria.registrar(Integer.parseInt(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), chkVigencia.isSelected());
-                limpiarControles();
-                listarCategorias();
+                if(validarDatos()){
+                    btnNuevo.setText("NUEVO");
+                    objCategoria.registrar(Integer.parseInt(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), chkVigencia.isSelected());
+                    limpiarControles();
+                    listarCategorias();
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
+                }
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -346,9 +351,13 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         try {
-            objCategoria.modificarCategoria(Integer.parseInt(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), chkVigencia.isSelected());
-            limpiarControles();
-            listarCategorias();
+            if(validarDatos()){
+                objCategoria.modificarCategoria(Integer.parseInt(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), chkVigencia.isSelected());
+                limpiarControles();
+                listarCategorias();
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
+            }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -426,6 +435,15 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
         btnModificar.setEnabled(true);
         btnEliminar.setEnabled(true);
         btnDardeBaja.setEnabled(true);
+    }
+    
+    private boolean validarDatos(){
+        boolean valido = false;
+        if(txtCodigo.getText().replace(" ", "").length()!=0 && txtNombre.getText().replace(" ", "").length()!=0){
+            valido = true;
+        }
+        
+        return valido;
     }
     /**
      * @param args the command line arguments

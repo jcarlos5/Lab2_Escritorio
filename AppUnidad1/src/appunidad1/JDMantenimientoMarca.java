@@ -262,10 +262,14 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
                 txtCodigo.setText(String.valueOf(objMarca.generarCodigoMarca()));
                 txtNombre.requestFocus();
             }else{
-                btnNuevo.setText("NUEVO");
-                objMarca.registrar(Integer.parseInt(txtCodigo.getText()), txtNombre.getText(), chkVigencia.isSelected());
-                limpiarControles();
-                listarMarcas();
+                if(validarDatos()){
+                    btnNuevo.setText("NUEVO");
+                    objMarca.registrar(Integer.parseInt(txtCodigo.getText()), txtNombre.getText(), chkVigencia.isSelected());
+                    limpiarControles();
+                    listarMarcas();
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
+                }
             }
         } catch (Exception e) {
         }
@@ -314,9 +318,13 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         try {
-            objMarca.modificarMarca(Integer.parseInt(txtCodigo.getText()), txtNombre.getText(), chkVigencia.isSelected());
-            limpiarControles();
-            listarMarcas();
+            if(validarDatos()){
+                objMarca.modificarMarca(Integer.parseInt(txtCodigo.getText()), txtNombre.getText(), chkVigencia.isSelected());
+                limpiarControles();
+                listarMarcas();
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
+            }            
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -367,6 +375,14 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
            }
         } catch (Exception e) {
         }
+    }
+    
+    private boolean validarDatos(){
+        boolean valido = false;
+        if (txtCodigo.getText().replace(" ", "").length()!=0 && txtNombre.getText().replace(" ", "").length()!=0){
+            valido = true;
+        }
+        return valido;
     }
     /**
      * @param args the command line arguments

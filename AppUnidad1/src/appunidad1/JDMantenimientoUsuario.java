@@ -604,7 +604,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
     
     private boolean validarDatos(){
         boolean valido = false;
-        if(txtNombre.getText().replace(" ", "").length()!=0 && txtUsuario.getText().replace(" ", "").length()!=0 && txtCargo.getText().replace(" ", "").length()!=0){
+        if(txtCodigo.getText().replace(" ", "").length()!=0 && txtNombre.getText().replace(" ", "").length()!=0 && txtUsuario.getText().replace(" ", "").length()!=0){
             valido = true;
         }
         return valido;
