@@ -55,7 +55,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         btnDardeBaja = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnLimpiar = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        lblEstado = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
         chkVigencia = new javax.swing.JCheckBox();
         btnBuscar = new javax.swing.JButton();
@@ -167,7 +167,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
             }
         });
 
-        jLabel3.setText("Estado:");
+        lblEstado.setText("Estado:");
 
         btnSalir.setBackground(new java.awt.Color(255, 255, 255));
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/salir.png"))); // NOI18N
@@ -229,7 +229,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                     .addComponent(contenedorTabla, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contenedorLayout.createSequentialGroup()
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
+                            .addComponent(lblEstado)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4)
                             .addComponent(jLabel2)
@@ -297,7 +297,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                             .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
+                            .addComponent(lblEstado)
                             .addComponent(chkVigencia))))
                 .addGap(20, 20, 20)
                 .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,6 +359,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         if(modoPerfil){
             modoPerfil(user);
             obtenerDatos();
+            this.setSize(this.getWidth(), this.getHeight()-210);
         }
     }//GEN-LAST:event_formWindowActivated
 
@@ -398,15 +399,24 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                 }
             }   
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         try {
-            objUsuario.modificarUsuario(Integer.parseInt(txtCodigo.getText()), txtUsuario.getText(), txtNombre.getText(), txtCargo.getText(), chkVigencia.isSelected());
-            limpiarControles();
-            listarUsuarios();
+            if(validarDatos()){
+                objUsuario.modificarUsuario(Integer.parseInt(txtCodigo.getText()), txtUsuario.getText(), txtNombre.getText(), txtCargo.getText(), chkVigencia.isSelected());
+                if (modoPerfil){
+                    dispose();
+                }else{
+                    limpiarControles();
+                    listarUsuarios();
+                }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -559,6 +569,11 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         btnPregunta.setEnabled(true);
         btnLimpiar.setVisible(false);
         
+        btnBuscar.setVisible(false);
+        txtCodigo.setEditable(false);
+        lblEstado.setVisible(false);
+        chkVigencia.setVisible(false);
+        
         modoPerfil = true;
         
         btnModificar.setLocation(btnNuevo.getLocation());
@@ -667,9 +682,9 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
     private javax.swing.JScrollPane contenedorTabla;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblEstado;
     private javax.swing.JTable tblUsuarios;
     private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtCodigo;

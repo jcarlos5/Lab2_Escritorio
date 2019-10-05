@@ -486,7 +486,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         JDMantenimientoUsuario objMantUsuario = new JDMantenimientoUsuario(this, true);
         if (!user.equals("admin")){
             objMantUsuario.modoPerfil(user);
-            objMantUsuario.setSize(objMantUsuario.getWidth(), objMantUsuario.getSizePerfil());
+            //objMantUsuario.setSize(objMantUsuario.getWidth(), objMantUsuario.getSizePerfil());
         }
         objMantUsuario.setLocationRelativeTo(this);
         objMantUsuario.setVisible(true);
