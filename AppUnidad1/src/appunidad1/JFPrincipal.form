@@ -113,12 +113,15 @@
                 <Property name="text" type="java.lang.String" value="Registrar Pago"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem13">
+                <MenuItem class="javax.swing.JMenuItem" name="mnuPagoContado">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Pago al Contado"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuPagoContadoActionPerformed"/>
+                  </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem14">
+                <MenuItem class="javax.swing.JMenuItem" name="mnuPagoCredito">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Pago al Cr&#xe9;dito"/>
                   </Properties>

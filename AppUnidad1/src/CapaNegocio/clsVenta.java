@@ -6,6 +6,7 @@
 package CapaNegocio;
 
 import CapaDatos.clsJDBC;
+import java.sql.Date;
 import java.sql.ResultSet;
 
 /**
@@ -45,6 +46,38 @@ public class clsVenta {
             objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
             throw new Exception("Error al guardar Venta");
+        }
+    }
+    //para listar todas las ventas pendientes de pago - JDPAGO
+    public ResultSet listarVentaPagoPendiente() throws Exception{
+        strSQL = "SELECT * FROM venta WHERE estadopago=false;";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al buscar marca");
+        }
+    }
+    //para listar las ventas pendientes de pago por cliente - JDPAGO
+    public ResultSet listarVentaPagoPendiente(int codcliente) throws Exception{
+        strSQL = "SELECT * FROM venta WHERE estadopago=false and codcliente="+codcliente+";";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al buscar marca");
+        }
+    }
+    //para listar las ventas por fecha
+    //el tipo de dato Date es de la libreria de sql 
+    //para el jd ventas diarias 
+    public ResultSet listarVenta(Date fecha) throws Exception{
+        strSQL = "SELECT * FROM venta WHERE fecha='"+fecha+"';";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al buscar marca");
         }
     }
 }
