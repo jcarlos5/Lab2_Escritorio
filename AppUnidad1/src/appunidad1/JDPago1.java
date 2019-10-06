@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Sara
  */
-public class JDPagoContado extends javax.swing.JDialog {
+public class JDPago1 extends javax.swing.JDialog {
 
     clsCliente objCliente = new clsCliente();
     clsVenta objVenta = new clsVenta();
@@ -30,7 +30,7 @@ public class JDPagoContado extends javax.swing.JDialog {
     /**
      * Creates new form JDPagoContado
      */
-    public JDPagoContado(java.awt.Frame parent, boolean modal) {
+    public JDPago1(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         modeloVenta.addColumn("DNI");
@@ -498,7 +498,7 @@ public class JDPagoContado extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDPagoContado dialog = new JDPagoContado(new javax.swing.JFrame(), true);
+                JDPago1 dialog = new JDPago1(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
