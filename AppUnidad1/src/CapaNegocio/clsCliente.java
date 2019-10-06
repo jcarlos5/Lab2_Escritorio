@@ -148,4 +148,18 @@ public class clsCliente {
             throw new Exception("Error al verificar Cliente");
         }
     }
+    
+    public boolean isAcreditable(String cod) throws Exception{
+        strSQL = "SELECT * FROM venta WHERE codcliente = " + cod + " and estadopago = false;";
+        try {
+            rs = objConectar.consultarBD(strSQL);
+            if(rs.next()){
+                return false;
+            }else{
+                return true;
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al verificar Cliente");
+        }
+    }
 }

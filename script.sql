@@ -1,5 +1,5 @@
 ﻿--Fecha de creación	: 27 de Agosto del 2019
---Última Modificación	: 02 de Octubre del 2019
+--Última Modificación	: 06 de Octubre del 2019
 --Autor			: JCarlos
 
 -- Database: "BDProgramacion"
@@ -333,3 +333,21 @@ SELECT * FROM CLIENTE WHERE dni LIKE '" + cadena + "%' OR ruc LIKE '" + cadena +
 SELECT c.*, t.nombre FROM (SELECT * FROM cliente WHERE dni = '" + doc + "' OR ruc = '" + doc + "') c INNER JOIN TIPO_CLIENTE t ON c.codtipo = t.codtipo;
 --generar código
 SELECT COALESCE(max(numventa),0)+1 AS codigo FROM venta;
+
+--06-10-2019
+--AMPLIAR BD PARA INCLUIR PAGOS
+CREATE TABLE cuota(
+codventa INT NOT NULL,
+numcuota INT NOT NULL,
+fecha DATE NOT NULL,
+cancelada BOOLEAN NOT NULL,
+ingreso DECIMAL(10, 2),
+vuelto DECIMAL(10,2)
+);
+
+ALTER TABLE cuota ADD CONSTRAINT PK_cuota PRIMARY KEY (codventa, numcuota);
+ALTER TABLE cuota ADD CONSTRAINT FK_venta_cuota FOREIGN KEY (codventa) REFERENCES venta;
+
+--registrar pago(cuota)
+INSERT INTO cuota VALUES (" + numVenta + ", " + numCuota + ", " + fecha + ", " + estado + ", " + montoIngresado + " , " + vuelto + ");
+

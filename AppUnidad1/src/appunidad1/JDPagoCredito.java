@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JDPagoCredito extends javax.swing.JDialog {
     boolean pagado=false;
+    String[][] cuotas;
     /**
      * Creates new form JDPago2
      */
@@ -229,6 +230,9 @@ public class JDPagoCredito extends javax.swing.JDialog {
 
     private void spnNumCuotasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnNumCuotasStateChanged
         // TODO add your handling code here:
+        if((int)spnNumCuotas.getValue()<0){
+            spnNumCuotas.setValue(0);
+        }
         generarCuotas();
     }//GEN-LAST:event_spnNumCuotasStateChanged
 
@@ -242,9 +246,14 @@ public class JDPagoCredito extends javax.swing.JDialog {
         Calendar fecha = new GregorianCalendar();
         int cant = (int) spnNumCuotas.getValue();
         
+        cuotas = new String[cant][6];
+        
         for(int i=0; i<cant; i++){
             String newFecha = String.format("%02d-%02d-%04d",fecha.get(Calendar.DAY_OF_MONTH),fecha.get(Calendar.MONTH)+1,fecha.get(Calendar.YEAR));
             modelo.addRow(new Object[]{i+1, newFecha});
+            
+            cuotas[i] = new String[]{txtNumeroVenta.getText(), "1", newFecha, "false", "null", "null"};
+            
             if(rbtSemanal.isSelected()){
                 fecha.add(fecha.DAY_OF_YEAR, 7);
             }else{
@@ -310,6 +319,10 @@ public class JDPagoCredito extends javax.swing.JDialog {
     
     public boolean getPago(){
         return pagado;
+    }
+    
+    public String[][] getCuotas(){
+        return cuotas;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

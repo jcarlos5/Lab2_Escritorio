@@ -6,6 +6,7 @@
 package appunidad1;
 
 import CapaNegocio.clsCliente;
+import CapaNegocio.clsCuota;
 import CapaNegocio.clsProducto;
 import CapaNegocio.clsVenta;
 import java.awt.Frame;
@@ -513,26 +514,45 @@ public class JDVentas extends javax.swing.JDialog {
             if(rpta!=null){
                 boolean pago=false;
                 boolean contado;
+                String cuotas[][];
                 if (rpta.toString().equals("Contado")){
                     JDPagoContado1 objPago = new JDPagoContado1((Frame) SwingUtilities.getWindowAncestor(this), true);
                     objPago.setDatos(txtCodVenta.getText(), txtNombre.getText(), txtDocumento.getText(), txtTotal.getText());
                     objPago.setLocationRelativeTo(this);
                     objPago.setVisible(true);
                     pago = objPago.getPago();
+                    cuotas = objPago.getCuotas();
                     contado = true;
                 }else{
-                    JDPagoCredito objPago = new JDPagoCredito((Frame) SwingUtilities.getWindowAncestor(this), true);
-                    objPago.setDatos(txtCodVenta.getText(), txtNombre.getText(), txtDocumento.getText(), txtTotal.getText());
-                    objPago.setLocationRelativeTo(this);
-                    objPago.setVisible(true);
-                    pago = objPago.getPago();
-                    contado = false;
+                    if(objCliente.isAcreditable(txtCod.getText())){
+                        JDPagoCredito objPago = new JDPagoCredito((Frame) SwingUtilities.getWindowAncestor(this), true);
+                        objPago.setDatos(txtCodVenta.getText(), txtNombre.getText(), txtDocumento.getText(), txtTotal.getText());
+                        objPago.setLocationRelativeTo(this);
+                        objPago.setVisible(true);
+                        pago = objPago.getPago();
+                        cuotas = objPago.getCuotas();
+                        contado = false;
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "El cliente aún tiene un crédito vigente");
+                        cuotas = new String[1][6];
+                        contado = false;
+                    }
                 }
                 if(pago){
                     objVenta.registrar(Integer.parseInt(txtCodVenta.getText()), Float.parseFloat(txtTotal.getText()), Float.parseFloat(txtSubTotal.getText()), Float.parseFloat(txtIgv.getText()), rbtBoleta.isSelected(), Integer.parseInt(txtCod.getText()), contado);
                     int ctd = tblProductos.getRowCount();
                     for (int i=0; i<ctd; i++){
                         objVenta.registrarDetalle(txtCodVenta.getText(), tblProductos.getValueAt(i, 0).toString(), tblProductos.getValueAt(i, 3).toString(), tblProductos.getValueAt(i, 2).toString(), "0", tblProductos.getValueAt(i, 4).toString());
+                    }
+                    int i=0;
+                    clsCuota objCuota = new clsCuota();
+                    while (i>=0){
+                        try {
+                            objCuota.registrarCuota(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5]);
+                            i++;
+                        } catch (Exception e) {
+                            i=-1;
+                        }
                     }
                     limpiarControles();
                     generarCodigo();
