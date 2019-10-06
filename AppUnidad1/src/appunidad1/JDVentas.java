@@ -521,6 +521,11 @@ public class JDVentas extends javax.swing.JDialog {
                     pago = objPago.getPago();
                     contado = true;
                 }else{
+                    JDPagoCredito objPago = new JDPagoCredito((Frame) SwingUtilities.getWindowAncestor(this), true);
+                    objPago.setDatos(txtCodVenta.getText(), txtNombre.getText(), txtDocumento.getText(), txtTotal.getText());
+                    objPago.setLocationRelativeTo(this);
+                    objPago.setVisible(true);
+                    pago = objPago.getPago();
                     contado = false;
                 }
                 if(pago){
@@ -682,12 +687,6 @@ public class JDVentas extends javax.swing.JDialog {
                 modelo.addRow(new Object[]{rsClientes.getString("dni"), rsClientes.getString("ruc"), rsClientes.getString("nombres")});
             }
             tblClientes.setModel(modelo);
-            
-            //if(modelo.getRowCount()==2 && ((rbtBoleta.isSelected() && txtDocumento.getText().length()==8) || (rbtFactura.isSelected() && txtDocumento.getText().length()==11))){
-            //    btnGuardar.setEnabled(true);
-            //}else{
-            //    btnGuardar.setEnabled(false);
-            //}
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
