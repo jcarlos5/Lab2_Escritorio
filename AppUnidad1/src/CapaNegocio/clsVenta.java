@@ -31,8 +31,8 @@ public class clsVenta {
         return 0;
     }
     
-    public void registrar(int cod, float total, float subtotal, float igv, boolean tipo, int cliente) throws Exception{
-        strSQL = "INSERT INTO venta VALUES (" + cod + ", CURRENT_DATE, " + total + ", " + subtotal + ", " + igv + ", " + tipo + ", false, " + cliente + ");";
+    public void registrar(int cod, float total, float subtotal, float igv, boolean tipo, int cliente, boolean contado) throws Exception{
+        strSQL = "INSERT INTO venta VALUES (" + cod + ", CURRENT_DATE, " + total + ", " + subtotal + ", " + igv + ", " + tipo + ", " + contado + ", " + cliente + ");";
         try {
             objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {

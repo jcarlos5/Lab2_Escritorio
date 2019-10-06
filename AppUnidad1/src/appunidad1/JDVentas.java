@@ -508,19 +508,31 @@ public class JDVentas extends javax.swing.JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         try {
-            objVenta.registrar(Integer.parseInt(txtCodVenta.getText()), Float.parseFloat(txtTotal.getText()), Float.parseFloat(txtSubTotal.getText()), Float.parseFloat(txtIgv.getText()), rbtBoleta.isSelected(), Integer.parseInt(txtCod.getText()));
-            int rpta = JOptionPane.showConfirmDialog(rootPane, "¿Desea registrar el Pago?", "SISTEMA",JOptionPane.YES_NO_OPTION);
-            int ctd = tblProductos.getRowCount();
-            for (int i=0; i<ctd; i++){
-                objVenta.registrarDetalle(txtCodVenta.getText(), tblProductos.getValueAt(i, 0).toString(), tblProductos.getValueAt(i, 3).toString(), tblProductos.getValueAt(i, 2).toString(), "0", tblProductos.getValueAt(i, 4).toString());
+            String[] opciones = {"Contado", "Crédito"};
+            Object rpta = JOptionPane.showInputDialog(rootPane, "Seleccione el tipo de Pago a realizar", "SISTEMA", JOptionPane.QUESTION_MESSAGE,null, opciones, opciones[0]);
+            if(rpta!=null){
+                boolean pago=false;
+                boolean contado;
+                if (rpta.toString().equals("Contado")){
+                    JDPagoContado1 objPago = new JDPagoContado1((Frame) SwingUtilities.getWindowAncestor(this), true);
+                    objPago.setDatos(txtCodVenta.getText(), txtNombre.getText(), txtDocumento.getText(), txtTotal.getText());
+                    objPago.setLocationRelativeTo(this);
+                    objPago.setVisible(true);
+                    pago = objPago.getPago();
+                    contado = true;
+                }else{
+                    contado = false;
+                }
+                if(pago){
+                    objVenta.registrar(Integer.parseInt(txtCodVenta.getText()), Float.parseFloat(txtTotal.getText()), Float.parseFloat(txtSubTotal.getText()), Float.parseFloat(txtIgv.getText()), rbtBoleta.isSelected(), Integer.parseInt(txtCod.getText()), contado);
+                    int ctd = tblProductos.getRowCount();
+                    for (int i=0; i<ctd; i++){
+                        objVenta.registrarDetalle(txtCodVenta.getText(), tblProductos.getValueAt(i, 0).toString(), tblProductos.getValueAt(i, 3).toString(), tblProductos.getValueAt(i, 2).toString(), "0", tblProductos.getValueAt(i, 4).toString());
+                    }
+                    limpiarControles();
+                    generarCodigo();
+                }
             }
-            if (rpta==0){
-                //JDPago objPago = new JDPago((Frame) SwingUtilities.getWindowAncestor(this), true);
-                //objPago.setLocationRelativeTo(this);
-                //objPago.setVisible(true);
-            }
-            
-            limpiarControles();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -619,9 +631,12 @@ public class JDVentas extends javax.swing.JDialog {
         tblProductos.setRowSelectionAllowed(false);
         tblProductos.setEnabled(false);
         habBotones();
-        btnModificar.setEnabled(true);
-        btnQuitar.setEnabled(true);
         btnCancelar.setEnabled(false);
+        if(tblProductos.getRowCount()>0){
+            btnModificar.setEnabled(true);
+            btnQuitar.setEnabled(true);
+            btnGuardar.setEnabled(true);
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -668,11 +683,11 @@ public class JDVentas extends javax.swing.JDialog {
             }
             tblClientes.setModel(modelo);
             
-            if(modelo.getRowCount()==2 && ((rbtBoleta.isSelected() && txtDocumento.getText().length()==8) || (rbtFactura.isSelected() && txtDocumento.getText().length()==11))){
-                btnGuardar.setEnabled(true);
-            }else{
-                btnGuardar.setEnabled(false);
-            }
+            //if(modelo.getRowCount()==2 && ((rbtBoleta.isSelected() && txtDocumento.getText().length()==8) || (rbtFactura.isSelected() && txtDocumento.getText().length()==11))){
+            //    btnGuardar.setEnabled(true);
+            //}else{
+            //    btnGuardar.setEnabled(false);
+            //}
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -745,7 +760,7 @@ public class JDVentas extends javax.swing.JDialog {
                 }
                 btnQuitar.setEnabled(true);
                 btnModificar.setEnabled(true);
-                
+                btnGuardar.setEnabled(true);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, e.getMessage());
             }
@@ -754,14 +769,17 @@ public class JDVentas extends javax.swing.JDialog {
     }
     
     public void calcularTotal(){
-        subTotal=0;
-        for(int i=0; i<tblProductos.getRowCount(); i++){
-            subTotal += Float.parseFloat(String.valueOf(tblProductos.getValueAt(i, 4)));
+        try{
+            subTotal=0;
+            for(int i=0; i<tblProductos.getRowCount(); i++){
+                subTotal += Float.parseFloat(String.valueOf(tblProductos.getValueAt(i, 4)));
+            }
+            float igv = (float) (subTotal * 0.18);
+            txtIgv.setText(String.valueOf(igv));
+            txtSubTotal.setText(String.valueOf(subTotal));
+            txtTotal.setText(String.valueOf(subTotal+igv));
+        }catch(Exception e){
         }
-        float igv = (float) (subTotal * 0.18);
-        txtIgv.setText(String.valueOf(igv));
-        txtSubTotal.setText(String.valueOf(subTotal));
-        txtTotal.setText(String.valueOf(subTotal+igv));
     }
        
     public void deshabilitar(){
@@ -798,7 +816,7 @@ public class JDVentas extends javax.swing.JDialog {
     
     public void habBotones(){
         btnAnadir.setEnabled(true);
-        btnGuardar.setEnabled(true);
+        //btnGuardar.setEnabled(true);
         btnLimpiar.setEnabled(true);
     }
     
