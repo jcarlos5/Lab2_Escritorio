@@ -55,7 +55,7 @@ public class clsVenta {
             rs=objConectar.consultarBD(strSQL);
             return rs;
         } catch (Exception e) {
-            throw new Exception("Error al buscar marca");
+            throw new Exception("Error al buscar venta");
         }
     }
     //para listar las ventas pendientes de pago por cliente - JDPAGO
@@ -65,7 +65,7 @@ public class clsVenta {
             rs=objConectar.consultarBD(strSQL);
             return rs;
         } catch (Exception e) {
-            throw new Exception("Error al buscar marca");
+            throw new Exception("Error al buscar ventas");
         }
     }
     //para listar las ventas por fecha
@@ -80,18 +80,24 @@ public class clsVenta {
             throw new Exception("Error al buscar marca");
         }
     }
-    
-    //avance de Yomona
+
     public ResultSet listarVenta(int numVenta) throws Exception{
         strSQL = "SELECT * FROM venta WHERE numVenta = " + numVenta;
         try {
             rs=objConectar.consultarBD(strSQL);
-            while(rs.next()){
-                return rs;
-            }
+            return rs;
         } catch (Exception e) {
             throw new Exception("Error al generar código de venta");
         }
-        return null;
+    }
+    
+    public ResultSet listarVentaPorCliente(int codcliente) throws Exception{
+        strSQL = "SELECT * FROM venta WHERE codcliente = " + codcliente + " and estadopago = false;";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al generar código de venta");
+        }
     }
 }

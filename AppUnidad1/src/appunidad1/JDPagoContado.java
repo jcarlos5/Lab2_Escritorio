@@ -56,16 +56,17 @@ public class JDPagoContado extends javax.swing.JDialog {
         btnRegistrarPago = new javax.swing.JButton();
         txtDocumento1 = new javax.swing.JTextField();
         contenedorScroll1 = new javax.swing.JScrollPane();
-        tblClientes1 = new javax.swing.JTable();
+        tblVentas = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
-        txtCodVenta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registrar Pago");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -119,7 +120,6 @@ public class JDPagoContado extends javax.swing.JDialog {
 
         lblMontoTotal.setText("jLabel7");
 
-        txtMontoRecibido.setText("jTextField1");
         txtMontoRecibido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtMontoRecibidoKeyTyped(evt);
@@ -156,7 +156,7 @@ public class JDPagoContado extends javax.swing.JDialog {
             }
         });
 
-        tblClientes1.setModel(new javax.swing.table.DefaultTableModel(
+        tblVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -167,14 +167,18 @@ public class JDPagoContado extends javax.swing.JDialog {
 
             }
         ));
-        tblClientes1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblVentas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblClientes1MouseClicked(evt);
+                tblVentasMouseClicked(evt);
             }
         });
-        contenedorScroll1.setViewportView(tblClientes1);
+        contenedorScroll1.setViewportView(tblVentas);
 
         jLabel7.setText("Codigo venta:");
+
+        jLabel9.setText("Tipo de Pago:");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "Contado", "Crédito" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -200,12 +204,14 @@ public class JDPagoContado extends javax.swing.JDialog {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6)
-                                    .addComponent(jLabel8))
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtMontoRecibido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
                                     .addComponent(lblMontoTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblVuelto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(lblVuelto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(contenedorScroll1))))
                 .addContainerGap())
         );
@@ -214,7 +220,7 @@ public class JDPagoContado extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
+                        .addGap(15, 15, 15)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -226,23 +232,27 @@ public class JDPagoContado extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtDocumento1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(contenedorScroll1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(lblMontoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtMontoRecibido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(lblVuelto))
                 .addGap(18, 18, 18)
                 .addComponent(btnRegistrarPago)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -251,12 +261,8 @@ public class JDPagoContado extends javax.swing.JDialog {
 
         jLabel2.setText("\"VENDEDORES SAC\"");
 
-        jLabel3.setText("Documento N°");
-
         lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblTitulo.setText("DOCUMENTO DE VENTA");
-
-        txtCodVenta.setText("jLabel10");
+        lblTitulo.setText("PAGOS");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -267,13 +273,9 @@ public class JDPagoContado extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(144, 144, 144)
                 .addComponent(lblTitulo)
-                .addGap(61, 61, 61)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(txtCodVenta)
-                .addGap(31, 31, 31))
+                .addContainerGap(265, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,10 +287,7 @@ public class JDPagoContado extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCodVenta))
+                .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
 
@@ -335,18 +334,12 @@ public class JDPagoContado extends javax.swing.JDialog {
 
     private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
         // TODO add your handling code here:
-        if(tblClientes.getSelectedRow()==0){
-            JDMantenimientoCliente objMantCliente = new JDMantenimientoCliente((Frame) SwingUtilities.getWindowAncestor(this), true);
-            objMantCliente.setLocationRelativeTo(this);
-            objMantCliente.setVisible(true);
-        }else{
-            
-            
-        }
+        listarVentas();
     }//GEN-LAST:event_tblClientesMouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
+        listarClientes();
         // Listar las ventas con estadoPago = False 
     }//GEN-LAST:event_formWindowActivated
 
@@ -378,11 +371,11 @@ public class JDPagoContado extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDocumento1KeyReleased
 
-    private void tblClientes1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientes1MouseClicked
+    private void tblVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVentasMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblClientes1MouseClicked
+    }//GEN-LAST:event_tblVentasMouseClicked
+    
     private void listarClientes(){
-        
         ResultSet rsClientes = null;
         try {
             rsClientes = objCliente.filtrarClientes(txtDocumento.getText());
@@ -392,8 +385,6 @@ public class JDPagoContado extends javax.swing.JDialog {
             modelo.addColumn("RUC");
             modelo.addColumn("NOMBRE");
             
-            modelo.addRow(new Object[]{"+ REGISTRAR"});
-            
             while(rsClientes.next()){
                 modelo.addRow(new Object[]{rsClientes.getString("dni"), rsClientes.getString("ruc"), rsClientes.getString("nombres")});
             }
@@ -402,27 +393,88 @@ public class JDPagoContado extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }
+    
+    private void listarVentas(){
+        ResultSet rs = null;
+        try {
+            rs = objVenta.listarVentaPagoPendiente(1);
+            DefaultTableModel modelo = new DefaultTableModel();
+            
+            modelo.addColumn("DNI");
+            modelo.addColumn("RUC");
+            modelo.addColumn("NOMBRE");
+            
+            while(rs.next()){
+                modelo.addRow(new Object[]{rs.getString("numventa"), rs.getString("fecha"), rs.getString("total")});
+            }
+            tblVentas.setModel(modelo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }
 
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(JDPago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(JDPago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(JDPago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JDPago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                JDPagoContado dialog = new JDPagoContado(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+        }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrarPago;
     private javax.swing.JScrollPane contenedorScroll;
     private javax.swing.JScrollPane contenedorScroll1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblMontoTotal;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblVuelto;
     private javax.swing.JTable tblClientes;
-    private javax.swing.JTable tblClientes1;
-    private javax.swing.JLabel txtCodVenta;
+    private javax.swing.JTable tblVentas;
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtDocumento1;
     private javax.swing.JTextField txtMontoRecibido;
