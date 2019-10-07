@@ -82,22 +82,23 @@ public class clsVenta {
     }
 
     public ResultSet listarVenta(int numVenta) throws Exception{
-        strSQL = "SELECT * FROM venta WHERE numVenta = " + numVenta;
+        strSQL = "SELECT v.*, c.dni, c.ruc,c.nombres, cu.vuelto, cu.ingreso, cu.cancelada FROM venta v inner join cliente c on v.codcliente=c.codcliente inner join cuota cu on v.numventa=cu.codventa"
+                + "WHERE numventa = " + numVenta;
         try {
             rs=objConectar.consultarBD(strSQL);
             return rs;
         } catch (Exception e) {
-            throw new Exception("Error al generar código de venta");
+            throw new Exception("Error al listar ventas por numero de venta");
         }
     }
     
     public ResultSet listarVentaPorCliente(int codcliente) throws Exception{
-        strSQL = "SELECT * FROM venta WHERE codcliente = " + codcliente + " and estadopago = false;";
+        strSQL = "SELECT * FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE codcliente = " + codcliente + " and estadopago = false;";
         try {
             rs=objConectar.consultarBD(strSQL);
             return rs;
         } catch (Exception e) {
-            throw new Exception("Error al generar código de venta");
+            throw new Exception("Error ");
         }
     }
 }

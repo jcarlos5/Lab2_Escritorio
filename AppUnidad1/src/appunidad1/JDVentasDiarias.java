@@ -5,20 +5,39 @@
  */
 package appunidad1;
 
+import CapaNegocio.clsVenta;
 import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import java.awt.Frame;
+import static java.awt.image.ImageObserver.WIDTH;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Sara
  */
 public class JDVentasDiarias extends javax.swing.JDialog {
-
+    clsVenta objVenta = new clsVenta();
+     
+        
     /**
      * Creates new form JDVentasDiarias
      */
     public JDVentasDiarias(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        /*DatePickerSettings set = new DatePickerSettings();
+        set.setFormatForDatesCommonEra("yyyy-MM-dd");
+        set.setFormatForDatesBeforeCommonEra("uuuu/MM/dd");        
+        dpFecha.setSettings(set);*/
+        
+        dpFecha.setDateToToday();
+        
     }
 
     /**
@@ -33,20 +52,25 @@ public class JDVentasDiarias extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblListado = new javax.swing.JTable();
+        tblVentasDiarias = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txtTotalProductos = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
+        lblCantVentas = new javax.swing.JLabel();
+        dpFecha = new com.github.lgooddatepicker.components.DatePicker();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(222, 227, 218));
 
         jLabel1.setText("Fecha");
 
-        tblListado.setModel(new javax.swing.table.DefaultTableModel(
+        tblVentasDiarias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -57,7 +81,12 @@ public class JDVentasDiarias extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblListado);
+        tblVentasDiarias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblVentasDiariasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblVentasDiarias);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/salir.png"))); // NOI18N
         jButton1.setText("SALIR");
@@ -69,14 +98,19 @@ public class JDVentasDiarias extends javax.swing.JDialog {
 
         jLabel4.setText("Total de ventas:");
 
-        txtTotalProductos.setText("jLabel5");
-        txtTotalProductos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblCantVentas.setText("jLabel5");
+        lblCantVentas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/limpiar.png"))); // NOI18N
-        jButton2.setText("Limpiar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        dpFecha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dpFechaMouseClicked(evt);
+            }
+        });
+
+        jButton3.setText("Buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -90,16 +124,16 @@ public class JDVentasDiarias extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTotalProductos)
+                        .addComponent(lblCantVentas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(dpFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -109,15 +143,15 @@ public class JDVentasDiarias extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dpFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtTotalProductos)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(lblCantVentas)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -146,11 +180,71 @@ public class JDVentasDiarias extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Date fech = Date.valueOf(dpFecha.getDate());
+        listarVentas(fech);
+    }//GEN-LAST:event_formWindowActivated
+
+    private void dpFechaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dpFechaMouseClicked
         // TODO add your handling code here:
+    }//GEN-LAST:event_dpFechaMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Date fech = Date.valueOf(dpFecha.getDate());
+        listarVentas(fech);     
         
-    }//GEN-LAST:event_jButton2ActionPerformed
-    DatePicker dp = new DatePicker();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void tblVentasDiariasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVentasDiariasMouseClicked
+        
+            String id =String.valueOf(tblVentasDiarias.getValueAt(tblVentasDiarias.getSelectedRow(), 0));
+            clsVenta objV = new clsVenta();
+            try {
+                ResultSet rs = objV.listarVenta(Integer.valueOf(id));
+                if(rs.next()){
+                    String doc = (rs.getBoolean("tipocomprobante"))?rs.getString("dni"):rs.getString("ruc");
+                    JDVentaDatos objVentaDatos = new JDVentaDatos((Frame) SwingUtilities.getWindowAncestor(this), true);
+                    objVentaDatos.setDatos(rs.getInt("numventa"),rs.getString("c.nombres"), doc,rs.getFloat("subtotal"), rs.getFloat("igv"), rs.getFloat("total"),rs.getFloat("cu.vuelto"), rs.getBoolean("cu.cancelado"),rs.getBoolean("tipocomprobante") );
+                    objVentaDatos.setLocationRelativeTo(this);
+                    objVentaDatos.setVisible(true);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this,"Error");
+            }
+            
+        
+        
+    }//GEN-LAST:event_tblVentasDiariasMouseClicked
+    private void listarVentas(Date fech){
+        ResultSet rsMarcas = null;
+        DefaultTableModel model = new DefaultTableModel();
+        try {
+            model.addColumn("Codigo");
+            model.addColumn("Fecha");
+            model.addColumn("Tipo comprobante");
+            model.addColumn("Subtotal");
+            model.addColumn("Igv");
+            model.addColumn("Total");
+            model.addColumn("Estado de pago");
+        
+            rsMarcas = objVenta.listarVenta(fech);
+            while (rsMarcas.next()){
+                model.addRow(new Object[]{rsMarcas.getInt("numventa"), 
+                    rsMarcas.getString("fecha"),
+                    rsMarcas.getBoolean("tipocomprobante"), 
+                    rsMarcas.getFloat("subtotal"),
+                    rsMarcas.getFloat("igv"),
+                    rsMarcas.getFloat("total"),
+                    rsMarcas.getBoolean("estadopago")
+                } );
+            }
+            tblVentasDiarias.setModel(model);
+            lblCantVentas.setText(String.valueOf(tblVentasDiarias.getRowCount()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error", "Error al listar tabla", WIDTH);
+        }
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -194,14 +288,14 @@ public class JDVentasDiarias extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.github.lgooddatepicker.components.DatePicker datePicker1;
+    private com.github.lgooddatepicker.components.DatePicker dpFecha;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblListado;
-    private javax.swing.JLabel txtTotalProductos;
+    private javax.swing.JLabel lblCantVentas;
+    private javax.swing.JTable tblVentasDiarias;
     // End of variables declaration//GEN-END:variables
 }
