@@ -250,7 +250,7 @@ public class JDPagoCredito extends javax.swing.JDialog {
         cuotas = new String[cant][7];
         
         Float apagar;
-        Float mon= Float(montoTotal);
+        Float mon= Float.parseFloat(montoTotal);
         apagar = (mon/cant);
         
         
@@ -353,7 +353,6 @@ public class JDPagoCredito extends javax.swing.JDialog {
     private javax.swing.JTextField txtNumeroVenta;
     // End of variables declaration//GEN-END:variables
 
-    private Float Float(String montoTotal) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
+   
 }
