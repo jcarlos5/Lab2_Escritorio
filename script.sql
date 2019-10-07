@@ -358,7 +358,7 @@ inner join venta on cliente.codcliente=venta.codcliente
 inner join cuota on cuota.codventa=venta.numventa
 where cliente.codcliente=1 and cuota.cancelada=FALSE;
 --
-CREATE OR REPLACE FUNCTION LISTAR_DEUDA( d varchar)RETURNS TABLE(NumVenta int, Monto decimal(10,2),Fecha date, Estado boolean) AS
+CREATE OR REPLACE FUNCTION LISTAR_DEUDA( d varchar)RETURNS TABLE(NumVenta int,NumCuota int, Monto decimal(10,2),Fecha date, Estado boolean) AS
 $$
 DECLARE
 BEGIN
@@ -366,7 +366,7 @@ BEGIN
 	IF(Length(d)=8)THEN
 	
 		return query
-		Select venta.numventa,cuota.monto, cuota.fecha, cuota.cancelada from cliente
+		Select venta.numventa,cuota.numcuota,cuota.monto, cuota.fecha, cuota.cancelada from cliente
 		inner join venta on cliente.codcliente=venta.codcliente
 		inner join cuota on cuota.codventa=venta.numventa
 		where cliente.dni=d and cuota.cancelada=FALSE;
@@ -374,7 +374,7 @@ BEGIN
 		IF(Length(d)=11)THEN
 		
 		return query
-		Select venta.numventa,cuota.monto, cuota.fecha, cuota.cancelada from cliente
+		Select venta.numventa,cuota.numcuota,cuota.monto, cuota.fecha, cuota.cancelada from cliente
 		inner join venta on cliente.codcliente=venta.codcliente
 		inner join cuota on cuota.codventa=venta.numventa
 		where cliente.ruc=d and cuota.cancelada=FALSE;

@@ -23,6 +23,9 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
     clsCuota objcuota = new clsCuota();
     boolean pagado=false;
     String[][] cuotas;
+    String documento;
+    int numVenta;
+    int numCuota;
     
     /**
      * Creates new form JDPago2
@@ -53,7 +56,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         txtDocumento = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtMonto = new javax.swing.JTextField();
-        btnGuardar = new javax.swing.JButton();
+        btnPagar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCuotas = new javax.swing.JTable();
 
@@ -94,10 +97,10 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
 
         txtMonto.setEditable(false);
 
-        btnGuardar.setText("PAGAR");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnPagar.setText("PAGAR");
+        btnPagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+                btnPagarActionPerformed(evt);
             }
         });
 
@@ -112,6 +115,11 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
 
             }
         ));
+        tblCuotas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCuotasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCuotas);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -119,35 +127,33 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtNumeroVenta)
+                    .addComponent(txtNombre)
+                    .addComponent(txtDocumento)
+                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(53, 53, 53)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtNumeroVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                                    .addComponent(txtNombre)
-                                    .addComponent(txtDocumento)
-                                    .addComponent(txtMonto)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(9, 9, 9)
+                        .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 9, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNumeroVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -163,11 +169,11 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72)
-                .addComponent(btnGuardar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(btnPagar)
+                .addGap(34, 34, 34))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,11 +196,14 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
-        pagado = true;
-        dispose();
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
+        try {
+            // TODO add your handling code here:
+            objcuota.pagarcuota(numCuota,numVenta);
+        } catch (Exception ex) {
+            Logger.getLogger(JDPagoCreditoD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnPagarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
@@ -208,10 +217,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        
-       
-        
-        
+
     }//GEN-LAST:event_formWindowOpened
 
     private void txtDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyReleased
@@ -220,12 +226,21 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_txtDocumentoKeyReleased
+
+    private void tblCuotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCuotasMouseClicked
+        // TODO add your handling code here:
+        //Extraer los datos de la tabla 
+        numVenta = (int) (tblCuotas.getValueAt(tblCuotas.getSelectedRow(), 0));
+        numCuota= (int) (tblCuotas.getValueAt(tblCuotas.getSelectedRow(), 1));
+        txtMonto.setText(String.valueOf(tblCuotas.getValueAt(tblCuotas.getSelectedRow(), 2)));
+    }//GEN-LAST:event_tblCuotasMouseClicked
     private void listarDeudas(){
-        String documento;
+        
         documento=txtDocumento.getText();
         ResultSet rscuota = null;
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Venta");
+        modelo.addColumn("NumCuota");
         modelo.addColumn("Monto");
         modelo.addColumn("Fecha");
         modelo.addColumn("Estado");
@@ -233,7 +248,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         try {
             rscuota=objcuota.listarcuotasporpagar(documento);
             while(rscuota.next()){
-                modelo.addRow(new Object[]{rscuota.getInt("numVenta"),rscuota.getFloat("monto"), rscuota.getString("fecha"), rscuota.getBoolean("cancelada")});
+                modelo.addRow(new Object[]{rscuota.getInt("numVenta"),rscuota.getInt("numcuota"),rscuota.getFloat("monto"), rscuota.getString("fecha"), rscuota.getBoolean("cancelada")});
            }
         } catch (Exception e) {
            JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -243,7 +258,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
     }
     
     private void datos(){
-        String documento;
+ 
         documento=txtDocumento.getText();
         ResultSet rs=null;
         
@@ -308,7 +323,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
     }
     
     private void limpiarControles(){
-        btnGuardar.setVisible(false);
+        btnPagar.setVisible(false);
     }
     
     
@@ -323,7 +338,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup Gruporbt;
-    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnPagar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
