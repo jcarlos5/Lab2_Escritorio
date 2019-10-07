@@ -437,6 +437,7 @@ END;
 $$language 'plpgsql';
 
 SELECT deuda(documento),
+
 --datos del cliente con credito 
 CREATE OR REPLACE FUNCTION datoscliente( d varchar)RETURNS TABLE(NumVenta int,Nombres varchar) AS
 $$
