@@ -192,6 +192,11 @@ public class JDPago1 extends javax.swing.JDialog {
         jLabel9.setText("Tipo de Pago:");
 
         cboTipoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "Contado", "Crédito" }));
+        cboTipoPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTipoPagoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Nombre:");
 
@@ -404,6 +409,17 @@ public class JDPago1 extends javax.swing.JDialog {
     private void tblVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVentasMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tblVentasMouseClicked
+
+    private void cboTipoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTipoPagoActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_cboTipoPagoActionPerformed
     
     private void listarClientes(){
         ResultSet rsClientes = null;

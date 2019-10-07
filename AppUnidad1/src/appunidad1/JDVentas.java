@@ -548,7 +548,7 @@ public class JDVentas extends javax.swing.JDialog {
                     clsCuota objCuota = new clsCuota();
                     while (i>=0){
                         try {
-                            objCuota.registrarCuota(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5]);
+                            objCuota.registrarCuota(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5],cuotas[i][6]);
                             i++;
                         } catch (Exception e) {
                             i=-1;

@@ -347,7 +347,13 @@ vuelto DECIMAL(10,2)
 
 ALTER TABLE cuota ADD CONSTRAINT PK_cuota PRIMARY KEY (codventa, numcuota);
 ALTER TABLE cuota ADD CONSTRAINT FK_venta_cuota FOREIGN KEY (codventa) REFERENCES venta;
+ALTER TABLE cuota ADD COLUMN monto DECIMAL(10,2) not null;
 
 --registrar pago(cuota)
-INSERT INTO cuota VALUES (" + numVenta + ", " + numCuota + ", " + fecha + ", " + estado + ", " + montoIngresado + " , " + vuelto + ");
+INSERT INTO cuota VALUES (" + numVenta + ", " + numCuota + ", '" + fecha + "', " + estado + ", " + montoIngresado + " , " + vuelto + ","+monto+");
 
+-- listar las cuotas pendientes de pago de un cliente
+Select cuota.monto, cuota.fecha, cuota.cancelada from cliente
+inner join venta on cliente.codcliente=venta.codcliente
+inner join cuota on cuota.codventa=venta.numventa
+where cliente.codcliente=1 and cuota.cancelada=FALSE;

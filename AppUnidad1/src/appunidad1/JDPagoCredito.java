@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class JDPagoCredito extends javax.swing.JDialog {
     boolean pagado=false;
     String[][] cuotas;
+    String montoTotal;
     /**
      * Creates new form JDPago2
      */
@@ -246,13 +247,18 @@ public class JDPagoCredito extends javax.swing.JDialog {
         Calendar fecha = new GregorianCalendar();
         int cant = (int) spnNumCuotas.getValue();
         
-        cuotas = new String[cant][6];
+        cuotas = new String[cant][7];
+        
+        Float apagar;
+        Float mon= Float(montoTotal);
+        apagar = (mon/cant);
+        
         
         for(int i=0; i<cant; i++){
             String newFecha = String.format("%02d-%02d-%04d",fecha.get(Calendar.DAY_OF_MONTH),fecha.get(Calendar.MONTH)+1,fecha.get(Calendar.YEAR));
             modelo.addRow(new Object[]{i+1, newFecha});
             
-            cuotas[i] = new String[]{txtNumeroVenta.getText(), "1", newFecha, "false", "null", "null"};
+            cuotas[i] = new String[]{txtNumeroVenta.getText(), "1", newFecha, "false", "null", "null","apagar"};
             
             if(rbtSemanal.isSelected()){
                 fecha.add(fecha.DAY_OF_YEAR, 7);
@@ -314,6 +320,7 @@ public class JDPagoCredito extends javax.swing.JDialog {
         txtDocumento.setText(doc);
         txtNombre.setText(cliente);
         txtNumeroVenta.setText(numVenta);
+        montoTotal=monto;
         txtMonto.setText(monto);
     }
     
@@ -345,4 +352,8 @@ public class JDPagoCredito extends javax.swing.JDialog {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumeroVenta;
     // End of variables declaration//GEN-END:variables
+
+    private Float Float(String montoTotal) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
