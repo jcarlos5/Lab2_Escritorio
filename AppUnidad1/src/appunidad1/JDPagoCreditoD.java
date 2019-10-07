@@ -7,6 +7,7 @@ package appunidad1;
 
 import CapaNegocio.clsCuota;
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
@@ -18,24 +19,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author JCarlos
  */
-public class JDPagoCredito extends javax.swing.JDialog {
- 
+public class JDPagoCreditoD extends javax.swing.JDialog {
     clsCuota objcuota = new clsCuota();
     boolean pagado=false;
     String[][] cuotas;
-    String montoTotal;
-    String documento;
+    
     /**
      * Creates new form JDPago2
      */
-    public JDPagoCredito(java.awt.Frame parent, boolean modal) {
+    public JDPagoCreditoD(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         limpiarControles();
-        Gruporbt.add(rbtMensual);
-        Gruporbt.add(rbtSemanal);
-        tblCuotas.setEnabled(false);
-        rbtSemanal.setSelected(true);
+        
     }
 
     /**
@@ -57,12 +53,7 @@ public class JDPagoCredito extends javax.swing.JDialog {
         txtDocumento = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtMonto = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        lblTituloVuelto = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
-        spnNumCuotas = new javax.swing.JSpinner();
-        rbtSemanal = new javax.swing.JRadioButton();
-        rbtMensual = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCuotas = new javax.swing.JTable();
 
@@ -88,10 +79,14 @@ public class JDPagoCredito extends javax.swing.JDialog {
 
         jLabel3.setText("DNI/RUC:");
 
-        txtDocumento.setEditable(false);
         txtDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDocumentoActionPerformed(evt);
+            }
+        });
+        txtDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDocumentoKeyReleased(evt);
             }
         });
 
@@ -99,34 +94,10 @@ public class JDPagoCredito extends javax.swing.JDialog {
 
         txtMonto.setEditable(false);
 
-        jLabel5.setText("Numero de Cuotas:");
-
-        lblTituloVuelto.setText("Modalidad:");
-
-        btnGuardar.setText("GUARDAR");
+        btnGuardar.setText("PAGAR");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
-            }
-        });
-
-        spnNumCuotas.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                spnNumCuotasStateChanged(evt);
-            }
-        });
-
-        rbtSemanal.setText("Cuotas Semanales");
-        rbtSemanal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtSemanalActionPerformed(evt);
-            }
-        });
-
-        rbtMensual.setText("Cuotas Mensuales");
-        rbtMensual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbtMensualActionPerformed(evt);
             }
         });
 
@@ -150,33 +121,28 @@ public class JDPagoCredito extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTituloVuelto)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rbtMensual)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtNumeroVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                                .addComponent(txtNombre)
-                                .addComponent(txtDocumento)
-                                .addComponent(txtMonto)
-                                .addComponent(spnNumCuotas)
-                                .addComponent(rbtSemanal)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNumeroVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                                    .addComponent(txtNombre)
+                                    .addComponent(txtDocumento)
+                                    .addComponent(txtMonto)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,19 +163,9 @@ public class JDPagoCredito extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(spnNumCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTituloVuelto)
-                    .addComponent(rbtSemanal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbtMensual)
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
                 .addComponent(btnGuardar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -221,7 +177,7 @@ public class JDPagoCredito extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,82 +196,68 @@ public class JDPagoCredito extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void rbtSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtSemanalActionPerformed
-        // TODO add your handling code here:
-        generarCuotas();
-    }//GEN-LAST:event_rbtSemanalActionPerformed
-
-    private void rbtMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMensualActionPerformed
-        // TODO add your handling code here:
-        generarCuotas();
-    }//GEN-LAST:event_rbtMensualActionPerformed
-
-    private void spnNumCuotasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnNumCuotasStateChanged
-        // TODO add your handling code here:
-        if((int)spnNumCuotas.getValue()<0){
-            spnNumCuotas.setValue(0);
-        }
-        generarCuotas();
-    }//GEN-LAST:event_spnNumCuotasStateChanged
-
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void txtDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDocumentoActionPerformed
         // TODO add your handling code here:
+      listarDeudas();
+      datos();
     }//GEN-LAST:event_txtDocumentoActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        int deuda = 0;
-        try {
-            deuda=objcuota.saberdeuda(documento);
-        } catch (Exception ex) {
-            Logger.getLogger(JDPagoCredito.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        if(deuda==1){
-            JOptionPane.showMessageDialog(this, "El cliente tiene deudas pendientes de pago");
-            this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(this, "El cliente NO tiene deudas pendientes de pago");
-        }
        
         
         
     }//GEN-LAST:event_formWindowOpened
 
-    private void generarCuotas(){
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("N° Cuota");
-        modelo.addColumn("Fecha");
+    private void txtDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyReleased
+        // TODO add your handling code here:
+        //Listar las deudas del cliente por numero de documento 
         
+        
+    }//GEN-LAST:event_txtDocumentoKeyReleased
+    private void listarDeudas(){
+        String documento;
+        documento=txtDocumento.getText();
+        ResultSet rscuota = null;
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Venta");
+        modelo.addColumn("Monto");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Estado");
+        
+        try {
+            rscuota=objcuota.listarcuotasporpagar(documento);
+            while(rscuota.next()){
+                modelo.addRow(new Object[]{rscuota.getInt("numVenta"),rscuota.getFloat("monto"), rscuota.getString("fecha"), rscuota.getBoolean("cancelada")});
+           }
+        } catch (Exception e) {
+           JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
         tblCuotas.setModel(modelo);
         
-        Calendar fecha = new GregorianCalendar();
-        int cant = (int) spnNumCuotas.getValue();
+    }
+    
+    private void datos(){
+        String documento;
+        documento=txtDocumento.getText();
+        ResultSet rs=null;
         
-        cuotas = new String[cant][7];
-        
-        Float apagar;
-        Float mon= Float.parseFloat(montoTotal);
-        apagar = (mon/cant);
-        
-        
-        for(int i=0; i<cant; i++){
-            String newFecha = String.format("%02d-%02d-%04d",fecha.get(Calendar.DAY_OF_MONTH),fecha.get(Calendar.MONTH)+1,fecha.get(Calendar.YEAR));
-            modelo.addRow(new Object[]{i+1, newFecha});
-            
-            cuotas[i] = new String[]{txtNumeroVenta.getText(), "1", newFecha, "false", "null", "null","apagar"};
-            
-            if(rbtSemanal.isSelected()){
-                fecha.add(fecha.DAY_OF_YEAR, 7);
-            }else{
-                fecha.add(fecha.MONTH, 1);
+        try {
+            rs=objcuota.datoscliente(documento);
+            while(rs.next()){
+                txtNombre.setText(rs.getString("nombres"));
+                txtNumeroVenta.setText(rs.getString("numventa"));
             }
+        } catch (Exception ex) {
+            Logger.getLogger(JDPagoCreditoD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     /**
      * @param args the command line arguments
      */
@@ -333,14 +275,18 @@ public class JDPagoCredito extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDPagoCredito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDPagoCreditoD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDPagoCredito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDPagoCreditoD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDPagoCredito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDPagoCreditoD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDPagoCredito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDPagoCreditoD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -349,7 +295,7 @@ public class JDPagoCredito extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDPagoCredito dialog = new JDPagoCredito(new javax.swing.JFrame(), true);
+                JDPagoCreditoD dialog = new JDPagoCreditoD(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -365,14 +311,7 @@ public class JDPagoCredito extends javax.swing.JDialog {
         btnGuardar.setVisible(false);
     }
     
-    public void setDatos(String numVenta, String cliente, String doc, String monto){
-        txtDocumento.setText(doc);
-        documento=doc;
-        txtNombre.setText(cliente);
-        txtNumeroVenta.setText(numVenta);
-        montoTotal=monto;
-        txtMonto.setText(monto);
-    }
+    
     
     public boolean getPago(){
         return pagado;
@@ -389,13 +328,8 @@ public class JDPagoCredito extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblTituloVuelto;
-    private javax.swing.JRadioButton rbtMensual;
-    private javax.swing.JRadioButton rbtSemanal;
-    private javax.swing.JSpinner spnNumCuotas;
     private javax.swing.JTable tblCuotas;
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtMonto;

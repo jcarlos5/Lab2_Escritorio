@@ -29,13 +29,17 @@ public class clsCuota {
     }
     
     //listar las cuotas pendientes de pago de un cliente
-    public void listarcuotasporpagar(String codcliente) throws Exception{
-         strSQL = "Select cuota.monto, cuota.fecha, cuota.cancelada from cliente inner join venta on cliente.codcliente=venta.codcliente inner join cuota on cuota.codventa=venta.numventa where cliente.codcliente="+codcliente+" and cuota.cancelada=FALSE;";
+    public ResultSet listarcuotasporpagar(String documento) throws Exception{
+         strSQL = "SELECT LISTAR_DEUDA("+documento+");";
         try {
-            objConectar.consultarBD(strSQL);
+            rs=objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                return rs;
+            }
         } catch (Exception e) {
             throw new Exception("Error al listar las cuotas pendientes de pago del cliente");
         }
+        return null;
     }
     
     //pagar una cuota 
@@ -43,10 +47,38 @@ public class clsCuota {
          strSQL = "UPDATE cuota SET estado=TRUE WHERE numCuota="+codcuota+";";
         try {
             objConectar.ejecutarBD(strSQL);
+            
         } catch (Exception e) {
             throw new Exception("Error al registrar el pago de la Cuota");
         }
     }
     
+    //Saber si hay deudas
+    public int saberdeuda(String documento) throws Exception{
+         strSQL = "SELECT DEUDA('"+documento+"') as resultado;";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                return rs.getInt("resultado");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al saber las deudas del cliente");
+        }
+        return 0;
+    }
     
+     public ResultSet datoscliente(String documento) throws Exception{
+         strSQL = "SELECT DATOS_CLIENTE("+documento+");";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                return rs;
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al extraer los datos del cliente");
+        }
+        return null;
+    }
+    
+   
 }

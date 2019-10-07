@@ -357,3 +357,110 @@ Select cuota.monto, cuota.fecha, cuota.cancelada from cliente
 inner join venta on cliente.codcliente=venta.codcliente
 inner join cuota on cuota.codventa=venta.numventa
 where cliente.codcliente=1 and cuota.cancelada=FALSE;
+--
+CREATE OR REPLACE FUNCTION LISTAR_DEUDA( d varchar)RETURNS TABLE(NumVenta int, Monto decimal(10,2),Fecha date, Estado boolean) AS
+$$
+DECLARE
+BEGIN
+	
+	IF(Length(d)=8)THEN
+	
+		return query
+		Select venta.numventa,cuota.monto, cuota.fecha, cuota.cancelada from cliente
+		inner join venta on cliente.codcliente=venta.codcliente
+		inner join cuota on cuota.codventa=venta.numventa
+		where cliente.dni=d and cuota.cancelada=FALSE;
+	ELSE
+		IF(Length(d)=11)THEN
+		
+		return query
+		Select venta.numventa,cuota.monto, cuota.fecha, cuota.cancelada from cliente
+		inner join venta on cliente.codcliente=venta.codcliente
+		inner join cuota on cuota.codventa=venta.numventa
+		where cliente.ruc=d and cuota.cancelada=FALSE;
+		END IF;
+	END IF;	
+	
+
+END;
+$$language 'plpgsql';
+
+
+SELECT LISTAR_DEUDA('documento');
+--funcion para saber si tiene creditos pendientes de pago
+CREATE OR REPLACE FUNCTION FN_DEUDA(cod int)RETURNS int AS 
+$$
+DECLARE
+	c int;
+BEGIN
+	Select COUNT(*) INTO c FROM cliente
+	inner join venta on cliente.codcliente=venta.codcliente
+	inner join cuota on cuota.codventa=venta.numventa
+	where cliente.codcliente=cod and cuota.cancelada=FALSE;
+	
+	IF(c>1)THEN 
+		RETURN 1;
+	else
+		RETURN 0;
+	END IF;
+END;
+$$language 'plpgsql';
+
+select FN_DEUDA(1);
+
+--lo mismo que lo anterior pero filtrado por el documento del cliente
+CREATE OR REPLACE FUNCTION DEUDA( d varchar)RETURNS int AS 
+$$
+DECLARE
+	c int;
+BEGIN
+	IF(Length(d)=8)THEN
+		Select COUNT(*) INTO c FROM cliente
+		inner join venta on cliente.codcliente=venta.codcliente
+		inner join cuota on cuota.codventa=venta.numventa
+		where cliente.ruc=d and cuota.cancelada=FALSE;
+	ELSE
+		IF(Length(d)=11)THEN
+		Select COUNT(*) INTO c FROM cliente
+		inner join venta on cliente.codcliente=venta.codcliente
+		inner join cuota on cuota.codventa=venta.numventa
+		where cliente.dni=d and cuota.cancelada=FALSE;
+		END IF;
+	END IF;	
+	
+	IF(c>1)THEN 
+		RETURN 1;
+	else
+		RETURN 0;
+	END IF;
+END;
+$$language 'plpgsql';
+
+SELECT deuda(documento),
+--datos del cliente con credito 
+CREATE OR REPLACE FUNCTION datoscliente( d varchar)RETURNS TABLE(NumVenta int,Nombres varchar) AS
+$$
+DECLARE
+BEGIN
+	
+	IF(Length(d)=8)THEN
+	
+		return query
+		Select venta.numventa,cliente.nombres from cliente
+		inner join venta on cliente.codcliente=venta.codcliente
+		inner join cuota on cuota.codventa=venta.numventa
+		where cliente.dni=d and cuota.cancelada=FALSE;
+	ELSE
+		IF(Length(d)=11)THEN
+		
+		return query
+		Select venta.numventa,cliente.nombres  from cliente
+		inner join venta on cliente.codcliente=venta.codcliente
+		inner join cuota on cuota.codventa=venta.numventa
+		where cliente.ruc=d and cuota.cancelada=FALSE;
+		END IF;
+	END IF;	
+	
+
+END;
+$$language 'plpgsql';
