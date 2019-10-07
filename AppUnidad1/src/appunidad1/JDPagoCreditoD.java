@@ -21,8 +21,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JDPagoCreditoD extends javax.swing.JDialog {
     clsCuota objcuota = new clsCuota();
-    boolean pagado=false;
-    String[][] cuotas;
     String documento;
     int numVenta;
     int numCuota;
@@ -323,18 +321,13 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
     }
     
     private void limpiarControles(){
-        btnPagar.setVisible(false);
+        txtDocumento.setText("");
+        //btnPagar.setVisible(false);
     }
     
     
     
-    public boolean getPago(){
-        return pagado;
-    }
-    
-    public String[][] getCuotas(){
-        return cuotas;
-    }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup Gruporbt;

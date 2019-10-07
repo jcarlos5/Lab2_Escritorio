@@ -380,6 +380,11 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenu5.add(mnuPagoContado);
 
         mnuPagoCredito.setText("Pago al Crédito");
+        mnuPagoCredito.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuPagoCreditoActionPerformed(evt);
+            }
+        });
         jMenu5.add(mnuPagoCredito);
 
         jMenu3.add(jMenu5);
@@ -524,6 +529,13 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         objPago.setLocationRelativeTo(this);
         objPago.setVisible(true);
     }//GEN-LAST:event_mnuPagoContadoActionPerformed
+
+    private void mnuPagoCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPagoCreditoActionPerformed
+        // TODO add your handling code here:
+        JDPagoCreditoD objpago = new JDPagoCreditoD(this,true);
+        objpago.setLocationRelativeTo(this);
+        objpago.setVisible(true);
+    }//GEN-LAST:event_mnuPagoCreditoActionPerformed
 
     /**
      * @param args the command line arguments
