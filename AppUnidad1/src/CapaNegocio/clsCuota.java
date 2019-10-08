@@ -34,7 +34,7 @@ public class clsCuota {
     
     //listar las cuotas pendientes de pago de un cliente
     public ResultSet listarcuotasporpagar(String documento) throws Exception{
-         strSQL = "SELECT LISTAR_DEUDA("+documento+");";
+         strSQL = "SELECT * FROM LISTAR_DEUDA('"+documento+"');";
         try {
             rs=objConectar.consultarBD(strSQL);
             while(rs.next()){

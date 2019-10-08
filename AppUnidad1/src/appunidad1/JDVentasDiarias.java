@@ -205,6 +205,7 @@ public class JDVentasDiarias extends javax.swing.JDialog {
                     String doc = (rs.getBoolean("tipocomprobante"))?rs.getString("dni"):rs.getString("ruc");
                     JDVentaDatos objVentaDatos = new JDVentaDatos((Frame) SwingUtilities.getWindowAncestor(this), true);
                     objVentaDatos.setDatos(rs.getInt("numventa"),rs.getString("nombres"), doc,rs.getFloat("subtotal"), rs.getFloat("igv"), rs.getFloat("total"),rs.getFloat("vuelto"), rs.getBoolean("cancelada"),rs.getBoolean("tipocomprobante") );
+                    objVentaDatos.listarDetalle(rs.getInt("numventa"));
                     objVentaDatos.setLocationRelativeTo(this);
                     objVentaDatos.setVisible(true);
                 }
@@ -229,9 +230,10 @@ public class JDVentasDiarias extends javax.swing.JDialog {
         
             rsMarcas = objVenta.listarVenta(fech);
             while (rsMarcas.next()){
+                String tipoc = (rsMarcas.getBoolean("tipocomprobante")) ? "Boleta":"Factura" ;
                 model.addRow(new Object[]{rsMarcas.getInt("numventa"), 
                     rsMarcas.getString("fecha"),
-                    rsMarcas.getBoolean("tipocomprobante"), 
+                    tipoc, 
                     rsMarcas.getFloat("subtotal"),
                     rsMarcas.getFloat("igv"),
                     rsMarcas.getFloat("total"),

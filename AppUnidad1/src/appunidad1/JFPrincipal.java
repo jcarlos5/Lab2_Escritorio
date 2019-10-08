@@ -100,6 +100,10 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         mnuPagoContado = new javax.swing.JMenuItem();
         mnuPagoCredito = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        mnuVentasDiarias = new javax.swing.JMenuItem();
+        mnuCreditosClientes = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
 
         jMenuItem12.setText("jMenuItem12");
 
@@ -393,6 +397,25 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Reportes");
+
+        jMenu6.setText("Consultas");
+
+        mnuVentasDiarias.setText("Ventas diarias");
+        mnuVentasDiarias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuVentasDiariasActionPerformed(evt);
+            }
+        });
+        jMenu6.add(mnuVentasDiarias);
+
+        mnuCreditosClientes.setText("Creditos de clientes");
+        jMenu6.add(mnuCreditosClientes);
+
+        jMenu4.add(jMenu6);
+
+        jMenuItem11.setText("Ventas");
+        jMenu4.add(jMenuItem11);
+
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
@@ -538,6 +561,13 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         objpago.setVisible(true);
     }//GEN-LAST:event_mnuPagoCreditoActionPerformed
 
+    private void mnuVentasDiariasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuVentasDiariasActionPerformed
+        // TODO add your handling code here:
+        JDVentasDiarias obj = new JDVentasDiarias(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_mnuVentasDiariasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -646,9 +676,11 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
@@ -670,8 +702,10 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblHora;
     private javax.swing.JLabel lblUsuario;
+    private javax.swing.JMenuItem mnuCreditosClientes;
     private javax.swing.JMenuItem mnuPagoContado;
     private javax.swing.JMenuItem mnuPagoCredito;
+    private javax.swing.JMenuItem mnuVentasDiarias;
     // End of variables declaration//GEN-END:variables
 
     @Override

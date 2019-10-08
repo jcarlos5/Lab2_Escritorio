@@ -101,4 +101,15 @@ public class clsVenta {
             throw new Exception("Error ");
         }
     }
+    
+    //para listar los detalles por venta
+    public ResultSet listarDetalleVenta(int venta) throws Exception{
+        strSQL = "SELECT d.*, p.nomproducto FROM detalle d inner join producto p on d.codproducto=p.codproducto WHERE d.numventa = " + venta+ " ;";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error ");
+        }
+    }
 }
