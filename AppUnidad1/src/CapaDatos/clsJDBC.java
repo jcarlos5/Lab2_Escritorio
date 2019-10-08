@@ -18,7 +18,7 @@ public class clsJDBC {
     //Constructor
     public clsJDBC() {
         this.driver = "org.postgresql.Driver";
-        this.url = "jdbc:postgresql://localhost:5432/BD_Programacion1";
+        this.url = "jdbc:postgresql://localhost:5432/BDProgramacion";
         this.user = "postgres";
         this.password = "123456789";
         this.con = null;
@@ -30,7 +30,7 @@ public class clsJDBC {
             Class.forName(driver);
             con = DriverManager.getConnection(url, user, password);
         } catch (ClassNotFoundException | SQLException e) {
-            throw new Exception("Error al conectar a la BD!");
+            throw new Exception("Error al conectar a la BD");
         }
     }
     

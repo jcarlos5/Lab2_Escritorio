@@ -44,7 +44,7 @@ public class clsCuota {
     
     //pagar una cuota 
     public void pagarcuota(int codcuota, int codventa) throws Exception{
-         strSQL = "UPDATE cuota SET estado=TRUE WHERE numCuota="+codcuota+" AND codVenta="+codventa+";";
+         strSQL = "UPDATE cuota SET cancelada=TRUE WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
         try {
             objConectar.ejecutarBD(strSQL);
             
