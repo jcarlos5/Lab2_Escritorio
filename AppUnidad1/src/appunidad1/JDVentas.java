@@ -683,7 +683,7 @@ public class JDVentas extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(rootPane, "Cantidad no válida");
                 }
             }
-            agregarProducto(0,0,0);
+            calcularTotal();
             tblProductos.setRowSelectionAllowed(false);
             tblProductos.setEnabled(false);
             btnCancelarActionPerformed(null);
@@ -812,9 +812,15 @@ public class JDVentas extends javax.swing.JDialog {
                     }
                 }
                 if (repetido){
-                    int aux = Integer.parseInt(String.valueOf(tblProductos.getValueAt(fila, 3)));
+                    int aux = Integer.parseInt(String.valueOf(tblProductos.getValueAt(fila, 5)));
                     cantidad += aux;
                     modelo.removeRow(fila);
+                }
+                
+                int stock = objProducto.getStock(producto);
+                if(cantidad > stock){
+                    cantidad = stock;
+                    JOptionPane.showMessageDialog(rootPane, "Stock Insuficiente");
                 }
                 
                 rs = objProducto.buscarProducto(producto);
