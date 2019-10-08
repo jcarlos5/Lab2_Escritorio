@@ -528,6 +528,7 @@ public class JDVentas extends javax.swing.JDialog {
             if(rpta!=null){
                 boolean pago=false;
                 boolean contado;
+                boolean tipocomprobante;
                 String cuotas[][];
                 if (rpta.toString().equals("Contado")){
                     JDPagoContado objPago = new JDPagoContado((Frame) SwingUtilities.getWindowAncestor(this), true);
@@ -537,6 +538,7 @@ public class JDVentas extends javax.swing.JDialog {
                     pago = objPago.getPago();
                     cuotas = objPago.getCuotas();
                     contado = true;
+                    tipocomprobante=true;
                 }else{
                     if(objCliente.isAcreditable(txtCod.getText())){
                         JDPagoCredito objPago = new JDPagoCredito((Frame) SwingUtilities.getWindowAncestor(this), true);
@@ -546,14 +548,16 @@ public class JDVentas extends javax.swing.JDialog {
                         pago = objPago.getPago();
                         cuotas = objPago.getCuotas();
                         contado = false;
+                        tipocomprobante=false;
                     }else{
                         JOptionPane.showMessageDialog(rootPane, "El cliente aún tiene un crédito vigente");
                         cuotas = new String[1][8];
                         contado = false;
+                        tipocomprobante=false;
                     }
                 }
                 if(pago){
-                    objVenta.registrar(Integer.parseInt(txtCodVenta.getText()), Float.parseFloat(txtTotal.getText()), Float.parseFloat(txtSubTotal.getText()), Float.parseFloat(txtIgv.getText()), rbtBoleta.isSelected(), Integer.parseInt(txtCod.getText()), contado);
+                    objVenta.registrar(Integer.parseInt(txtCodVenta.getText()), Float.parseFloat(txtTotal.getText()), Float.parseFloat(txtSubTotal.getText()), Float.parseFloat(txtIgv.getText()), rbtBoleta.isSelected(), Integer.parseInt(txtCod.getText()), contado, tipocomprobante);
                     int ctd = tblProductos.getRowCount();
                     for (int i=0; i<ctd; i++){
                         String descuento = tblProductos.getValueAt(i, 3).toString();

@@ -30,7 +30,7 @@ respuesta VARCHAR(50) NULL
 
 CREATE TABLE MOVIMIENTO(
 numMovimiento serial not null primary key,
-codUsuario int not null, 
+codUsuario int not null,
 fecha date not null,
 hora time not null,
 estado Boolean not null
@@ -85,7 +85,8 @@ igv DECIMAL(10, 2) NULL,
 subtotal DECIMAL(10, 2) NULL,
 total DECIMAL(10, 2) NOT NULL,
 tipoComprobante BOOLEAN NOT NULL, --True: Boleta, False: Factura
-estadoPago BOOLEAN NOT NULL
+estadoPago BOOLEAN NOT NULL,
+tipoPago BOOLEAN NOT NULL --True: Contado, False: Credito
 );
 
 CREATE TABLE DETALLE(
@@ -134,7 +135,7 @@ BEGIN
 END;
 $$language 'plpgsql';
 
-CREATE OR REPLACE FUNCTION DEUDA(d varchar)RETURNS int AS 
+CREATE OR REPLACE FUNCTION DEUDA(d varchar)RETURNS int AS
 $$
 DECLARE
 	c int;
@@ -143,8 +144,8 @@ BEGIN
 		inner join venta on cli.codcliente=venta.codcliente
 		inner join cuota on cuota.codventa=venta.numventa
 		where cuota.cancelada=FALSE;
-	
-	IF(c>1)THEN 
+
+	IF(c>1)THEN
 		RETURN 1;
 	else
 		RETURN 0;
@@ -164,6 +165,26 @@ BEGIN
 
 END;
 $$language 'plpgsql';
+
+CREATE OR REPLACE FUNCTION VENTACREDITO(id varchar)RETURNS TABLE (numVenta int, codcliente int, fecha date, igv decimal(10,2), subtotal decimal(10,2), total decimal(10,2), tipoComprobante boolean, estadoPago boolean) AS
+$$
+DECLARE
+	c int;
+	i int=0;
+	c_venta cursor for Select v.numventa from venta v inner join cliente c on v.codCliente=c.codcliente where c.dni=id or c.ruc=id;
+BEGIN
+	open c_venta;
+	fetch c_venta into c;
+	while found loop
+		select count(numcuota) into i from cuota cu inner join venta v on cu.codventa=v.numventa where v.numventa=c;
+		IF i>1 THEN
+			return query select * from venta ve where ve.numventa=c;
+		end if;
+		fetch c_venta into c;
+	end loop;
+	close c_venta;
+END;
+$$ language 'plpgsql';
 
 --INSERCIÓN DE EJEMPLOS
 
@@ -214,18 +235,18 @@ INSERT INTO CLIENTE VALUES(6, '71359403', null, 'Julio Jaramillo', '991025349', 
 INSERT INTO CLIENTE VALUES(7, '79163522', '731526940', 'Gustavo Rios', '920136490', 'Chiclayo', 'riosgustavo@hotmail.com', TRUE, 3);
 */
 
---El triggercito 
+--El triggercito
 CREATE OR REPLACE FUNCTION actualizarventa()RETURNS TRIGGER AS
 $$
 DECLARE
 	c int;
 	d int;
-BEGIN 
-	Select COUNT(*) INTO c FROM cliente 
+BEGIN
+	Select COUNT(*) INTO c FROM cliente
 	inner join venta on cliente.codcliente=venta.codcliente
 	inner join (SELECT * FROM cuota WHERE cuota.codventa=new.codventa) c on c.codventa=venta.numventa;
-	
-	Select COUNT(*) INTO d FROM cliente 
+
+	Select COUNT(*) INTO d FROM cliente
 	inner join venta on cliente.codcliente=venta.codcliente
 	inner join (SELECT * FROM cuota WHERE cuota.codventa=new.codventa) c on c.codventa=venta.numventa
 	WHERE c.cancelada=true;
