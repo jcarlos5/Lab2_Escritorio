@@ -19,8 +19,8 @@ public class clsCuota {
     ResultSet rs=null;
     
     //para registrar pagos
-    public void registrarCuota(String numVenta, String numCuota, String fecha, String estado, String montoIngresado, String vuelto,String monto) throws Exception{
-        strSQL = "INSERT INTO cuota VALUES (" + numVenta + ", " + numCuota + ", '" + fecha + "', " + estado + ", " + montoIngresado + " , " + vuelto + ","+monto+");";
+    public void registrarCuota(String numVenta, String numCuota, String fecha, String fpago, String estado, String montoIngresado, String vuelto,String monto) throws Exception{
+        strSQL = "INSERT INTO cuota VALUES (" + numVenta + ", " + numCuota + ", '" + fecha + "', '" + fpago + "', " + estado + ", " + montoIngresado + " , " + vuelto + ","+monto+");";
         try {
             objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class clsCuota {
     
     //pagar una cuota 
     public void pagarcuota(int codcuota, int codventa) throws Exception{
-         strSQL = "UPDATE cuota SET cancelada=TRUE WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
+         strSQL = "UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
         try {
             objConectar.ejecutarBD(strSQL);
             
@@ -79,6 +79,4 @@ public class clsCuota {
         }
         return null;
     }
-    
-   
 }

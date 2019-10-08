@@ -534,7 +534,7 @@ public class JDVentas extends javax.swing.JDialog {
                         contado = false;
                     }else{
                         JOptionPane.showMessageDialog(rootPane, "El cliente aún tiene un crédito vigente");
-                        cuotas = new String[1][6];
+                        cuotas = new String[1][8];
                         contado = false;
                     }
                 }
@@ -548,7 +548,7 @@ public class JDVentas extends javax.swing.JDialog {
                     clsCuota objCuota = new clsCuota();
                     while (i>=0){
                         try {
-                            objCuota.registrarCuota(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5],cuotas[i][6]);
+                            objCuota.registrarCuota(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5], cuotas[i][6], cuotas[i][7]);
                             i++;
                         } catch (Exception e) {
                             i=-1;

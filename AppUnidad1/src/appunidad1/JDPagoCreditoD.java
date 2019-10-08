@@ -215,7 +215,12 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-
+        txtMonto.setEditable(false);
+        txtMonto.setEnabled(false);
+        txtNombre.setEnabled(false);
+        txtNombre.setEditable(false);
+        txtNumeroVenta.setEditable(false);
+        txtNumeroVenta.setEnabled(false);
     }//GEN-LAST:event_formWindowOpened
 
     private void txtDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyReleased

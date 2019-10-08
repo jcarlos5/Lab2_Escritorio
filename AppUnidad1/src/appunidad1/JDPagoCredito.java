@@ -281,9 +281,6 @@ public class JDPagoCredito extends javax.swing.JDialog {
         }else{
             JOptionPane.showMessageDialog(this, "El cliente NO tiene deudas pendientes de pago");
         }
-       
-        
-        
     }//GEN-LAST:event_formWindowOpened
 
     private void generarCuotas(){
@@ -296,7 +293,7 @@ public class JDPagoCredito extends javax.swing.JDialog {
         Calendar fecha = new GregorianCalendar();
         int cant = (int) spnNumCuotas.getValue();
         
-        cuotas = new String[cant][7];
+        cuotas = new String[cant][8];
         
         Float apagar;
         Float mon= Float.parseFloat(montoTotal);
@@ -307,7 +304,7 @@ public class JDPagoCredito extends javax.swing.JDialog {
             String newFecha = String.format("%02d-%02d-%04d",fecha.get(Calendar.DAY_OF_MONTH),fecha.get(Calendar.MONTH)+1,fecha.get(Calendar.YEAR));
             modelo.addRow(new Object[]{i+1, newFecha});
             
-            cuotas[i] = new String[]{txtNumeroVenta.getText(), "1", newFecha, "false", "null", "null","apagar"};
+            cuotas[i] = new String[]{txtNumeroVenta.getText(), "1", newFecha, "null", "false", "null", "null", String.valueOf(apagar)};
             
             if(rbtSemanal.isSelected()){
                 fecha.add(fecha.DAY_OF_YEAR, 7);

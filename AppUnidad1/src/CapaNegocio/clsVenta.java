@@ -32,7 +32,7 @@ public class clsVenta {
     }
     
     public void registrar(int cod, float total, float subtotal, float igv, boolean tipo, int cliente, boolean contado) throws Exception{
-        strSQL = "INSERT INTO venta VALUES (" + cod + ", CURRENT_DATE, " + total + ", " + subtotal + ", " + igv + ", " + tipo + ", " + contado + ", " + cliente + ");";
+        strSQL = "INSERT INTO venta VALUES (" + cod + ", " + cliente + ", CURRENT_DATE, " + igv + ", " + subtotal + ", " + total + ", " + tipo + ", " + contado + ");";
         try {
             objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {

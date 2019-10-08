@@ -17,8 +17,7 @@ import javax.swing.JOptionPane;
 public class JDPagoContado extends javax.swing.JDialog {
     boolean pagado=false;
     String[][] cuotas;
-    Calendar fecha = new GregorianCalendar();
-    String f = String.format("%02d-%02d-%04d",fecha.get(Calendar.DAY_OF_MONTH),fecha.get(Calendar.MONTH)+1,fecha.get(Calendar.YEAR));
+
     /**
      * Creates new form JDPago2
      */
@@ -201,8 +200,8 @@ public class JDPagoContado extends javax.swing.JDialog {
                 lblVuelto.setText(String.valueOf(vuelto));
                 lblVuelto.setVisible(true);
                 btnGuardar.setVisible(true);
-                cuotas = new String[1][6];
-                cuotas[0] = new String[]{txtNumeroVenta.getText(), "1", f, "true", txtPago.getText(), lblVuelto.getText()};
+                cuotas = new String[1][8];
+                cuotas[0] = new String[]{txtNumeroVenta.getText(), "1", "CURRENT_DATE", "CURRENT_DATE", "true", txtPago.getText(), lblVuelto.getText(), txtMonto.getText()};
             }
         }
     }//GEN-LAST:event_txtPagoKeyPressed
