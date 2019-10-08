@@ -20,7 +20,11 @@ public class clsCuota {
     
     //para registrar pagos
     public void registrarCuota(String numVenta, String numCuota, String fecha, String fpago, String estado, String montoIngresado, String vuelto,String monto) throws Exception{
-        strSQL = "INSERT INTO cuota VALUES (" + numVenta + ", " + numCuota + ", '" + fecha + "', '" + fpago + "', " + estado + ", " + montoIngresado + " , " + vuelto + ","+monto+");";
+        if (fpago.equalsIgnoreCase("null")){
+            strSQL = "INSERT INTO cuota VALUES (" + numVenta + ", " + numCuota + ", '" + fecha + "' , " + fpago + " , " + estado + ", " + montoIngresado + " , " + vuelto + ","+monto+");";
+        }else {
+            strSQL = "INSERT INTO cuota VALUES (" + numVenta + ", " + numCuota + ", '" + fecha + "' , '" + fpago + "' , " + estado + ", " + montoIngresado + " , " + vuelto + ","+monto+");";
+        }
         try {
             objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
@@ -67,7 +71,7 @@ public class clsCuota {
         return 0;
     }
     
-     public ResultSet datoscliente(String documento) throws Exception{
+    public ResultSet datoscliente(String documento) throws Exception{
          strSQL = "SELECT DATOS_CLIENTE("+documento+");";
         try {
             rs=objConectar.consultarBD(strSQL);
@@ -78,5 +82,20 @@ public class clsCuota {
             throw new Exception("Error al extraer los datos del cliente");
         }
         return null;
+    }
+     
+     //para saber cuanto dinero ingreso en pagos por dia SIN contar credito
+    public float conocerMontoCaja() throws Exception{
+        float monto=0;
+        strSQL = "SELECT * FROM cuota WHERE fechapago=CURRENT_DATE and estadoPago=true;";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while (rs.next()){
+                monto+=rs.getFloat("monto");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al buscar marca");
+        }
+        return monto;
     }
 }

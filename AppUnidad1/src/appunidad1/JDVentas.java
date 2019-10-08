@@ -610,7 +610,6 @@ public class JDVentas extends javax.swing.JDialog {
     }//GEN-LAST:event_rbtFacturaActionPerformed
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
-        // TODO add your handling code here:
         tblProductos.setEnabled(true);
         tblProductos.setRowSelectionAllowed(true);
         desBotones();
@@ -619,7 +618,6 @@ public class JDVentas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnQuitarActionPerformed
 
     private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked
-        // TODO add your handling code here:
         if (tblProductos.isEnabled()){
             if(op==1){
                 int rpta = JOptionPane.showConfirmDialog(rootPane, "Seguro que desea eliminar "+ String.valueOf(tblProductos.getValueAt(tblProductos.getSelectedRow(), 1)), "SISTEMA", JOptionPane.YES_NO_OPTION);

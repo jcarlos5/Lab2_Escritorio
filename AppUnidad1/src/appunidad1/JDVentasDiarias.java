@@ -204,7 +204,7 @@ public class JDVentasDiarias extends javax.swing.JDialog {
                 if(rs.next()){
                     String doc = (rs.getBoolean("tipocomprobante"))?rs.getString("dni"):rs.getString("ruc");
                     JDVentaDatos objVentaDatos = new JDVentaDatos((Frame) SwingUtilities.getWindowAncestor(this), true);
-                    objVentaDatos.setDatos(rs.getInt("numventa"),rs.getString("c.nombres"), doc,rs.getFloat("subtotal"), rs.getFloat("igv"), rs.getFloat("total"),rs.getFloat("cu.vuelto"), rs.getBoolean("cu.cancelado"),rs.getBoolean("tipocomprobante") );
+                    objVentaDatos.setDatos(rs.getInt("numventa"),rs.getString("nombres"), doc,rs.getFloat("subtotal"), rs.getFloat("igv"), rs.getFloat("total"),rs.getFloat("vuelto"), rs.getBoolean("cancelada"),rs.getBoolean("tipocomprobante") );
                     objVentaDatos.setLocationRelativeTo(this);
                     objVentaDatos.setVisible(true);
                 }

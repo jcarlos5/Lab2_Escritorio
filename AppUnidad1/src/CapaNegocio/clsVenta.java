@@ -83,7 +83,7 @@ public class clsVenta {
 
     public ResultSet listarVenta(int numVenta) throws Exception{
         strSQL = "SELECT v.*, c.dni, c.ruc,c.nombres, cu.vuelto, cu.ingreso, cu.cancelada FROM venta v inner join cliente c on v.codcliente=c.codcliente inner join cuota cu on v.numventa=cu.codventa"
-                + "WHERE numventa = " + numVenta;
+                + " WHERE numventa = " + numVenta;
         try {
             rs=objConectar.consultarBD(strSQL);
             return rs;

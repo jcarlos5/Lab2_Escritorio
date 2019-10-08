@@ -68,6 +68,9 @@ public class JDPagoCredito extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -256,6 +259,9 @@ public class JDPagoCredito extends javax.swing.JDialog {
             spnNumCuotas.setValue(0);
         }
         generarCuotas();
+        if ((int)spnNumCuotas.getValue()>0) {
+            btnGuardar.setVisible(true);
+        }
     }//GEN-LAST:event_spnNumCuotasStateChanged
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -283,6 +289,10 @@ public class JDPagoCredito extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+       
+    }//GEN-LAST:event_formWindowActivated
+
     private void generarCuotas(){
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("N° Cuota");
@@ -304,7 +314,7 @@ public class JDPagoCredito extends javax.swing.JDialog {
             String newFecha = String.format("%02d-%02d-%04d",fecha.get(Calendar.DAY_OF_MONTH),fecha.get(Calendar.MONTH)+1,fecha.get(Calendar.YEAR));
             modelo.addRow(new Object[]{i+1, newFecha});
             
-            cuotas[i] = new String[]{txtNumeroVenta.getText(), "1", newFecha, "null", "false", "null", "null", String.valueOf(apagar)};
+            cuotas[i] = new String[]{txtNumeroVenta.getText(), String.valueOf(i+1), newFecha, "null", "false", "null", "null", String.valueOf(apagar)};
             
             if(rbtSemanal.isSelected()){
                 fecha.add(fecha.DAY_OF_YEAR, 7);
@@ -313,51 +323,7 @@ public class JDPagoCredito extends javax.swing.JDialog {
             }
         }
     }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDPagoCredito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDPagoCredito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDPagoCredito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDPagoCredito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                JDPagoCredito dialog = new JDPagoCredito(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-    
+        
     private void limpiarControles(){
         btnGuardar.setVisible(false);
     }

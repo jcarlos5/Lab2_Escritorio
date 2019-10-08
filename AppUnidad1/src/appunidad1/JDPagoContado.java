@@ -6,8 +6,9 @@
 package appunidad1;
 
 import java.awt.event.KeyEvent;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.sql.Date;
+import java.time.LocalDate;
+import javafx.util.converter.LocalDateStringConverter;
 import javax.swing.JOptionPane;
 
 /**
@@ -201,7 +202,9 @@ public class JDPagoContado extends javax.swing.JDialog {
                 lblVuelto.setVisible(true);
                 btnGuardar.setVisible(true);
                 cuotas = new String[1][8];
-                cuotas[0] = new String[]{txtNumeroVenta.getText(), "1", "CURRENT_DATE", "CURRENT_DATE", "true", txtPago.getText(), lblVuelto.getText(), txtMonto.getText()};
+                LocalDate ld = LocalDate.now();
+                Date fe = Date.valueOf(ld);
+                cuotas[0] = new String[]{txtNumeroVenta.getText(), "1", String.valueOf(fe),String.valueOf(fe) , "true", txtPago.getText(), lblVuelto.getText(), txtMonto.getText()};
             }
         }
     }//GEN-LAST:event_txtPagoKeyPressed
@@ -210,58 +213,13 @@ public class JDPagoContado extends javax.swing.JDialog {
         // TODO add your handling code here:
         char []p={'1','2','3','4','5','6','7','8','9','0','.'};
         int b=0;
-        for(int i=0;i<=10;i++){if (p[i]==evt.getKeyChar()){b=1;}}
+        for(int i=0;i<=10;i++){if (p[i] == evt.getKeyChar()){b=1;}}
         if(b==0){
             evt.consume();
             getToolkit().beep();
         }
     }//GEN-LAST:event_txtPagoKeyTyped
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDPagoContado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDPagoContado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDPagoContado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDPagoContado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                JDPagoContado dialog = new JDPagoContado(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-    
     private void limpiarControles(){
         lblVuelto.setVisible(false);
         btnGuardar.setVisible(false);
