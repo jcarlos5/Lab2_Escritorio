@@ -234,9 +234,12 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         try {
             // TODO add your handling code here:
             objcuota.pagarcuota(numCuota,numVenta,MontoI,Vuelto);
+            JOptionPane.showMessageDialog(this, "Pago Realizado");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
+        limpiarControles();
+        listarDeudas();
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -339,6 +342,11 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         }
     }
     
+    private void limpiarControles(){
+        txtMonto.setText("");
+        txtMontoIngresado.setText("");
+        txtVuelto.setText("");
+    }
     /**
      * @param args the command line arguments
      */
@@ -388,10 +396,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         });
     }
     
-    private void limpiarControles(){
-        txtDocumento.setText("");
-        //btnPagar.setVisible(false);
-    }
+    
     
     
     
