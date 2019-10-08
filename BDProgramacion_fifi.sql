@@ -1,5 +1,6 @@
 --Fecha de Creación	: 07 de Octubre del 2019
 --Última moficiación	: 07 de Octubre del 2019
+--Autores		: Sara Benel, Paola Castro, Cinthya Yomona, Jose Vilchez
 
 -- Database: "BDProgramacion"
 
@@ -223,20 +224,8 @@ INSERT INTO CLIENTE VALUES(5, null, '75193466519', 'Los Olivares SAC', '95319406
 INSERT INTO CLIENTE VALUES(6, '71359403', null, 'Julio Jaramillo', '991025349', 'Ferreñafe', 'jjaramillo@gmail.com', TRUE, 1);
 INSERT INTO CLIENTE VALUES(7, '79163522', '731526940', 'Gustavo Rios', '920136490', 'Chiclayo', 'riosgustavo@hotmail.com', TRUE, 3);
 
---SOLUCIÓN AL PROBLEMA DE SELECCIÓN DE RADIO BUTTON XD
-/*
-DELETE FROM CLIENTE;
-INSERT INTO CLIENTE VALUES(1, '76594288', null, 'Juan Perez Piña', '953406872', 'Chiclayo', 'jperez@usat.edu.pe', TRUE, 1);
-INSERT INTO CLIENTE VALUES(2, '72120524', null, 'Franco Escamilla', '974763843', 'Chiclayo', 'diablo@gmail.com', TRUE, 1);
-INSERT INTO CLIENTE VALUES(3, '45331977', '58413649224', 'Pablo Pulido', '961431251', 'Ferreñafe', 'pp@gmail.com', TRUE, 3);
-INSERT INTO CLIENTE VALUES(4, '46197244', null, 'Pedro Zelada', '934016823', 'Lambayeque', 'pzelada@hotmail.com', FALSE, 1);
-INSERT INTO CLIENTE VALUES(5, null, '75193466519', 'Los Olivares SAC', '953194069', 'Chiclayo', 'olivares.info@gmail.com', TRUE, 2);
-INSERT INTO CLIENTE VALUES(6, '71359403', null, 'Julio Jaramillo', '991025349', 'Ferreñafe', 'jjaramillo@gmail.com', TRUE, 1);
-INSERT INTO CLIENTE VALUES(7, '79163522', '731526940', 'Gustavo Rios', '920136490', 'Chiclayo', 'riosgustavo@hotmail.com', TRUE, 3);
-*/
-
---El triggercito
-CREATE OR REPLACE FUNCTION actualizarventa()RETURNS TRIGGER AS
+--TRIGGER PARA ACTUALIZAR VENTA CUANDO SE TERMINEN DE PAGAR LAS CUOTAS
+CREATE OR REPLACE FUNCTION actualizarventa() RETURNS TRIGGER AS
 $$
 DECLARE
 	c int;
