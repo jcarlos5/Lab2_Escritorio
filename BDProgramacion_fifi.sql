@@ -231,12 +231,12 @@ BEGIN
 	WHERE c.cancelada=true;
 	
 	IF(d=c)THEN
-		UPDATE venta SET estado=true WHERE numventa=new.codventa;
+		UPDATE venta SET estadopago=true WHERE numventa=new.codventa;
 	END IF;
 	
 	return new;
 END;
 $$LANGUAGE 'plpgsql';
 
-CREATE TRIGGER TG_ActualizarVentas AFTER UPDATE ON  cuota
+CREATE TRIGGER TG_ActualizarVentas AFTER UPDATE ON cuota
 FOR EACH ROW EXECUTE PROCEDURE actualizarventa();
