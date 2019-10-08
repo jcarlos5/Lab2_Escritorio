@@ -19,7 +19,7 @@ public class clsCuota {
     ResultSet rs=null;
     
     //para registrar pagos
-    public void registrarCuota(String numVenta, String numCuota, String fecha, String fpago, String estado, String montoIngresado, String vuelto,String monto) throws Exception{
+    public void registrarCuota(String numVenta, String numCuota, String fecha, String fpago,String estado, String montoIngresado, String vuelto,String monto) throws Exception{
         strSQL = "INSERT INTO cuota VALUES (" + numVenta + ", " + numCuota + ", '" + fecha + "', '" + fpago + "', " + estado + ", " + montoIngresado + " , " + vuelto + ","+monto+");";
         try {
             objConectar.ejecutarBD(strSQL);
