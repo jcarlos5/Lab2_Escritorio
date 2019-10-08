@@ -37,13 +37,10 @@ public class clsCuota {
          strSQL = "SELECT * FROM LISTAR_DEUDA('"+documento+"');";
         try {
             rs=objConectar.consultarBD(strSQL);
-            while(rs.next()){
-                return rs;
-            }
+            return rs;
         } catch (Exception e) {
             throw new Exception("Error al listar las cuotas pendientes de pago del cliente");
         }
-        return null;
     }
     
     //pagar una cuota 
@@ -59,7 +56,7 @@ public class clsCuota {
     
     //Saber si hay deudas
     public int saberdeuda(String documento) throws Exception{
-         strSQL = "SELECT DEUDA('"+documento+"') as resultado;";
+         strSQL = "SELECT * FROM DEUDA('"+documento+"') as resultado;";
         try {
             rs=objConectar.consultarBD(strSQL);
             while(rs.next()){
@@ -72,16 +69,13 @@ public class clsCuota {
     }
     
     public ResultSet datoscliente(String documento) throws Exception{
-         strSQL = "SELECT DATOSCLIENTE("+documento+");";
+         strSQL = "SELECT * FROM DATOSCLIENTE('"+documento+"');";
         try {
             rs=objConectar.consultarBD(strSQL);
-            while(rs.next()){
-                return rs;
-            }
+            return rs;
         } catch (Exception e) {
             throw new Exception("Error al extraer los datos del cliente");
         }
-        return null;
     }
      
      //para saber cuanto dinero ingreso en pagos por dia SIN contar credito

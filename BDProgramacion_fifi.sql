@@ -152,7 +152,7 @@ BEGIN
 END;
 $$language 'plpgsql';
 
-CREATE OR REPLACE FUNCTION DATOSCLIENTE(d varchar)RETURNS TABLE(NumVenta int,Nombres varchar) AS
+CREATE OR REPLACE FUNCTION DATOSCLIENTE(d varchar)RETURNS TABLE(numVenta int, nombres varchar) AS
 $$
 DECLARE
 BEGIN
@@ -223,11 +223,11 @@ DECLARE
 BEGIN 
 	Select COUNT(*) INTO c FROM cliente 
 	inner join venta on cliente.codcliente=venta.codcliente
-	inner join (SELECT* FROM cuota WHERE cuota.codventa=new.codventa) c on c.codventa=venta.numventa;
+	inner join (SELECT * FROM cuota WHERE cuota.codventa=new.codventa) c on c.codventa=venta.numventa;
 	
 	Select COUNT(*) INTO d FROM cliente 
 	inner join venta on cliente.codcliente=venta.codcliente
-	inner join (SELECT* FROM cuota WHERE cuota.codventa=new.codventa) c on c.codventa=venta.numventa
+	inner join (SELECT * FROM cuota WHERE cuota.codventa=new.codventa) c on c.codventa=venta.numventa
 	WHERE cuota.cancelada=true;
 	
 	IF(d=c)THEN
@@ -236,7 +236,7 @@ BEGIN
 	
 	
 END;
-$$LANGUAGE 'plpgsql'
+$$LANGUAGE 'plpgsql';
 
-CREATE TRIGGER TG_ActualizarVentas AFTER INSERT ON  cuota
+CREATE TRIGGER TG_ActualizarVentas AFTER UPDATE ON  cuota
 FOR EACH ROW EXECUTE PROCEDURE actualizarventa();

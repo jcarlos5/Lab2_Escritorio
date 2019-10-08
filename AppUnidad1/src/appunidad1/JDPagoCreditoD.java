@@ -125,16 +125,10 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnPagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
@@ -145,13 +139,14 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
                             .addComponent(txtNumeroVenta)
                             .addComponent(txtNombre)
                             .addComponent(txtDocumento)
-                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNumeroVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -167,11 +162,11 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(btnPagar)
-                .addGap(34, 34, 34))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -199,7 +194,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
             // TODO add your handling code here:
             objcuota.pagarcuota(numCuota,numVenta);
         } catch (Exception ex) {
-            Logger.getLogger(JDPagoCreditoD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
     }//GEN-LAST:event_btnPagarActionPerformed
 
@@ -251,7 +246,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         try {
             rscuota=objcuota.listarcuotasporpagar(documento);
             while(rscuota.next()){
-                modelo.addRow(new Object[]{rscuota.getInt("numVenta"),rscuota.getInt("numcuota"),rscuota.getFloat("monto"), rscuota.getString("fecha"), rscuota.getBoolean("cancelada")});
+                modelo.addRow(new Object[]{rscuota.getInt("numVenta"),rscuota.getInt("numcuota"),rscuota.getFloat("monto"), rscuota.getString("fecha"), rscuota.getBoolean("Estado")});
            }
         } catch (Exception e) {
            JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -261,7 +256,6 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
     }
     
     private void datos(){
- 
         documento=txtDocumento.getText();
         ResultSet rs=null;
         
@@ -269,10 +263,10 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
             rs=objcuota.datoscliente(documento);
             while(rs.next()){
                 txtNombre.setText(rs.getString("nombres"));
-                txtNumeroVenta.setText(rs.getString("numventa"));
+                txtNumeroVenta.setText(rs.getString("numVenta"));
             }
         } catch (Exception ex) {
-            Logger.getLogger(JDPagoCreditoD.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
     }
     
