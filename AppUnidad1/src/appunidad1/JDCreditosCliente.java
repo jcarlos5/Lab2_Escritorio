@@ -6,6 +6,7 @@
 package appunidad1;
 
 import CapaNegocio.clsCuota;
+import CapaNegocio.clsVenta;
 import java.awt.event.KeyEvent;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.sql.Date;
@@ -39,8 +40,6 @@ public class JDCreditosCliente extends javax.swing.JDialog {
         txtID = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVentasCredito = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -52,53 +51,33 @@ public class JDCreditosCliente extends javax.swing.JDialog {
 
         tblVentasCredito.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(tblVentasCredito);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+                    .addComponent(txtID))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
                 .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -115,8 +94,9 @@ public class JDCreditosCliente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtIDKeyTyped
     private void listarCreditos(String cli){
-        ResultSet rsMarcas = null;
+        ResultSet rs;
         DefaultTableModel model = new DefaultTableModel();
+        clsVenta objVenta = new clsVenta();
         try {
             model.addColumn("Codigo");
             model.addColumn("Fecha");
@@ -126,20 +106,19 @@ public class JDCreditosCliente extends javax.swing.JDialog {
             model.addColumn("Total");
             model.addColumn("Estado de pago");
         
-            rsMarcas = objVenta.listarVenta(fech);
-            while (rsMarcas.next()){
-                String tipoc = (rsMarcas.getBoolean("tipocomprobante")) ? "Boleta":"Factura" ;
-                model.addRow(new Object[]{rsMarcas.getInt("numventa"), 
-                    rsMarcas.getString("fecha"),
+            rs = objVenta.listarVentaCredito(cli);
+            while (rs.next()){
+                String tipoc = (rs.getBoolean("tipocomprobante")) ? "Boleta":"Factura" ;
+                model.addRow(new Object[]{rs.getInt("numventa"), 
+                    rs.getString("fecha"),
                     tipoc, 
-                    rsMarcas.getFloat("subtotal"),
-                    rsMarcas.getFloat("igv"),
-                    rsMarcas.getFloat("total"),
-                    rsMarcas.getBoolean("estadopago")
+                    rs.getFloat("igv"),
+                    rs.getFloat("subtotal"),
+                    rs.getFloat("total"),
+                    rs.getBoolean("estadopago")
                 } );
             }
-            tblVentasDiarias.setModel(model);
-            lblCantVentas.setText(String.valueOf(tblVentasDiarias.getRowCount()));
+            tblVentasCredito.setModel(model);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error", "Error al listar tabla", WIDTH);
         }
@@ -189,8 +168,6 @@ public class JDCreditosCliente extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable tblVentasCredito;
     private javax.swing.JTextField txtID;
     // End of variables declaration//GEN-END:variables

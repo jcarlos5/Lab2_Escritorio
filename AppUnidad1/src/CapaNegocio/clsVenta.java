@@ -31,8 +31,8 @@ public class clsVenta {
         return 0;
     }
     
-    public void registrar(int cod, float total, float subtotal, float igv, boolean tipo, int cliente, boolean contado) throws Exception{
-        strSQL = "INSERT INTO venta VALUES (" + cod + ", " + cliente + ", CURRENT_DATE, " + igv + ", " + subtotal + ", " + total + ", " + tipo + ", " + contado + ");";
+    public void registrar(int cod, float total, float subtotal, float igv, boolean tipo, int cliente, boolean pago, boolean contado) throws Exception{
+        strSQL = "INSERT INTO venta VALUES (" + cod + ", " + cliente + ", CURRENT_DATE, " + igv + ", " + subtotal + ", " + total + ", " + tipo + ", " + pago + ", "+contado +" );";
         try {
             objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
@@ -91,7 +91,7 @@ public class clsVenta {
             throw new Exception("Error al listar ventas por numero de venta");
         }
     }
-    
+    //para listar las ventas no pagadas del cliente
     public ResultSet listarVentaPorCliente(int codcliente) throws Exception{
         strSQL = "SELECT * FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE codcliente = " + codcliente + " and estadopago = false;";
         try {
@@ -105,6 +105,16 @@ public class clsVenta {
     //para listar los detalles por venta
     public ResultSet listarDetalleVenta(int venta) throws Exception{
         strSQL = "SELECT d.*, p.nomproducto FROM detalle d inner join producto p on d.codproducto=p.codproducto WHERE d.numventa = " + venta+ " ;";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error ");
+        }
+    }
+    
+    public ResultSet listarVentaCredito(String dniruc) throws Exception{
+        strSQL = "SELECT * FROM venta v INNER JOIN cliente c on v.codcliente=c.codcliente WHERE c.dni ='" + dniruc+"' or c.ruc='"+dniruc+"' and v.tipopago=false;";
         try {
             rs=objConectar.consultarBD(strSQL);
             return rs;
