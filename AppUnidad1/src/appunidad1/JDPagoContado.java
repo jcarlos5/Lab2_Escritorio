@@ -5,6 +5,7 @@
  */
 package appunidad1;
 
+import CapaNegocio.clsCuota;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
 public class JDPagoContado extends javax.swing.JDialog {
     boolean pagado=false;
     String[][] cuotas;
+    clsCuota objcuota = new clsCuota();
 
     /**
      * Creates new form JDPago2
