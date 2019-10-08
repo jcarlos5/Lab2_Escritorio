@@ -238,5 +238,22 @@ BEGIN
 END;
 $$LANGUAGE 'plpgsql';
 
+/*
+CREATE OR REPLACE FUNCTION actualizarventa()RETURNS TRIGGER AS
+$$
+DECLARE
+	porpagar int;
+BEGIN 
+	SELECT COUNT(*) INTO porpagar FROM cuota WHERE codventa = new.codventa AND cancelada = false;
+	
+	IF porpagar=0 THEN
+		UPDATE venta SET estadopago=true WHERE numventa=new.codventa;
+	END IF;
+
+	RETURN new;
+END;
+$$LANGUAGE 'plpgsql';
+*/
+
 CREATE TRIGGER TG_ActualizarVentas AFTER UPDATE ON  cuota
 FOR EACH ROW EXECUTE PROCEDURE actualizarventa();
