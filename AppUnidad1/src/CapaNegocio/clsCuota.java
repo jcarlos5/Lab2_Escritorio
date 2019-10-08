@@ -44,8 +44,8 @@ public class clsCuota {
     }
     
     //pagar una cuota 
-    public void pagarcuota(int codcuota, int codventa) throws Exception{
-         strSQL = "UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
+    public void pagarcuota(int codcuota, int codventa, String montoIngresado,String vuelto) throws Exception{
+         strSQL = "UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE,ingreso="+montoIngresado+",vuelto="+vuelto+" WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
         try {
             objConectar.ejecutarBD(strSQL);
             
@@ -69,7 +69,8 @@ public class clsCuota {
     }
     
     public ResultSet datoscliente(String documento) throws Exception{
-         strSQL = "SELECT * FROM DATOSCLIENTE('"+documento+"');";
+        strSQL = "SELECT * FROM DATOSCLIENTE('"+documento+"');";
+
         try {
             rs=objConectar.consultarBD(strSQL);
             return rs;
