@@ -234,7 +234,7 @@ BEGIN
 		UPDATE venta SET estado=true WHERE numventa=new.codventa;
 	END IF;
 	
-	
+	return new;
 END;
 $$LANGUAGE 'plpgsql';
 
