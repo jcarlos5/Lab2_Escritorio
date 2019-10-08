@@ -556,7 +556,8 @@ public class JDVentas extends javax.swing.JDialog {
                     objVenta.registrar(Integer.parseInt(txtCodVenta.getText()), Float.parseFloat(txtTotal.getText()), Float.parseFloat(txtSubTotal.getText()), Float.parseFloat(txtIgv.getText()), rbtBoleta.isSelected(), Integer.parseInt(txtCod.getText()), contado);
                     int ctd = tblProductos.getRowCount();
                     for (int i=0; i<ctd; i++){
-                        objVenta.registrarDetalle(txtCodVenta.getText(), tblProductos.getValueAt(i, 0).toString(), tblProductos.getValueAt(i, 3).toString(), tblProductos.getValueAt(i, 2).toString(), "0", tblProductos.getValueAt(i, 4).toString());
+                        String descuento = tblProductos.getValueAt(i, 3).toString();
+                        objVenta.registrarDetalle(txtCodVenta.getText(), tblProductos.getValueAt(i, 0).toString(), tblProductos.getValueAt(i, 5).toString(), tblProductos.getValueAt(i, 2).toString(), descuento.substring(0, descuento.length()-1), tblProductos.getValueAt(i, 6).toString());
                     }
                     int i=0;
                     clsCuota objCuota = new clsCuota();
@@ -568,6 +569,7 @@ public class JDVentas extends javax.swing.JDialog {
                             i=-1;
                         }
                     }
+                    JOptionPane.showMessageDialog(rootPane, "Venta Registrada Correctamente");
                     limpiarControles();
                     generarCodigo();
                 }

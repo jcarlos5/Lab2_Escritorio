@@ -45,7 +45,7 @@ public class clsVenta {
         try {
             objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
-            throw new Exception("Error al guardar Venta");
+            throw new Exception("Error al guardar el detalle de venta");
         }
     }
     //para listar todas las ventas pendientes de pago - JDPAGO
