@@ -93,4 +93,37 @@ public class clsCuota {
         }
         return monto;
     }
+    
+     //para saber cuanto dinero ingreso en pagos por dia contando los creditos
+    public float conocerMonto() throws Exception{
+        strSQL = "SELECT SUM(ingresado - vuelto) as MontoTotal FROM cuota WHERE fechapago = CURRENT_DATE;";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while (rs.next()){
+              rs.getFloat("MontoTotal");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al conocer el monto");
+        }
+        return 0;
+    }
+    
+    //para saber cuanto dinero ingreso en pagos por dia SIN contar credito
+   
+    
+    //para saber el monto de solo creditos que hemos dado al dia
+    public float conocerMontoCreditos() throws Exception{
+        strSQL = "SELECT SUM(ingresado - vuelto) as MontoTotal FROM cuota WHERE fechapago = CURRENT_DATE and cancelada = FALSE;;";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while (rs.next()){
+              rs.getFloat("MontoTotal");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al conocer el monto");
+        }
+        return 0;
+    }    
+    
+    
 }

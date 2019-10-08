@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
     Thread hilo;    
-    clsPago objPago = new clsPago();
+    clsCuota objPago = new clsCuota();
     
     public JDConsultasCaja(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -186,7 +186,9 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         try {
             float montoTotal, montoCaja, montoCredito ;
-            float montCajera = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el monto que tiene en CAJA"));            
+            float montCajera = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el monto que tiene en CAJA"));
+            
+            
             montoTotal = objPago.conocerMonto();
             montoCaja = objPago.conocerMontoCaja();
             montoCredito = objPago.conocerMontoCreditos();
