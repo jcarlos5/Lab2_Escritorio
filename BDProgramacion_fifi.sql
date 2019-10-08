@@ -228,7 +228,7 @@ BEGIN
 	Select COUNT(*) INTO d FROM cliente 
 	inner join venta on cliente.codcliente=venta.codcliente
 	inner join (SELECT * FROM cuota WHERE cuota.codventa=new.codventa) c on c.codventa=venta.numventa
-	WHERE cuota.cancelada=true;
+	WHERE c.cancelada=true;
 	
 	IF(d=c)THEN
 		UPDATE venta SET estado=true WHERE numventa=new.codventa;

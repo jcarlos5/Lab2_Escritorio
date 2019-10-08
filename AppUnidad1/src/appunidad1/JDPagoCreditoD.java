@@ -299,6 +299,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
             Vuelto=MontoI-Float.parseFloat(monto);
              txtVuelto.setText(String.valueOf(Vuelto));
         }
+        
     }//GEN-LAST:event_txtMontoIngresadoActionPerformed
     private void listarDeudas(){
         
