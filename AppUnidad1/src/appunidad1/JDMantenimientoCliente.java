@@ -414,6 +414,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

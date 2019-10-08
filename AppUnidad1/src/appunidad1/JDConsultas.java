@@ -21,6 +21,7 @@ public class JDConsultas extends javax.swing.JDialog {
     clsMarca objMarca = new clsMarca();
     clsCategoria objCategoria = new clsCategoria();
     clsProducto objProducto = new clsProducto();
+    boolean buscando = false;
     /**
      * Creates new form JDConsultas
      */
@@ -85,6 +86,11 @@ public class JDConsultas extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblListado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListadoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblListado);
 
         cboMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -292,6 +298,13 @@ public class JDConsultas extends javax.swing.JDialog {
         listar();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
+        // TODO add your handling code here:
+        if(buscando){
+            dispose();
+        }
+    }//GEN-LAST:event_tblListadoMouseClicked
+
     private void llenarMarca(){
         try{
             DefaultComboBoxModel modelo = new DefaultComboBoxModel();
@@ -370,6 +383,18 @@ public class JDConsultas extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
+    }
+    
+    public int getCod(){
+        try{
+            return Integer.parseInt(String.valueOf(tblListado.getValueAt(tblListado.getSelectedRow(), 0)));
+        }catch(Exception e){
+            return -1;
+        }
+    }
+    
+    public void setBuscando(boolean busc){
+        buscando = busc;
     }
     /**
      * @param args the command line arguments

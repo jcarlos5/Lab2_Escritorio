@@ -103,13 +103,13 @@ public class clsCliente {
     public void modificarCliente(String cod, String dni, String ruc, String nom, String tel, String correo, String direccion, Boolean vig, int codtipo) throws Exception {
         switch (codtipo) {
             case 1:
-                strSQL="UPDATEcliente SET dni='" + dni + "', nombres='" + nom + "', telefono='" + tel + "', correo='" + correo + "', direccion='" + direccion + "', vigencia= " + vig + ", codtipo='" + codtipo + "' WHERE codcliente = " + cod + ";";
+                strSQL="UPDATE cliente SET dni='" + dni + "', ruc = null, nombres='" + nom + "', telefono='" + tel + "', correo='" + correo + "', direccion='" + direccion + "', vigencia= " + vig + ", codtipo=" + codtipo + " WHERE codcliente = " + cod + ";";
                 break;
             case 2:
-                strSQL="UPDATE cliente SET ruc='" + ruc + "', nombres='" + nom + "', telefono='" + tel + "', correo='" + correo + "', direccion='" + direccion + "', vigencia= " + vig + ", codtipo='" + codtipo + "' WHERE codcliente = " + cod + ";";
+                strSQL="UPDATE cliente SET dni=null,  ruc='" + ruc + "', nombres='" + nom + "', telefono='" + tel + "', correo='" + correo + "', direccion='" + direccion + "', vigencia= " + vig + ", codtipo=" + codtipo + " WHERE codcliente = " + cod + ";";
                 break;
             default:
-                strSQL="UPDATE cliente SET dni='" + dni + "', ruc='" + ruc + "', nombres='" + nom + "', telefono='" + tel + "', correo='" + correo + "', direccion='" + direccion + "', vigencia= " + vig + ", codtipo='" + codtipo + "' WHERE codcliente = " + cod + ";";
+                strSQL="UPDATE cliente SET dni='" + dni + "', ruc='" + ruc + "', nombres='" + nom + "', telefono='" + tel + "', correo='" + correo + "', direccion='" + direccion + "', vigencia= " + vig + ", codtipo=" + codtipo + " WHERE codcliente = " + cod + ";";
                 break;
         }
         

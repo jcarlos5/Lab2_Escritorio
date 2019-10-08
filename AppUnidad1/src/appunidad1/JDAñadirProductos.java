@@ -6,8 +6,10 @@
 package appunidad1;
 
 import CapaNegocio.clsProducto;
+import java.awt.Frame;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,6 +22,7 @@ public class JDAñadirProductos extends javax.swing.JDialog {
     
     private int prod=0;
     private int cant=0;
+    private int desc=0;
     /**
      * Creates new form JDAñadirProductos
      */
@@ -40,6 +43,7 @@ public class JDAñadirProductos extends javax.swing.JDialog {
         txtNombreProducto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
+        btnBusqueda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Añadir Producto");
@@ -76,20 +80,29 @@ public class JDAñadirProductos extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tblProductos);
 
+        btnBusqueda.setText("BÚSQUEDA AVANZADA");
+        btnBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBusquedaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 811, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
             .addComponent(txtNombreProducto)
+            .addComponent(btnBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnBusqueda))
         );
 
         pack();
@@ -111,25 +124,58 @@ public class JDAñadirProductos extends javax.swing.JDialog {
 
     private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked
         // TODO add your handling code here:
+        int cod = Integer.parseInt(String.valueOf(tblProductos.getValueAt(tblProductos.getSelectedRow(), 0)));
+        String ctd = String.valueOf(JOptionPane.showInputDialog(rootPane, "Ingrese la Cantidad:"));
+                
+        if (ctd!="null"){
+            try {
+                pasarDatos(cod, Integer.parseInt(ctd));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, "Cantidad no válida");
+            }
+        }
+    }//GEN-LAST:event_tblProductosMouseClicked
+
+    private void pasarDatos(int cod, int ctd){
         try {
-            int cod = Integer.parseInt(String.valueOf(tblProductos.getValueAt(tblProductos.getSelectedRow(), 0)));
-            int ctd = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "Ingrese la Cantidad:"));
-            
             int stock = objProducto.getStock(cod);
             
             if(ctd <= stock){
                 prod = cod;
                 cant = ctd;
+                String descuento = String.valueOf(JOptionPane.showInputDialog(rootPane, "Ingrese el porcentaje de descuento:", "0"));
+                try{
+                    desc = Integer.parseInt(descuento);
+                }catch(Exception e){
+                }
                 dispose();
             }else{
                 JOptionPane.showMessageDialog(rootPane, "Stock Insuficiente");
             }
-            
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Cantidad no válida");
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
+    }
+    
+    private void btnBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaActionPerformed
+        // TODO add your handling code here:
+        JDConsultas objConsulta = new JDConsultas((Frame) SwingUtilities.getWindowAncestor(this), true);
+        objConsulta.setBuscando(true);
+        objConsulta.setLocationRelativeTo(this);
+        objConsulta.setVisible(true);
+        int cod = objConsulta.getCod();
+        if(cod >0){
+            String ctd = String.valueOf(JOptionPane.showInputDialog(rootPane, "Ingrese la Cantidad:"));
         
-    }//GEN-LAST:event_tblProductosMouseClicked
+            if (ctd!="null"){
+                try {
+                    pasarDatos(cod, Integer.parseInt(ctd));
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, "Cantidad no válida");
+                }
+            }
+        }
+    }//GEN-LAST:event_btnBusquedaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,7 +247,12 @@ public class JDAñadirProductos extends javax.swing.JDialog {
     public int getCant(){
         return cant;
     }
+    
+    public int getDesc(){
+        return desc;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBusqueda;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblProductos;
     private javax.swing.JTextField txtNombreProducto;
