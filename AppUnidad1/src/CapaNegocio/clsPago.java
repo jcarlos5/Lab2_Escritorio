@@ -53,48 +53,48 @@ public class clsPago {
             throw new Exception("Error al registrar el pago de la venta");
         }
     }
-    //para saber cuanto dinero ingreso en pagos por dia SIN contar credito
-    public float conocerMontoCaja() throws Exception{
-        float monto=0;
-        strSQL = "SELECT * FROM pago WHERE fecha=CURRENT_DATE and estadoPago=true;";
-        try {
-            rs=objConectar.consultarBD(strSQL);
-            while (rs.next()){
-                monto+=rs.getFloat("monto");
-            }
-        } catch (Exception e) {
-            throw new Exception("Error al buscar marca");
-        }
-        return monto;
-    }
     //para saber cuanto dinero ingreso en pagos por dia contando los creditos
     public float conocerMonto() throws Exception{
-        float monto=0;
-        strSQL = "SELECT * FROM pago WHERE fecha=CURRENT_DATE;";
+        strSQL = "SELECT SUM(montoingresado - vuelto) as MontoTotal FROM pago WHERE fecha = CURRENT_DATE;";
         try {
             rs=objConectar.consultarBD(strSQL);
             while (rs.next()){
-                monto+=rs.getFloat("monto");
+              rs.getFloat("MontoTotal");
             }
         } catch (Exception e) {
-            throw new Exception("Error al buscar marca");
+            throw new Exception("Error al conocer el monto");
         }
-        return monto;
+        return 0;
     }
+    
+    //para saber cuanto dinero ingreso en pagos por dia SIN contar credito
+    public float conocerMontoCaja() throws Exception{
+        strSQL = "SELECT SUM(montoingresado - vuelto) as MontoTotal FROM pago WHERE fecha = CURRENT_DATE and estadoPago=true;";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while (rs.next()){
+              rs.getFloat("MontoTotal");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al conocer el monto");
+        }
+        return 0;
+    }
+    
     //para saber el monto de solo creditos que hemos dado al dia
     public float conocerMontoCreditos() throws Exception{
-        float monto=0;
-        strSQL = "SELECT * FROM pago WHERE fecha=CURRENT_DATE and estadoPago=false;";
+        strSQL = "SELECT SUM(montoingresado - vuelto) as MontoTotal FROM pago WHERE fecha = CURRENT_DATE and estadoPago = FALSE;;";
         try {
             rs=objConectar.consultarBD(strSQL);
             while (rs.next()){
-                monto+=rs.getFloat("monto");
+              rs.getFloat("MontoTotal");
             }
         } catch (Exception e) {
-            throw new Exception("Error al buscar marca");
+            throw new Exception("Error al conocer el monto");
         }
-        return monto;
-    }
+        return 0;
+    }    
+    
     //para conocer el numero de deudas que tiene un cliente 
     public int conocerDeuda(int codcliente) throws Exception{
         int deuda=0;

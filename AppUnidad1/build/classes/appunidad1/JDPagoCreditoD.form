@@ -84,7 +84,6 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane1" alignment="1" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="32" max="32767" attributes="0"/>
               </Group>
@@ -215,6 +214,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMontoIngresado">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMontoIngresadoActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMontoIngresadoKeyPressed"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMontoIngresadoKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtVuelto">
         </Component>

@@ -22,10 +22,11 @@ import javax.swing.table.DefaultTableModel;
 public class JDPagoCreditoD extends javax.swing.JDialog {
     clsCuota objcuota = new clsCuota();
     String documento;
+    String monto;
     int numVenta;
     int numCuota;
-    String MontoI;
-    String Vuelto;
+    Float MontoI;
+    Float Vuelto;
     
     /**
      * Creates new form JDPago2
@@ -130,6 +131,20 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
 
         jLabel6.setText("Vuelto:");
 
+        txtMontoIngresado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMontoIngresadoActionPerformed(evt);
+            }
+        });
+        txtMontoIngresado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMontoIngresadoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMontoIngresadoKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -162,7 +177,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,9 +234,12 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         try {
             // TODO add your handling code here:
             objcuota.pagarcuota(numCuota,numVenta,MontoI,Vuelto);
+            JOptionPane.showMessageDialog(this, "Pago Realizado");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
+        limpiarControles();
+        listarDeudas();
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -259,21 +277,33 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         //Extraer los datos de la tabla 
         numVenta = (int) (tblCuotas.getValueAt(tblCuotas.getSelectedRow(), 0));
         numCuota= (int) (tblCuotas.getValueAt(tblCuotas.getSelectedRow(), 1));
-        String monto=String.valueOf(tblCuotas.getValueAt(tblCuotas.getSelectedRow(), 2));
+        monto=String.valueOf(tblCuotas.getValueAt(tblCuotas.getSelectedRow(), 2));
         txtMonto.setText(String.valueOf(monto));
-        MontoI=txtMontoIngresado.getText();
-        Float calcular=Float.parseFloat(MontoI)-Float.parseFloat(monto);
-        
-        if (Float.parseFloat(MontoI)<Float.parseFloat(monto)){
+    }//GEN-LAST:event_tblCuotasMouseClicked
+
+    private void txtMontoIngresadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoIngresadoKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMontoIngresadoKeyReleased
+
+    private void txtMontoIngresadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoIngresadoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMontoIngresadoKeyPressed
+
+    private void txtMontoIngresadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoIngresadoActionPerformed
+        // TODO add your handling code here:
+         MontoI=Float.parseFloat(txtMontoIngresado.getText());
+         
+        if (MontoI<Float.parseFloat(monto)){
             JOptionPane.showMessageDialog(this, "El Monto Ingresado es Menor Monto Solicitado");
             Vuelto=null;
+            txtVuelto.setText("");
+            txtMontoIngresado.setText("");
         }else{
-            Vuelto = String.valueOf(calcular);
+            Vuelto=MontoI-Float.parseFloat(monto);
+             txtVuelto.setText(String.valueOf(Vuelto));
         }
         
-        
-        
-    }//GEN-LAST:event_tblCuotasMouseClicked
+    }//GEN-LAST:event_txtMontoIngresadoActionPerformed
     private void listarDeudas(){
         
         documento=txtDocumento.getText();
@@ -312,6 +342,11 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         }
     }
     
+    private void limpiarControles(){
+        txtMonto.setText("");
+        txtMontoIngresado.setText("");
+        txtVuelto.setText("");
+    }
     /**
      * @param args the command line arguments
      */
@@ -361,10 +396,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         });
     }
     
-    private void limpiarControles(){
-        txtDocumento.setText("");
-        //btnPagar.setVisible(false);
-    }
+    
     
     
     
