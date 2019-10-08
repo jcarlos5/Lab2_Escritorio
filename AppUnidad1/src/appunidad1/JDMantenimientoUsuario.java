@@ -359,7 +359,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         if(modoPerfil){
             modoPerfil(user);
             obtenerDatos();
-            this.setSize(this.getWidth(), this.getHeight()-210);
+            this.setSize(this.getWidth(), 310);
         }
     }//GEN-LAST:event_formWindowActivated
 

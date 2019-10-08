@@ -154,7 +154,7 @@ public class clsUsuario {
                 return sesion;
             }
         } catch (Exception e) {
-            throw new Exception("Error al consultar la BDfdfd");
+            throw new Exception("Error al consultar la BD");
         }
         return null;
     }
