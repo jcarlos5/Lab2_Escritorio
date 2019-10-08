@@ -24,8 +24,8 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
     String documento;
     int numVenta;
     int numCuota;
-    String MontoI;
-    String Vuelto;
+    Float MontoI;
+    Float Vuelto;
     
     /**
      * Creates new form JDPago2
@@ -162,7 +162,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,18 +261,18 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         numCuota= (int) (tblCuotas.getValueAt(tblCuotas.getSelectedRow(), 1));
         String monto=String.valueOf(tblCuotas.getValueAt(tblCuotas.getSelectedRow(), 2));
         txtMonto.setText(String.valueOf(monto));
-        MontoI=txtMontoIngresado.getText();
-        Float calcular=Float.parseFloat(MontoI)-Float.parseFloat(monto);
+        MontoI=Float.parseFloat(txtMontoIngresado.getText());
         
-        if (Float.parseFloat(MontoI)<Float.parseFloat(monto)){
+        
+        if (MontoI<Float.parseFloat(monto)){
             JOptionPane.showMessageDialog(this, "El Monto Ingresado es Menor Monto Solicitado");
             Vuelto=null;
+            txtVuelto.setText("");
+            txtMontoIngresado.setText("");
         }else{
-            Vuelto = String.valueOf(calcular);
+            Vuelto=MontoI-Float.parseFloat(monto);
+             txtVuelto.setText(String.valueOf(Vuelto));
         }
-        
-        
-        
     }//GEN-LAST:event_tblCuotasMouseClicked
     private void listarDeudas(){
         

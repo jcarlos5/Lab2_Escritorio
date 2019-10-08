@@ -44,7 +44,7 @@ public class clsCuota {
     }
     
     //pagar una cuota 
-    public void pagarcuota(int codcuota, int codventa, String montoIngresado,String vuelto) throws Exception{
+    public void pagarcuota(int codcuota, int codventa, Float montoIngresado,Float vuelto) throws Exception{
          strSQL = "UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE,ingreso="+montoIngresado+",vuelto="+vuelto+" WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
         try {
             objConectar.ejecutarBD(strSQL);
