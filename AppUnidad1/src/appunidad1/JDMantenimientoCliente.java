@@ -25,6 +25,8 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
     public JDMantenimientoCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cboTipo.setSelectedIndex(0);
+        listarTiposClientes();
     }
 
     /**
@@ -337,8 +339,6 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
                     objCliente.registrar(txtCodigo.getText(), txtDni.getText(), txtRuc.getText(), txtNombre.getText(), txtTelefono.getText(), txtCorreo.getText(), txtDireccion.getText(), chkVigencia.isSelected(), cboTipo.getSelectedIndex()+1);
                     limpiarControles();
                     listarClientes();
-                }else{
-                    JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
                 }
             }
         } catch (Exception e) {
@@ -347,7 +347,6 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        listarTiposClientes();
         listarClientes();
     }//GEN-LAST:event_formWindowActivated
 
@@ -410,8 +409,6 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
                 objCliente.modificarCliente(txtCodigo.getText(), txtDni.getText(), txtRuc.getText(), txtNombre.getText(), txtTelefono.getText(), txtCorreo.getText(), txtDireccion.getText(), chkVigencia.isSelected(), cboTipo.getSelectedIndex()+1);
                 limpiarControles();
                 listarClientes();
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -430,6 +427,8 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
 
     private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
         // TODO add your handling code here:
+        limpiarControles();
+        btnNuevo.setText("NUEVO");
         txtCodigo.setText(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0)));
         btnBuscarActionPerformed(null);
     }//GEN-LAST:event_tblClientesMouseClicked
@@ -517,8 +516,21 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         
         if(txtCodigo.getText().replace(" ", "").length()!=0 && txtNombre.getText().replace(" ", "").length()!=0){
             if((cboTipo.getSelectedIndex()==0 && txtDni.getText().replace(" ", "").length()!=0) || (cboTipo.getSelectedIndex()==1 && txtRuc.getText().replace(" ", "").length()!=0) || (txtDni.getText().replace(" ", "").length()!=0 && txtRuc.getText().replace(" ", "").length()!=0)){
-                valido = true;
+                if(cboTipo.getSelectedIndex()==0 && txtDni.getText().replace(" ", "").length()!=8){
+                    JOptionPane.showMessageDialog(rootPane, "DNI no válido");
+                    txtDni.requestFocus();
+                }else if(cboTipo.getSelectedIndex()==1 && txtRuc.getText().replace(" ", "").length()!=11){
+                    JOptionPane.showMessageDialog(rootPane, "RUC no válido");
+                }else if(cboTipo.getSelectedIndex()==2 && (txtDni.getText().replace(" ", "").length()!=8 || txtRuc.getText().replace(" ", "").length()!=11)){
+                    JOptionPane.showMessageDialog(rootPane, "DNI o RUC incorrectos");
+                }else{
+                    valido = true;
+                }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
             }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
         }
         
         return valido;

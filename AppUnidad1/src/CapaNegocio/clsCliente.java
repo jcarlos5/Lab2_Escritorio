@@ -29,7 +29,7 @@ public class clsCliente {
     }
     
     public ResultSet filtrarClientes(String cadena) throws Exception{
-        strSQL = "SELECT * FROM CLIENTE WHERE dni LIKE '" + cadena + "%' OR ruc LIKE '" + cadena + "%';";
+        strSQL = "SELECT * FROM CLIENTE WHERE dni LIKE '" + cadena + "%' OR ruc LIKE '" + cadena + "%' ORDER BY codcliente;";
         try {
             rs = objConectar.consultarBD(strSQL);
             return rs;
