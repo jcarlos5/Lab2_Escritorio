@@ -79,48 +79,44 @@ public class clsCuota {
         }
     }
      
-     //para saber cuanto dinero ingreso en pagos por dia SIN contar credito
-    public float conocerMontoCaja() throws Exception{
-        float monto=0;
-        strSQL = "SELECT * FROM cuota WHERE fechapago=CURRENT_DATE and estadoPago=true;";
-        try {
-            rs=objConectar.consultarBD(strSQL);
-            while (rs.next()){
-                monto+=rs.getFloat("monto");
-            }
-        } catch (Exception e) {
-            throw new Exception("Error al buscar marca");
-        }
-        return monto;
-    }
-    
      //para saber cuanto dinero ingreso en pagos por dia contando los creditos
     public float conocerMonto() throws Exception{
-        strSQL = "SELECT SUM(ingresado - vuelto) as MontoTotal FROM cuota WHERE fechapago = CURRENT_DATE;";
+        strSQL = "SELECT SUM(total) as MontoTotal FROM venta WHERE fecha = current_date ";
         try {
             rs=objConectar.consultarBD(strSQL);
             while (rs.next()){
-              rs.getFloat("MontoTotal");
+              return rs.getFloat("MontoTotal");
             }
         } catch (Exception e) {
-            throw new Exception("Error al conocer el monto");
+            throw new Exception("Error al conocer el monto TOTAL");
+        }
+    return 0;
+    }
+    
+     //para saber cuanto dinero ingreso en pagos por dia CONTADO
+    public float conocerMontoCaja() throws Exception{
+        strSQL = "SELECT SUM(total) as MontoTotal FROM venta WHERE fecha= current_date and tipopago = true; ";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while (rs.next()){
+                return rs.getFloat("MontoTotal");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al conocer el monto de CAJA");
         }
         return 0;
     }
     
-    //para saber cuanto dinero ingreso en pagos por dia SIN contar credito
-   
-    
     //para saber el monto de solo creditos que hemos dado al dia
     public float conocerMontoCreditos() throws Exception{
-        strSQL = "SELECT SUM(ingresado - vuelto) as MontoTotal FROM cuota WHERE fechapago = CURRENT_DATE and cancelada = FALSE;;";
+        strSQL = "SELECT SUM(total) as MontoTotal FROM venta WHERE fecha= current_date and tipopago = false;";
         try {
             rs=objConectar.consultarBD(strSQL);
             while (rs.next()){
-              rs.getFloat("MontoTotal");
+              return rs.getFloat("MontoTotal");
             }
         } catch (Exception e) {
-            throw new Exception("Error al conocer el monto");
+            throw new Exception("Error al conocer el monto pasado en CUOTAS");
         }
         return 0;
     }    

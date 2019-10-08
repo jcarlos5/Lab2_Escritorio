@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
     Thread hilo;    
-    clsCuota objPago = new clsCuota();
+    clsCuota obj = new clsCuota();
     
     public JDConsultasCaja(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -43,6 +43,8 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
         txtMontoCAJA = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtMontoCREDITO = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtCAJA = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consultar Producto");
@@ -113,25 +115,30 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
 
         txtMontoCREDITO.setEditable(false);
 
+        jLabel6.setText("Cantidad Caja:");
+
+        txtCAJA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCAJAActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addGap(22, 22, 22))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(txtMontoTOTAL, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel6)
+                        .addGap(40, 40, 40)
+                        .addComponent(txtCAJA, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel7)
@@ -139,29 +146,39 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
                         .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtMontoCAJA, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMontoCREDITO, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtMontoCREDITO, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMontoTOTAL, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addGap(22, 22, 22))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtMontoTOTAL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtMontoCAJA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtMontoCREDITO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(btnSalir)
-                .addContainerGap())
+                    .addComponent(jLabel6)
+                    .addComponent(txtCAJA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnSalir)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtMontoTOTAL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtMontoCAJA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtMontoCREDITO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -185,21 +202,15 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         try {
-            float montoTotal, montoCaja, montoCredito ;
-            float montCajera = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el monto que tiene en CAJA"));
-            
-            
-            montoTotal = objPago.conocerMonto();
-            montoCaja = objPago.conocerMontoCaja();
-            montoCredito = objPago.conocerMontoCreditos();
-            txtMontoTOTAL.setText(String.valueOf(montoTotal));
-            txtMontoCAJA.setText(String.valueOf(montoCaja));
-            txtMontoCREDITO.setText(String.valueOf(montoCredito));
-            if (montCajera < montoCaja){
-                JOptionPane.showMessageDialog(this, "Existe una diferencia de dinero, causado por un error en el VUELTO","Error de Caja", JOptionPane.ERROR_MESSAGE);            
-            } else {
-                JOptionPane.showMessageDialog(this, "Felicidades, su caja cuadro PERFECTAMENTE","Felicidades!!", JOptionPane.WARNING_MESSAGE);            
-            }          
+            /*String montCajera = String.valueOf(JOptionPane.showInputDialog(rootPane, "Ingrese el monto que tiene en CAJA"));
+            if (montCajera!="null"){
+                try {
+                    evaluar(Float.parseFloat(montCajera));
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, "Cantidad no válida");
+                }
+            }*/
+                                               
         } catch (Exception ex) {
             Logger.getLogger(JDConsultasCaja.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -210,7 +221,33 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-
+    private void txtCAJAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCAJAActionPerformed
+        // TODO add your handling code here:
+        float montoCajera = Float.parseFloat(txtCAJA.getText());
+        evaluar(montoCajera);
+    }//GEN-LAST:event_txtCAJAActionPerformed
+    public void evaluar(float montCajera){
+        try {
+            float montoTotal, montoCaja, montoCredito; 
+            montoCaja = obj.conocerMontoCaja();            
+            if (montCajera == montoCaja){
+                JOptionPane.showMessageDialog(this, "Felicidades, su caja cuadro PERFECTAMENTE","Felicidades!!", JOptionPane.WARNING_MESSAGE);                
+            } else {                           
+                JOptionPane.showMessageDialog(this, "Existe una diferencia de dinero, causado por un error en el VUELTO","Error de Caja", JOptionPane.ERROR_MESSAGE);                
+            }                                                
+            montoTotal = obj.conocerMonto();
+            montoCaja = obj.conocerMontoCaja();
+            montoCredito = obj.conocerMontoCreditos();                                                                                 
+            txtMontoTOTAL.setText(String.valueOf(montoTotal));
+            txtMontoCAJA.setText(String.valueOf(montoCaja));
+            txtMontoCREDITO.setText(String.valueOf(montoCredito)); 
+            
+        } catch (Exception ex) {
+            Logger.getLogger(JDConsultasCaja.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
     public void run() {
         Thread current = Thread.currentThread();
         while (current == hilo){
@@ -280,11 +317,13 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTextField txtCAJA;
     private javax.swing.JTextField txtMontoCAJA;
     private javax.swing.JTextField txtMontoCREDITO;
     private javax.swing.JTextField txtMontoTOTAL;

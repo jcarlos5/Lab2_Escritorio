@@ -242,8 +242,20 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
 
     private void txtDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDocumentoActionPerformed
         // TODO add your handling code here:
-      listarDeudas();
+      
       datos();
+      
+        try {
+            int f=objcuota.saberdeuda(documento);
+            if(f==0){
+                JOptionPane.showMessageDialog(this, "El cliente no tiene deudas pendientes");
+                this.dispose();
+            }else{
+                listarDeudas();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JDPagoCreditoD.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_txtDocumentoActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
