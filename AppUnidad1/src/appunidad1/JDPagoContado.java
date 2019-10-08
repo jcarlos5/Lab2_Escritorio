@@ -5,9 +5,12 @@
  */
 package appunidad1;
 
+import CapaNegocio.clsCuota;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,6 +20,7 @@ import javax.swing.JOptionPane;
 public class JDPagoContado extends javax.swing.JDialog {
     boolean pagado=false;
     String[][] cuotas;
+    clsCuota objcuota = new clsCuota();
 
     /**
      * Creates new form JDPago2
@@ -202,6 +206,12 @@ public class JDPagoContado extends javax.swing.JDialog {
                 btnGuardar.setVisible(true);
                 cuotas = new String[1][8];
                 cuotas[0] = new String[]{txtNumeroVenta.getText(), "1", "CURRENT_DATE", "CURRENT_DATE", "true", txtPago.getText(), lblVuelto.getText(), txtMonto.getText()};
+                try {
+                    objcuota.registrarCuota(cuotas[0][0], cuotas[0][1],cuotas[0][2] , cuotas[0][3], cuotas[0][4], cuotas[0][5], cuotas[0][6], cuotas[0][7]);
+                } catch (Exception ex) {
+                    Logger.getLogger(JDPagoContado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         }
     }//GEN-LAST:event_txtPagoKeyPressed

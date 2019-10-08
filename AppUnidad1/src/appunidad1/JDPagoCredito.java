@@ -305,6 +305,11 @@ public class JDPagoCredito extends javax.swing.JDialog {
             modelo.addRow(new Object[]{i+1, newFecha});
             
             cuotas[i] = new String[]{txtNumeroVenta.getText(), "1", newFecha, "null", "false", "null", "null", String.valueOf(apagar)};
+            try {
+                objcuota.registrarCuota(cuotas[i][0], cuotas[i][1],cuotas[i][2] , cuotas[i][3], cuotas[i][4], cuotas[i][5], cuotas[i][6], cuotas[i][7]);
+            } catch (Exception ex) {
+                Logger.getLogger(JDPagoCredito.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
             if(rbtSemanal.isSelected()){
                 fecha.add(fecha.DAY_OF_YEAR, 7);
