@@ -157,7 +157,7 @@ $$
 DECLARE
 BEGIN
 	return query
-		Select venta.numventa,cliente.nombres from (select * from cliente where dni=d or ruc=d) cli
+		Select venta.numventa,cli.nombres from (select * from cliente where dni=d or ruc=d) cli
 		inner join venta on cli.codcliente=venta.codcliente
 		inner join cuota on cuota.codventa=venta.numventa
 		where cuota.cancelada=FALSE;
