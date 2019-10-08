@@ -72,7 +72,7 @@ public class clsCuota {
     }
     
     public ResultSet datoscliente(String documento) throws Exception{
-         strSQL = "SELECT DATOS_CLIENTE("+documento+");";
+         strSQL = "SELECT DATOSCLIENTE("+documento+");";
         try {
             rs=objConectar.consultarBD(strSQL);
             while(rs.next()){
