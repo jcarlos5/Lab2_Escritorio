@@ -213,3 +213,30 @@ INSERT INTO CLIENTE VALUES(5, null, '75193466519', 'Los Olivares SAC', '95319406
 INSERT INTO CLIENTE VALUES(6, '71359403', null, 'Julio Jaramillo', '991025349', 'Ferreñafe', 'jjaramillo@gmail.com', TRUE, 1);
 INSERT INTO CLIENTE VALUES(7, '79163522', '731526940', 'Gustavo Rios', '920136490', 'Chiclayo', 'riosgustavo@hotmail.com', TRUE, 3);
 */
+
+--El triggercito 
+CREATE OR REPLACE FUNCTION actualizarventa()RETURNS TRIGGER AS
+$$
+DECLARE
+	c int;
+	d int;
+BEGIN 
+	Select COUNT(*) INTO c FROM cliente 
+	inner join venta on cliente.codcliente=venta.codcliente
+	inner join (SELECT* FROM cuota WHERE cuota.codventa=new.codventa) c on c.codventa=venta.numventa;
+	
+	Select COUNT(*) INTO d FROM cliente 
+	inner join venta on cliente.codcliente=venta.codcliente
+	inner join (SELECT* FROM cuota WHERE cuota.codventa=new.codventa) c on c.codventa=venta.numventa
+	WHERE cuota.cancelada=true;
+	
+	IF(d=c)THEN
+		UPDATE venta SET estado=true WHERE numventa=new.codventa;
+	END IF;
+	
+	
+END;
+$$LANGUAGE 'plpgsql'
+
+CREATE TRIGGER TG_ActualizarVentas AFTER INSERT ON  cuota
+FOR EACH ROW EXECUTE PROCEDURE actualizarventa();
