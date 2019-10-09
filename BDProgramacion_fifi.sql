@@ -1,6 +1,14 @@
---Fecha de Creación	: 07 de Octubre del 2019
+/*
+================================================================
+--Fecha de Creación	: 02 de Octubre del 2019
 --Última moficiación	: 07 de Octubre del 2019
---Autores		: Sara Benel, Paola Castro, Cinthya Yomona, Jose Vilchez
+--Autores		:
+			   - BENEL RAMIREZ, Sara
+			   - CASTRO FERNANDEZ, Paola   
+			   - VILCHEZ VILLEGAS, José Carlos
+			   - YOMONA PARRAGUEZ, Cinthya
+================================================================
+*/
 
 -- Database: "BDProgramacion"
 
