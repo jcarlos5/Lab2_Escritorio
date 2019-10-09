@@ -60,6 +60,7 @@ public class JDVentaDatos extends javax.swing.JDialog {
         tblDetalle = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(".:Detalle de Venta:.");
 
         jLabel1.setText("Venta N°:");
 

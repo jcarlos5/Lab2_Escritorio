@@ -118,7 +118,7 @@ public class clsVenta {
     }
     
     public ResultSet listarVentaCredito(String dniruc) throws Exception{
-        strSQL = "SELECT * FROM venta v INNER JOIN cliente c on v.codcliente=c.codcliente WHERE c.dni ='" + dniruc+"' or c.ruc='"+dniruc+"' and v.tipopago=false;";
+        strSQL = "SELECT * FROM (SELECT * FROM venta WHERE tipopago=false) v INNER JOIN cliente c on v.codcliente=c.codcliente WHERE c.dni ='" + dniruc+"' or c.ruc='"+dniruc+"';";
         try {
             rs=objConectar.consultarBD(strSQL);
             return rs;

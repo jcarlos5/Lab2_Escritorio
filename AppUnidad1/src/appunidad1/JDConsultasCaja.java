@@ -55,7 +55,7 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
         txtCAJA = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Consultar Producto");
+        setTitle(".:Balance de Caja:.");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {

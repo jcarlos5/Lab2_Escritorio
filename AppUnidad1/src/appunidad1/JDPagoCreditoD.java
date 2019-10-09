@@ -442,8 +442,6 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
             modelo.addColumn("RUC");
             modelo.addColumn("NOMBRE");
             
-            modelo.addRow(new Object[]{"+ REGISTRAR"});
-            
             while(rsClientes.next()){
                 modelo.addRow(new Object[]{rsClientes.getString("dni"), rsClientes.getString("ruc"), rsClientes.getString("nombres")});
             }

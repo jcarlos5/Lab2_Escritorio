@@ -50,7 +50,7 @@ public class JDAñadirProductos extends javax.swing.JDialog {
         btnBusqueda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Añadir Producto");
+        setTitle(".:Añadir Producto:.");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);

@@ -56,7 +56,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
         txtCodigo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Mantenimiento Marca");
+        setTitle(".:Mantenimiento Marca:.");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
