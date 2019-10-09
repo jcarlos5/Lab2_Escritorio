@@ -96,13 +96,27 @@ public class clsCuota {
     return 0;
     }
     
-     //para saber cuanto dinero ingreso en pagos por dia CONTADO
+    //para saber cuanto dinero ingreso en pagos por dia CONTADO
     public float conocerMontoCaja() throws Exception{
         strSQL = "SELECT SUM(total) as MontoTotal FROM venta WHERE fecha= current_date and tipopago = true; ";
         try {
             rs=objConectar.consultarBD(strSQL);
             while (rs.next()){
                 return rs.getFloat("MontoTotal");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al conocer el monto de CAJA");
+        }
+        return 0;
+    }
+    
+     //para saber cuanto dinero ingreso en pagos por cuotas de ventas PASADAS
+    public float creditosPagados() throws Exception{
+        strSQL = "SELECT sum(monto) as monto FROM cuota where fechapago = current_date;";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while (rs.next()){
+                return rs.getFloat("monto");
             }
         } catch (Exception e) {
             throw new Exception("Error al conocer el monto de CAJA");

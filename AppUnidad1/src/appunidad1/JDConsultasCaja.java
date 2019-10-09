@@ -252,7 +252,7 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
         try {
             float montoTotal = obj.conocerMonto();
             float montoCaja = obj.conocerMontoCaja();
-            float montoCredito = obj.conocerMontoCreditos();                                                                                 
+            float montoCredito = obj.conocerMontoCreditos();
             txtMontoTOTAL.setText(String.valueOf(montoTotal));
             txtMontoCAJA.setText(String.valueOf(montoCaja));
             txtMontoCREDITO.setText(String.valueOf(montoCredito)); 
