@@ -250,17 +250,29 @@ public class JDPagoCredito extends javax.swing.JDialog {
     private void rbtSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtSemanalActionPerformed
         // TODO add your handling code here:
         generarCuotas();
+        if((int)spnNumCuotas.getValue()>8){
+            spnNumCuotas.setValue(8);
+        }
     }//GEN-LAST:event_rbtSemanalActionPerformed
 
     private void rbtMensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMensualActionPerformed
         // TODO add your handling code here:
         generarCuotas();
+        if((int)spnNumCuotas.getValue()>2){
+            spnNumCuotas.setValue(2);
+        }
     }//GEN-LAST:event_rbtMensualActionPerformed
 
     private void spnNumCuotasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnNumCuotasStateChanged
         // TODO add your handling code here:
         if((int)spnNumCuotas.getValue()<0){
             spnNumCuotas.setValue(0);
+        }else if(rbtMensual.isSelected() && (int)spnNumCuotas.getValue()>2){
+            spnNumCuotas.setValue(2);
+            JOptionPane.showMessageDialog(rootPane, "Los créditos deben pagarse en un máximo de Dos meses");
+        }else if (rbtSemanal.isSelected() && (int)spnNumCuotas.getValue()>8) {
+            spnNumCuotas.setValue(8);
+            JOptionPane.showMessageDialog(rootPane, "Los créditos deben pagarse en un máximo de Ocho semanas");
         }
         generarCuotas();
         if ((int)spnNumCuotas.getValue()>0) {

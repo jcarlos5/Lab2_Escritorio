@@ -9,7 +9,6 @@ import CapaNegocio.clsCuota;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
-import javafx.util.converter.LocalDateStringConverter;
 import javax.swing.JOptionPane;
 
 /**
