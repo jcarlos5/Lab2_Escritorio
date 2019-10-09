@@ -26,7 +26,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class JDPagoCreditoD extends javax.swing.JDialog {
     clsCuota objcuota = new clsCuota();
-    boolean todoBienTodoCorrecto=false;
     String documento;
     String monto;
     int numVenta;
@@ -264,19 +263,10 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         try {
-            if(todoBienTodoCorrecto && txtVuelto.getText().length()>0){
-                // TODO add your handling code here:
-                objcuota.pagarcuota(numCuota,numVenta,MontoI,Vuelto);
-                JOptionPane.showMessageDialog(this, "Pago Realizado");
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Ingrese el monto");
-                txtMontoIngresado.requestFocus();
-            }
+            pagar();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
-        limpiarControles();
-        listarDeudas();
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -332,8 +322,9 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
     }//GEN-LAST:event_tblCuotasMouseClicked
 
     private void txtMontoIngresadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoIngresadoKeyReleased
-        // TODO add your handling code here:
-        txtVuelto.setText("");
+        if(evt.getKeyCode()!=KeyEvent.VK_ENTER){
+            txtVuelto.setText("");
+        }
     }//GEN-LAST:event_txtMontoIngresadoKeyReleased
 
     private void txtMontoIngresadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoIngresadoKeyPressed
@@ -342,22 +333,42 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
 
     private void txtMontoIngresadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoIngresadoActionPerformed
         // TODO add your handling code here:
-         MontoI=Float.parseFloat(txtMontoIngresado.getText());
-         
-        if (MontoI<Float.parseFloat(monto)){
-            JOptionPane.showMessageDialog(this, "El Monto Ingresado es Menor Monto Solicitado");
-            Vuelto=null;
-            txtVuelto.setText("");
-            txtMontoIngresado.setText("");
-            todoBienTodoCorrecto=false;
-        }else{
-            Vuelto=MontoI-Float.parseFloat(monto);
-            txtVuelto.setText(String.valueOf(Vuelto));
-            todoBienTodoCorrecto = true;
+        try {
+            MontoI=Float.parseFloat(txtMontoIngresado.getText());
+            
+            if (MontoI<Float.parseFloat(monto)){
+                JOptionPane.showMessageDialog(this, "El Monto Ingresado es Menor Monto Solicitado");
+                Vuelto=null;
+                txtVuelto.setText("");
+                txtMontoIngresado.setText("");
+            }else{
+                Vuelto=MontoI-Float.parseFloat(monto);
+                txtVuelto.setText(String.valueOf(Vuelto));
+            }
+        } catch (Exception e) {
         }
         
     }//GEN-LAST:event_txtMontoIngresadoActionPerformed
 
+    private void pagar(){
+        try {
+            if(txtMonto.getText().length()==0){
+                JOptionPane.showMessageDialog(rootPane, "Seleccione una cuota");
+            }else{
+                if(txtVuelto.getText().length()>0){
+                    objcuota.pagarcuota(numCuota,numVenta,MontoI,Vuelto);
+                    JOptionPane.showMessageDialog(this, "Pago Realizado");
+                    limpiarControles();
+                    listarDeudas();
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Ingrese el monto");
+                    txtMontoIngresado.requestFocus();
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+    
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         listarClientes();
