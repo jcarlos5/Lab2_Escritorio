@@ -101,7 +101,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        mnuPagoContado = new javax.swing.JMenuItem();
         mnuPagoCredito = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
@@ -381,15 +380,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
 
         jMenu5.setText("Registrar Pago");
 
-        mnuPagoContado.setText("Pago al Contado");
-        mnuPagoContado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuPagoContadoActionPerformed(evt);
-            }
-        });
-        jMenu5.add(mnuPagoContado);
-
-        mnuPagoCredito.setText("Pago al Crédito");
+        mnuPagoCredito.setText("Pago al Cuotas");
         mnuPagoCredito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuPagoCreditoActionPerformed(evt);
@@ -565,13 +556,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         objVentas.setVisible(true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
-    private void mnuPagoContadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPagoContadoActionPerformed
-        // TODO add your handling code here:
-        JDPagoContado objPago = new JDPagoContado(this, true);
-        objPago.setLocationRelativeTo(this);
-        objPago.setVisible(true);
-    }//GEN-LAST:event_mnuPagoContadoActionPerformed
-
     private void mnuPagoCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPagoCreditoActionPerformed
         // TODO add your handling code here:
         JDPagoCreditoD objpago = new JDPagoCreditoD(this,true);
@@ -736,7 +720,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel lblHora;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenuItem mnuCreditosClientes;
-    private javax.swing.JMenuItem mnuPagoContado;
     private javax.swing.JMenuItem mnuPagoCredito;
     private javax.swing.JMenuItem mnuVentasDiarias;
     // End of variables declaration//GEN-END:variables

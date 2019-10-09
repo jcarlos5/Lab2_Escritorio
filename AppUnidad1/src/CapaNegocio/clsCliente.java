@@ -167,4 +167,17 @@ public class clsCliente {
             throw new Exception("Error al verificar Cliente");
         }
     }
+    
+    public String getNombre(String doc)throws Exception{
+        strSQL = "SELECT * FROM cliente WHERE dni = '" + doc + "' OR ruc = '" + doc + ";";
+        try {
+            rs = objConectar.consultarBD(strSQL);
+            while (rs.next()){
+                return rs.getString("nombres");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al buscar Cliente");
+        }
+        return null;
+    }
 }
