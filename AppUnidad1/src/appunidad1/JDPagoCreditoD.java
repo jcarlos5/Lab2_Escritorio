@@ -5,6 +5,7 @@
  */
 package appunidad1;
 
+import CapaNegocio.clsCliente;
 import CapaNegocio.clsCuota;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
@@ -25,13 +26,14 @@ import javax.swing.table.DefaultTableModel;
 
 public class JDPagoCreditoD extends javax.swing.JDialog {
     clsCuota objcuota = new clsCuota();
+    boolean todoBienTodoCorrecto=false;
     String documento;
     String monto;
     int numVenta;
     int numCuota;
     Float MontoI;
     Float Vuelto;
-    
+    clsCliente objCliente = new clsCliente();
     /**
      * Creates new form JDPago2
      */
@@ -68,9 +70,14 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         txtMontoIngresado = new javax.swing.JTextField();
         txtVuelto = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblClientes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -151,15 +158,35 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
             }
         });
 
+        txtVuelto.setEditable(false);
+
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblClientes);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnPagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
@@ -169,15 +196,15 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNumeroVenta)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(txtNombre)
                             .addComponent(txtDocumento)
-                            .addComponent(txtMonto, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                            .addComponent(txtMonto, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                             .addComponent(txtVuelto)
-                            .addComponent(txtMontoIngresado))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(23, 23, 23))
+                            .addComponent(txtMontoIngresado)
+                            .addComponent(txtNumeroVenta))))
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,27 +213,29 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNumeroVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtMontoIngresado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(txtVuelto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(10, 10, 10)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(btnPagar)
@@ -225,7 +254,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
@@ -235,9 +264,14 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         try {
-            // TODO add your handling code here:
-            objcuota.pagarcuota(numCuota,numVenta,MontoI,Vuelto);
-            JOptionPane.showMessageDialog(this, "Pago Realizado");
+            if(todoBienTodoCorrecto && txtVuelto.getText().length()>0){
+                // TODO add your handling code here:
+                objcuota.pagarcuota(numCuota,numVenta,MontoI,Vuelto);
+                JOptionPane.showMessageDialog(this, "Pago Realizado");
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Ingrese el monto");
+                txtMontoIngresado.requestFocus();
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
@@ -252,7 +286,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
     private void txtDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDocumentoActionPerformed
         // TODO add your handling code here:
       
-      datos();
+        datos();
       
         try {
             int f=objcuota.saberdeuda(documento);
@@ -281,7 +315,8 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
 
     private void txtDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyReleased
         // TODO add your handling code here:
-        //Listar las deudas del cliente por numero de documento 
+        //Listar las deudas del cliente por numero de documento
+        listarClientes();
         datos();
         listarDeudas();
         
@@ -298,6 +333,7 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
 
     private void txtMontoIngresadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoIngresadoKeyReleased
         // TODO add your handling code here:
+        txtVuelto.setText("");
     }//GEN-LAST:event_txtMontoIngresadoKeyReleased
 
     private void txtMontoIngresadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoIngresadoKeyPressed
@@ -313,12 +349,33 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
             Vuelto=null;
             txtVuelto.setText("");
             txtMontoIngresado.setText("");
+            todoBienTodoCorrecto=false;
         }else{
             Vuelto=MontoI-Float.parseFloat(monto);
-             txtVuelto.setText(String.valueOf(Vuelto));
+            txtVuelto.setText(String.valueOf(Vuelto));
+            todoBienTodoCorrecto = true;
         }
         
     }//GEN-LAST:event_txtMontoIngresadoActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        listarClientes();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+        // TODO add your handling code here:
+        String documento;
+        if(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0))!="null"){
+            documento=tblClientes.getValueAt(tblClientes.getSelectedRow(), 0).toString();
+        }else{
+            documento=tblClientes.getValueAt(tblClientes.getSelectedRow(), 1).toString();
+        }
+        txtDocumento.setText(documento);
+        listarClientes();
+        listarDeudas();
+        txtDocumentoActionPerformed(null);
+    }//GEN-LAST:event_tblClientesMouseClicked
     private void listarDeudas(){
         
         documento=txtDocumento.getText();
@@ -361,6 +418,28 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
         txtMonto.setText("");
         txtMontoIngresado.setText("");
         txtVuelto.setText("");
+    }
+    
+    private void listarClientes(){
+        
+        ResultSet rsClientes = null;
+        try {
+            rsClientes = objCliente.filtrarClientes(txtDocumento.getText());
+            DefaultTableModel modelo = new DefaultTableModel();
+            
+            modelo.addColumn("DNI");
+            modelo.addColumn("RUC");
+            modelo.addColumn("NOMBRE");
+            
+            modelo.addRow(new Object[]{"+ REGISTRAR"});
+            
+            while(rsClientes.next()){
+                modelo.addRow(new Object[]{rsClientes.getString("dni"), rsClientes.getString("ruc"), rsClientes.getString("nombres")});
+            }
+            tblClientes.setModel(modelo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
     }
     /**
      * @param args the command line arguments
@@ -428,6 +507,8 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblCuotas;
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtMonto;

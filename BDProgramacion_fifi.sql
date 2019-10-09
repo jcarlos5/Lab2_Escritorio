@@ -154,7 +154,7 @@ BEGIN
 		inner join cuota on cuota.codventa=venta.numventa
 		where cuota.cancelada=FALSE;
 
-	IF(c>1)THEN
+	IF(c>=1)THEN
 		RETURN 1;
 	else
 		RETURN 0;

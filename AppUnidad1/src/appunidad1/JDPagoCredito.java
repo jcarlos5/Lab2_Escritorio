@@ -315,6 +315,7 @@ public class JDPagoCredito extends javax.swing.JDialog {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("N° Cuota");
         modelo.addColumn("Fecha");
+        modelo.addColumn("Monto");
         
         tblCuotas.setModel(modelo);
         
@@ -330,7 +331,7 @@ public class JDPagoCredito extends javax.swing.JDialog {
         
         for(int i=0; i<cant; i++){
             String newFecha = String.format("%02d-%02d-%04d",fecha.get(Calendar.DAY_OF_MONTH),fecha.get(Calendar.MONTH)+1,fecha.get(Calendar.YEAR));
-            modelo.addRow(new Object[]{i+1, newFecha});
+            modelo.addRow(new Object[]{i+1, newFecha, String.valueOf(apagar)});
             
             cuotas[i] = new String[]{txtNumeroVenta.getText(), String.valueOf(i+1), newFecha, "null", "false", "null", "null", String.valueOf(apagar)};
             
