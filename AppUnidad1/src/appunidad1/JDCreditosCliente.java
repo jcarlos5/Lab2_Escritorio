@@ -17,9 +17,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Sara
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
+
 public class JDCreditosCliente extends javax.swing.JDialog {
 
     /**
@@ -44,6 +48,7 @@ public class JDCreditosCliente extends javax.swing.JDialog {
         tblVentasCredito = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(".: Buscar por DNI el crédito del CLIENTE :.");
 
         txtID.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {

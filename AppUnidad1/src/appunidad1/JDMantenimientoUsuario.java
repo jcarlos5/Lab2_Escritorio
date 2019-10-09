@@ -16,9 +16,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author JCarlos
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
+
 public class JDMantenimientoUsuario extends javax.swing.JDialog {
     
     clsUsuario objUsuario = new clsUsuario();

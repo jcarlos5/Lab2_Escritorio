@@ -13,9 +13,13 @@ import javafx.util.converter.LocalDateStringConverter;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author JCarlos
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
+
 public class JDPagoContado extends javax.swing.JDialog {
     boolean pagado=false;
     String[][] cuotas;

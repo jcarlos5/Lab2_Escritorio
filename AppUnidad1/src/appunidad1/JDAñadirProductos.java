@@ -13,9 +13,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author JCarlos
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
+
 public class JDAñadirProductos extends javax.swing.JDialog {
 
     clsProducto objProducto = new clsProducto();

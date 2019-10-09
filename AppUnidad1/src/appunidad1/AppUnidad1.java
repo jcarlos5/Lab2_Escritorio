@@ -8,9 +8,13 @@ package appunidad1;
 import javax.swing.ImageIcon;
 
 /**
- *
- * @author laboratorio_computo
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
+
 public class AppUnidad1 {
 
     /**

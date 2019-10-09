@@ -10,8 +10,11 @@ import java.sql.Date;
 import java.sql.ResultSet;
 
 /**
- *
- * @author JCarlos
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
 public class clsCuota {
     clsJDBC objConectar = new clsJDBC();
@@ -119,9 +122,7 @@ public class clsCuota {
             throw new Exception("Error al conocer el monto pasado en CUOTAS");
         }
         return 0;
-    }    
-    
-    
+    }            
 
     public ResultSet cuotasPorVenta(int venta) throws Exception{
         strSQL = "SELECT * FROM cuota where codventa="+ venta+" ;";

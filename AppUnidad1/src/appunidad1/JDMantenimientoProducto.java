@@ -17,9 +17,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author JCarlos
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
+
 public class JDMantenimientoProducto extends javax.swing.JDialog {
     clsCategoria objCategoria = new clsCategoria();
     clsMarca objMarca = new clsMarca();

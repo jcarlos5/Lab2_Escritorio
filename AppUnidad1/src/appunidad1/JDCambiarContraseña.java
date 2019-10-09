@@ -10,9 +10,13 @@ import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author laboratorio_computo
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
+
 public class JDCambiarContraseña extends javax.swing.JDialog {
     Boolean necesario;
     clsUsuario objUsuario = new clsUsuario();

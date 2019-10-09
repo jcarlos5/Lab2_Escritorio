@@ -7,10 +7,15 @@ package CapaNegocio;
 
 import CapaDatos.clsJDBC;
 import java.sql.ResultSet;
+
 /**
- *
- * @author JCarlos
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
+
 public class clsProducto {
     clsJDBC objConectar = new clsJDBC();
     String strSQL;

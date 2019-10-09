@@ -13,9 +13,13 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Sara
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
+
 public class JDCronograma extends javax.swing.JDialog {
 
     /**
@@ -39,6 +43,7 @@ public class JDCronograma extends javax.swing.JDialog {
         tblCronograma = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(".: Cronograma de PAGO del CLIENTE:.");
 
         jScrollPane1.setViewportView(tblCronograma);
 

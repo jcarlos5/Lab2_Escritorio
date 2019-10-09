@@ -11,10 +11,15 @@ import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
 /**
- *
- * @author laboratorio_computo
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
+
 public class JDInicioSesion extends javax.swing.JDialog {
     
     clsUsuario objUsuario = new clsUsuario();

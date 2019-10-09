@@ -67,7 +67,7 @@
                           </Group>
                           <EmptySpace pref="12" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnSalir" max="32767" attributes="0"/>
+                              <Component id="btnSalir" pref="127" max="32767" attributes="0"/>
                               <Component id="btnDardeBaja" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnModificar" alignment="0" max="32767" attributes="0"/>
                           </Group>

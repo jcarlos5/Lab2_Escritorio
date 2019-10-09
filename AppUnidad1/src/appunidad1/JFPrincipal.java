@@ -13,9 +13,13 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author laboratorio_computo
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
+
 public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     
     Thread hilo;
@@ -410,6 +414,11 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenu6.add(mnuVentasDiarias);
 
         mnuCreditosClientes.setText("Creditos de clientes");
+        mnuCreditosClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCreditosClientesActionPerformed(evt);
+            }
+        });
         jMenu6.add(mnuCreditosClientes);
 
         jMenuItem13.setText("Consultar Caja");
@@ -583,6 +592,13 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setLocationRelativeTo(this);
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void mnuCreditosClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCreditosClientesActionPerformed
+        // TODO add your handling code here:
+        JDCreditosCliente obj = new JDCreditosCliente(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_mnuCreditosClientesActionPerformed
 
     /**
      * @param args the command line arguments
