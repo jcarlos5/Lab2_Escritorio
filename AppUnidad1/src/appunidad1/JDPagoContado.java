@@ -11,13 +11,13 @@ import java.sql.Date;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
-/**
+/*
  INTEGRANTES:
    - BENEL RAMIREZ, Sara
    - CASTRO FERNANDEZ, Paola   
    - VILCHEZ VILLEGAS, José Carlos
    - YOMONA PARRAGUEZ, Cinthya
- */
+*/
 
 public class JDPagoContado extends javax.swing.JDialog {
     boolean pagado=false;
@@ -58,6 +58,8 @@ public class JDPagoContado extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(222, 227, 218));
 
         jLabel1.setText("Venta N°:");
 

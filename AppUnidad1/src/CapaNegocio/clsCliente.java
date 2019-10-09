@@ -9,13 +9,13 @@ import CapaDatos.clsJDBC;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 
-/**
+/*
  INTEGRANTES:
    - BENEL RAMIREZ, Sara
    - CASTRO FERNANDEZ, Paola   
    - VILCHEZ VILLEGAS, José Carlos
    - YOMONA PARRAGUEZ, Cinthya
- */
+*/
 
 public class clsCliente {
     //Crear instancia de la clase clsJDBC

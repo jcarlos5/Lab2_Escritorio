@@ -1,12 +1,12 @@
 package appunidad1;
 
-/**
+/*
  INTEGRANTES:
    - BENEL RAMIREZ, Sara
    - CASTRO FERNANDEZ, Paola   
    - VILCHEZ VILLEGAS, José Carlos
    - YOMONA PARRAGUEZ, Cinthya
- */
+*/
 
 import CapaNegocio.*;
 import java.sql.ResultSet;

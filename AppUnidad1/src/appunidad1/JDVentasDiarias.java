@@ -17,13 +17,13 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-/**
+/*
  INTEGRANTES:
    - BENEL RAMIREZ, Sara
    - CASTRO FERNANDEZ, Paola   
    - VILCHEZ VILLEGAS, José Carlos
    - YOMONA PARRAGUEZ, Cinthya
- */
+*/
 
 public class JDVentasDiarias extends javax.swing.JDialog {
     clsVenta objVenta = new clsVenta();
@@ -110,6 +110,11 @@ public class JDVentasDiarias extends javax.swing.JDialog {
                 dpFechaMouseClicked(evt);
             }
         });
+        dpFecha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dpFechaPropertyChange(evt);
+            }
+        });
 
         jButton3.setText("Buscar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -151,12 +156,12 @@ public class JDVentasDiarias extends javax.swing.JDialog {
                     .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(lblCantVentas)
                     .addComponent(jButton1))
-                .addContainerGap())
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -164,16 +169,16 @@ public class JDVentasDiarias extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -216,10 +221,12 @@ public class JDVentasDiarias extends javax.swing.JDialog {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,"Error");
             }
-            
-        
-        
     }//GEN-LAST:event_tblVentasDiariasMouseClicked
+
+    private void dpFechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dpFechaPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dpFechaPropertyChange
+    
     private void listarVentas(Date fech){
         ResultSet rsMarcas = null;
         DefaultTableModel model = new DefaultTableModel();

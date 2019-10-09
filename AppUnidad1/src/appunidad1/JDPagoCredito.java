@@ -80,6 +80,8 @@ public class JDPagoCredito extends javax.swing.JDialog {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(222, 227, 218));
+
         jLabel1.setText("Venta N°:");
 
         txtNumeroVenta.setEditable(false);

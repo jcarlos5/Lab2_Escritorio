@@ -19,13 +19,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import sun.management.jdp.JdpPacket;
 
-/**
+/*
  INTEGRANTES:
    - BENEL RAMIREZ, Sara
    - CASTRO FERNANDEZ, Paola   
    - VILCHEZ VILLEGAS, José Carlos
    - YOMONA PARRAGUEZ, Cinthya
- */
+*/
 
 public class JDVentas extends javax.swing.JDialog {
 

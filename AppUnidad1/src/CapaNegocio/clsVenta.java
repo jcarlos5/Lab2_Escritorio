@@ -9,13 +9,13 @@ import CapaDatos.clsJDBC;
 import java.sql.Date;
 import java.sql.ResultSet;
 
-/**
+/*
  INTEGRANTES:
    - BENEL RAMIREZ, Sara
    - CASTRO FERNANDEZ, Paola   
    - VILCHEZ VILLEGAS, José Carlos
    - YOMONA PARRAGUEZ, Cinthya
- */
+*/
 
 public class clsVenta {
     clsJDBC objConectar = new clsJDBC();
