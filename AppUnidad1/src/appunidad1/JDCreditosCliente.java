@@ -7,11 +7,13 @@ package appunidad1;
 
 import CapaNegocio.clsCuota;
 import CapaNegocio.clsVenta;
+import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.sql.Date;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -57,6 +59,11 @@ public class JDCreditosCliente extends javax.swing.JDialog {
 
             }
         ));
+        tblVentasCredito.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblVentasCreditoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblVentasCredito);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -66,7 +73,7 @@ public class JDCreditosCliente extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
                     .addComponent(txtID))
                 .addContainerGap())
         );
@@ -86,13 +93,24 @@ public class JDCreditosCliente extends javax.swing.JDialog {
     private void txtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIDKeyTyped
         if ( evt.getKeyChar()==KeyEvent.VK_ENTER ){
             if (txtID.getText().length()==8 || txtID.getText().length()==11 ){
-                clsCuota obj = new clsCuota();
-                
+                listarCreditos(txtID.getText());
             }else {
                 JOptionPane.showMessageDialog(this, "Por favor ingrese un dni o ruc correcto");
             }
         }
     }//GEN-LAST:event_txtIDKeyTyped
+
+    private void tblVentasCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVentasCreditoMouseClicked
+        Integer id =(int)tblVentasCredito.getValueAt(tblVentasCredito.getSelectedRow(), 0);
+        try {
+           JDCronograma objC = new JDCronograma((Frame) SwingUtilities.getWindowAncestor(this), true);
+           objC.listarCreditos(id);
+           objC.setLocationRelativeTo(this);
+           objC.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,"Error");
+        }
+    }//GEN-LAST:event_tblVentasCreditoMouseClicked
     private void listarCreditos(String cli){
         ResultSet rs;
         DefaultTableModel model = new DefaultTableModel();

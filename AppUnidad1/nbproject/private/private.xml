@@ -3,12 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/Ingeniería%20de%20Sistemas%20y%20computación/6°CICLO/DESARROLLO%20DE%20APLICACIONES%20DE%20ESCRITORIO/Lab2_Escritorio/AppUnidad1/src/appunidad1/JFPrincipal.java</file>
             <file>file:/D:/Ingeniería%20de%20Sistemas%20y%20computación/6°CICLO/DESARROLLO%20DE%20APLICACIONES%20DE%20ESCRITORIO/Lab2_Escritorio/AppUnidad1/src/CapaNegocio/clsCuota.java</file>
             <file>file:/D:/Ingeniería%20de%20Sistemas%20y%20computación/6°CICLO/DESARROLLO%20DE%20APLICACIONES%20DE%20ESCRITORIO/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDConsultasCaja.java</file>
             <file>file:/D:/Ingeniería%20de%20Sistemas%20y%20computación/6°CICLO/DESARROLLO%20DE%20APLICACIONES%20DE%20ESCRITORIO/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDAñadirProductos.java</file>
             <file>file:/D:/Ingeniería%20de%20Sistemas%20y%20computación/6°CICLO/DESARROLLO%20DE%20APLICACIONES%20DE%20ESCRITORIO/Lab2_Escritorio/AppUnidad1/src/CapaDatos/clsJDBC.java</file>
             <file>file:/D:/Ingeniería%20de%20Sistemas%20y%20computación/6°CICLO/DESARROLLO%20DE%20APLICACIONES%20DE%20ESCRITORIO/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDPagoCreditoD.java</file>
+=======
+            <file>file:/C:/Users/USUARIO/Documents/GitHub/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDAñadirProductos.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/GitHub/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDVentasDiarias.java</file>
+>>>>>>> b566b9245afe4b08fd9496da4b25664adcd4ad1c
         </group>
     </open-files>
 </project-private>

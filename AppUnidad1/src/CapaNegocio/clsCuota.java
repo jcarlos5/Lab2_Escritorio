@@ -122,4 +122,15 @@ public class clsCuota {
     }    
     
     
+
+    public ResultSet cuotasPorVenta(int venta) throws Exception{
+        strSQL = "SELECT * FROM cuota where codventa="+ venta+" ;";
+
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al extraer los datos del cliente");
+        }
+    }
 }
