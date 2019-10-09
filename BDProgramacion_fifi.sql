@@ -250,3 +250,19 @@ $$LANGUAGE 'plpgsql';
 
 CREATE TRIGGER TG_ActualizarVentas AFTER UPDATE ON cuota
 FOR EACH ROW EXECUTE PROCEDURE actualizarventa();
+
+--TRIGGER PARA REDUCIR EL STOCK
+CREATE OR REPLACE FUNCTION actualizarstock() RETURNS TRIGGER AS
+$$
+DECLARE
+BEGIN
+	UPDATE public.producto
+   	SET stock=stock-new.cantidad
+ 	WHERE producto.codproducto = new.codproducto;
+	
+	return new;
+END;
+$$LANGUAGE 'plpgsql';
+
+CREATE TRIGGER TG_Actualizarstock AFTER INSERT ON detalle
+FOR EACH ROW EXECUTE PROCEDURE actualizarstock();

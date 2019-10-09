@@ -193,24 +193,27 @@ public class JDPagoContado extends javax.swing.JDialog {
 
     private void txtPagoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPagoKeyPressed
         // TODO add your handling code here:
-        limpiarControles();
-        if(txtPago.getText().length()>0 && evt.getKeyCode()==KeyEvent.VK_ENTER){
-            float vuelto = Float.parseFloat(txtPago.getText())-Float.parseFloat(txtMonto.getText());
-            if(vuelto<0){
-                JOptionPane.showMessageDialog(rootPane, "El monto a pagar es mayor");
-                txtPago.setText("");
-                txtPago.requestFocus();
-                limpiarControles();
-            }else{
-                lblTituloVuelto.setVisible(true);
-                lblVuelto.setText(String.valueOf(vuelto));
-                lblVuelto.setVisible(true);
-                btnGuardar.setVisible(true);
-                cuotas = new String[1][8];
-                LocalDate ld = LocalDate.now();
-                Date fe = Date.valueOf(ld);
-                cuotas[0] = new String[]{txtNumeroVenta.getText(), "1", String.valueOf(fe),String.valueOf(fe) , "true", txtPago.getText(), lblVuelto.getText(), txtMonto.getText()};
+        try {
+            limpiarControles();
+            if(txtPago.getText().length()>0 && evt.getKeyCode()==KeyEvent.VK_ENTER){
+                float vuelto = Float.parseFloat(txtPago.getText())-Float.parseFloat(txtMonto.getText());
+                if(vuelto<0){
+                    JOptionPane.showMessageDialog(rootPane, "El monto a pagar es mayor");
+                    txtPago.setText("");
+                    txtPago.requestFocus();
+                    limpiarControles();
+                }else{
+                    lblTituloVuelto.setVisible(true);
+                    lblVuelto.setText(String.valueOf(vuelto));
+                    lblVuelto.setVisible(true);
+                    btnGuardar.setVisible(true);
+                    cuotas = new String[1][8];
+                    LocalDate ld = LocalDate.now();
+                    Date fe = Date.valueOf(ld);
+                    cuotas[0] = new String[]{txtNumeroVenta.getText(), "1", String.valueOf(fe),String.valueOf(fe) , "true", txtPago.getText(), lblVuelto.getText(), txtMonto.getText()};
+                }
             }
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_txtPagoKeyPressed
 
