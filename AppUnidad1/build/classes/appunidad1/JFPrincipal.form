@@ -113,9 +113,14 @@
                 <Property name="text" type="java.lang.String" value="Registrar Pago"/>
               </Properties>
               <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="mnuPagarVenta">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Pagar Venta"/>
+                  </Properties>
+                </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mnuPagoCredito">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Pago al Cuotas"/>
+                    <Property name="text" type="java.lang.String" value="Pagar Cuotas"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuPagoCreditoActionPerformed"/>

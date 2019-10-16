@@ -4,11 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/USUARIO/Documents/GitHub/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDConsultasCaja.java</file>
-            <file>file:/C:/Users/USUARIO/Documents/GitHub/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDVentasDiarias.java</file>
-            <file>file:/C:/Users/USUARIO/Documents/GitHub/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDVentaDatos.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/GitHub/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDPagarVenta.java</file>
             <file>file:/C:/Users/USUARIO/Documents/GitHub/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDVentas.java</file>
-            <file>file:/C:/Users/USUARIO/Documents/GitHub/Lab2_Escritorio/AppUnidad1/src/CapaNegocio/clsCuota.java</file>
-            <file>file:/C:/Users/USUARIO/Documents/GitHub/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDPagoCreditoD.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/GitHub/Lab2_Escritorio/AppUnidad1/src/CapaNegocio/clsUsuario.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/GitHub/Lab2_Escritorio/AppUnidad1/src/CapaDatos/clsJDBC.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/GitHub/Lab2_Escritorio/AppUnidad1/src/CapaNegocio/clsVenta.java</file>
+            <file>file:/C:/Users/USUARIO/Documents/GitHub/Lab2_Escritorio/AppUnidad1/src/appunidad1/JFPrincipal.java</file>
         </group>
     </open-files>
 </project-private>
