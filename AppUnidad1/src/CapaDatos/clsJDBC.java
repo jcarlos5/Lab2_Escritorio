@@ -5,7 +5,6 @@
  */
 package CapaDatos;
 import java.sql.*;
-import javax.swing.JOptionPane;
 /**
  INTEGRANTES:
    - BENEL RAMIREZ, Sara
@@ -18,13 +17,15 @@ public class clsJDBC {
     private String driver, url, user, password;
     private Connection con;
     private Statement sent = null;
+    private Statement sent1=null;
+    private Statement sent2=null;
     
     //Constructor
     public clsJDBC() {
         this.driver = "org.postgresql.Driver";
-        this.url = "jdbc:postgresql://localhost:5432/BDProgramacion";
+        this.url = "jdbc:postgresql://localhost:5432/bdprogramacion1";
         this.user = "postgres";
-        this.password = "USAT2019";
+        this.password = "123456789";
         this.con = null;
     }
     
@@ -72,6 +73,31 @@ public class clsJDBC {
             sent=con.createStatement();
             sent.executeUpdate(strSQL);
         } catch (Exception e) {
+            throw new Exception("Error al ejecutar consulta");
+        } finally{
+            if (con!=null){
+                desconectar();
+            }
+        }
+    }
+    
+    public Connection getCon() {
+        return con;
+    }
+    
+    public void ejecutarBDTransacciones (String strSQL1,String strSQL2,String strSQL3) throws Exception{
+        try {
+            conectar();
+            con.setAutoCommit(false);
+            sent=con.createStatement();
+            sent.executeUpdate(strSQL1);
+            sent1=con.createStatement();
+            sent1.executeUpdate(strSQL2);
+            sent2=con.createStatement();
+            sent2.executeUpdate(strSQL3);
+            con.commit();
+        } catch (Exception e) {
+            con.rollback();
             throw new Exception("Error al ejecutar consulta");
         } finally{
             if (con!=null){
