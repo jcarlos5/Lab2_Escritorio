@@ -155,4 +155,15 @@ public class clsVenta {
             throw new Exception("Error ");
         }
     }
+    
+    public ResultSet listarTodasVentaPorCliente(int codcliente) throws Exception{
+        strSQL = "SELECT * FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE c.codcliente = " + codcliente + " and estadopago = true or tipopago=false;";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error ");
+        }
+    }
+    
 }

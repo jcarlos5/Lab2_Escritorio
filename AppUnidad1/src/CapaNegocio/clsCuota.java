@@ -148,4 +148,19 @@ public class clsCuota {
             throw new Exception("Error al extraer los datos del cliente");
         }
     }
+    
+    public Integer cuotasPagadasPorVenta(int venta) throws Exception{
+        strSQL = "SELECT sum(monto) as monto FROM cuota where codventa="+ venta+" and cancelada=true;";
+
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while (rs.next()){
+                return rs.getInt("monto");
+            }
+            
+        } catch (Exception e) {
+            throw new Exception("Error al extraer los datos del cliente");
+        }
+        return null;
+    }
 }

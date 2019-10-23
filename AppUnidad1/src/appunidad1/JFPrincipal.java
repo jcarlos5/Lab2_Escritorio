@@ -10,6 +10,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -100,6 +102,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         mnuPagarVenta = new javax.swing.JMenuItem();
         mnuPagoCredito = new javax.swing.JMenuItem();
@@ -378,6 +381,14 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         });
         jMenu3.add(jMenuItem10);
 
+        jMenuItem11.setText("Devolver Venta");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem11);
+
         jMenu5.setText("Registrar Pago");
 
         mnuPagarVenta.setText("Pagar Venta");
@@ -584,6 +595,18 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setVisible(true);
     }//GEN-LAST:event_mnuCreditosClientesActionPerformed
 
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        try {
+            // TODO add your handling code here:
+            JDDevolucionVenta obj = new JDDevolucionVenta(this, true);
+            obj.setUser(objUsuario.conocerCodusuario(user));
+            obj.setLocationRelativeTo(this);
+            obj.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(JFPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -696,6 +719,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
