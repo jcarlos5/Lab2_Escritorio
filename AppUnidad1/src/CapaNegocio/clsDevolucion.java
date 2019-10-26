@@ -58,10 +58,9 @@ public class clsDevolucion {
             con.commit();
         } catch (Exception e) {
             con.rollback();
-            throw new Exception("tu vida esta fallando");
+            throw new Exception("Error al ejecutar la transacción");
         }finally{
             objConectar.desconectar();
-            
         }
         
     }
