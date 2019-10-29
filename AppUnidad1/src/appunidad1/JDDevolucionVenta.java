@@ -10,7 +10,6 @@ import CapaNegocio.clsCuota;
 import CapaNegocio.clsDevolucion;
 import CapaNegocio.clsVenta;
 import java.awt.Frame;
-import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -19,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Sara
+ * @author Sara & JCarlos
  */
 public class JDDevolucionVenta extends javax.swing.JDialog {
     clsCliente objCliente = new clsCliente();
@@ -403,13 +402,15 @@ public class JDDevolucionVenta extends javax.swing.JDialog {
             modelo.addColumn("Cantidad");
             modelo.addColumn("Precio venta");
             modelo.addColumn("Descuento");
+            modelo.addColumn("Subtotal");
                         
             while(rs.next()){
                 modelo.addRow(new Object[]{rs.getString("codproducto"), 
                     rs.getString("nomproducto"), 
                     rs.getString("cantidad"),
                     rs.getString("precioventa"),
-                    rs.getString("descuento")
+                    rs.getString("descuento"),
+                    rs.getString("subtotal")
                 });
             }
             tblDetalle.setModel(modelo);
