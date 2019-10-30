@@ -247,6 +247,35 @@ Exception
 end;
 $$ language 'plpgsql'
 
+--PA que me regrese las estadisticas de la tabla venta
+CREATE OR REPLACE FUNCTION estadisticas_venta() 
+RETURNS TABLE(total bigint, monto_acumulado numeric, maximo numeric, minino numeric) AS
+$$
+DECLARE
+BEGIN
+	return query
+		select count(*) as cantidad_total, sum(v.total) as monto_acumulado, max(v.total) as maximo, min(v.total) as minimo from venta v;
+
+END;
+$$language 'plpgsql';
+
+--PA que me regrese la informacion de la venta indicada
+CREATE OR REPLACE FUNCTION info_venta(cod int) 
+RETURNS TABLE( numventa int, fecha date, total numeric, nombres varchar, cantidad int, descuento smallint, nomproducto varchar ) AS
+$$
+DECLARE
+BEGIN
+	return query
+		select v.numventa, v.fecha, v.total,c.nombres, d.cantidad, d.descuento, p.nomproducto from venta v 
+		inner join cliente c on v.codcliente=c.codcliente
+		inner join detalle d on v.numventa=d.numventa
+		inner join producto p on d.codproducto=p.codproducto
+		where v.numventa=cod
+		order by p.nomproducto;
+
+END;
+$$language 'plpgsql';
+
 --INSERCIÓN DE EJEMPLOS
 
 INSERT INTO USUARIO VALUES(1, 'admin', '123456', 'Juan Perez Perez', 'Gerente General', TRUE, 'Ciudad de Nacimiento', 'Lima');
@@ -326,3 +355,33 @@ $$LANGUAGE 'plpgsql';
 
 CREATE TRIGGER TG_Actualizarstock AFTER INSERT ON detalle
 FOR EACH ROW EXECUTE PROCEDURE actualizarstock();
+
+-- Funciones provistas por la profesora
+
+-- Función: Retorna el total de usuarios
+create or replace function f_usuarios_total() returns int as
+$$
+declare
+	i_resultado int;
+begin
+	select count(*) into  i_resultado from usuario;
+	return i_resultado;
+end;
+$$
+language 'plpgsql';
+
+-- select f_usuarios_total();
+
+-- Función: Registrar una marca
+create or replace function f_marca_registrar(p_nommarca varchar(30), p_vigencia boolean) returns boolean as
+$$
+declare
+	i_id_insertar int;
+begin
+	select coalesce(max(codmarca)+1, 1) into i_id_insertar from marca;
+	insert into marca(codmarca, nommarca, vigencia) values(i_id_insertar, p_nommarca, p_vigencia);
+	return true;
+	exception when others then return false;
+end;
+$$
+language 'plpgsql';

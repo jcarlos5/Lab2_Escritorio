@@ -239,11 +239,10 @@ public class clsVenta {
     
     public boolean editarDetalle(int oldp, int newp,int cant ,int vent) throws Exception 
     {   boolean rpta = false;
-        try {
+        
             
             objConectar.conectar();
             Connection con = objConectar.getCon();
-            con.setAutoCommit(false);
             CallableStatement sentencia = con.prepareCall("select cambiarProducto(?,?,?,?)");
             sentencia.setInt(1, oldp);
             sentencia.setInt(2, newp);
@@ -251,19 +250,37 @@ public class clsVenta {
             sentencia.setInt(4, vent);
             System.out.println(sentencia);
             ResultSet resultado = sentencia.executeQuery();
-            con.commit();
             if (resultado.next()) 
             {
                 rpta = resultado.getBoolean("cambiarProducto");
                 System.out.println(rpta);
             }                
             
-        } catch (Exception e) {
-            con.rollback();
-        }finally{
-            objConectar.desconectar();
-        }
+        
          return rpta;      
     }
     
+    public ResultSet ventasTotales() throws Exception 
+    {
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("select * from estadisticas_venta()");
+        ResultSet resultado = sentencia.executeQuery();
+        if (resultado.next()) {
+            return resultado;
+        }
+        return null;
+    }
+    
+    public ResultSet informacionVenta(int cod) throws Exception 
+    {
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("select * from info_venta(?)");
+        sentencia.setInt(1,cod);
+        ResultSet resultado = sentencia.executeQuery();
+        
+            return resultado;
+       
+    }
 }
