@@ -7,6 +7,7 @@ package CapaNegocio;
 
 import CapaDatos.clsJDBC;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  INTEGRANTES:
@@ -52,12 +53,47 @@ public class clsCategoria {
         }
     }
     
+    /*
     public void eliminarCategoria(Integer cod) throws Exception {
         strSQL="DELETE FROM categoria WHERE codcategoria=" + cod + ";";
         try {
             objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
             throw new Exception("Error al eliminar la categoria");
+        }
+    }
+    */
+    
+    public void eliminarCategoria(Integer cod) throws Exception {
+        try {
+            boolean logica = false;
+            strSQL="SELECT * FROM producto WHERE codcategoria=" + cod + ";";
+            rs = objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                logica = true;
+            }
+            if(logica){
+                objConectar.conectar();
+                objConectar.getConnection().setAutoCommit(false);
+                
+                Statement sent = objConectar.getConnection().createStatement();
+                strSQL="UPDATE producto SET vigencia = false WHERE codcategoria=" + cod + ";";
+                sent.executeUpdate(strSQL);
+                
+                sent = objConectar.getConnection().createStatement();
+                strSQL="UPDATE categoria SET vigencia = false WHERE codcategoria=" + cod + ";";
+                sent.executeUpdate(strSQL);
+                
+                objConectar.getConnection().commit();
+            }else{
+                strSQL="DELETE FROM categoria WHERE codcategoria=" + cod + ";";
+                objConectar.ejecutarBD(strSQL);
+            }
+        } catch (Exception e) {
+            objConectar.getConnection().rollback();
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
         }
     }
 

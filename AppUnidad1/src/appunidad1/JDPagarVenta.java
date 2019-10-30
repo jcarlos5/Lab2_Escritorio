@@ -6,6 +6,7 @@
 package appunidad1;
 
 import CapaNegocio.clsCliente;
+import CapaNegocio.clsCuota;
 import CapaNegocio.clsVenta;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
@@ -95,6 +96,11 @@ public class JDPagarVenta extends javax.swing.JDialog {
 
             }
         ));
+        tblVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblVentasMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblVentas);
 
         jLabel3.setText("Numero de Venta:");
@@ -195,6 +201,64 @@ public class JDPagarVenta extends javax.swing.JDialog {
         llenarDatos(doc);
     }//GEN-LAST:event_tblClientesMouseClicked
 
+    private void tblVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVentasMouseClicked
+        // TODO add your handling code here:
+        try {
+            String[] opciones = {"Contado", "Crédito"};
+            Object rpta = JOptionPane.showInputDialog(rootPane, "Seleccione el tipo de Pago a realizar", "SISTEMA", JOptionPane.QUESTION_MESSAGE,null, opciones, opciones[0]);
+            if(rpta!=null){
+                boolean pago=false;
+                boolean contado;
+                boolean tipocomprobante;
+                String cuotas[][];
+                String numVenta=null;
+                String total=null;
+                if (rpta.toString().equals("Contado")){
+                    JDPagoContado objPago = new JDPagoContado((Frame) SwingUtilities.getWindowAncestor(this), true);
+                    objPago.setDatos(numVenta, txtNombre.getText(), txtDocumento.getText(), total);
+                    objPago.setLocationRelativeTo(this);
+                    objPago.setVisible(true);
+                    pago = objPago.getPago();
+                    cuotas = objPago.getCuotas();
+                    contado = true;
+                    tipocomprobante=true;
+                }else{
+                    if(objCliente.isAcreditable(codUser)){
+                        JDPagoCredito objPago = new JDPagoCredito((Frame) SwingUtilities.getWindowAncestor(this), true);
+                        objPago.setDatos(numVenta, txtNombre.getText(), txtDocumento.getText(), total);
+                        objPago.setLocationRelativeTo(this);
+                        objPago.setVisible(true);
+                        pago = objPago.getPago();
+                        cuotas = objPago.getCuotas();
+                        contado = false;
+                        tipocomprobante=false;
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "El cliente aún tiene un crédito vigente");
+                        cuotas = new String[1][8];
+                        contado = false;
+                        tipocomprobante=false;
+                    }
+                }
+                if(pago){
+                    int i=0;
+                    clsCuota objCuota = new clsCuota();
+                    while (i>=0){
+                        try {
+                            objCuota.registrarCuota(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5], cuotas[i][6], cuotas[i][7]);
+                            i++;
+                        } catch (Exception e) {
+                            i=-1;
+                        }
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Pago Registrado Correctamente");
+                    limpiarControles();
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }//GEN-LAST:event_tblVentasMouseClicked
+
     private void limpiarControles(){
         txtDocumento.setText("");
         txtNombre.setText("");
@@ -288,6 +352,9 @@ public class JDPagarVenta extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(JDPagarVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */

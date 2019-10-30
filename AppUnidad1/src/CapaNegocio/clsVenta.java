@@ -6,8 +6,11 @@
 package CapaNegocio;
 
 import CapaDatos.clsJDBC;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JTable;
 
 /*
  INTEGRANTES:
@@ -21,6 +24,8 @@ public class clsVenta {
     clsJDBC objConectar = new clsJDBC();
     String strSQL;
     ResultSet rs=null;
+    Connection con;
+    Statement sent;
     
     public Integer generarCodigoVenta() throws Exception{
         strSQL = "SELECT COALESCE(max(numventa),0)+1 AS codigo FROM venta;" ;
@@ -35,13 +40,37 @@ public class clsVenta {
         return 0;
     }
     
-    public void registrar(int cod, float total, float subtotal, float igv, boolean tipo, int cliente, boolean pago, boolean contado) throws Exception{
-        strSQL = "INSERT INTO venta VALUES (" + cod + ", " + cliente + ", CURRENT_DATE, " + igv + ", " + subtotal + ", " + total + ", " + tipo + ", " + pago + ", "+contado +" );";
+    public void registrar(int cod, float total, float subtotal, float igv, boolean tipo, int cliente, JTable tblProductos) throws Exception{
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            con=objConectar.getConnection();
+            con.setAutoCommit(false);
+            sent = con.createStatement();
+            strSQL = "INSERT INTO venta VALUES (" + cod + ", " + cliente + ", CURRENT_DATE, " + igv + ", " + subtotal + ", " + total + ", " + tipo + ", false, null );";
+            sent.executeUpdate(strSQL);
+            
+            int ctd = tblProductos.getRowCount();
+            for (int i=0; i<ctd; i++){
+                String descuento = tblProductos.getValueAt(i, 3).toString();
+                
+                strSQL = "INSERT INTO detalle VALUES (" + cod + ", " + tblProductos.getValueAt(i, 0).toString() + ", " + tblProductos.getValueAt(i, 5).toString() + ", " + tblProductos.getValueAt(i, 2).toString() + ", " + descuento.substring(0, descuento.length()-1) +", " + tblProductos.getValueAt(i, 6).toString() +");";
+                sent.executeUpdate(strSQL);
+                
+                strSQL = "UPDATE producto SET stock = stock-"+ Integer.parseInt(tblProductos.getValueAt(i, 5).toString())+" WHERE codproducto=" + Integer.parseInt(tblProductos.getValueAt(i, 0).toString()) + ";";
+                sent.executeUpdate(strSQL);
+            }
+            con.commit();           
         } catch (Exception e) {
-            throw new Exception("Error al guardar Venta");
+            con.rollback();
+            throw new Exception("Error al guardar venta");
+        }finally{
+            objConectar.desconectar();
         }
+//        try {
+//            objConectar.ejecutarBD(strSQL);
+//        } catch (Exception e) {
+//            throw new Exception("Error al guardar Venta");
+//        }
     }
     
     public void registrarDetalle(String venta, String prod, String cant, String preVen, String desc, String sub) throws Exception{

@@ -7,6 +7,7 @@ package CapaNegocio;
 
 import CapaDatos.clsJDBC;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  INTEGRANTES:
@@ -52,12 +53,46 @@ public class clsMarca {
         }
     }
     
+    /*
     public void eliminarMarca(Integer cod) throws Exception {
         strSQL="DELETE FROM marca WHERE codMarca=" + cod + ";";
         try {
             objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
             throw new Exception("Error al eliminar la marca");
+        }
+    }
+    */
+    
+    //Eliminar con transacción
+    public void eliminarMarca(Integer cod) throws Exception {
+        try {
+            boolean logica = false;
+            strSQL="SELECT * FROM producto WHERE codmarca=" + cod + ";";
+            rs = objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                logica = true;
+            }
+            if(logica){
+                objConectar.conectar();
+                objConectar.getConnection().setAutoCommit(false);
+                
+                Statement sent = objConectar.getConnection().createStatement();
+                strSQL="UPDATE producto SET vigencia = false WHERE codMarca=" + cod + ";";
+                sent.executeUpdate(strSQL);
+                
+                sent = objConectar.getConnection().createStatement();
+                strSQL="UPDATE marca SET vigencia = false WHERE codMarca=" + cod + ";";
+                sent.executeUpdate(strSQL);
+                
+                objConectar.getConnection().commit();
+            }else{
+                strSQL="DELETE FROM marca WHERE codMarca=" + cod + ";";
+                objConectar.ejecutarBD(strSQL);
+            }
+        } catch (Exception e) {
+            objConectar.getConnection().rollback();
+            throw new Exception(e.getMessage());
         }
     }
 

@@ -13,11 +13,8 @@ import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import sun.management.jdp.JdpPacket;
 
 /*
  INTEGRANTES:
@@ -528,61 +525,11 @@ public class JDVentas extends javax.swing.JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         try {
-            String[] opciones = {"Contado", "Crédito"};
-            Object rpta = JOptionPane.showInputDialog(rootPane, "Seleccione el tipo de Pago a realizar", "SISTEMA", JOptionPane.QUESTION_MESSAGE,null, opciones, opciones[0]);
-            if(rpta!=null){
-                boolean pago=false;
-                boolean contado;
-                boolean tipocomprobante;
-                String cuotas[][];
-                if (rpta.toString().equals("Contado")){
-                    JDPagoContado objPago = new JDPagoContado((Frame) SwingUtilities.getWindowAncestor(this), true);
-                    objPago.setDatos(txtCodVenta.getText(), txtNombre.getText(), txtDocumento.getText(), txtTotal.getText());
-                    objPago.setLocationRelativeTo(this);
-                    objPago.setVisible(true);
-                    pago = objPago.getPago();
-                    cuotas = objPago.getCuotas();
-                    contado = true;
-                    tipocomprobante=true;
-                }else{
-                    if(objCliente.isAcreditable(txtCod.getText())){
-                        JDPagoCredito objPago = new JDPagoCredito((Frame) SwingUtilities.getWindowAncestor(this), true);
-                        objPago.setDatos(txtCodVenta.getText(), txtNombre.getText(), txtDocumento.getText(), txtTotal.getText());
-                        objPago.setLocationRelativeTo(this);
-                        objPago.setVisible(true);
-                        pago = objPago.getPago();
-                        cuotas = objPago.getCuotas();
-                        contado = false;
-                        tipocomprobante=false;
-                    }else{
-                        JOptionPane.showMessageDialog(rootPane, "El cliente aún tiene un crédito vigente");
-                        cuotas = new String[1][8];
-                        contado = false;
-                        tipocomprobante=false;
-                    }
-                }
-                if(pago){
-                    objVenta.registrar(Integer.parseInt(txtCodVenta.getText()), Float.parseFloat(txtTotal.getText()), Float.parseFloat(txtSubTotal.getText()), Float.parseFloat(txtIgv.getText()), rbtBoleta.isSelected(), Integer.parseInt(txtCod.getText()), contado, tipocomprobante);
-                    int ctd = tblProductos.getRowCount();
-                    for (int i=0; i<ctd; i++){
-                        String descuento = tblProductos.getValueAt(i, 3).toString();
-                        objVenta.registrarDetalle(txtCodVenta.getText(), tblProductos.getValueAt(i, 0).toString(), tblProductos.getValueAt(i, 5).toString(), tblProductos.getValueAt(i, 2).toString(), descuento.substring(0, descuento.length()-1), tblProductos.getValueAt(i, 6).toString());
-                    }
-                    int i=0;
-                    clsCuota objCuota = new clsCuota();
-                    while (i>=0){
-                        try {
-                            objCuota.registrarCuota(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5], cuotas[i][6], cuotas[i][7]);
-                            i++;
-                        } catch (Exception e) {
-                            i=-1;
-                        }
-                    }
-                    JOptionPane.showMessageDialog(rootPane, "Venta Registrada Correctamente");
-                    limpiarControles();
-                    generarCodigo();
-                }
-            }
+            objVenta.registrar(Integer.parseInt(txtCodVenta.getText()), Float.parseFloat(txtTotal.getText()), Float.parseFloat(txtSubTotal.getText()), Float.parseFloat(txtIgv.getText()), rbtBoleta.isSelected(), Integer.parseInt(txtCod.getText()), tblProductos);
+            
+            JOptionPane.showMessageDialog(rootPane, "Venta Registrada Correctamente");
+            limpiarControles();
+            generarCodigo();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }

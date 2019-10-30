@@ -79,5 +79,64 @@ public class clsJDBC {
             }
         }
     }
-        
+    
+    //RETORNAR LA VARIABLE CONEXION
+    public Connection getConnection(){
+        return con;
+    }
+    
+    /*
+    // Ejecutar INSERT, UPDATE, DELETE con TRANSACCIÓN
+    public void makeTransaccion() throws Exception{
+        try {
+            conectar();
+            sent=con.createStatement();
+            con.setAutoCommit(false);
+        } catch (SQLException e) {
+            throw new Exception("Error configurar Consulta");
+        }
+    }
+    
+    public ResultSet transaccionConsultaBD(String strSQL) throws Exception{
+        ResultSet rs = null;
+        try {
+            rs = sent.executeQuery(strSQL);
+            return rs;
+        } catch (SQLException e) {
+            throw new Exception("Error al ejecutar consulta");
+        }
+    }
+    
+    public void transaccionEjecucionBD(String strSQL) throws Exception{
+        try {
+            sent.executeUpdate(strSQL);
+        } catch (SQLException e) {
+            throw new Exception("Error al ejecutar consulta");
+        }
+    }
+    
+    public void commit() throws Exception{
+        try {
+            con.commit();
+        } catch (SQLException e) {
+            throw new Exception("Error al confirmar transacción");
+        }finally{
+            if (con!=null){
+                desconectar();
+            }
+        }
+    }
+    
+    public void rollBack() throws Exception{
+        try {
+            con.rollback();
+        } catch (SQLException e) {
+            throw new Exception("Error al deshacer transacción");
+        }finally{
+            if (con!=null){
+                desconectar();
+            }
+        }
+    }
+    */
 }
