@@ -127,7 +127,19 @@ CREATE TABLE devolucion(
 	atendidopor INT NOT NULL
 );
 
+--TABLA CAMBIO_PRODUCTO AGREGADA 30-OCT-2019
+create table cambio_producto(
+	codigo int primary key,
+	old_producto int not null ,
+	new_producto int not null ,
+	new_cantidad int not null ,
+	venta int not null 
+)
+
 --CREACIÓN DE CLAVES FORÁNEAS
+ALTER TABLE CAMBIO_PRODUCTO ADD CONSTRAINT FK_PRODUCTO_CAMBIO_OLD FOREIGN KEY (old_producto) REFERENCES PRODUCTO(codProducto);
+ALTER TABLE CAMBIO_PRODUCTO ADD CONSTRAINT FK_PRODUCTO_CAMBIO_NEW FOREIGN KEY (new_producto) REFERENCES PRODUCTO(codProducto);
+ALTER TABLE CAMBIO_PRODUCTO ADD CONSTRAINT FK_VENTA_CAMBIO FOREIGN KEY (venta) REFERENCES VENTA(NumVenta);
 ALTER TABLE DEVOLUCION ADD CONSTRAINT FK_USUARIO_DEVOLUCION FOREIGN KEY (atendidopor) REFERENCES USUARIO(CODUSUARIO);
 ALTER TABLE PRODUCTO ADD CONSTRAINT FK_MARCA_PRODUCTO FOREIGN KEY (codMarca) REFERENCES MARCA;
 ALTER TABLE PRODUCTO ADD CONSTRAINT FK_CATEGORIA_PRODUCTO FOREIGN KEY (codCategoria) REFERENCES CATEGORIA;
@@ -203,6 +215,37 @@ BEGIN
 	close c_venta;
 END;
 $$ language 'plpgsql';
+
+--PROCEDIMIENTO ALMACENADO PARA CAMBIAR UN PRODUCTO DE NUA VENTA QUE NO REGISTRE PAGO 30-10-2019
+create or replace function cambiarProducto( oldp int, newp int, cant int, vent int  ) returns boolean as
+$$
+Declare
+	precio_actual numeric(8,2);
+	sub numeric(10,2);
+	old_sub numeric(10,2);
+	new_subtotal numeric(10,2);
+	new_igv numeric(10,2);
+	codigo_generado int ;
+	old_cant int;
+Begin
+	SELECT COALESCE(max(cp.codigo),0)+1 into codigo_generado FROM cambio_producto cp;
+	select cantidad into old_cant from detalle where numventa=vent and codproducto=oldp;
+	update producto set stock=stock+old_cant where codproducto=oldp;
+	update producto set stock=stock-cant where codproducto=newp;
+	
+	select p.precio into precio_actual from producto p where p.codproducto=newp;
+	select de.subtotal into old_sub from detalle de where de.numventa=vent and de.codproducto=oldp;
+	select ((100-d.descuento)/100)*precio_actual*cant into sub from detalle d where d.numventa=vent and d.codproducto=oldp;
+	update detalle set codproducto=newp, cantidad=cant, precioventa=precio_actual, subtotal=sub where numventa=vent and codproducto=oldp;
+	select subtotal - old_sub + sub into new_subtotal from venta where numventa=vent;
+	select 0.18*new_subtotal into new_igv from venta where numventa=vent;
+	update venta set subtotal=new_subtotal, igv=new_igv, total=new_subtotal+new_igv where numventa=vent;
+	insert into cambio_producto values (codigo_generado, oldp, newp, cant, vent);
+	return true;
+Exception
+	when others then return false;
+end;
+$$ language 'plpgsql'
 
 --INSERCIÓN DE EJEMPLOS
 

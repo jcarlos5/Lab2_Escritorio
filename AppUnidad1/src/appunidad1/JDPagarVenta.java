@@ -6,10 +6,13 @@
 package appunidad1;
 
 import CapaNegocio.clsCliente;
+import CapaNegocio.clsCuota;
 import CapaNegocio.clsVenta;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +26,7 @@ public class JDPagarVenta extends javax.swing.JDialog {
     clsCliente objCliente = new clsCliente();
     clsVenta objVenta = new clsVenta();
     String codUser=null;
+    String[][] cuotas;
     /**
      * Creates new form JDPagarVenta
      */
@@ -53,6 +57,11 @@ public class JDPagarVenta extends javax.swing.JDialog {
         txtNumVenta = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtPago = new javax.swing.JTextField();
+        lblTituloVuelto = new javax.swing.JLabel();
+        lblVuelto = new javax.swing.JLabel();
+        btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -95,6 +104,11 @@ public class JDPagarVenta extends javax.swing.JDialog {
 
             }
         ));
+        tblVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblVentasMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblVentas);
 
         jLabel3.setText("Numero de Venta:");
@@ -150,13 +164,46 @@ public class JDPagarVenta extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel5.setText("Monto ingresado:");
+
+        txtPago.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPagoKeyPressed(evt);
+            }
+        });
+
+        lblTituloVuelto.setText("Vuelto:");
+
+        lblVuelto.setText("???");
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(lblTituloVuelto))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblVuelto)
+                                    .addComponent(txtPago, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -164,7 +211,17 @@ public class JDPagarVenta extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblTituloVuelto)
+                    .addComponent(lblVuelto, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGuardar)
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -195,10 +252,55 @@ public class JDPagarVenta extends javax.swing.JDialog {
         llenarDatos(doc);
     }//GEN-LAST:event_tblClientesMouseClicked
 
+    private void tblVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVentasMouseClicked
+        txtNumVenta.setText(String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 0)));
+    }//GEN-LAST:event_tblVentasMouseClicked
+
+    private void txtPagoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPagoKeyPressed
+        if(txtPago.getText().length()>0 && evt.getKeyCode()==KeyEvent.VK_ENTER){
+                float vuelto = Float.parseFloat(txtPago.getText())-Float.parseFloat(String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 2)));
+                if(vuelto<0){
+                    JOptionPane.showMessageDialog(rootPane, "El monto a pagar es mayor");
+                    txtPago.setText("");
+                    txtPago.requestFocus();
+                    limpiarControles();
+                }else{
+                    lblTituloVuelto.setVisible(true);
+                    lblVuelto.setText(String.valueOf(vuelto));
+                    lblVuelto.setVisible(true);
+                    btnGuardar.setVisible(true);
+                    cuotas = new String[1][8];
+                    LocalDate ld = LocalDate.now();
+                    Date fe = Date.valueOf(ld);
+                    cuotas[0] = new String[]{txtNumVenta.getText(), "1", String.valueOf(fe),String.valueOf(fe) , "true", txtPago.getText(), lblVuelto.getText(), String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 2))};
+                }
+            }
+    }//GEN-LAST:event_txtPagoKeyPressed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        int i=0;
+        clsCuota objCuota = new clsCuota();
+        while (i>=0){
+            try {
+                objCuota.registrarCuotaTransaccion(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5], cuotas[i][6], cuotas[i][7]);
+                i++;
+            } catch (Exception e) {
+                i=-1;
+                JOptionPane.showMessageDialog(this, ERROR);
+            }
+        }
+        
+        JOptionPane.showMessageDialog(rootPane, "Venta Registrada Correctamente");
+        limpiarControles();
+        listarVentas(txtDocumento.getText());
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
     private void limpiarControles(){
         txtDocumento.setText("");
         txtNombre.setText("");
         txtNumVenta.setText("");
+        lblVuelto.setText("");
+        txtPago.setText("");
     }
     
     private void llenarDatos(String doc){
@@ -306,17 +408,22 @@ public class JDPagarVenta extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblTituloVuelto;
+    private javax.swing.JLabel lblVuelto;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblVentas;
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumVenta;
+    private javax.swing.JTextField txtPago;
     // End of variables declaration//GEN-END:variables
 }

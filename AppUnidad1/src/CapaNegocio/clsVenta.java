@@ -6,6 +6,7 @@
 package CapaNegocio;
 
 import CapaDatos.clsJDBC;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -55,7 +56,7 @@ public class clsVenta {
             con = objConectar.getCon();
             con.setAutoCommit(false);
             sent = con.createStatement();
-            strSQL = "INSERT INTO venta VALUES (" + cod + ", " + cliente + ", CURRENT_DATE, " + igv + ", " + subtotal + ", " + total + ", " + tipo + ", " + pago + ", "+contado +" );";
+            strSQL = "INSERT INTO venta VALUES (" + cod + ", " + cliente + ", CURRENT_DATE, " + igv + ", " + subtotal + ", " + total + ", " + tipo + ", " + pago + ", "+ contado+" );";
             sent.executeUpdate(strSQL);
             int ctd = detalle.getRowCount();
             for (int i=0; i<ctd; i++){
@@ -73,6 +74,32 @@ public class clsVenta {
             objConectar.desconectar();
         }
     }
+    
+    public void registrarSinPago(int cod, float total, float subtotal, float igv, boolean tipo, int cliente, boolean pago, JTable detalle) throws Exception{
+        try {
+            objConectar.conectar();
+            con = objConectar.getCon();
+            con.setAutoCommit(false);
+            sent = con.createStatement();
+            strSQL = "INSERT INTO venta VALUES (" + cod + ", " + cliente + ", CURRENT_DATE, " + igv + ", " + subtotal + ", " + total + ", " + tipo + ", " + pago + ", null );";
+            sent.executeUpdate(strSQL);
+            int ctd = detalle.getRowCount();
+            for (int i=0; i<ctd; i++){
+                String descuento = detalle.getValueAt(i, 3).toString();
+                strSQL = "INSERT INTO detalle VALUES (" + cod + ", " + detalle.getValueAt(i, 0).toString() + ", " + detalle.getValueAt(i, 5).toString() + ", " + detalle.getValueAt(i, 2).toString() + ", " + descuento.substring(0, descuento.length()-1) +", " + detalle.getValueAt(i, 6).toString() +");";
+                sent.executeUpdate(strSQL);
+                strSQL = "update producto set stock=stock - " + Integer.valueOf( detalle.getValueAt(i, 5).toString()) + "where codproducto="+detalle.getValueAt(i, 0).toString() ;
+                sent.executeUpdate(strSQL);
+                con.commit();
+            }
+        } catch (Exception e) {
+            con.rollback();
+            throw new Exception("Error al guardar Venta");
+        }finally{
+            objConectar.desconectar();
+        }
+    }
+    
     public void registrarDetalle(String venta, String prod, String cant, String preVen, String desc, String sub) throws Exception{
         strSQL = "INSERT INTO detalle VALUES (" + venta + ", " + prod + ", " + cant + ", " + preVen + ", " + desc +", " + sub +");";
         try {
@@ -164,6 +191,79 @@ public class clsVenta {
         } catch (Exception e) {
             throw new Exception("Error ");
         }
+    }
+    
+    public int numeroCuotasNoPagadas(int codventa) throws Exception{
+        strSQL = "SELECT count(*) as cuenta FROM venta v inner join cuota cu on v.numventa=cu.codventa " +
+                    "WHERE v.numventa="+codventa +" and cu.cancelada=false";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                return rs.getInt("cuenta");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error ");
+        }
+        return -1;
+    }
+    
+    public int numeroCuotas(int codventa) throws Exception{
+        strSQL = "SELECT count(*) as cuenta FROM venta v inner join cuota cu on v.numventa=cu.codventa " +
+                    "WHERE v.numventa="+codventa ;
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                return rs.getInt("cuenta");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error ");
+        }
+        return -1;
+    }
+    
+    public boolean validarCambioProducto(int codventa) throws Exception{
+        boolean permitir  = false;;
+        try {
+            int t = numeroCuotas(codventa);
+            int falta = numeroCuotasNoPagadas(codventa);
+            if (t==falta) {
+                permitir = true;
+            }else {
+                permitir = false;
+            }
+        } catch (Exception e) {
+            throw new Exception("Error ");
+        }
+        return permitir;
+    }
+    
+    public boolean editarDetalle(int oldp, int newp,int cant ,int vent) throws Exception 
+    {   boolean rpta = false;
+        try {
+            
+            objConectar.conectar();
+            Connection con = objConectar.getCon();
+            con.setAutoCommit(false);
+            CallableStatement sentencia = con.prepareCall("select cambiarProducto(?,?,?,?)");
+            sentencia.setInt(1, oldp);
+            sentencia.setInt(2, newp);
+            sentencia.setInt(3, cant);
+            sentencia.setInt(4, vent);
+            System.out.println(sentencia);
+            ResultSet resultado = sentencia.executeQuery();
+            con.commit();
+            if (resultado.next()) 
+            {
+                rpta = resultado.getBoolean("cambiarProducto");
+                System.out.println(rpta);
+            }                
+            
+        } catch (Exception e) {
+            con.rollback();
+        }finally{
+            objConectar.desconectar();
+        }
+         return rpta;      
     }
     
 }
