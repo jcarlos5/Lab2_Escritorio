@@ -5,12 +5,15 @@
  */
 package appunidad1;
 
+import CapaDatos.clsJDBC;
 import CapaNegocio.clsCliente;
 import CapaNegocio.clsCuota;
 import CapaNegocio.clsProducto;
 import CapaNegocio.clsVenta;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -25,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
 */
 
 public class JDVentas extends javax.swing.JDialog {
-
+    clsJDBC objConectar = new clsJDBC();
     clsCliente objCliente = new clsCliente();
     clsVenta objVenta = new clsVenta();
     clsProducto objProducto = new clsProducto();

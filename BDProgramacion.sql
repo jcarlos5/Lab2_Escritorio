@@ -1,12 +1,10 @@
 /*
 ================================================================
 --Fecha de Creación	: 02 de Octubre del 2019
---Última moficiación	: 07 de Octubre del 2019
+--Última moficiación	: 23 de Octubre del 2019
 --Autores		:
 			   - BENEL RAMIREZ, Sara
-			   - CASTRO FERNANDEZ, Paola   
 			   - VILCHEZ VILLEGAS, José Carlos
-			   - YOMONA PARRAGUEZ, Cinthya
 ================================================================
 */
 
@@ -95,7 +93,7 @@ subtotal DECIMAL(10, 2) NULL,
 total DECIMAL(10, 2) NOT NULL,
 tipoComprobante BOOLEAN NOT NULL, --True: Boleta, False: Factura
 estadoPago BOOLEAN NOT NULL,
-tipoPago BOOLEAN NOT NULL --True: Contado, False: Credito
+tipoPago BOOLEAN NULL --True: Contado, False: Credito
 );
 
 CREATE TABLE DETALLE(
@@ -118,8 +116,17 @@ vuelto DECIMAL(10,2) NULL,
 monto DECIMAL(10,2) NOT NULL
 );
 
---CREACIÓN DE CLAVES FORÁNEAS
+--TABLA DEVOLUCION AGREGADA 23-OCT-2019
+CREATE TABLE devolucion(
+	numerodev INT NOT NULL PRIMARY KEY,
+	fecha DATE NOT NULL,
+	motivo VARCHAR(100) NOT NULL,
+	montodev DECIMAL(10,2) NOT NULL,
+	atendidopor INT NOT NULL
+);
 
+--CREACIÓN DE CLAVES FORÁNEAS
+ALTER TABLE DEVOLUCION ADD CONSTRAINT FK_USUARIO_DEVOLUCION FOREIGN KEY (atendidopor) REFERENCES USUARIO(CODUSUARIO);
 ALTER TABLE PRODUCTO ADD CONSTRAINT FK_MARCA_PRODUCTO FOREIGN KEY (codMarca) REFERENCES MARCA;
 ALTER TABLE PRODUCTO ADD CONSTRAINT FK_CATEGORIA_PRODUCTO FOREIGN KEY (codCategoria) REFERENCES CATEGORIA;
 ALTER TABLE MOVIMIENTO ADD CONSTRAINT FK_MOV_USU FOREIGN KEY (codUsuario) REFERENCES USUARIO;
@@ -274,3 +281,42 @@ $$LANGUAGE 'plpgsql';
 
 CREATE TRIGGER TG_Actualizarstock AFTER INSERT ON detalle
 FOR EACH ROW EXECUTE PROCEDURE actualizarstock();
+
+
+
+
+CREATE OR REPLACE FUNCTION fn_cambiarProducto(numven int, prod_old int, prod_new int, cant_new int, desc_new int) RETURNS BOOLEAN AS
+$$
+DECLARE
+	cant_old int;
+	prec_new decimal(8,2);
+	subt_new decimal(10,2);
+	mont_new decimal(10,2);
+	subm_new decimal(10,2);
+	igv_new decimal(10,2);
+BEGIN
+	--ELIMINAR EL PRODUCTO NO DESEADO
+	SELECT cantidad INTO cant_old FROM detalle WHERE numventa = numven and codproducto = prod_old;
+	UPDATE producto SET stock = (stock+cant_old) WHERE codproducto = prod_old;
+	DELETE FROM detalle WHERE numventa = numven and codproducto = prod_old;
+
+	--BUSCAR DATOS DEL NUEVO PRODUCTO
+	SELECT precio INTO prec_new FROM producto WHERE codproducto = prod_new;
+	subt_new = cant_new*(prec_new - ((prec_new*desc_new)/100));
+	
+	--AGREGAR EL NUEVO PRODUCTO
+	INSERT INTO detalle(numventa, codproducto, cantidad, precioventa, descuento, subtotal)
+		VALUES (numven, prod_new, cant_new, prec_new, desc_new, subt_new);
+	UPDATE producto set stock = stock - cant_new WHERE codproducto = prod_new;
+
+	--CALCULAR NUEVOS DATOS DE LA VENTA
+	SELECT sum(subtotal) INTO subm_new FROM detalle WHERE numventa = numven;
+	igv_new = subm_new * 0.18;
+	mont_new = subm_new + igv_new;
+
+	--ACTUALIZAR LA VENTA
+	UPDATE venta SET subtotal = subm_new, igv = igv_new, total = mont_new WHERE numventa = numven;
+
+	return TRUE;
+END
+$$ language 'plpgsql';

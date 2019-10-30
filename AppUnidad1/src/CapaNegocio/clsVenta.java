@@ -6,6 +6,7 @@
 package CapaNegocio;
 
 import CapaDatos.clsJDBC;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -66,11 +67,6 @@ public class clsVenta {
         }finally{
             objConectar.desconectar();
         }
-//        try {
-//            objConectar.ejecutarBD(strSQL);
-//        } catch (Exception e) {
-//            throw new Exception("Error al guardar Venta");
-//        }
     }
     
     public void registrarDetalle(String venta, String prod, String cant, String preVen, String desc, String sub) throws Exception{
@@ -151,6 +147,48 @@ public class clsVenta {
         try {
             rs=objConectar.consultarBD(strSQL);
             return rs;
+        } catch (Exception e) {
+            throw new Exception("Error ");
+        }
+    }
+    
+    public ResultSet listarTodasVentaPorCliente(int codcliente) throws Exception{
+        strSQL = "SELECT * FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE c.codcliente = " + codcliente + " and estadopago = true or tipopago=false;";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error ");
+        }
+    }
+    
+    public boolean cambiarProducto(int numven, int prod_old, int prod_new, int cant_new, int desc_new) throws Exception{
+        try {
+            boolean rpta = false;
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            try {
+
+                con.setAutoCommit(false);
+                CallableStatement sentencia = con.prepareCall("SELECT fn_cambiarProducto(?, ?, ?, ?, ?)");
+                sentencia.setInt(1, numven);
+                sentencia.setInt(2, prod_old);
+                sentencia.setInt(3, prod_new);
+                sentencia.setInt(4, cant_new);
+                sentencia.setInt(5, desc_new);
+                ResultSet resultado = sentencia.executeQuery();
+                if (resultado.next()) 
+                {
+                    rpta = resultado.getBoolean("fn_cambiarProducto");
+                }
+                con.commit();
+                return rpta;
+            } catch (Exception e) {
+                con.rollback();
+                throw new Exception("Error ");
+            }finally{
+                objConectar.desconectar();
+            }
         } catch (Exception e) {
             throw new Exception("Error ");
         }

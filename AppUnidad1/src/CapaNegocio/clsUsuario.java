@@ -308,4 +308,17 @@ public class clsUsuario {
             throw new Exception("Error al listar datos de usuario");
         }
     }
+    
+    public int conocerCodusuario (String user) throws Exception{
+        String data = "select codUsuario from usuario where nomusuario='"+user+"'";
+        try {
+            ResultSet resul = objConectar.consultarBD(data);
+            while (resul.next()) {
+                return resul.getInt("codUsuario");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al obtener el codigo de usuario");
+        }
+        return -1;
+    }
 }
