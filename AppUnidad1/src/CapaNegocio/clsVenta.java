@@ -223,4 +223,20 @@ public class clsVenta {
             objConectar.desconectar();
         }
     }
+    
+    public ResultSet getVentasFechas(Date f1, Date f2) throws Exception{
+        try {
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM fn_filtrar_ventas(?,?)");
+            sentencia.setDate(1, f1);
+            sentencia.setDate(2, f2);
+            ResultSet resultado = sentencia.executeQuery();
+            return resultado;
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
+        }
+    }
 }
