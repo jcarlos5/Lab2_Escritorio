@@ -266,6 +266,7 @@ $$LANGUAGE 'plpgsql';
 CREATE TRIGGER TG_ActualizarVentas AFTER UPDATE ON cuota
 FOR EACH ROW EXECUTE PROCEDURE actualizarventa();
 
+/*
 --TRIGGER PARA REDUCIR EL STOCK
 CREATE OR REPLACE FUNCTION actualizarstock() RETURNS TRIGGER AS
 $$
@@ -281,7 +282,7 @@ $$LANGUAGE 'plpgsql';
 
 CREATE TRIGGER TG_Actualizarstock AFTER INSERT ON detalle
 FOR EACH ROW EXECUTE PROCEDURE actualizarstock();
-
+*/
 
 
 
@@ -318,5 +319,31 @@ BEGIN
 	UPDATE venta SET subtotal = subm_new, igv = igv_new, total = mont_new WHERE numventa = numven;
 
 	return TRUE;
+
+	exception when others then return FALSE
+END
+$$ language 'plpgsql';
+
+
+CREATE OR REPLACE FUNCTION fn_estadisticas_venta(OUT numVentas bigint, OUT montoventas decimal(10,2), OUT montominimo decimal(10,2), OUT montomaximo decimal(10,2)) RETURNS SETOF RECORD AS
+$$
+DECLARE
+BEGIN
+	RETURN QUERY
+	SELECT count(*), sum(total), min(total), max(total) FROM venta;
+END
+$$ language 'plpgsql';
+
+
+CREATE OR REPLACE FUNCTION fn_buscar_venta(num int) RETURNS TABLE(numero int, fecha date, cliente varchar(100), total decimal(10,2), producto varchar(100), cantidad int, descuento smallint) AS
+$$
+DECLARE
+BEGIN
+	RETURN QUERY
+	SELECT v.numventa, v.fecha, c.nombres, d.subtotal, p.nomproducto, d.cantidad, d.descuento FROM detalle d
+		INNER JOIN (SELECT * FROM venta WHERE numventa = num) v ON d.numventa = v.numventa
+		INNER JOIN producto p ON p.codproducto = d.codproducto
+		INNER JOIN cliente c ON c.codcliente = v.codcliente
+		ORDER BY 5;
 END
 $$ language 'plpgsql';

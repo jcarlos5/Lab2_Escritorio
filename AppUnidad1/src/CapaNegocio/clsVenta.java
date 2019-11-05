@@ -193,4 +193,33 @@ public class clsVenta {
             throw new Exception("Error ");
         }
     }
+    
+    public ResultSet estadisticas() throws Exception{
+        try {
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("select * from fn_estadisticas_venta()");
+            ResultSet resultado = sentencia.executeQuery();
+            return resultado;
+        } catch (Exception e) {
+            throw new Exception("Error ");
+        }finally{
+            objConectar.desconectar();
+        }
+    }
+    
+    public ResultSet ver_venta(int numventa) throws Exception{
+        try {
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM fn_buscar_venta(?)");
+            sentencia.setInt(1, numventa);
+            ResultSet resultado = sentencia.executeQuery();
+            return resultado;
+        } catch (Exception e) {
+            throw new Exception("Error ");
+        }finally{
+            objConectar.desconectar();
+        }
+    }
 }

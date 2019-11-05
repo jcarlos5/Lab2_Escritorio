@@ -68,6 +68,7 @@ public class JDDevolucionVenta extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Devolución de Venta");
+        setBackground(new java.awt.Color(222, 227, 218));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
