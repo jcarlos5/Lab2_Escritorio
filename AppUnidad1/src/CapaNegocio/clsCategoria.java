@@ -6,6 +6,7 @@
 package CapaNegocio;
 
 import CapaDatos.clsJDBC;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -20,6 +21,8 @@ public class clsCategoria {
     clsJDBC objConectar = new clsJDBC();
     String strSQL;
     ResultSet rs=null;
+    Connection con;
+    Statement sent;
     
     public Integer generarCodigoCategoria() throws Exception{
         strSQL = "SELECT COALESCE(max(codcategoria),0)+1 AS codigo FROM categoria;" ;
@@ -108,20 +111,38 @@ public class clsCategoria {
     }
     
     public void modificarCategoria(Integer cod, String nombre, String descrip, boolean vigencia) throws Exception {
-        strSQL="UPDATE categoria SET nomcategoria = '" + nombre + "', vigencia = " + vigencia + ", descripcion = '" + descrip + "' WHERE codcategoria =" + cod + ";";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            con=objConectar.getConnection();
+            con.setAutoCommit(false);
+            strSQL="UPDATE categoria SET nomcategoria = '" + nombre + "', vigencia = " + vigencia + ", descripcion = '" + descrip + "' WHERE codcategoria =" + cod + ";";
+            sent.executeUpdate(strSQL);
+            
+            strSQL="UPDATE producto SET vigencia = " + vigencia + " WHERE codcategoria=" + cod + ";";
+            sent.executeUpdate(strSQL);
+            
+            con.commit();
         } catch (Exception e) {
+            con.rollback();
             throw new Exception("Error al modificar la categoria");
         }
     }
     
     public void darDeBajaCategoria(Integer cod) throws Exception {
-        strSQL="UPDATE categoria SET vigencia = false WHERE codcategoria =" + cod + ";";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            con=objConectar.getConnection();
+            con.setAutoCommit(false);
+            strSQL="UPDATE categoria SET vigencia = false WHERE codcategoria =" + cod + ";";
+            sent.executeUpdate(strSQL);
+            
+            strSQL="UPDATE producto SET vigencia = false WHERE codcategoria=" + cod + ";";
+            sent.executeUpdate(strSQL);
+            
+            con.commit();
         } catch (Exception e) {
-            throw new Exception("Error al dar de Baja la categoria");
+            con.rollback();
+            throw new Exception("Error al modificar la categoria");
         }
     }
     

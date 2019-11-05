@@ -73,13 +73,40 @@ public class clsCuota {
     }
     
     //pagar una cuota 
+//    public void pagarcuota(int codcuota, int codventa, Float montoIngresado,Float vuelto) throws Exception{
+//        strSQL = "UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE,ingreso="+montoIngresado+",vuelto="+vuelto+" WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
+//        try {
+//            objConectar.ejecutarBD(strSQL);
+//            
+//        } catch (Exception e) {
+//            throw new Exception("Error al registrar el pago de la Cuota");
+//        }
+//    }
+    
     public void pagarcuota(int codcuota, int codventa, Float montoIngresado,Float vuelto) throws Exception{
-        strSQL = "UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE,ingreso="+montoIngresado+",vuelto="+vuelto+" WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            con.setAutoCommit(false);
+            sent = con.createStatement();
             
+            strSQL = "UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE,ingreso="+montoIngresado+",vuelto="+vuelto+" WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
+            sent.executeUpdate(strSQL);
+            
+            strSQL = "SELECT count(*) FROM cuota WHERE cancelada = false AND codventa="+codventa+";";
+            rs=objConectar.consultarBD(strSQL);
+            
+            if (rs.next()){
+                if(rs.getInt(1)==1){
+                    strSQL="UPDATE venta SET estadopago = true WHERE numventa=" + codventa + ";";
+                    sent.executeUpdate(strSQL);
+                }
+            }
+            
+            con.commit();
         } catch (Exception e) {
-            throw new Exception("Error al registrar el pago de la Cuota");
+            con.rollback();
+            throw new Exception(e.getMessage());
         }
     }
     

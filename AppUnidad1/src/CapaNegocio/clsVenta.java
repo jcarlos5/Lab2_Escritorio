@@ -77,6 +77,7 @@ public class clsVenta {
             throw new Exception("Error al guardar el detalle de venta");
         }
     }
+    
     //para listar todas las ventas pendientes de pago - JDPAGO
     public ResultSet listarVentaPagoPendiente() throws Exception{
         strSQL = "SELECT * FROM venta WHERE estadopago=false;";
