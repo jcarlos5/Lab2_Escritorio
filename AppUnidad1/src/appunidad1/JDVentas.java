@@ -108,7 +108,6 @@ public class JDVentas extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnModDesc = new javax.swing.JButton();
-        btnGuardar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(".:Registrar Venta:.");
@@ -334,15 +333,6 @@ public class JDVentas extends javax.swing.JDialog {
             }
         });
 
-        btnGuardar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/save.png"))); // NOI18N
-        btnGuardar1.setText("Guardar sin pago");
-        btnGuardar1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnGuardar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardar1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -388,8 +378,7 @@ public class JDVentas extends javax.swing.JDialog {
                                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                     .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                        .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnGuardar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -460,9 +449,7 @@ public class JDVentas extends javax.swing.JDialog {
                     .addComponent(btnLimpiar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGuardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGuardar1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -546,57 +533,10 @@ public class JDVentas extends javax.swing.JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         try {
-            String[] opciones = {"Contado", "Crédito"};
-            Object rpta = JOptionPane.showInputDialog(rootPane, "Seleccione el tipo de Pago a realizar", "SISTEMA", JOptionPane.QUESTION_MESSAGE,null, opciones, opciones[0]);
-            if(rpta!=null){
-                boolean pago=false;
-                boolean contado;
-                boolean tipocomprobante;
-                String cuotas[][];
-                if (rpta.toString().equals("Contado")){
-                    JDPagoContado objPago = new JDPagoContado((Frame) SwingUtilities.getWindowAncestor(this), true);
-                    objPago.setDatos(txtCodVenta.getText(), txtNombre.getText(), txtDocumento.getText(), txtTotal.getText());
-                    objPago.setLocationRelativeTo(this);
-                    objPago.setVisible(true);
-                    pago = objPago.getPago();
-                    cuotas = objPago.getCuotas();
-                    contado = true;
-                    tipocomprobante=true;
-                }else{
-                    if(objCliente.isAcreditable(txtCod.getText())){
-                        JDPagoCredito objPago = new JDPagoCredito((Frame) SwingUtilities.getWindowAncestor(this), true);
-                        objPago.setDatos(txtCodVenta.getText(), txtNombre.getText(), txtDocumento.getText(), txtTotal.getText());
-                        objPago.setLocationRelativeTo(this);
-                        objPago.setVisible(true);
-                        pago = objPago.getPago();
-                        cuotas = objPago.getCuotas();
-                        contado = false;
-                        tipocomprobante=false;
-                    }else{
-                        JOptionPane.showMessageDialog(rootPane, "El cliente aún tiene un crédito vigente");
-                        cuotas = new String[1][8];
-                        contado = false;
-                        tipocomprobante=false;
-                    }
-                }
-                if(pago){
-                    objVenta.registrar(Integer.parseInt(txtCodVenta.getText()), Float.parseFloat(txtTotal.getText()), Float.parseFloat(txtSubTotal.getText()), Float.parseFloat(txtIgv.getText()), rbtBoleta.isSelected(), Integer.parseInt(txtCod.getText()), contado, tipocomprobante, tblProductos);
-                    //objVenta.registrar(txtCodVenta.getText(), txtTotal.getText(), txtSubTotal.getText(), txtIgv.getText(), rbtBoleta.isSelected(), Integer.parseInt(txtCod.getText()), contado, tipocomprobante, tblProductos);
-                    int i=0;
-                    clsCuota objCuota = new clsCuota();
-                    while (i>=0){
-                        try {
-                            objCuota.registrarCuota(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5], cuotas[i][6], cuotas[i][7]);
-                            i++;
-                        } catch (Exception e) {
-                            i=-1;
-                        }
-                    }
-                    JOptionPane.showMessageDialog(rootPane, "Venta Registrada Correctamente");
-                    limpiarControles();
-                    generarCodigo();
-                }
-            }
+            objVenta.registrar(Integer.parseInt(txtCodVenta.getText()), Float.parseFloat(txtTotal.getText()), Float.parseFloat(txtSubTotal.getText()), Float.parseFloat(txtIgv.getText()), rbtBoleta.isSelected(), Integer.parseInt(txtCod.getText()), tblProductos);
+            JOptionPane.showMessageDialog(rootPane, "Venta Registrada Correctamente");
+            limpiarControles();
+            generarCodigo();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -761,16 +701,6 @@ public class JDVentas extends javax.swing.JDialog {
         btnCancelar.setEnabled(true);
         op=2;
     }//GEN-LAST:event_btnModDescActionPerformed
-
-    private void btnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar1ActionPerformed
-        try {
-            objVenta.registrarSinPago(Integer.parseInt(txtCodVenta.getText()), Float.parseFloat(txtTotal.getText()), Float.parseFloat(txtSubTotal.getText()), Float.parseFloat(txtIgv.getText()), rbtBoleta.isSelected(), Integer.parseInt(txtCod.getText()), false, tblProductos);
-            limpiarControles();
-            generarCodigo();
-        } catch (Exception ex) {
-            Logger.getLogger(JDVentas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnGuardar1ActionPerformed
 
     private void listarClientes(){
         
@@ -997,7 +927,6 @@ public class JDVentas extends javax.swing.JDialog {
     private javax.swing.JButton btnAnadir;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnGuardar1;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModDesc;
     private javax.swing.JButton btnModificar;

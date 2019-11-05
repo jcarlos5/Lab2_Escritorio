@@ -39,6 +39,28 @@ public class clsCuota {
             throw new Exception("Error al registrar el pago de la venta");
         }
     }
+    
+    public void registrarCuota(String[][] datos, boolean tipo) throws Exception{
+        try {
+            objConectar.conectar();
+            con = objConectar.getCon();
+            con.setAutoCommit(false);
+            sent = con.createStatement();
+            strSQL="UPDATE venta SET estadopago = " + tipo + ", tipopago = " + tipo + " WHERE numventa=" + datos[0][0] + ";";
+            sent.executeUpdate(strSQL);
+            
+            for (String[] dato : datos) {
+                strSQL="INSERT INTO cuota VALUES (" + dato[0] + ", " + dato[1] + ", '" + dato[2] + "' , " + dato[3] + " , " + dato[4] + ", " + dato[5] + " , " + dato[6] + ","+dato[7]+");";
+                sent.executeUpdate(strSQL);
+            }
+            
+            con.commit();
+        } catch (Exception e) {
+            con.rollback();
+            throw new Exception(e.getMessage());
+        }
+    }
+    
     //registrar pagos con transaccion metodo simple solo contado por el momento 
     public void registrarCuotaTransaccion(String numVenta, String numCuota, String fecha, String fpago, String estado, String montoIngresado, String vuelto,String monto) throws Exception{
         try {

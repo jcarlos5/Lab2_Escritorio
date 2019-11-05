@@ -6,7 +6,9 @@
 package CapaNegocio;
 
 import CapaDatos.clsJDBC;
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  INTEGRANTES:
@@ -19,6 +21,8 @@ public class clsMarca {
     clsJDBC objConectar = new clsJDBC();
     String strSQL;
     ResultSet rs=null;
+    Connection con=null;
+    Statement sent;
     
     public Integer generarCodigoMarca() throws Exception{
         strSQL = "SELECT COALESCE(max(codMarca),0)+1 AS codigo FROM marca;" ;
@@ -53,11 +57,32 @@ public class clsMarca {
     }
     
     public void eliminarMarca(Integer cod) throws Exception {
-        strSQL="DELETE FROM marca WHERE codMarca=" + cod + ";";
+        Integer cant=0;
         try {
-            objConectar.ejecutarBD(strSQL);
+            strSQL="select count(*) as total from PRODUCTO where codmarca=" + cod;
+            objConectar.conectar();
+            con=objConectar.getCon();
+            con.setAutoCommit(false);
+            sent=con.createStatement();
+            rs=sent.executeQuery(strSQL);
+            while(rs.next()){
+                cant=rs.getInt("total");
+            }
+            if(cant>0){
+                strSQL="update PRODUCTO set vigencia=false where codmarca=" + cod;
+                sent.executeUpdate(strSQL);
+                strSQL="update MARCA set vigencia=false where codmarca=" + cod;
+                sent.executeUpdate(strSQL);
+            }else{
+                strSQL="DELETE FROM marca WHERE codmarca=" + cod + ";";
+                sent.executeUpdate(strSQL);
+            }
+            con.commit();
         } catch (Exception e) {
+            con.rollback();
             throw new Exception("Error al eliminar la marca");
+        }finally{
+            objConectar.desconectar();
         }
     }
 
@@ -72,20 +97,38 @@ public class clsMarca {
     }
     
     public void modificarMarca(Integer cod, String nombre, boolean vigencia) throws Exception {
-        strSQL="UPDATE marca SET nommarca = '" + nombre + "', vigencia = " + vigencia + " WHERE codmarca =" + cod + ";";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            con=objConectar.getCon();
+            con.setAutoCommit(false);
+            strSQL="UPDATE marca SET nommarca = '" + nombre + "', vigencia = " + vigencia + " WHERE codmarca =" + cod + ";";
+            sent.executeUpdate(strSQL);
+            strSQL="update PRODUCTO set vigencia=" + vigencia + " where codmarca=" + cod;
+            sent.executeUpdate(strSQL);
+            con.commit();
         } catch (Exception e) {
+            con.rollback();
             throw new Exception("Error al modificar la marca");
+        }finally{
+            objConectar.desconectar();
         }
     }
     
     public void darDeBajaMarca(Integer cod) throws Exception {
-        strSQL="UPDATE marca SET vigencia = false WHERE codmarca =" + cod + ";";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getCon();
+            con.setAutoCommit(false);
+            strSQL="UPDATE marca SET vigencia = false WHERE codmarca =" + cod + ";";
+            sent.executeUpdate(strSQL);
+            strSQL="update PRODUCTO set vigencia=false where codmarca=" + cod;
+            sent.executeUpdate(strSQL);
+            con.commit();
         } catch (Exception e) {
-            throw new Exception("Error al dar de Baja la marca");
+            con.rollback();
+            throw new Exception("Error al dar de baja a la categoría");
+        }finally{
+            objConectar.desconectar();
         }
     }
     

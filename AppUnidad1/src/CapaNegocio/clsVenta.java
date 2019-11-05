@@ -50,26 +50,29 @@ public class clsVenta {
         }
     }
     */
-    public void registrar(int cod, float total, float subtotal, float igv, boolean tipo, int cliente, boolean pago, boolean contado, JTable detalle) throws Exception{
+    public void registrar(int cod, float total, float subtotal, float igv, boolean tipo, int cliente, JTable tblProductos) throws Exception{
         try {
             objConectar.conectar();
-            con = objConectar.getCon();
+            con=objConectar.getCon();
             con.setAutoCommit(false);
             sent = con.createStatement();
-            strSQL = "INSERT INTO venta VALUES (" + cod + ", " + cliente + ", CURRENT_DATE, " + igv + ", " + subtotal + ", " + total + ", " + tipo + ", " + pago + ", "+ contado+" );";
+            strSQL = "INSERT INTO venta VALUES (" + cod + ", " + cliente + ", CURRENT_DATE, " + igv + ", " + subtotal + ", " + total + ", " + tipo + ", false, null );";
             sent.executeUpdate(strSQL);
-            int ctd = detalle.getRowCount();
+            
+            int ctd = tblProductos.getRowCount();
             for (int i=0; i<ctd; i++){
-                String descuento = detalle.getValueAt(i, 3).toString();
-                strSQL = "INSERT INTO detalle VALUES (" + cod + ", " + detalle.getValueAt(i, 0).toString() + ", " + detalle.getValueAt(i, 5).toString() + ", " + detalle.getValueAt(i, 2).toString() + ", " + descuento.substring(0, descuento.length()-1) +", " + detalle.getValueAt(i, 6).toString() +");";
+                String descuento = tblProductos.getValueAt(i, 3).toString();
+                
+                strSQL = "INSERT INTO detalle VALUES (" + cod + ", " + tblProductos.getValueAt(i, 0).toString() + ", " + tblProductos.getValueAt(i, 5).toString() + ", " + tblProductos.getValueAt(i, 2).toString() + ", " + descuento.substring(0, descuento.length()-1) +", " + tblProductos.getValueAt(i, 6).toString() +");";
                 sent.executeUpdate(strSQL);
-                strSQL = "update producto set stock=stock - " + Integer.valueOf( detalle.getValueAt(i, 5).toString()) + "where codproducto="+detalle.getValueAt(i, 0).toString() ;
+                
+                strSQL = "UPDATE producto SET stock = stock-"+ Integer.parseInt(tblProductos.getValueAt(i, 5).toString())+" WHERE codproducto=" + Integer.parseInt(tblProductos.getValueAt(i, 0).toString()) + ";";
                 sent.executeUpdate(strSQL);
-                con.commit();
             }
+            con.commit();           
         } catch (Exception e) {
             con.rollback();
-            throw new Exception("Error al guardar Venta");
+            throw new Exception("Error al guardar venta");
         }finally{
             objConectar.desconectar();
         }

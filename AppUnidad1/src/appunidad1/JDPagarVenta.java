@@ -10,9 +10,7 @@ import CapaNegocio.clsCuota;
 import CapaNegocio.clsVenta;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
-import java.sql.Date;
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -26,7 +24,6 @@ public class JDPagarVenta extends javax.swing.JDialog {
     clsCliente objCliente = new clsCliente();
     clsVenta objVenta = new clsVenta();
     String codUser=null;
-    String[][] cuotas;
     /**
      * Creates new form JDPagarVenta
      */
@@ -57,11 +54,6 @@ public class JDPagarVenta extends javax.swing.JDialog {
         txtNumVenta = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtPago = new javax.swing.JTextField();
-        lblTituloVuelto = new javax.swing.JLabel();
-        lblVuelto = new javax.swing.JLabel();
-        btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -164,46 +156,13 @@ public class JDPagarVenta extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel5.setText("Monto ingresado:");
-
-        txtPago.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtPagoKeyPressed(evt);
-            }
-        });
-
-        lblTituloVuelto.setText("Vuelto:");
-
-        lblVuelto.setText("???");
-
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(lblTituloVuelto))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblVuelto)
-                                    .addComponent(txtPago, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(10, 10, 10)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -211,17 +170,7 @@ public class JDPagarVenta extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblTituloVuelto)
-                    .addComponent(lblVuelto, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnGuardar)
-                .addGap(23, 23, 23))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -248,82 +197,83 @@ public class JDPagarVenta extends javax.swing.JDialog {
         }else{
             doc = String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 1));
         }
-        JOptionPane.showMessageDialog(rootPane, doc);
         llenarDatos(doc);
     }//GEN-LAST:event_tblClientesMouseClicked
 
     private void tblVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVentasMouseClicked
-        txtNumVenta.setText(String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 0)));
-    }//GEN-LAST:event_tblVentasMouseClicked
-
-    private void txtPagoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPagoKeyPressed
-        if(txtPago.getText().length()>0 && evt.getKeyCode()==KeyEvent.VK_ENTER){
-                float vuelto = Float.parseFloat(txtPago.getText())-Float.parseFloat(String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 2)));
-                if(vuelto<0){
-                    JOptionPane.showMessageDialog(rootPane, "El monto a pagar es mayor");
-                    txtPago.setText("");
-                    txtPago.requestFocus();
-                    limpiarControles();
+        // TODO add your handling code here:
+        try {
+            String[] opciones = {"Contado", "Crédito"};
+            Object rpta = JOptionPane.showInputDialog(rootPane, "Seleccione el tipo de Pago a realizar", "SISTEMA", JOptionPane.QUESTION_MESSAGE,null, opciones, opciones[0]);
+            if(rpta!=null){
+                boolean pago=false;
+                boolean contado = false;
+                String cuotas[][] = null;
+                String numVenta=String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 0));
+                String total=String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 2));
+                
+                if (rpta.toString().equals("Contado")){
+                    JDPagoContado objPago = new JDPagoContado((Frame) SwingUtilities.getWindowAncestor(this), true);
+                    objPago.setDatos(numVenta, txtNombre.getText(), txtDocumento.getText(), total);
+                    objPago.setLocationRelativeTo(this);
+                    objPago.setVisible(true);
+                    pago = objPago.getPago();
+                    cuotas = objPago.getCuotas();
+                    contado = true;
                 }else{
-                    lblTituloVuelto.setVisible(true);
-                    lblVuelto.setText(String.valueOf(vuelto));
-                    lblVuelto.setVisible(true);
-                    btnGuardar.setVisible(true);
-                    cuotas = new String[1][8];
-                    LocalDate ld = LocalDate.now();
-                    Date fe = Date.valueOf(ld);
-                    cuotas[0] = new String[]{txtNumVenta.getText(), "1", String.valueOf(fe),String.valueOf(fe) , "true", txtPago.getText(), lblVuelto.getText(), String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 2))};
+                    if(objCliente.isAcreditable(codUser)){
+                        JDPagoCredito objPago = new JDPagoCredito((Frame) SwingUtilities.getWindowAncestor(this), true);
+                        objPago.setDatos(numVenta, txtNombre.getText(), txtDocumento.getText(), total);
+                        objPago.setLocationRelativeTo(this);
+                        objPago.setVisible(true);
+                        pago = objPago.getPago();
+                        cuotas = objPago.getCuotas();
+                        contado = false;
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "El cliente aún tiene un crédito vigente");
+                    }
+                }
+                
+                if(pago && cuotas!=null){
+                    clsCuota objCuota = new clsCuota();
+                    objCuota.registrarCuota(cuotas, contado);
+                    
+//                    int i=0;
+//                    while (i>=0){
+//                        try {
+//                            objCuota.registrarCuota(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5], cuotas[i][6], cuotas[i][7]);
+//                            i++;
+//                        } catch (Exception e) {
+//                            i=-1;
+//                        }
+//                    }
+                    JOptionPane.showMessageDialog(rootPane, "Pago Registrado Correctamente");
+                    limpiarControles();
                 }
             }
-    }//GEN-LAST:event_txtPagoKeyPressed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        int i=0;
-        clsCuota objCuota = new clsCuota();
-        while (i>=0){
-            try {
-                objCuota.registrarCuotaTransaccion(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5], cuotas[i][6], cuotas[i][7]);
-                i++;
-            } catch (Exception e) {
-                i=-1;
-                JOptionPane.showMessageDialog(this, ERROR);
-            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
-        JOptionPane.showMessageDialog(rootPane, "Venta Registrada Correctamente");
-        limpiarControles();
-        listarVentas(txtDocumento.getText());
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    }//GEN-LAST:event_tblVentasMouseClicked
 
     private void limpiarControles(){
         txtDocumento.setText("");
         txtNombre.setText("");
         txtNumVenta.setText("");
-        lblVuelto.setText("");
-        txtPago.setText("");
     }
     
     private void llenarDatos(String doc){
-        if(doc.equals("null")){
-            int rpta = JOptionPane.showConfirmDialog(rootPane, "El usuario no cuenta con el Documento Necesario, ¿Desea Agregarlo?", "SISTEMA", JOptionPane.YES_NO_OPTION);
-            if (rpta==0){
-                JDMantenimientoCliente objMantCliente = new JDMantenimientoCliente((Frame) SwingUtilities.getWindowAncestor(this), true);
-                objMantCliente.setLocationRelativeTo(this);
-                objMantCliente.setVisible(true);
+        txtDocumento.setText(doc);
+        try {
+            ResultSet rs = objCliente.buscarCliente(doc);
+            while(rs.next()){
+                codUser = rs.getString("codcliente");
+                txtNombre.setText(rs.getString("nombres"));
+                listarClientes();
             }
-        }else{
-            txtDocumento.setText(doc);
-            try {
-                ResultSet rs = objCliente.buscarCliente(doc);
-                while(rs.next()){
-                    codUser = rs.getString("codcliente");
-                    txtNombre.setText(rs.getString("nombres"));
-                    listarClientes();
-                }
-                listarVentas(codUser);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, e.getMessage());
-            }
+            listarVentas(codUser);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }
     
@@ -391,6 +341,13 @@ public class JDPagarVenta extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(JDPagarVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -408,22 +365,17 @@ public class JDPagarVenta extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblTituloVuelto;
-    private javax.swing.JLabel lblVuelto;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblVentas;
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumVenta;
-    private javax.swing.JTextField txtPago;
     // End of variables declaration//GEN-END:variables
 }

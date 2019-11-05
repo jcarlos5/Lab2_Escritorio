@@ -6,7 +6,6 @@
 package appunidad1;
 
 import CapaNegocio.clsUsuario;
-import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
