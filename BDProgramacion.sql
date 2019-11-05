@@ -347,3 +347,16 @@ BEGIN
 		ORDER BY 5;
 END
 $$ language 'plpgsql';
+
+--DROP FUNCTION fn_filtrar_ventas(finicio date, ffinal date)
+
+CREATE OR REPLACE FUNCTION fn_filtrar_ventas(finicio date, ffinal date) RETURNS TABLE(numventa integer, fecha date, cliente varchar(100), total numeric(10,2),
+												subtotal numeric(10,2), igv numeric(10,2), estadopago boolean, tipopago boolean,
+												tipocomprobante boolean) AS
+$$
+DECLARE
+BEGIN
+	RETURN query
+	SELECT v.numventa, v.fecha, c.nombres, v.total,v.subtotal, v.igv, v.estadopago, v.tipopago, v.tipocomprobante FROM venta v  INNER JOIN cliente c on c.codcliente = v.codcliente WHERE v.fecha>=finicio and v.fecha<=ffinal;
+END
+$$ language 'plpgsql';
