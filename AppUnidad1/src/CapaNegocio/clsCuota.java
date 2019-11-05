@@ -46,11 +46,11 @@ public class clsCuota {
             con = objConectar.getConnection();
             con.setAutoCommit(false);
             sent = con.createStatement();
-            strSQL="UPDATE venta SET estadopago = true, tipopago = " + tipo + " WHERE numventa=" + datos[0][0] + ";";
+            strSQL="UPDATE venta SET estadopago = " + tipo + ", tipopago = " + tipo + " WHERE numventa=" + datos[0][0] + ";";
             sent.executeUpdate(strSQL);
             
             for (String[] dato : datos) {
-                strSQL="INSERT INTO cuota VALUES (" + dato[0] + ", " + dato[1] + ", '" + dato[2] + "' , '" + dato[3] + "' , " + dato[4] + ", " + dato[5] + " , " + dato[6] + ","+dato[7]+");";
+                strSQL="INSERT INTO cuota VALUES (" + dato[0] + ", " + dato[1] + ", '" + dato[2] + "' , " + dato[3] + " , " + dato[4] + ", " + dato[5] + " , " + dato[6] + ","+dato[7]+");";
                 sent.executeUpdate(strSQL);
             }
             

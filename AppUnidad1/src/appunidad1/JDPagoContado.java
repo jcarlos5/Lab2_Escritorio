@@ -213,7 +213,7 @@ public class JDPagoContado extends javax.swing.JDialog {
                     cuotas = new String[1][8];
                     LocalDate ld = LocalDate.now();
                     Date fe = Date.valueOf(ld);
-                    cuotas[0] = new String[]{txtNumeroVenta.getText(), "1", String.valueOf(fe),String.valueOf(fe) , "true", txtPago.getText(), lblVuelto.getText(), txtMonto.getText()};
+                    cuotas[0] = new String[]{txtNumeroVenta.getText(), "1", String.valueOf(fe), "'"+String.valueOf(fe)+"'" , "true", txtPago.getText(), lblVuelto.getText(), txtMonto.getText()};
                 }
             }
         } catch (Exception e) {
