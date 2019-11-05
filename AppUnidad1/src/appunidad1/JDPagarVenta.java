@@ -11,6 +11,7 @@ import CapaNegocio.clsVenta;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -50,8 +51,6 @@ public class JDPagarVenta extends javax.swing.JDialog {
         tblClientes = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblVentas = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
-        txtNumVenta = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
 
@@ -103,8 +102,6 @@ public class JDPagarVenta extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tblVentas);
 
-        jLabel3.setText("Numero de Venta:");
-
         jLabel4.setText("Nombre Cliente:");
 
         txtNombre.setEditable(false);
@@ -121,13 +118,11 @@ public class JDPagarVenta extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
                             .addComponent(txtDocumento)
-                            .addComponent(txtNumVenta)
                             .addComponent(txtNombre))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -142,10 +137,6 @@ public class JDPagarVenta extends javax.swing.JDialog {
                             .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, 0)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtNumVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)
                         .addComponent(jLabel4))
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -237,18 +228,12 @@ public class JDPagarVenta extends javax.swing.JDialog {
                 if(pago && cuotas!=null){
                     clsCuota objCuota = new clsCuota();
                     objCuota.registrarCuota(cuotas, contado);
-                    
-//                    int i=0;
-//                    while (i>=0){
-//                        try {
-//                            objCuota.registrarCuota(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5], cuotas[i][6], cuotas[i][7]);
-//                            i++;
-//                        } catch (Exception e) {
-//                            i=-1;
-//                        }
-//                    }
                     JOptionPane.showMessageDialog(rootPane, "Pago Registrado Correctamente");
+                    if(contado){
+                        generarDoc();
+                    }
                     limpiarControles();
+                    listarVentas(codUser);
                 }
             }
         } catch (Exception e) {
@@ -256,10 +241,24 @@ public class JDPagarVenta extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tblVentasMouseClicked
 
+    private void generarDoc(){
+        String tipo = tblVentas.getValueAt(tblVentas.getSelectedRow(), 3).toString();
+        if(tipo.equalsIgnoreCase("BOLETA")){
+            JDBoleta obj = new JDBoleta((Frame) SwingUtilities.getWindowAncestor(this), true);
+            obj.setVenta(tblVentas.getValueAt(tblVentas.getSelectedRow(), 0).toString());
+            obj.setLocationRelativeTo(this);
+            obj.setVisible(true);
+        }else{
+            JDFactura obj = new JDFactura((Frame) SwingUtilities.getWindowAncestor(this), true);
+            obj.setVenta(tblVentas.getValueAt(tblVentas.getSelectedRow(), 0).toString());
+            obj.setLocationRelativeTo(this);
+            obj.setVisible(true);
+        }
+    }
+    
     private void limpiarControles(){
         txtDocumento.setText("");
         txtNombre.setText("");
-        txtNumVenta.setText("");
     }
     
     private void llenarDatos(String doc){
@@ -289,7 +288,7 @@ public class JDPagarVenta extends javax.swing.JDialog {
             modelo.addColumn("TIPO COMPROBANTE");
             
             while(rs.next()){
-                modelo.addRow(new Object[]{rs.getString("numventa"), rs.getString("fecha"), rs.getString("total"), rs.getString("tipocomprobante")});
+                modelo.addRow(new Object[]{rs.getString("numventa"), rs.getString("fecha"), rs.getString("total"), rs.getBoolean("tipocomprobante")?"BOLETA":"FACTURA"});
             }
             tblVentas.setModel(modelo);
         } catch (Exception e) {
@@ -363,7 +362,6 @@ public class JDPagarVenta extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -372,6 +370,5 @@ public class JDPagarVenta extends javax.swing.JDialog {
     private javax.swing.JTable tblVentas;
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtNumVenta;
     // End of variables declaration//GEN-END:variables
 }

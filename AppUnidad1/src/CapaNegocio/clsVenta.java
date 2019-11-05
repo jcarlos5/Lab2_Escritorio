@@ -163,6 +163,19 @@ public class clsVenta {
         }
     }
     
+    public Boolean getComprobante(int numVenta) throws Exception{
+        strSQL = "SELECT tipoComprobante FROM venta WHERE numventa = " + numVenta + ";";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            if(rs.next()){
+                return rs.getBoolean(1);
+            }
+            return null;
+        } catch (Exception e) {
+            throw new Exception("Error ");
+        }
+    }
+    
     public boolean cambiarProducto(int numven, int prod_old, int prod_new, int cant_new, int desc_new) throws Exception{
         try {
             boolean rpta = false;

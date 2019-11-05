@@ -392,6 +392,11 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenu5.setText("Registrar Pago");
 
         mnuPagarVenta.setText("Pagar Venta");
+        mnuPagarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuPagarVentaActionPerformed(evt);
+            }
+        });
         jMenu5.add(mnuPagarVenta);
 
         mnuPagoCredito.setText("Pagar Cuotas");
@@ -607,6 +612,13 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
     }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void mnuPagarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPagarVentaActionPerformed
+        // TODO add your handling code here:
+        JDPagarVenta obj = new JDPagarVenta(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_mnuPagarVentaActionPerformed
 
     /**
      * @param args the command line arguments

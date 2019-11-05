@@ -83,8 +83,9 @@ public class clsCuota {
 //        }
 //    }
     
-    public void pagarcuota(int codcuota, int codventa, Float montoIngresado,Float vuelto) throws Exception{
+    public boolean pagarcuota(int codcuota, int codventa, Float montoIngresado,Float vuelto) throws Exception{
         try {
+            boolean fin = false;
             objConectar.conectar();
             con = objConectar.getConnection();
             con.setAutoCommit(false);
@@ -100,10 +101,12 @@ public class clsCuota {
                 if(rs.getInt(1)==1){
                     strSQL="UPDATE venta SET estadopago = true WHERE numventa=" + codventa + ";";
                     sent.executeUpdate(strSQL);
+                    fin=true;
                 }
             }
             
             con.commit();
+            return fin;
         } catch (Exception e) {
             con.rollback();
             throw new Exception(e.getMessage());

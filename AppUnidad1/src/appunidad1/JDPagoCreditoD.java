@@ -7,6 +7,8 @@ package appunidad1;
 
 import CapaNegocio.clsCliente;
 import CapaNegocio.clsCuota;
+import CapaNegocio.clsVenta;
+import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.util.Calendar;
@@ -14,6 +16,7 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -26,6 +29,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class JDPagoCreditoD extends javax.swing.JDialog {
     clsCuota objcuota = new clsCuota();
+    clsVenta objVenta = new clsVenta();
     String documento;
     String monto;
     int numVenta;
@@ -356,14 +360,36 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Seleccione una cuota");
             }else{
                 if(txtVuelto.getText().length()>0){
-                    objcuota.pagarcuota(numCuota,numVenta,MontoI,Vuelto);
+                    boolean fin = objcuota.pagarcuota(numCuota,numVenta,MontoI,Vuelto);
                     JOptionPane.showMessageDialog(this, "Pago Realizado");
+                    if(fin){
+                        generarDocumento();
+                    }
                     limpiarControles();
                     listarDeudas();
                 }else{
                     JOptionPane.showMessageDialog(rootPane, "Ingrese el monto");
                     txtMontoIngresado.requestFocus();
                 }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }
+    
+    public void generarDocumento(){
+        try {
+            String tipo = objVenta.getComprobante(numVenta)?"BOLETA":"FACTURA";
+            if(tipo.equalsIgnoreCase("BOLETA")){
+                JDBoleta obj = new JDBoleta((Frame) SwingUtilities.getWindowAncestor(this), true);
+                obj.setVenta(String.valueOf(numVenta));
+                obj.setLocationRelativeTo(this);
+                obj.setVisible(true);
+            }else{
+                JDFactura obj = new JDFactura((Frame) SwingUtilities.getWindowAncestor(this), true);
+                obj.setVenta(String.valueOf(numVenta));
+                obj.setLocationRelativeTo(this);
+                obj.setVisible(true);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
