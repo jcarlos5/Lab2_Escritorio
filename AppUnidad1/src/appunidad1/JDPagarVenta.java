@@ -197,7 +197,6 @@ public class JDPagarVenta extends javax.swing.JDialog {
         }else{
             doc = String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 1));
         }
-        JOptionPane.showMessageDialog(rootPane, doc);
         llenarDatos(doc);
     }//GEN-LAST:event_tblClientesMouseClicked
 
@@ -208,11 +207,11 @@ public class JDPagarVenta extends javax.swing.JDialog {
             Object rpta = JOptionPane.showInputDialog(rootPane, "Seleccione el tipo de Pago a realizar", "SISTEMA", JOptionPane.QUESTION_MESSAGE,null, opciones, opciones[0]);
             if(rpta!=null){
                 boolean pago=false;
-                boolean contado;
-                boolean tipocomprobante;
-                String cuotas[][];
-                String numVenta=null;
-                String total=null;
+                boolean contado = false;
+                String cuotas[][] = null;
+                String numVenta=String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 0));
+                String total=String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 2));
+                
                 if (rpta.toString().equals("Contado")){
                     JDPagoContado objPago = new JDPagoContado((Frame) SwingUtilities.getWindowAncestor(this), true);
                     objPago.setDatos(numVenta, txtNombre.getText(), txtDocumento.getText(), total);
@@ -221,7 +220,6 @@ public class JDPagarVenta extends javax.swing.JDialog {
                     pago = objPago.getPago();
                     cuotas = objPago.getCuotas();
                     contado = true;
-                    tipocomprobante=true;
                 }else{
                     if(objCliente.isAcreditable(codUser)){
                         JDPagoCredito objPago = new JDPagoCredito((Frame) SwingUtilities.getWindowAncestor(this), true);
@@ -231,25 +229,24 @@ public class JDPagarVenta extends javax.swing.JDialog {
                         pago = objPago.getPago();
                         cuotas = objPago.getCuotas();
                         contado = false;
-                        tipocomprobante=false;
                     }else{
                         JOptionPane.showMessageDialog(rootPane, "El cliente aún tiene un crédito vigente");
-                        cuotas = new String[1][8];
-                        contado = false;
-                        tipocomprobante=false;
                     }
                 }
-                if(pago){
-                    int i=0;
+                
+                if(pago && cuotas!=null){
                     clsCuota objCuota = new clsCuota();
-                    while (i>=0){
-                        try {
-                            objCuota.registrarCuota(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5], cuotas[i][6], cuotas[i][7]);
-                            i++;
-                        } catch (Exception e) {
-                            i=-1;
-                        }
-                    }
+                    objCuota.registrarCuota(cuotas, contado);
+                    
+//                    int i=0;
+//                    while (i>=0){
+//                        try {
+//                            objCuota.registrarCuota(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5], cuotas[i][6], cuotas[i][7]);
+//                            i++;
+//                        } catch (Exception e) {
+//                            i=-1;
+//                        }
+//                    }
                     JOptionPane.showMessageDialog(rootPane, "Pago Registrado Correctamente");
                     limpiarControles();
                 }

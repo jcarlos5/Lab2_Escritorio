@@ -6,8 +6,10 @@
 package CapaNegocio;
 
 import CapaDatos.clsJDBC;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  INTEGRANTES:
@@ -20,6 +22,8 @@ public class clsCuota {
     clsJDBC objConectar = new clsJDBC();
     String strSQL;
     ResultSet rs=null;
+    Connection con;
+    Statement sent;
     
     //para registrar pagos
     public void registrarCuota(String numVenta, String numCuota, String fecha, String fpago, String estado, String montoIngresado, String vuelto,String monto) throws Exception{
@@ -32,6 +36,28 @@ public class clsCuota {
             objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
             throw new Exception("Error al registrar el pago de la venta");
+        }
+    }
+    
+    //Transacción para registrar Cuotas
+    public void registrarCuota(String[][] datos, boolean tipo) throws Exception{
+        try {
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            con.setAutoCommit(false);
+            sent = con.createStatement();
+            strSQL="UPDATE venta SET estadopago = true, tipopago = " + tipo + " WHERE numventa=" + datos[0][0] + ";";
+            sent.executeUpdate(strSQL);
+            
+            for (String[] dato : datos) {
+                strSQL="INSERT INTO cuota VALUES (" + dato[0] + ", " + dato[1] + ", '" + dato[2] + "' , '" + dato[3] + "' , " + dato[4] + ", " + dato[5] + " , " + dato[6] + ","+dato[7]+");";
+                sent.executeUpdate(strSQL);
+            }
+            
+            con.commit();
+        } catch (Exception e) {
+            con.rollback();
+            throw new Exception(e.getMessage());
         }
     }
     
@@ -48,7 +74,7 @@ public class clsCuota {
     
     //pagar una cuota 
     public void pagarcuota(int codcuota, int codventa, Float montoIngresado,Float vuelto) throws Exception{
-         strSQL = "UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE,ingreso="+montoIngresado+",vuelto="+vuelto+" WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
+        strSQL = "UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE,ingreso="+montoIngresado+",vuelto="+vuelto+" WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
         try {
             objConectar.ejecutarBD(strSQL);
             
