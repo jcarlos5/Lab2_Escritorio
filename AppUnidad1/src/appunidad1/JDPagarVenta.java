@@ -263,26 +263,17 @@ public class JDPagarVenta extends javax.swing.JDialog {
     }
     
     private void llenarDatos(String doc){
-        if(doc.equals("null")){
-            int rpta = JOptionPane.showConfirmDialog(rootPane, "El usuario no cuenta con el Documento Necesario, ¿Desea Agregarlo?", "SISTEMA", JOptionPane.YES_NO_OPTION);
-            if (rpta==0){
-                JDMantenimientoCliente objMantCliente = new JDMantenimientoCliente((Frame) SwingUtilities.getWindowAncestor(this), true);
-                objMantCliente.setLocationRelativeTo(this);
-                objMantCliente.setVisible(true);
+        txtDocumento.setText(doc);
+        try {
+            ResultSet rs = objCliente.buscarCliente(doc);
+            while(rs.next()){
+                codUser = rs.getString("codcliente");
+                txtNombre.setText(rs.getString("nombres"));
+                listarClientes();
             }
-        }else{
-            txtDocumento.setText(doc);
-            try {
-                ResultSet rs = objCliente.buscarCliente(doc);
-                while(rs.next()){
-                    codUser = rs.getString("codcliente");
-                    txtNombre.setText(rs.getString("nombres"));
-                    listarClientes();
-                }
-                listarVentas(codUser);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(rootPane, e.getMessage());
-            }
+            listarVentas(codUser);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }
     
