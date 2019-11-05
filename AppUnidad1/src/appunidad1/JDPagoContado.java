@@ -5,7 +5,6 @@
  */
 package appunidad1;
 
-import CapaNegocio.clsCuota;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -22,7 +21,6 @@ import javax.swing.JOptionPane;
 public class JDPagoContado extends javax.swing.JDialog {
     boolean pagado=false;
     String[][] cuotas;
-    clsCuota objcuota = new clsCuota();
 
     /**
      * Creates new form JDPago2
@@ -213,7 +211,7 @@ public class JDPagoContado extends javax.swing.JDialog {
                     cuotas = new String[1][8];
                     LocalDate ld = LocalDate.now();
                     Date fe = Date.valueOf(ld);
-                    cuotas[0] = new String[]{txtNumeroVenta.getText(), "1", String.valueOf(fe),String.valueOf(fe) , "true", txtPago.getText(), lblVuelto.getText(), txtMonto.getText()};
+                    cuotas[0] = new String[]{txtNumeroVenta.getText(), "1", String.valueOf(fe), "'"+String.valueOf(fe)+"'" , "true", txtPago.getText(), lblVuelto.getText(), txtMonto.getText()};
                 }
             }
         } catch (Exception e) {
@@ -251,7 +249,8 @@ public class JDPagoContado extends javax.swing.JDialog {
     public String[][] getCuotas(){
         return cuotas;
     }
-
+    
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel1;

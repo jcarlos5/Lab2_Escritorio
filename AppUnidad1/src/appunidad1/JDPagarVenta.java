@@ -30,6 +30,7 @@ public class JDPagarVenta extends javax.swing.JDialog {
     public JDPagarVenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        listarClientes();
     }
 
     /**
@@ -41,10 +42,10 @@ public class JDPagarVenta extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtNombre = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtDocumento1 = new javax.swing.JTextField();
+        txtDocumento = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -52,18 +53,19 @@ public class JDPagarVenta extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         txtNumVenta = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        txtNombre.setEditable(false);
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel1.setText("Cliente:");
 
         jLabel2.setText("Ventas por pagar:");
 
-        txtDocumento1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDocumento1KeyReleased(evt);
+                txtDocumentoKeyReleased(evt);
             }
         });
 
@@ -107,41 +109,43 @@ public class JDPagarVenta extends javax.swing.JDialog {
 
         jLabel4.setText("Nombre Cliente:");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        txtNombre.setEditable(false);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
-                            .addComponent(txtDocumento1)
+                            .addComponent(txtDocumento)
                             .addComponent(txtNumVenta)
                             .addComponent(txtNombre))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(txtDocumento1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, 0)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtNumVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)
@@ -154,10 +158,27 @@ public class JDPagarVenta extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDocumento1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumento1KeyReleased
+    private void txtDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyReleased
         // TODO add your handling code here:
         if(txtDocumento.getText().length()>0 && evt.getKeyCode()==KeyEvent.VK_ENTER){
             if(tblClientes.getModel().getRowCount()==2 && (txtDocumento.getText().length()==8 || txtDocumento.getText().length()==11)){
@@ -168,7 +189,7 @@ public class JDPagarVenta extends javax.swing.JDialog {
             }
         }
         listarClientes();
-    }//GEN-LAST:event_txtDocumento1KeyReleased
+    }//GEN-LAST:event_txtDocumentoKeyReleased
 
     private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
         // TODO add your handling code here:
@@ -192,7 +213,7 @@ public class JDPagarVenta extends javax.swing.JDialog {
                 String cuotas[][] = null;
                 String numVenta=String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 0));
                 String total=String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 2));
-
+                
                 if (rpta.toString().equals("Contado")){
                     JDPagoContado objPago = new JDPagoContado((Frame) SwingUtilities.getWindowAncestor(this), true);
                     objPago.setDatos(numVenta, txtNombre.getText(), txtDocumento.getText(), total);
@@ -214,22 +235,23 @@ public class JDPagarVenta extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(rootPane, "El cliente aún tiene un crédito vigente");
                     }
                 }
-
+                
                 if(pago && cuotas!=null){
                     clsCuota objCuota = new clsCuota();
                     objCuota.registrarCuota(cuotas, contado);
-
-                    //                    int i=0;
-                    //                    while (i>=0){
-                        //                        try {
-                            //                            objCuota.registrarCuota(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5], cuotas[i][6], cuotas[i][7]);
-                            //                            i++;
-                            //                        } catch (Exception e) {
-                            //                            i=-1;
-                            //                        }
-                        //                    }
+                    
+//                    int i=0;
+//                    while (i>=0){
+//                        try {
+//                            objCuota.registrarCuota(cuotas[i][0], cuotas[i][1], cuotas[i][2], cuotas[i][3], cuotas[i][4], cuotas[i][5], cuotas[i][6], cuotas[i][7]);
+//                            i++;
+//                        } catch (Exception e) {
+//                            i=-1;
+//                        }
+//                    }
                     JOptionPane.showMessageDialog(rootPane, "Pago Registrado Correctamente");
                     limpiarControles();
+                    listarVentas(codUser);
                 }
             }
         } catch (Exception e) {
@@ -344,12 +366,12 @@ public class JDPagarVenta extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblVentas;
     private javax.swing.JTextField txtDocumento;
-    private javax.swing.JTextField txtDocumento1;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumVenta;
     // End of variables declaration//GEN-END:variables

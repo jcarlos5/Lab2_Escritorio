@@ -6,20 +6,14 @@
 package appunidad1;
 
 import CapaNegocio.clsCliente;
-import CapaNegocio.clsCuota;
 import CapaNegocio.clsProducto;
 import CapaNegocio.clsVenta;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import sun.management.jdp.JdpPacket;
 
 /*
  INTEGRANTES:

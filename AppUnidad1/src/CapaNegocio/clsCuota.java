@@ -7,7 +7,6 @@ package CapaNegocio;
 
 import CapaDatos.clsJDBC;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -40,6 +39,7 @@ public class clsCuota {
         }
     }
     
+    //Transacción para registrar Cuotas
     public void registrarCuota(String[][] datos, boolean tipo) throws Exception{
         try {
             objConectar.conectar();
@@ -57,29 +57,30 @@ public class clsCuota {
             con.commit();
         } catch (Exception e) {
             con.rollback();
-            throw new Exception(e.getMessage());
+//            e.getMessage()
+            throw new Exception("ahhhhhhhhh");
         }
     }
     
     //registrar pagos con transaccion metodo simple solo contado por el momento 
-    public void registrarCuotaTransaccion(String numVenta, String numCuota, String fecha, String fpago, String estado, String montoIngresado, String vuelto,String monto) throws Exception{
-        try {
-            objConectar.conectar();
-            con = objConectar.getCon();
-            con.setAutoCommit(false);
-            sent = con.createStatement();
-            strSQL = "INSERT INTO cuota VALUES (" + numVenta + ", " + numCuota + ", CURRENT_DATE , CURRENT_DATE , " + estado + ", " + montoIngresado + " , " + vuelto + ","+monto+");";
-            sent.executeUpdate(strSQL);
-            strSQL = "update venta set estadopago=true, tipopago=true where numventa="+numVenta;
-            sent.executeUpdate(strSQL);
-            con.commit();
-        } catch (Exception e) {
-            con.rollback();
-        }finally{
-            objConectar.desconectar();
-        }       
-       
-    }
+//    public void registrarCuotaTransaccion(String numVenta, String numCuota, String fecha, String fpago, String estado, String montoIngresado, String vuelto,String monto) throws Exception{
+//        try {
+//            objConectar.conectar();
+//            con = objConectar.getCon();
+//            con.setAutoCommit(false);
+//            sent = con.createStatement();
+//            strSQL = "INSERT INTO cuota VALUES (" + numVenta + ", " + numCuota + ", CURRENT_DATE , CURRENT_DATE , " + estado + ", " + montoIngresado + " , " + vuelto + ","+monto+");";
+//            sent.executeUpdate(strSQL);
+//            strSQL = "update venta set estadopago=true, tipopago=true where numventa="+numVenta;
+//            sent.executeUpdate(strSQL);
+//            con.commit();
+//        } catch (Exception e) {
+//            con.rollback();
+//        }finally{
+//            objConectar.desconectar();
+//        }       
+//       
+//    }
     
     
     //listar las cuotas pendientes de pago de un cliente
@@ -120,7 +121,7 @@ public class clsCuota {
             throw new Exception(e.getMessage());
         }
     }
-    
+        
     //Saber si hay deudas
     public int saberdeuda(String documento) throws Exception{
          strSQL = "SELECT * FROM DEUDA('"+documento+"') as resultado;";
