@@ -41,15 +41,6 @@ public class clsVenta {
         return 0;
     }
     
-   /* public void registrar(int cod, float total, float subtotal, float igv, boolean tipo, int cliente, boolean pago, boolean contado) throws Exception{
-        strSQL = "INSERT INTO venta VALUES (" + cod + ", " + cliente + ", CURRENT_DATE, " + igv + ", " + subtotal + ", " + total + ", " + tipo + ", " + pago + ", "+contado +" );";
-        try {
-            objConectar.ejecutarBD(strSQL);
-        } catch (Exception e) {
-            throw new Exception("Error al guardar Venta");
-        }
-    }
-    */
     public void registrar(int cod, float total, float subtotal, float igv, boolean tipo, int cliente, JTable tblProductos) throws Exception{
         try {
             objConectar.conectar();
@@ -73,31 +64,6 @@ public class clsVenta {
         } catch (Exception e) {
             con.rollback();
             throw new Exception("Error al guardar venta");
-        }finally{
-            objConectar.desconectar();
-        }
-    }
-    
-    public void registrarSinPago(int cod, float total, float subtotal, float igv, boolean tipo, int cliente, boolean pago, JTable detalle) throws Exception{
-        try {
-            objConectar.conectar();
-            con = objConectar.getCon();
-            con.setAutoCommit(false);
-            sent = con.createStatement();
-            strSQL = "INSERT INTO venta VALUES (" + cod + ", " + cliente + ", CURRENT_DATE, " + igv + ", " + subtotal + ", " + total + ", " + tipo + ", " + pago + ", null );";
-            sent.executeUpdate(strSQL);
-            int ctd = detalle.getRowCount();
-            for (int i=0; i<ctd; i++){
-                String descuento = detalle.getValueAt(i, 3).toString();
-                strSQL = "INSERT INTO detalle VALUES (" + cod + ", " + detalle.getValueAt(i, 0).toString() + ", " + detalle.getValueAt(i, 5).toString() + ", " + detalle.getValueAt(i, 2).toString() + ", " + descuento.substring(0, descuento.length()-1) +", " + detalle.getValueAt(i, 6).toString() +");";
-                sent.executeUpdate(strSQL);
-                strSQL = "update producto set stock=stock - " + Integer.valueOf( detalle.getValueAt(i, 5).toString()) + "where codproducto="+detalle.getValueAt(i, 0).toString() ;
-                sent.executeUpdate(strSQL);
-                con.commit();
-            }
-        } catch (Exception e) {
-            con.rollback();
-            throw new Exception("Error al guardar Venta");
         }finally{
             objConectar.desconectar();
         }
