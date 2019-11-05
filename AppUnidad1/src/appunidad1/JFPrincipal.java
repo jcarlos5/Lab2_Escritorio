@@ -111,6 +111,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         mnuVentasDiarias = new javax.swing.JMenuItem();
         mnuCreditosClientes = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
+        mnuVentasIntervalo = new javax.swing.JMenuItem();
 
         jMenuItem12.setText("jMenuItem12");
 
@@ -439,6 +440,14 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         });
         jMenu6.add(jMenuItem13);
 
+        mnuVentasIntervalo.setText("Ventas entre fechas");
+        mnuVentasIntervalo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuVentasIntervaloActionPerformed(evt);
+            }
+        });
+        jMenu6.add(mnuVentasIntervalo);
+
         jMenu4.add(jMenu6);
 
         jMenuBar1.add(jMenu4);
@@ -619,6 +628,13 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setVisible(true);
     }//GEN-LAST:event_mnuPagarVentaActionPerformed
 
+    private void mnuVentasIntervaloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuVentasIntervaloActionPerformed
+        // TODO add your handling code here:
+        JDVentasPorIntervalo obj = new JDVentasPorIntervalo(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_mnuVentasIntervaloActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -758,6 +774,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem mnuPagarVenta;
     private javax.swing.JMenuItem mnuPagoCredito;
     private javax.swing.JMenuItem mnuVentasDiarias;
+    private javax.swing.JMenuItem mnuVentasIntervalo;
     // End of variables declaration//GEN-END:variables
 
     @Override

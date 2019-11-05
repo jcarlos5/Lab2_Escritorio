@@ -109,6 +109,23 @@ public class clsVenta {
             throw new Exception("Error al buscar marca");
         }
     }
+    
+    //para el jdVentasPorIntervalo
+    public ResultSet listarVentaPorIntervalo(Date finicio, Date ffin) throws Exception{
+        boolean rpta = false;    
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("select * from ventas_intervalo(?,?)");
+        sentencia.setDate(1, finicio);
+        sentencia.setDate(2, ffin);
+        System.out.println(sentencia);
+        ResultSet resultado = sentencia.executeQuery();
+        if (resultado.next()) 
+        {
+            return resultado;
+        }                
+        return null;
+    }
 
     public ResultSet listarVenta(int numVenta) throws Exception{
         strSQL = "SELECT v.*, c.dni, c.ruc,c.nombres, cu.vuelto, cu.ingreso, cu.cancelada FROM venta v inner join cliente c on v.codcliente=c.codcliente inner join cuota cu on v.numventa=cu.codventa"
@@ -207,25 +224,21 @@ public class clsVenta {
     }
     
     public boolean editarDetalle(int oldp, int newp,int cant ,int vent) throws Exception 
-    {   boolean rpta = false;
-        
-            
-            objConectar.conectar();
-            Connection con = objConectar.getCon();
-            CallableStatement sentencia = con.prepareCall("select cambiarProducto(?,?,?,?)");
-            sentencia.setInt(1, oldp);
-            sentencia.setInt(2, newp);
-            sentencia.setInt(3, cant);
-            sentencia.setInt(4, vent);
-            System.out.println(sentencia);
-            ResultSet resultado = sentencia.executeQuery();
-            if (resultado.next()) 
-            {
-                rpta = resultado.getBoolean("cambiarProducto");
-                System.out.println(rpta);
-            }                
-            
-        
+    {   boolean rpta = false;    
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("select cambiarProducto(?,?,?,?)");
+        sentencia.setInt(1, oldp);
+        sentencia.setInt(2, newp);
+        sentencia.setInt(3, cant);
+        sentencia.setInt(4, vent);
+        System.out.println(sentencia);
+        ResultSet resultado = sentencia.executeQuery();
+        if (resultado.next()) 
+        {
+            rpta = resultado.getBoolean("cambiarProducto");
+            System.out.println(rpta);
+        }                
          return rpta;      
     }
     

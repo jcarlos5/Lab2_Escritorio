@@ -276,6 +276,18 @@ BEGIN
 END;
 $$language 'plpgsql';
 
+--PA que me regresa las ventas por intervalos de fecha
+CREATE OR REPLACE FUNCTION ventas_intervalo(finicio date, ffin date) 
+RETURNS TABLE( numventa int, fecha date, cliente varchar,total numeric, subtotal numeric, igv numeric, estadopago boolean, tipopago boolean, tipocomprobante boolean) AS
+$$
+DECLARE
+BEGIN
+	return query
+	select v.numventa, v.fecha, c.nombres, v.total,v.subtotal, v.igv, v.estadopago, v.tipopago, v.tipocomprobante from venta v inner join cliente c on v.codcliente=c.codcliente where v.fecha between finicio and ffin;
+
+END;
+$$ language 'plpgsql';
+
 --INSERCIÓN DE EJEMPLOS
 
 INSERT INTO USUARIO VALUES(1, 'admin', '123456', 'Juan Perez Perez', 'Gerente General', TRUE, 'Ciudad de Nacimiento', 'Lima');
