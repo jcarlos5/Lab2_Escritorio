@@ -5,10 +5,14 @@
  */
 package appunidad1;
 
+import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /*
  INTEGRANTES:
@@ -189,6 +193,17 @@ public class JDPagoContado extends javax.swing.JDialog {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         pagado = true;
+        int rpta = JOptionPane.showConfirmDialog(rootPane, "Desea ver el comprobante de pago? " , "SISTEMA", JOptionPane.YES_NO_OPTION);
+        if (rpta == 0){
+            try {
+                JDComprobante objComprobante = new JDComprobante((Frame) SwingUtilities.getWindowAncestor(this), true);
+                objComprobante.setData(Integer.valueOf(txtNumeroVenta.getText()));
+                objComprobante.setLocationRelativeTo(this);
+                objComprobante.setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(JDPagoContado.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         dispose();
     }//GEN-LAST:event_btnGuardarActionPerformed
 

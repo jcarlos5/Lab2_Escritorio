@@ -136,6 +136,15 @@ create table cambio_producto(
 	venta int not null 
 )
 
+--TABLA COMPROBANTE DE VENTA
+create table comprobante (
+	idcomprobante INT PRIMARY KEY,
+	idventa INT NOT NULL REFERENCES VENTA(numventa),
+	lote VARCHAR NOT NULL,
+	numero VARCHAR NOT NULL,
+	tipo BOOLEAN NOT NULL
+)
+
 --CREACIÓN DE CLAVES FORÁNEAS
 ALTER TABLE CAMBIO_PRODUCTO ADD CONSTRAINT FK_PRODUCTO_CAMBIO_OLD FOREIGN KEY (old_producto) REFERENCES PRODUCTO(codProducto);
 ALTER TABLE CAMBIO_PRODUCTO ADD CONSTRAINT FK_PRODUCTO_CAMBIO_NEW FOREIGN KEY (new_producto) REFERENCES PRODUCTO(codProducto);
@@ -288,6 +297,38 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
+--PA para generar un comprobante
+CREATE OR REPLACE FUNCTION generar_comprobante (cod int) 
+RETURNS TABLE(lote varchar, numero varchar, numventa int, fecha date, cliente varchar, dni char(8), ruc char(11), direccion varchar,
+			  totalv numeric, subtotalv numeric, igv numeric, nomproducto varchar,
+			  cantidad int, precioventa numeric, descuento smallint, dsubtotal numeric, tipocomprobante boolean) AS
+$$
+DECLARE
+	lote varchar = '001';	
+	numero_co varchar = '0000001';
+	tipo_co boolean;
+BEGIN
+	select  v.tipocomprobante into tipo_co from venta v where v.numventa=cod;
+	
+	if((select count(*) from comprobante co where co.tipo = tipo_co)>0 ) then
+ 		select LPAD((select cast((select max(numero) from comprobante co where co.tipo = tipo_co) as int))::text, 7, '0') into numero_co;
+		if(numero_co = '9999999') then
+		 select LPAD((select cast((select max(c.serie) from comprobante c where c.tipo = tipo_co) as int)+1)::text, 3, '0') into lote;
+		 numero_co = '0000001';
+		else
+			 select LPAD((select cast((select max(numero) from comprobante co where co.tipo = tipo_co) as int)+1)::text, 7, '0') into numero_co;
+			 select LPAD((select cast((select max(c.serie) from comprobante c where c.tipo = tipo_co) as int))::text, 3, '0') into lote;
+		end if;	
+	end if;									   
+	return query
+	select lote, numero_co , v.numventa, v.fecha ,c.nombres, c.dni, c.ruc,c.direccion, v.total, v.subtotal, v.igv , p.nomproducto, d.cantidad, 
+	d.precioventa, d.descuento, d.subtotal, v.tipocomprobante from detalle d
+	inner join producto p on d.codproducto = p.codproducto
+	inner join venta v on d.numventa=v.numventa 
+	inner join cliente c on v.codcliente=c.codcliente where v.numventa=cod;
+END;
+$$ language 'plpgsql';
+
 --INSERCIÓN DE EJEMPLOS
 
 INSERT INTO USUARIO VALUES(1, 'admin', '123456', 'Juan Perez Perez', 'Gerente General', TRUE, 'Ciudad de Nacimiento', 'Lima');
@@ -326,47 +367,47 @@ INSERT INTO CLIENTE VALUES(6, '71359403', null, 'Julio Jaramillo', '991025349', 
 INSERT INTO CLIENTE VALUES(7, '79163522', '731526940', 'Gustavo Rios', '920136490', 'Chiclayo', 'riosgustavo@hotmail.com', TRUE, 3);
 
 --TRIGGER PARA ACTUALIZAR VENTA CUANDO SE TERMINEN DE PAGAR LAS CUOTAS
-CREATE OR REPLACE FUNCTION actualizarventa() RETURNS TRIGGER AS
-$$
-DECLARE
-	c int;
-	d int;
-BEGIN
-	Select COUNT(*) INTO c FROM cliente
-	inner join venta on cliente.codcliente=venta.codcliente
-	inner join (SELECT * FROM cuota WHERE cuota.codventa=new.codventa) c on c.codventa=venta.numventa;
+-- CREATE OR REPLACE FUNCTION actualizarventa() RETURNS TRIGGER AS
+-- $$
+-- DECLARE
+-- 	c int;
+-- 	d int;
+-- BEGIN
+-- 	Select COUNT(*) INTO c FROM cliente
+-- 	inner join venta on cliente.codcliente=venta.codcliente
+-- 	inner join (SELECT * FROM cuota WHERE cuota.codventa=new.codventa) c on c.codventa=venta.numventa;
 
-	Select COUNT(*) INTO d FROM cliente
-	inner join venta on cliente.codcliente=venta.codcliente
-	inner join (SELECT * FROM cuota WHERE cuota.codventa=new.codventa) c on c.codventa=venta.numventa
-	WHERE c.cancelada=true;
+-- 	Select COUNT(*) INTO d FROM cliente
+-- 	inner join venta on cliente.codcliente=venta.codcliente
+-- 	inner join (SELECT * FROM cuota WHERE cuota.codventa=new.codventa) c on c.codventa=venta.numventa
+-- 	WHERE c.cancelada=true;
 	
-	IF(d=c)THEN
-		UPDATE venta SET estadopago=true WHERE numventa=new.codventa;
-	END IF;
+-- 	IF(d=c)THEN
+-- 		UPDATE venta SET estadopago=true WHERE numventa=new.codventa;
+-- 	END IF;
 	
-	return new;
-END;
-$$LANGUAGE 'plpgsql';
+-- 	return new;
+-- END;
+-- $$LANGUAGE 'plpgsql';
 
-CREATE TRIGGER TG_ActualizarVentas AFTER UPDATE ON cuota
-FOR EACH ROW EXECUTE PROCEDURE actualizarventa();
+-- CREATE TRIGGER TG_ActualizarVentas AFTER UPDATE ON cuota
+-- FOR EACH ROW EXECUTE PROCEDURE actualizarventa();
 
 --TRIGGER PARA REDUCIR EL STOCK
-CREATE OR REPLACE FUNCTION actualizarstock() RETURNS TRIGGER AS
-$$
-DECLARE
-BEGIN
-	UPDATE public.producto
-   	SET stock=stock-new.cantidad
- 	WHERE producto.codproducto = new.codproducto;
+-- CREATE OR REPLACE FUNCTION actualizarstock() RETURNS TRIGGER AS
+-- $$
+-- DECLARE
+-- BEGIN
+-- 	UPDATE public.producto
+--    	SET stock=stock-new.cantidad
+--  	WHERE producto.codproducto = new.codproducto;
 	
-	return new;
-END;
-$$LANGUAGE 'plpgsql';
+-- 	return new;
+-- END;
+-- $$LANGUAGE 'plpgsql';
 
-CREATE TRIGGER TG_Actualizarstock AFTER INSERT ON detalle
-FOR EACH ROW EXECUTE PROCEDURE actualizarstock();
+-- CREATE TRIGGER TG_Actualizarstock AFTER INSERT ON detalle
+-- FOR EACH ROW EXECUTE PROCEDURE actualizarstock();
 
 -- Funciones provistas por la profesora
 
@@ -397,3 +438,4 @@ begin
 end;
 $$
 language 'plpgsql';
+

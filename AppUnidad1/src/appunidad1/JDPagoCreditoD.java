@@ -7,6 +7,7 @@ package appunidad1;
 
 import CapaNegocio.clsCliente;
 import CapaNegocio.clsCuota;
+import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.util.Calendar;
@@ -14,6 +15,7 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -356,8 +358,21 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(rootPane, "Seleccione una cuota");
             }else{
                 if(txtVuelto.getText().length()>0){
-                    objcuota.pagarcuota(numCuota,numVenta,MontoI,Vuelto);
+                    int rp = objcuota.pagarcuota(numCuota,numVenta,MontoI,Vuelto);
                     JOptionPane.showMessageDialog(this, "Pago Realizado");
+                    if (rp==1){
+                        int rpta = JOptionPane.showConfirmDialog(rootPane, "Desea ver el comprobante de pago? " , "SISTEMA", JOptionPane.YES_NO_OPTION);
+                        if (rpta == 0){
+                            try {
+                                JDComprobante objComprobante = new JDComprobante((Frame) SwingUtilities.getWindowAncestor(this), true);
+                                objComprobante.setData(Integer.valueOf(txtNumeroVenta.getText()));
+                                objComprobante.setLocationRelativeTo(this);
+                                objComprobante.setVisible(true);
+                            } catch (Exception ex) {
+                                Logger.getLogger(JDPagoContado.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    }
                     limpiarControles();
                     listarDeudas();
                 }else{

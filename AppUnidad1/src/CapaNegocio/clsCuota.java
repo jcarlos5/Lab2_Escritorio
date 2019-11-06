@@ -57,8 +57,7 @@ public class clsCuota {
             con.commit();
         } catch (Exception e) {
             con.rollback();
-//            e.getMessage()
-            throw new Exception("ahhhhhhhhh");
+            throw new Exception(e.getMessage());
         }
     }
     
@@ -82,7 +81,6 @@ public class clsCuota {
 //       
 //    }
     
-    
     //listar las cuotas pendientes de pago de un cliente
     public ResultSet listarcuotasporpagar(String documento) throws Exception{
          strSQL = "SELECT * FROM LISTAR_DEUDA('"+documento+"');";
@@ -95,7 +93,8 @@ public class clsCuota {
     }
     
     //pagar una cuota 
-    public void pagarcuota(int codcuota, int codventa, Float montoIngresado,Float vuelto) throws Exception{
+    public int pagarcuota(int codcuota, int codventa, Float montoIngresado,Float vuelto) throws Exception{
+        int rp=0;
         try {
             objConectar.conectar();
             con = objConectar.getCon();
@@ -105,21 +104,22 @@ public class clsCuota {
             strSQL = "UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE,ingreso="+montoIngresado+",vuelto="+vuelto+" WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
             sent.executeUpdate(strSQL);
             
-            strSQL = "SELECT count(*) FROM cuota WHERE cancelada = false AND codventa="+codventa+";";
+            strSQL = "SELECT count(*) as falta FROM cuota WHERE cancelada = false AND codventa="+codventa+";";
             rs=objConectar.consultarBD(strSQL);
             
             if (rs.next()){
-                if(rs.getInt(1)==1){
+                if(rs.getInt("falta")==1){
                     strSQL="UPDATE venta SET estadopago = true WHERE numventa=" + codventa + ";";
                     sent.executeUpdate(strSQL);
+                    rp=1;
                 }
             }
-            
             con.commit();
         } catch (Exception e) {
             con.rollback();
             throw new Exception(e.getMessage());
         }
+        return rp;
     }
         
     //Saber si hay deudas

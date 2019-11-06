@@ -5,11 +5,16 @@
         <group>
             <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDPagarVenta.java</file>
             <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDVentas.java</file>
-            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDPagoCredito.java</file>
+            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaNegocio/clsComprobante.java</file>
+            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDVentaDatos.java</file>
+            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDComprobante.java</file>
             <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDPagoCreditoD.java</file>
+            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDPagoCredito.java</file>
+            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaNegocio/clsVenta.java</file>
             <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDPagoContado.java</file>
-            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/appunidad1/JFPrincipal.java</file>
-            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaNegocio/clsCuota.java</file>
+            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaDatos/clsJDBC.java</file>
+            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDVentasDiarias.java</file>
+            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/appunidad1/JDVentasPorIntervalo.java</file>
         </group>
     </open-files>
 </project-private>

@@ -120,11 +120,7 @@ public class clsVenta {
         sentencia.setDate(2, ffin);
         System.out.println(sentencia);
         ResultSet resultado = sentencia.executeQuery();
-        if (resultado.next()) 
-        {
-            return resultado;
-        }                
-        return null;
+        return resultado;
     }
 
     public ResultSet listarVenta(int numVenta) throws Exception{
@@ -263,6 +259,17 @@ public class clsVenta {
         ResultSet resultado = sentencia.executeQuery();
         
             return resultado;
+       
+    }
+    
+    public ResultSet generarComprobante(int cod) throws Exception 
+    {
+        objConectar.conectar();
+        Connection con = objConectar.getCon();
+        CallableStatement sentencia = con.prepareCall("select * from generar_comprobante(?)");
+        sentencia.setInt(1,cod);
+        ResultSet resultado = sentencia.executeQuery();
+        return resultado;
        
     }
 }
