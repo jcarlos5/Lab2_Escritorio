@@ -24,11 +24,6 @@ public class JDComprobante extends javax.swing.JDialog {
     public JDComprobante(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        try {
-            setData(12);
-        } catch (Exception ex) {
-            Logger.getLogger(JDComprobante.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**

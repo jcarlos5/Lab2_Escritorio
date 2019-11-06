@@ -155,11 +155,15 @@ public class clsCliente {
     }
     
     public boolean isAcreditable(String cod) throws Exception{
-        strSQL = "SELECT * FROM venta WHERE codcliente = " + cod + " and estadopago = false;";
+        strSQL = "SELECT count(*) as num FROM venta WHERE codcliente = " + cod + " and estadopago = false;";
         try {
             rs = objConectar.consultarBD(strSQL);
             if(rs.next()){
-                return false;
+                if (rs.getInt("num")>1){
+                    return false;
+                }else{
+                    return true;
+                }
             }else{
                 return true;
             }

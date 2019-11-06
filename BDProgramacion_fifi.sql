@@ -311,13 +311,13 @@ BEGIN
 	select  v.tipocomprobante into tipo_co from venta v where v.numventa=cod;
 	
 	if((select count(*) from comprobante co where co.tipo = tipo_co)>0 ) then
- 		select LPAD((select cast((select max(numero) from comprobante co where co.tipo = tipo_co) as int))::text, 7, '0') into numero_co;
+ 		select LPAD((select cast((select max(co.numero) from comprobante co where co.tipo = tipo_co) as int))::text, 7, '0') into numero_co;
 		if(numero_co = '9999999') then
 		 select LPAD((select cast((select max(c.serie) from comprobante c where c.tipo = tipo_co) as int)+1)::text, 3, '0') into lote;
 		 numero_co = '0000001';
 		else
-			 select LPAD((select cast((select max(numero) from comprobante co where co.tipo = tipo_co) as int)+1)::text, 7, '0') into numero_co;
-			 select LPAD((select cast((select max(c.serie) from comprobante c where c.tipo = tipo_co) as int))::text, 3, '0') into lote;
+			 select LPAD((select cast((select max(co.numero) from comprobante co where co.tipo = tipo_co) as int)+1)::text, 7, '0') into numero_co;
+			 select LPAD((select cast((select max(c.lote) from comprobante c where c.tipo = tipo_co) as int))::text, 3, '0') into lote;
 		end if;	
 	end if;									   
 	return query
