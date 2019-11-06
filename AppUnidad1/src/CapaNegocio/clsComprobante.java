@@ -21,53 +21,25 @@ public class clsComprobante {
     Connection con;
     Statement sent;
     
-    public Integer generarCodigoLote() throws Exception{
-        strSQL = "SELECT COALESCE(max(lote),0)+1 AS codigo FROM comprobante;" ;
+    public Integer generarCodigoDev() throws Exception{
+        strSQL = "SELECT COALESCE(max(idcomprobante),0)+1 AS codigo FROM comprobante;" ;
         try {
             rs=objConectar.consultarBD(strSQL);
             while(rs.next()){
                 return rs.getInt("codigo");
             }
         } catch (Exception e) {
-            throw new Exception("Error al generar código de venta");
+            throw new Exception("Error al generar código de comprobante");
         }
         return 0;
     }
     
-    public Integer conocerLote() throws Exception{
-        strSQL = "SELECT COALESCE(max(numero),0) AS codigo FROM comprobante;" ;
+    public void registrarComprobante(Integer id, int venta, String serie, String numero, Boolean tipo) throws Exception{
+        strSQL="INSERT INTO COMPROBANTE VALUES(" + id + "," + venta +",'"+serie+ "' ,'"+numero+"', " + tipo+");";
         try {
-            rs=objConectar.consultarBD(strSQL);
-            while(rs.next()){
-                return rs.getInt("codigo");
-            }
+            objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
-            throw new Exception("Error al generar código de venta");
+            throw new Exception("Error al registrar el comprobante");
         }
-        return 0;
     }
-    
-    public Integer generarCodigoNumero() throws Exception{
-        strSQL = "SELECT COALESCE(max(numero),0)+1 AS codigo FROM comprobante;" ;
-        try {
-            rs=objConectar.consultarBD(strSQL);
-            while(rs.next()){
-                return rs.getInt("codigo");
-            }
-        } catch (Exception e) {
-            throw new Exception("Error al generar código de venta");
-        }
-        return 0;
-    }
-    
-//    public String generarNumeroComprobante() throws Exception{
-//        int numero = generarCodigoNumero();
-//        int lote = conocerLote();
-//        if (lote == 0 ){
-//            lote = generarCodigoLote();
-//        } else if (numero == 10000){
-//            lote = generarCodigoLote();
-//            numero = 1;
-//        } 
-//    }
 }

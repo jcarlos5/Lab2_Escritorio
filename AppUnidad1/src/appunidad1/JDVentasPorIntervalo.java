@@ -76,19 +76,19 @@ public class JDVentasPorIntervalo extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dpFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)
-                        .addComponent(btnBuscarVentas)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dpFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(btnBuscarVentas)
+                .addContainerGap(134, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,6 +121,8 @@ public class JDVentasPorIntervalo extends javax.swing.JDialog {
         ResultSet rsMarcas = null;
         DefaultTableModel model = new DefaultTableModel();
         try {
+            int i =0;
+            model.addColumn("N°");
             model.addColumn("Codigo");
             model.addColumn("Fecha");
             model.addColumn("Cliente");
@@ -134,9 +136,11 @@ public class JDVentasPorIntervalo extends javax.swing.JDialog {
             clsVenta objVenta = new clsVenta();
             rsMarcas = objVenta.listarVentaPorIntervalo(finicio, ffin);
             while (rsMarcas.next()){
+                i++;
                 String tipoc = (rsMarcas.getBoolean("tipocomprobante")) ? "Boleta":"Factura" ;
                 String tipop = (rsMarcas.getBoolean("tipopago"))? "Contado":"Factura";
-                model.addRow(new Object[]{rsMarcas.getInt("numventa"), 
+                model.addRow(new Object[]{i,
+                    rsMarcas.getInt("numventa"), 
                     rsMarcas.getString("fecha"),
                     rsMarcas.getString("cliente"),
                     rsMarcas.getFloat("subtotal"),

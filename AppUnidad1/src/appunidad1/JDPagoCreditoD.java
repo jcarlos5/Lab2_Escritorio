@@ -6,7 +6,9 @@
 package appunidad1;
 
 import CapaNegocio.clsCliente;
+import CapaNegocio.clsComprobante;
 import CapaNegocio.clsCuota;
+import CapaNegocio.clsVenta;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
@@ -373,6 +375,16 @@ public class JDPagoCreditoD extends javax.swing.JDialog {
                             }
                         }
                     }
+                    clsComprobante objComprobante =  new clsComprobante();
+                    int cod = objComprobante.generarCodigoDev();
+                    clsVenta objVenta = new clsVenta();
+                    ResultSet rr = objVenta.generarComprobante(cod);
+                    String numero="0", lote="0";
+                    while (rr.next()){
+                        lote =  rr.getString("lote");
+                        numero =  rr.getString("numero");
+                    }
+                    objComprobante.registrarComprobante(cod, Integer.valueOf(numVenta),lote ,numero , false);
                     limpiarControles();
                     listarDeudas();
                 }else{
