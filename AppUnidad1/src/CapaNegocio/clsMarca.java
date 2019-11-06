@@ -117,6 +117,7 @@ public class clsMarca {
 //        }
 //    }
     
+    //SEXTA TRANSACCIÓN DEL ÍTEM A
     public void modificarMarca(Integer cod, String nombre, boolean vigencia) throws Exception {
         try {
             objConectar.conectar();
@@ -135,6 +136,7 @@ public class clsMarca {
         }
     }
     
+    //SÉPTIMA TRANSACCIÓN DEL ÍTEM A
     public void darDeBajaMarca(Integer cod) throws Exception {
         strSQL="UPDATE marca SET vigencia = false WHERE codmarca =" + cod + ";";
         try {

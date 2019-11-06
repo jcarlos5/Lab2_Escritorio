@@ -110,6 +110,7 @@ public class clsCategoria {
         }
     }
     
+    //TERCERA TRANSACCIÓN DEL ITEM A
     public void modificarCategoria(Integer cod, String nombre, String descrip, boolean vigencia) throws Exception {
         try {
             objConectar.conectar();
@@ -128,6 +129,7 @@ public class clsCategoria {
         }
     }
     
+    //CUARTA TRANSACCIÓN DEL ITEM A
     public void darDeBajaCategoria(Integer cod) throws Exception {
         try {
             objConectar.conectar();

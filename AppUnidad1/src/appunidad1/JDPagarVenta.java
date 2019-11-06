@@ -60,6 +60,11 @@ public class JDPagarVenta extends javax.swing.JDialog {
 
         jLabel2.setText("Ventas por pagar:");
 
+        txtDocumento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDocumentoActionPerformed(evt);
+            }
+        });
         txtDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtDocumentoKeyReleased(evt);
@@ -170,7 +175,7 @@ public class JDPagarVenta extends javax.swing.JDialog {
     private void txtDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyReleased
         // TODO add your handling code here:
         if(txtDocumento.getText().length()>0 && evt.getKeyCode()==KeyEvent.VK_ENTER){
-            if(tblClientes.getModel().getRowCount()==2 && (txtDocumento.getText().length()==8 || txtDocumento.getText().length()==11)){
+            if(tblClientes.getModel().getRowCount()==1 && (txtDocumento.getText().length()==8 || txtDocumento.getText().length()==11)){
                 llenarDatos(txtDocumento.getText());
             }else{
                 JOptionPane.showMessageDialog(rootPane, "El documento ingresado no existe");
@@ -240,6 +245,10 @@ public class JDPagarVenta extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_tblVentasMouseClicked
+
+    private void txtDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDocumentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDocumentoActionPerformed
 
     private void generarDoc(){
         String tipo = tblVentas.getValueAt(tblVentas.getSelectedRow(), 3).toString();

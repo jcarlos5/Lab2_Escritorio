@@ -22,6 +22,8 @@ public class clsCliente {
     clsJDBC objConectar = new clsJDBC();
     String strSQL;
     ResultSet rs;
+    Connection con;
+    Statement sent;
     
     public ResultSet listarClientes() throws Exception{
         strSQL = "SELECT c.*, t.nombre FROM CLIENTE c INNER JOIN TIPO_CLIENTE t ON c.codtipo = t.codtipo ORDER BY codcliente;";
@@ -96,12 +98,50 @@ public class clsCliente {
         }
     }
     
-    public void eliminarCliente(Integer cod) throws Exception {
-        strSQL="DELETE FROM cliente WHERE codcliente=" + cod + ";";
+    //OCTAVA TRANSACCIÓN DLE ÍTEM A
+    public Boolean eliminarCliente(Integer cod) throws Exception {
+//        strSQL="DELETE FROM cliente WHERE codcliente=" + cod + ";";
+//        try {
+//            objConectar.ejecutarBD(strSQL);
+//        } catch (Exception e) {
+//            throw new Exception("Error al eliminar el cliente");
+//        }
         try {
-            objConectar.ejecutarBD(strSQL);
+            Boolean elim=null;
+            objConectar.conectar();
+            con=objConectar.getConnection();
+            con.setAutoCommit(false);
+            sent=con.createStatement();
+            strSQL="SELECT COUNT(*) FROM venta WHERE codcliente=" + cod + ";";
+            rs=sent.executeQuery(strSQL);
+            
+            if(rs.next()){
+                if(rs.getInt(1)>0){
+                    ResultSet rs1;
+                    strSQL="SELECT COUNT(*) FROM venta WHERE estadopago=false and codcliente=" + cod +";";
+                    rs1=sent.executeQuery(strSQL);
+                    if(rs1.next()){
+                        if(rs1.getInt(1)>0){
+                            elim = null;
+                        }else{
+                            strSQL="UPDATE cliente set vigencia=false WHERE codcliente=" + cod + ";";
+                            sent.executeUpdate(strSQL);
+                            elim = false;
+                        }
+                    }
+                }else{
+                    strSQL="DELETE FROM cliente WHERE codcliente=" + cod + ";";
+                    sent.executeUpdate(strSQL);
+                    elim = true;
+                }
+            }
+            con.commit();
+            return elim;
         } catch (Exception e) {
-            throw new Exception("Error al eliminar el cliente");
+            con.rollback();
+            throw new Exception("Error al eliminar al cliente");
+        }finally{
+            objConectar.desconectar();
         }
     }
     

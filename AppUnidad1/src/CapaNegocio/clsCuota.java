@@ -39,7 +39,7 @@ public class clsCuota {
         }
     }
     
-    //Transacción para registrar Cuotas
+    //PRIMERA TRANSACCIÓN DEL ITEM A
     public void registrarCuota(String[][] datos, boolean tipo) throws Exception{
         try {
             objConectar.conectar();
@@ -83,6 +83,7 @@ public class clsCuota {
 //        }
 //    }
     
+    //SEGUNDA TRANSACCIÓN DEL ITEM A
     public boolean pagarcuota(int codcuota, int codventa, Float montoIngresado,Float vuelto) throws Exception{
         try {
             boolean fin = false;

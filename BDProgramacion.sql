@@ -239,6 +239,7 @@ INSERT INTO CLIENTE VALUES(5, null, '75193466519', 'Los Olivares SAC', '95319406
 INSERT INTO CLIENTE VALUES(6, '71359403', null, 'Julio Jaramillo', '991025349', 'Ferreñafe', 'jjaramillo@gmail.com', TRUE, 1);
 INSERT INTO CLIENTE VALUES(7, '79163522', '731526940', 'Gustavo Rios', '920136490', 'Chiclayo', 'riosgustavo@hotmail.com', TRUE, 3);
 
+/* REEMPLAZADO POR UNA TRANSACCIÓN
 --TRIGGER PARA ACTUALIZAR VENTA CUANDO SE TERMINEN DE PAGAR LAS CUOTAS
 CREATE OR REPLACE FUNCTION actualizarventa() RETURNS TRIGGER AS
 $$
@@ -265,8 +266,10 @@ $$LANGUAGE 'plpgsql';
 
 CREATE TRIGGER TG_ActualizarVentas AFTER UPDATE ON cuota
 FOR EACH ROW EXECUTE PROCEDURE actualizarventa();
+*/
 
-/*
+
+/* REEMPLAZADO POR UNA TRANSACCIÓN
 --TRIGGER PARA REDUCIR EL STOCK
 CREATE OR REPLACE FUNCTION actualizarstock() RETURNS TRIGGER AS
 $$
@@ -283,7 +286,6 @@ $$LANGUAGE 'plpgsql';
 CREATE TRIGGER TG_Actualizarstock AFTER INSERT ON detalle
 FOR EACH ROW EXECUTE PROCEDURE actualizarstock();
 */
-
 
 
 CREATE OR REPLACE FUNCTION fn_cambiarProducto(numven int, prod_old int, prod_new int, cant_new int, desc_new int) RETURNS BOOLEAN AS
@@ -348,18 +350,23 @@ BEGIN
 END
 $$ language 'plpgsql';
 
---DROP FUNCTION fn_filtrar_ventas(finicio date, ffinal date)
 
-CREATE OR REPLACE FUNCTION fn_filtrar_ventas(finicio date, ffinal date) RETURNS TABLE(numventa integer, fecha date, cliente varchar(100), total numeric(10,2),
-												subtotal numeric(10,2), igv numeric(10,2), estadopago boolean, tipopago boolean,
-												tipocomprobante boolean) AS
+--DROP FUNCTION fn_filtrar_ventas(finicio date, ffinal date)
+CREATE OR REPLACE FUNCTION fn_filtrar_ventas(finicio date, ffinal date) RETURNS TABLE(numventa integer, fecha date, cliente character varying,
+											total numeric, subtotal numeric, igv numeric, estadopago boolean, 
+											tipopago boolean, tipocomprobante boolean) AS
 $$
 DECLARE
 BEGIN
 	RETURN query
-	SELECT v.numventa, v.fecha, c.nombres, v.total,v.subtotal, v.igv, v.estadopago, v.tipopago, v.tipocomprobante FROM venta v  INNER JOIN cliente c on c.codcliente = v.codcliente WHERE v.fecha>=finicio and v.fecha<=ffinal;
+	SELECT v.numventa, v.fecha, c.nombres, v.total,v.subtotal, v.igv, v.estadopago, v.tipopago, v.tipocomprobante 
+	FROM venta v
+	INNER JOIN cliente c on c.codcliente = v.codcliente
+	WHERE v.fecha>=finicio and v.fecha<=ffinal
+	ORDER BY v.fecha;
 END
-$$ language 'plpgsql';
+$$
+LANGUAGE 'plpgsql';
 
 
 --DATOS NECESARIOS PARA ELABORAR BOLETA O FACTURA

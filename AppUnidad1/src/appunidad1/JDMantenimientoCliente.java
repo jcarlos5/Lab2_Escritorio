@@ -361,11 +361,19 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
             if(txtCodigo.getText().equals("")){
                 JOptionPane.showMessageDialog(this,"Debe ingresar un código a eliminar!");
             }else{
-                objCliente.eliminarCliente(Integer.parseInt(txtCodigo.getText()));
+                Boolean a = objCliente.eliminarCliente(Integer.parseInt(txtCodigo.getText()));
+                if (a == null){
+                    JOptionPane.showMessageDialog(rootPane, "El cliente Tiene un crédito Vigente");
+                }else if (a){
+                    JOptionPane.showMessageDialog(rootPane, "Eliminación correcta");
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Cliente Dado de baja por tener ventas registradas");
+                }
                 limpiarControles();
                 listarClientes();
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -399,11 +407,12 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
                         chkVigencia.setSelected(rsCliente.getBoolean("vigencia"));
                         rsCliente.close();
                 }else{
-                    JOptionPane.showMessageDialog(this,"Código de Marca no existe!");
+                    JOptionPane.showMessageDialog(this,"Código de Cliente no existe!");
                     limpiarControles();
                 }
             }   
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 

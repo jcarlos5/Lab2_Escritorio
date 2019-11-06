@@ -146,9 +146,9 @@ public class JDVentasPorFechas extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel1))
                     .addComponent(finicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ffinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -213,38 +213,6 @@ public class JDVentasPorFechas extends javax.swing.JDialog {
             }
     }//GEN-LAST:event_tblVentasDiariasMouseClicked
     
-    private void listarVentas(Date fech){
-        ResultSet rsMarcas = null;
-        DefaultTableModel model = new DefaultTableModel();
-        try {
-            model.addColumn("Codigo");
-            model.addColumn("Fecha");
-            model.addColumn("Tipo comprobante");
-            model.addColumn("Subtotal");
-            model.addColumn("Igv");
-            model.addColumn("Total");
-            model.addColumn("Estado de pago");
-        
-            rsMarcas = objVenta.listarVenta(fech);
-            while (rsMarcas.next()){
-                String tipoc = (rsMarcas.getBoolean("tipocomprobante")) ? "Boleta":"Factura" ;
-                model.addRow(new Object[]{rsMarcas.getInt("numventa"), 
-                    rsMarcas.getString("fecha"),
-                    tipoc, 
-                    rsMarcas.getFloat("subtotal"),
-                    rsMarcas.getFloat("igv"),
-                    rsMarcas.getFloat("total"),
-                    rsMarcas.getBoolean("estadopago")
-                } );
-            }
-            tblVentasDiarias.setModel(model);
-            lblCantVentas.setText(String.valueOf(tblVentasDiarias.getRowCount()));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error", "Error al listar tabla", WIDTH);
-        }
-        
-    }
-    
     private void addListener(JDateChooser fecha) {
         fecha.getDateEditor().addPropertyChangeListener(
                 new java.beans.PropertyChangeListener() {
@@ -268,8 +236,8 @@ public class JDVentasPorFechas extends javax.swing.JDialog {
                 if (finicial.getDate().compareTo(ffinal.getDate())>0){
                     f1 = new Date(ffinal.getDate().getTime());
                     f2 = new Date(finicial.getDate().getTime());
-                    finicial.setDate(f2);
-                    ffinal.setDate(f1);
+                    finicial.setDate(f1);
+                    ffinal.setDate(f2);
                 }else{
                     f1 = new Date(finicial.getDate().getTime());
                     f2 = new Date(ffinal.getDate().getTime());
