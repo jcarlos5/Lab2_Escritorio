@@ -98,6 +98,9 @@ public class JDCreditosCliente extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblClientesMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tblClientesMouseEntered(evt);
+            }
         });
         jScrollPane2.setViewportView(tblClientes);
 
@@ -173,6 +176,10 @@ public class JDCreditosCliente extends javax.swing.JDialog {
         }
         listarClientes();
     }//GEN-LAST:event_txtIDKeyReleased
+
+    private void tblClientesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblClientesMouseEntered
     
     private void listarCreditos(String cli){
         ResultSet rs;
