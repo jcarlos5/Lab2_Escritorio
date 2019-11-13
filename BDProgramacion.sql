@@ -2,9 +2,7 @@
 ================================================================
 --Fecha de Creación	: 02 de Octubre del 2019
 --Última moficiación	: 23 de Octubre del 2019
---Autores		:
-			   - BENEL RAMIREZ, Sara
-			   - VILCHEZ VILLEGAS, José Carlos
+--Autor			: VILCHEZ VILLEGAS, José Carlos
 ================================================================
 */
 
