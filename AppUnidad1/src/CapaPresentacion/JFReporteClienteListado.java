@@ -5,6 +5,12 @@
  */
 package CapaPresentacion;
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.swing.JRViewer;
+import util.Reportes;
+
 /**
  *
  * @author Sara
@@ -16,6 +22,7 @@ public class JFReporteClienteListado extends javax.swing.JFrame {
      */
     public JFReporteClienteListado() {
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -27,21 +34,63 @@ public class JFReporteClienteListado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnReporte = new javax.swing.JButton();
+        vistaReporte = new javax.swing.JDesktopPane();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Reporte::Listado de clientes");
+
+        btnReporte.setText("Ver reporte");
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout vistaReporteLayout = new javax.swing.GroupLayout(vistaReporte);
+        vistaReporte.setLayout(vistaReporteLayout);
+        vistaReporteLayout.setHorizontalGroup(
+            vistaReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        vistaReporteLayout.setVerticalGroup(
+            vistaReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 345, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 611, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnReporte)
+                .addContainerGap(436, Short.MAX_VALUE))
+            .addComponent(vistaReporte)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 446, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnReporte)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(vistaReporte))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+        try {
+            Container contenedor = this.vistaReporte;
+            contenedor.setLayout(new BorderLayout());
+            JRViewer vistaReporte = new Reportes().reporteInterno("rp_listado_clientes.jasper",null);
+            contenedor.add(vistaReporte);
+            this.vistaReporte.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Reporte",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnReporteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +128,7 @@ public class JFReporteClienteListado extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnReporte;
+    private javax.swing.JDesktopPane vistaReporte;
     // End of variables declaration//GEN-END:variables
 }
