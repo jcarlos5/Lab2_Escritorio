@@ -145,6 +145,15 @@ create table comprobante (
 	tipo BOOLEAN NOT NULL
 )
 
+create table establecimiento(
+	id int not null primary key,
+	razon_social varchar(191) not null,
+	ruc varchar(11) not null,
+	direccion varchar(191) not null,
+	distrito varchar(191) not null,
+	provincia varchar(191) not null,
+	departamento varchar(191) not null
+)
 --CREACIÓN DE CLAVES FORÁNEAS
 ALTER TABLE CAMBIO_PRODUCTO ADD CONSTRAINT FK_PRODUCTO_CAMBIO_OLD FOREIGN KEY (old_producto) REFERENCES PRODUCTO(codProducto);
 ALTER TABLE CAMBIO_PRODUCTO ADD CONSTRAINT FK_PRODUCTO_CAMBIO_NEW FOREIGN KEY (new_producto) REFERENCES PRODUCTO(codProducto);
@@ -366,6 +375,8 @@ INSERT INTO CLIENTE VALUES(5, null, '75193466519', 'Los Olivares SAC', '95319406
 INSERT INTO CLIENTE VALUES(6, '71359403', null, 'Julio Jaramillo', '991025349', 'Ferreñafe', 'jjaramillo@gmail.com', TRUE, 1);
 INSERT INTO CLIENTE VALUES(7, '79163522', '731526940', 'Gustavo Rios', '920136490', 'Chiclayo', 'riosgustavo@hotmail.com', TRUE, 3);
 
+--nuevo insert del dia 19 de noviembre CLASE IMPRIMIR COMPROBANTE
+insert into establecimiento values (1,'Ceratonia SAC', '12365498774', 'Que te importa donde queda', 'Chiclayo', 'Chiclayo', 'Lambayeque')
 --TRIGGER PARA ACTUALIZAR VENTA CUANDO SE TERMINEN DE PAGAR LAS CUOTAS
 -- CREATE OR REPLACE FUNCTION actualizarventa() RETURNS TRIGGER AS
 -- $$

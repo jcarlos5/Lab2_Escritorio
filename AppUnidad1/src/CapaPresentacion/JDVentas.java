@@ -183,6 +183,9 @@ public class JDVentas extends javax.swing.JDialog {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtDocumentoKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDocumentoKeyTyped(evt);
+            }
         });
 
         jLabel6.setText("Dirección:");
@@ -695,6 +698,12 @@ public class JDVentas extends javax.swing.JDialog {
         btnCancelar.setEnabled(true);
         op=2;
     }//GEN-LAST:event_btnModDescActionPerformed
+
+    private void txtDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER){
+            
+        }
+    }//GEN-LAST:event_txtDocumentoKeyTyped
 
     private void listarClientes(){
         

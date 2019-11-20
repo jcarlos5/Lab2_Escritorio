@@ -2,18 +2,26 @@ package util;
 
 import CapaDatos.clsJDBC;
 import java.util.Map;
+import javax.print.PrintService;
+import javax.print.attribute.HashPrintServiceAttributeSet;
+import javax.print.attribute.PrintServiceAttributeSet;
+import javax.print.attribute.standard.PrinterName;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPrintServiceExporter;
 import net.sf.jasperreports.engine.type.OrientationEnum;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimplePrintServiceExporterConfiguration;
 import net.sf.jasperreports.swing.JRViewer;
 
 public class Reportes 
 {
     
     public static final String RUTA_REPORTES = "C:\\Users\\sarab\\Documents\\usat\\tareas\\VI CICLO\\ESCRITORIO APPS\\Lab2_Escritorio\\AppUnidad1\\src\\reports\\";
-    
+    public static final String NOMBRE_IMPRESORA = "EPSON TM-T88V Receipt";
+      
     public JRViewer reporteInterno(String archivoReporte, Map<String,Object> parametros) throws Exception{
         try 
         {
@@ -58,5 +66,34 @@ public class Reportes
         
         return null;
         
+    }
+    
+  public JasperPrint reporte(String archivoReporte, Map<String, Object> parametros) throws Exception 
+    {
+        clsJDBC objConexion = new clsJDBC();
+        objConexion.conectar();
+        JasperPrint reporte = JasperFillManager.fillReport(Reportes.RUTA_REPORTES + archivoReporte, parametros, objConexion.getCon());
+        return reporte;
+    }
+
+    public static void imprimirReporte(String archivoReporte, Map<String, Object> parametros, boolean dialogPrint) throws Exception {
+        // Reporte
+        JasperPrint reporteJP = new Reportes().reporte(archivoReporte, parametros);
+
+        // Impresora
+        PrintServiceAttributeSet impresora = new HashPrintServiceAttributeSet();
+        impresora.add(new PrinterName(Reportes.NOMBRE_IMPRESORA, null));
+
+        // Configuracion
+        SimplePrintServiceExporterConfiguration configuracion = new SimplePrintServiceExporterConfiguration();
+        configuracion.setPrintServiceAttributeSet(impresora);
+        configuracion.setDisplayPageDialog(false);
+        configuracion.setDisplayPrintDialog(dialogPrint);
+
+        // Imprimir
+        JRPrintServiceExporter imprimirServicio = new JRPrintServiceExporter();
+        imprimirServicio.setExporterInput(new SimpleExporterInput(reporteJP));
+        imprimirServicio.setConfiguration(configuracion);
+        imprimirServicio.exportReport();
     }
 }

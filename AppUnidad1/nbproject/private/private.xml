@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaPresentacion/JDAñadirProductos.java</file>
             <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/util/Reportes.java</file>
-            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaPresentacion/JDMantenimientoCategoria.java</file>
-            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaPresentacion/JDCreditosCliente.java</file>
-            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaNegocio/clsVenta.java</file>
+            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaPresentacion/JDReporteVentaCliente.java</file>
+            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaNegocio/clsCliente.java</file>
             <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaNegocio/clsCategoria.java</file>
-            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaDatos/clsJDBC.java</file>
             <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaPresentacion/JFReporteClienteListado.java</file>
+            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaPresentacion/JDReporteProductos.java</file>
+            <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaPresentacion/JDFrmReporteVenta.java</file>
             <file>file:/C:/Users/sarab/Documents/usat/tareas/VI%20CICLO/ESCRITORIO%20APPS/Lab2_Escritorio/AppUnidad1/src/CapaPresentacion/JDVentas.java</file>
         </group>
     </open-files>
