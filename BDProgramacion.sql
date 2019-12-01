@@ -34,7 +34,8 @@ nombreCompleto varchar(80) not null,
 cargo varchar(30) null,
 estado boolean not null,
 pregunta VARCHAR(50) NULL,
-respuesta VARCHAR(50) NULL
+respuesta VARCHAR(50) NULL,
+tipo_usuario INT NOT NULL
 );
 
 CREATE TABLE MOVIMIENTO(
@@ -145,16 +146,23 @@ create table comprobante (
 	tipo BOOLEAN NOT NULL
 )
 
-create table establecimiento(
-	id int not null primary key,
-	razon_social varchar(191) not null,
-	ruc varchar(11) not null,
-	direccion varchar(191) not null,
-	distrito varchar(191) not null,
-	provincia varchar(191) not null,
-	departamento varchar(191) not null
+CREATE TABLE establecimiento(
+	id INT NOT NULL PRIMARY KEY,
+	razon_social VARCHAR(191) NOT NULL,
+	ruc VARCHAR(11) NOT NULL,
+	direccion VARCHAR(191) NOT NULL,
+	distrito VARCHAR(191) NOT NULL,
+	provincia VARCHAR(191) NOT NULL,
+	departamento VARCHAR(191) NOT NULL
+)
+
+CREATE TABLE tipo_usuario(
+	codtipousuario INT NOT NULL PRIMARY KEY,
+	descrpcion VARCHAR(50) NOT NULL,
+	
 )
 --CREACIÓN DE CLAVES FORÁNEAS
+ALTER TABLE USUARIO ADD CONSTRAINT FK_USUARIO_TIPOUSUARIO FOREIGN KEY (tipo_usuario) REFERENCES tipo_usuario(codtipousuario);
 ALTER TABLE CAMBIO_PRODUCTO ADD CONSTRAINT FK_PRODUCTO_CAMBIO_OLD FOREIGN KEY (old_producto) REFERENCES PRODUCTO(codProducto);
 ALTER TABLE CAMBIO_PRODUCTO ADD CONSTRAINT FK_PRODUCTO_CAMBIO_NEW FOREIGN KEY (new_producto) REFERENCES PRODUCTO(codProducto);
 ALTER TABLE CAMBIO_PRODUCTO ADD CONSTRAINT FK_VENTA_CAMBIO FOREIGN KEY (venta) REFERENCES VENTA(NumVenta);

@@ -5,13 +5,6 @@
  */
 package CapaDatos;
 import java.sql.*;
-/**
- INTEGRANTES:
-   - BENEL RAMIREZ, Sara
-   - CASTRO FERNANDEZ, Paola   
-   - VILCHEZ VILLEGAS, José Carlos
-   - YOMONA PARRAGUEZ, Cinthya
- */
 
 public class clsJDBC {
     private String driver, url, user, password;
@@ -105,5 +98,5 @@ public class clsJDBC {
             }
         }
     }
-        
+    //select dni,ruc,nombres,telefono,correo, (case when vigencia = true then 'ACTIVO' else 'INACTIVO' end) as vigencia from cliente
 }
