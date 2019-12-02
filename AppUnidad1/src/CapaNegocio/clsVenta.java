@@ -90,7 +90,7 @@ public class clsVenta {
     }
     //para listar las ventas pendientes de pago por cliente - JDPAGO
     public ResultSet listarVentaPagoPendiente(String codcliente) throws Exception{
-        strSQL = "SELECT * FROM venta WHERE estadopago=false and tipopago=null and codcliente="+codcliente+";";
+        strSQL = "SELECT * FROM venta WHERE estadopago=false and tipopago is null and codcliente="+codcliente+";";
         try {
             rs=objConectar.consultarBD(strSQL);
             return rs;
@@ -154,7 +154,7 @@ public class clsVenta {
     }
     
     public ResultSet listarTodasVentaPorCliente(int codcliente) throws Exception{
-        strSQL = "SELECT * FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE c.codcliente = " + codcliente + " and estadopago = true or tipopago=false;";
+        strSQL = "SELECT * FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE c.codcliente = " + codcliente + " and estadopago is not null;";
         try {
             rs=objConectar.consultarBD(strSQL);
             return rs;

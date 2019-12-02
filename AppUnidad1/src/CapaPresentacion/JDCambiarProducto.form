@@ -26,7 +26,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="11" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -69,7 +69,7 @@
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jScrollPane1" pref="461" max="32767" attributes="0"/>
                                   <Component id="txtDocumento" max="32767" attributes="0"/>
-                                  <Component id="txtNumVenta" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtCodCliente" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -96,7 +96,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtNumVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCodCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -180,10 +180,13 @@
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Numero de Venta:"/>
+            <Property name="text" type="java.lang.String" value="C&#xf3;digo del Cliente:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNumVenta">
+        <Component class="javax.swing.JTextField" name="txtCodCliente">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>

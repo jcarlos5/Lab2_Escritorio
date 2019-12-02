@@ -58,7 +58,7 @@ public class JDCambiarProducto extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblVentas = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        txtNumVenta = new javax.swing.JTextField();
+        txtCodCliente = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -121,7 +121,9 @@ public class JDCambiarProducto extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tblVentas);
 
-        jLabel3.setText("Numero de Venta:");
+        jLabel3.setText("Código del Cliente:");
+
+        txtCodCliente.setEditable(false);
 
         jLabel4.setText("Nombre Cliente:");
 
@@ -183,7 +185,7 @@ public class JDCambiarProducto extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
                                 .addComponent(txtDocumento)
-                                .addComponent(txtNumVenta)
+                                .addComponent(txtCodCliente)
                                 .addComponent(txtNombre)))
                         .addComponent(jScrollPane3)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -203,7 +205,7 @@ public class JDCambiarProducto extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(txtNumVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCodCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)
                         .addComponent(jLabel4))
                     .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -231,7 +233,7 @@ public class JDCambiarProducto extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +249,7 @@ public class JDCambiarProducto extends javax.swing.JDialog {
     private void txtDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyReleased
         // TODO add your handling code here:
         if(txtDocumento.getText().length()>0 && evt.getKeyCode()==KeyEvent.VK_ENTER){
-            if(tblClientes.getModel().getRowCount()==2 && (txtDocumento.getText().length()==8 || txtDocumento.getText().length()==11)){
+            if(tblClientes.getModel().getRowCount()==1 && (txtDocumento.getText().length()==8 || txtDocumento.getText().length()==11)){
                 llenarDatos(txtDocumento.getText());
             }else{
                 JOptionPane.showMessageDialog(rootPane, "El documento ingresado no existe");
@@ -326,13 +328,14 @@ public class JDCambiarProducto extends javax.swing.JDialog {
                         fila = i;
                     }
                 }
-                if (repetido){
-                    int aux = Integer.parseInt(String.valueOf(tblDetalle.getValueAt(fila, 5)));
-                    cantidad += aux;
-                    modelo.removeRow(fila);
-                }
+                
                 
                 int stock = objProducto.getStock(producto);
+                
+                if (repetido){
+                    stock += Integer.parseInt(String.valueOf(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 2)));
+                }
+                
                 if(cantidad > stock){
                     cantidad = stock;
                     JOptionPane.showMessageDialog(rootPane, "Stock Insuficiente");
@@ -387,7 +390,13 @@ public class JDCambiarProducto extends javax.swing.JDialog {
     private void limpiarControles(){
         txtDocumento.setText("");
         txtNombre.setText("");
-        txtNumVenta.setText("");
+        txtCodCliente.setText("");
+        while(tblVentas.getRowCount()>0){
+            ((DefaultTableModel)tblVentas.getModel()).removeRow(0);
+        }
+        while(tblDetalle.getRowCount()>0){
+            ((DefaultTableModel)tblDetalle.getModel()).removeRow(0);
+        }
     }
     
     public void calcularTotal(){
@@ -408,6 +417,7 @@ public class JDCambiarProducto extends javax.swing.JDialog {
             ResultSet rs = objCliente.buscarCliente(doc);
             while(rs.next()){
                 codUser = rs.getString("codcliente");
+                txtCodCliente.setText(codUser);
                 txtNombre.setText(rs.getString("nombres"));
                 listarClientes();
             }
@@ -520,8 +530,8 @@ public class JDCambiarProducto extends javax.swing.JDialog {
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblDetalle;
     private javax.swing.JTable tblVentas;
+    private javax.swing.JTextField txtCodCliente;
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtNumVenta;
     // End of variables declaration//GEN-END:variables
 }
