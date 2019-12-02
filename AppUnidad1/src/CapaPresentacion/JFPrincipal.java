@@ -696,6 +696,13 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
+    private void mnuReporteVentasDiariasActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here:
+        JDVentasDiarias obj = new JDVentasDiarias(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }  
+    
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
         // TODO add your handling code here:
         JDReporteVentas obj = new JDReporteVentas(this, true);
