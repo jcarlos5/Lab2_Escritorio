@@ -382,3 +382,18 @@ BEGIN
 	INNER JOIN producto p on p.codproducto = d.codproducto;
 END
 $$ language 'plpgsql';
+
+--PA LISTAR VENTAS DIARIAS
+CREATE OR REPLACE FUNCTION fn_ventas_diarias() RETURNS TABLE(numero int, fecha date, nombres varchar(100), 
+															 dni char(8), ruc char(11), total numeric(10,2),
+									subtotal numeric(10,2), igv numeric(10,2), comprobante boolean, estado boolean, tipopago text) AS
+$$
+DECLARE
+BEGIN
+	return query
+	select v.numventa, v.fecha, c.nombres, c.dni, c.ruc, v.total, v.subtotal, v.igv, v.tipocomprobante, 
+	v.estadopago, (case v.tipopago when true then '1' when false then '0' else null end )
+	from venta v
+	INNER JOIN cliente c on c.codcliente = v.codcliente where v.fecha=CURRENT_DATE;
+END;
+$$language 'plpgsql';
