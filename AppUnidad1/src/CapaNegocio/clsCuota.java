@@ -6,10 +6,12 @@
 package CapaNegocio;
 
 import CapaDatos.clsJDBC;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  INTEGRANTES:
@@ -27,10 +29,34 @@ public class clsCuota {
     
     //para registrar pagos
     public void registrarCuota(String numVenta, String numCuota, String fecha, String fpago, String estado, String montoIngresado, String vuelto,String monto) throws Exception{
-        if (fpago.equalsIgnoreCase("null")){
-            strSQL = "INSERT INTO cuota VALUES (" + numVenta + ", " + numCuota + ", '" + fecha + "' , " + fpago + " , " + estado + ", " + montoIngresado + " , " + vuelto + ","+monto+");";
+        objConectar.conectar();
+        Connection con = objConectar.getConnection();
+        if (fpago.equalsIgnoreCase("null")){//No le veo sentido al if :/
+            
+            CallableStatement sentencia = con.prepareCall("INSERT INTO cuota VALUES(?,?,?,?,?,?,?,?)");
+            sentencia.setInt(1,Integer.parseInt(numVenta));
+            sentencia.setInt(2,Integer.parseInt(numCuota));
+            sentencia.setString(3, fecha);
+            sentencia.setString(4, null);
+            sentencia.setBoolean(5, Boolean.parseBoolean(estado));
+            sentencia.setFloat(6, Float.parseFloat(montoIngresado));
+            sentencia.setFloat(7, Float.parseFloat(vuelto));
+            sentencia.setFloat(8, Float.parseFloat(monto));
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+            
         }else {
-            strSQL = "INSERT INTO cuota VALUES (" + numVenta + ", " + numCuota + ", '" + fecha + "' , '" + fpago + "' , " + estado + ", " + montoIngresado + " , " + vuelto + ","+monto+");";
+            CallableStatement sentencia = con.prepareCall("INSERT INTO cuota VALUES(?,?,?,?,?,?,?,?)");
+            sentencia.setInt(1,Integer.parseInt(numVenta));
+            sentencia.setInt(2,Integer.parseInt(numCuota));
+            sentencia.setString(3, fecha);
+            sentencia.setString(4, fpago);
+            sentencia.setBoolean(5, Boolean.parseBoolean(estado));
+            sentencia.setFloat(6, Float.parseFloat(montoIngresado));
+            sentencia.setFloat(7, Float.parseFloat(vuelto));
+            sentencia.setFloat(8, Float.parseFloat(monto));
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
         }
         try {
             objConectar.ejecutarBD(strSQL);

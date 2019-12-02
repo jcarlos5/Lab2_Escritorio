@@ -6,7 +6,10 @@
 package CapaNegocio;
 
 import CapaDatos.clsJDBC;
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  INTEGRANTES:
@@ -35,12 +38,25 @@ public class clsProducto {
     }
     
     public void registrar(Integer cod, String nom, String descrip, double precio, int stock, Boolean vig, int codMarca, int codCate) throws Exception{
-        strSQL="INSERT INTO producto VALUES(" + cod + ",'" + nom + "','" + descrip + "'," + precio + ", " + stock + ", " + vig + ", " + codMarca + ", " + codCate +");";
-        try {
-            objConectar.ejecutarBD(strSQL);
+        try {         
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("INSERT INTO producto VALUES(?,?,?,?,?,?,?,?)");
+            sentencia.setInt(1,cod);
+            sentencia.setString(2, nom);
+            sentencia.setString(3, descrip);
+            sentencia.setDouble(4, precio);
+            sentencia.setInt(5, stock);
+            sentencia.setBoolean(6, vig);
+            sentencia.setInt(7, codMarca);
+            sentencia.setInt(8, codCate);
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente");            
         } catch (Exception e) {
-            throw new Exception("Error al registrar el producto");
-        }
+            throw new Exception("Error al registrar Producto");
+        }finally{
+            objConectar.desconectar();
+        } 
     }
     
     public ResultSet buscarProducto(Integer cod) throws Exception{
