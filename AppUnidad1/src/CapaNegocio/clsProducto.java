@@ -9,6 +9,7 @@ import CapaDatos.clsJDBC;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +24,8 @@ public class clsProducto {
     clsJDBC objConectar = new clsJDBC();
     String strSQL;
     ResultSet rs=null;
+    Connection con=null;
+    Statement sent;
     
     public Integer generarCodigoProducto() throws Exception{
         strSQL = "SELECT COALESCE(max(codproducto),0)+1 AS codigo FROM producto;" ;
@@ -70,11 +73,36 @@ public class clsProducto {
     }
     
     public void eliminarProducto(Integer cod) throws Exception {
-        strSQL="DELETE FROM producto WHERE codproducto=" + cod + ";";
+        Integer cantidad=0;
+        
+        
         try {
-            objConectar.ejecutarBD(strSQL);
+            strSQL="SELECT COUNT(*) AS cantidad FROM detalle WHERE codproducto=" + cod ;
+            objConectar.conectar();
+            Connection con =objConectar.getConnection();
+            con.setAutoCommit(false);
+            sent=con.createStatement();
+            rs=sent.executeQuery(strSQL);
+            
+            while(rs.next()){
+                cantidad=rs.getInt("cantidad");
+            }
+            if(cantidad>0){
+                String strSQL1="UPDATE producto set vigencia=false WHERE codproducto=" + cod;
+                sent.executeUpdate(strSQL1);
+                JOptionPane.showMessageDialog(null, " Producto Eliminado Correctamente");
+            }else{
+                String strSQL1="DELETE FROM producto WHERE codproducto=" + cod;
+                sent.executeUpdate(strSQL1);
+                JOptionPane.showMessageDialog(null, " Producto Eliminado Correctamente");
+            }    
+            con.commit();
+            
         } catch (Exception e) {
-            throw new Exception("Error al eliminar el producto");
+            con.rollback();
+            throw new Exception("Error al eliminar al Producto");
+        }finally{
+            objConectar.desconectar();
         }
     }
 
