@@ -8,6 +8,7 @@ package CapaNegocio;
 import CapaDatos.clsJDBC;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 
 /**
  INTEGRANTES:
@@ -195,12 +196,24 @@ public class clsUsuario {
     }
     
     public void registrar(Integer cod, String user, String clave, String nom, String cargo, Boolean vig) throws Exception{
-        strSQL="INSERT INTO usuario (codusuario, nomusuario, clave, nombrecompleto, cargo, estado) VALUES(" + cod + ",'" + user + "','" + clave + "','" + nom + "', '" + cargo + "', " + vig + ");";
-        try {
-            objConectar.ejecutarBD(strSQL);
+        //strSQL="INSERT INTO usuario (codusuario, nomusuario, clave, nombrecompleto, cargo, estado) VALUES(" + cod + ",'" + user + "','" + clave + "','" + nom + "', '" + cargo + "', " + vig + ");";
+        try {         
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("INSERT INTO usuario VALUES(?,?,?,?,?,?)");
+            sentencia.setInt(1,cod);
+            sentencia.setString(2, user);
+            sentencia.setString(3, clave);
+            sentencia.setString(4, nom);
+            sentencia.setString(5, cargo);
+            sentencia.setBoolean(6, vig);
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Usuario Registrado Correctamente");            
         } catch (Exception e) {
-            throw new Exception("Error al registrar usuario");
-        }
+            throw new Exception("Error al registrar Usuario");
+        }finally{
+            objConectar.desconectar();
+        } 
     }
     
     //CON PREGUNTA
@@ -215,12 +228,26 @@ public class clsUsuario {
     
     //CON PREGUNTA Y CONTRASEÑA
     public void registrarPe(Integer cod, String user, String clave, String nom, String cargo, Boolean vig, String preg, String rpta) throws Exception{
-        strSQL="INSERT INTO usuario (codusuario, nomusuario, clave, nombrecompleto, cargo, estado, pregunta, respuesta) VALUES(" + cod + ",'" + user + "','" + clave + "','" + nom + "', '" + cargo + "', " + vig + ", '" + preg + "', '" + rpta + "');";
-        try {
-            objConectar.ejecutarBD(strSQL);
+        //strSQL="INSERT INTO usuario (codusuario, nomusuario, clave, nombrecompleto, cargo, estado, pregunta, respuesta) VALUES(" + cod + ",'" + user + "','" + clave + "','" + nom + "', '" + cargo + "', " + vig + ", '" + preg + "', '" + rpta + "');";
+        try {         
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("INSERT INTO usuario VALUES(?,?,?,?,?,?,?,?)");
+            sentencia.setInt(1,cod);
+            sentencia.setString(2, user);
+            sentencia.setString(3, clave);
+            sentencia.setString(4, nom);
+            sentencia.setString(5, cargo);
+            sentencia.setBoolean(6, vig);
+            sentencia.setString(7, preg);
+            sentencia.setString(8, rpta);
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Usuario Registrado Correctamente");            
         } catch (Exception e) {
-            throw new Exception("Error al registrar usuario");
-        }
+            throw new Exception("Error al registrar Usuario");
+        }finally{
+            objConectar.desconectar();
+        } 
     }
     
     public ResultSet buscarUsuario(Integer cod) throws Exception{

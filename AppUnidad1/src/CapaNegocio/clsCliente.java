@@ -8,6 +8,7 @@ package CapaNegocio;
 import CapaDatos.clsJDBC;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 
 /*
  INTEGRANTES:
@@ -69,24 +70,72 @@ public class clsCliente {
     }
     
     public void registrar(String cod, String dni, String ruc, String nom, String tel, String correo, String direccion, Boolean vig, int codtipo) throws Exception{
-        switch (codtipo) {
-            case 1:
-                strSQL="INSERT INTO cliente VALUES ("+cod+", '"+ dni+"', null, '"+nom+"', '"+tel+"', '"+correo+"', '"+direccion+"', "+vig+", "+codtipo+");";
-                break;
-            case 2:
-                strSQL="INSERT INTO cliente VALUES ("+cod+", null, '"+ ruc+"', '"+nom+"', '"+tel+"', '"+correo+"', '"+direccion+"', "+vig+", "+codtipo+");";
-                break;
-            default:
-                strSQL="INSERT INTO cliente VALUES ("+cod+", '"+dni+"', '"+ruc+"', '"+nom+"', '"+tel+"', '"+correo+"', '"+direccion+"', "+vig+", "+codtipo+");";
-                break;
-        }
-        
-        try {
-            objConectar.ejecutarBD(strSQL);
+       try {
+            if (codtipo==1){
+            
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?,?)");
+            sentencia.setInt(1,Integer.parseInt(cod));
+            sentencia.setInt(2,codtipo);
+            sentencia.setString(3, dni);
+            sentencia.setString(4, null); //"'null'"
+            sentencia.setString(5, nom);
+            sentencia.setString(6, tel);
+            sentencia.setString(7, correo);
+            sentencia.setString(8,direccion);
+            sentencia.setBoolean(9, vig);
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+            
+            }
+            
+            if (codtipo==2){
+                
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?,?)");
+            sentencia.setInt(1,Integer.parseInt(cod));
+            sentencia.setInt(2,codtipo);
+            sentencia.setString(3, dni);
+            sentencia.setString(4, null); //"'null'"
+            sentencia.setString(5, nom);
+            sentencia.setString(6, tel);
+            sentencia.setString(7, correo);
+            sentencia.setString(8,direccion);
+            sentencia.setBoolean(9, vig);
+            sentencia.executeUpdate();  
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+            
+            }
+            
+            if (codtipo==3){
+                
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?,?)");
+            sentencia.setInt(1,Integer.parseInt(cod));
+            sentencia.setInt(2,codtipo);
+            sentencia.setString(3, dni);
+            sentencia.setString(4, null); //"'null'"
+            sentencia.setString(5, nom);
+            sentencia.setString(6, tel);
+            sentencia.setString(7, correo);
+            sentencia.setString(8,direccion);
+            sentencia.setBoolean(9, vig);
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+            
+            }
+            
         } catch (Exception e) {
-            throw new Exception("Error al registrar el cliente");
-        }
+            throw new Exception("Error al registrar Producto");
+        }finally{
+            objConectar.desconectar();
+        } 
+        
     }
+    
     
     public ResultSet buscarCliente(Integer cod) throws Exception{
         strSQL = "SELECT * FROM cliente WHERE codcliente=" + cod + ";";
@@ -146,6 +195,7 @@ public class clsCliente {
     }
     
     public void modificarCliente(String cod, String dni, String ruc, String nom, String tel, String correo, String direccion, Boolean vig, int codtipo) throws Exception {
+        
         switch (codtipo) {
             case 1:
                 strSQL="UPDATE cliente SET dni='" + dni + "', ruc = null, nombres='" + nom + "', telefono='" + tel + "', correo='" + correo + "', direccion='" + direccion + "', vigencia= " + vig + ", codtipo=" + codtipo + " WHERE codcliente = " + cod + ";";
