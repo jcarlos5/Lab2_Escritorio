@@ -6,6 +6,7 @@
 package CapaPresentacion;
 
 import CapaNegocio.clsUsuario;
+import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  INTEGRANTES:
@@ -115,6 +117,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
+        mnuReporteVentasDiarias = new javax.swing.JMenuItem();
 
         jMenuItem12.setText("jMenuItem12");
 
@@ -477,6 +480,14 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         });
         jMenu4.add(jMenuItem17);
 
+        mnuReporteVentasDiarias.setText("Reporte de ventas diarias");
+        mnuReporteVentasDiarias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReporteVentasDiariasActionPerformed(evt);
+            }
+        });
+        jMenu4.add(mnuReporteVentasDiarias);
+
         jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
@@ -683,6 +694,12 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
+    private void mnuReporteVentasDiariasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporteVentasDiariasActionPerformed
+        JDReporteVentasDiarias obj = new JDReporteVentasDiarias((Frame) SwingUtilities.getWindowAncestor(this), true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_mnuReporteVentasDiariasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -825,6 +842,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem mnuCreditosClientes;
     private javax.swing.JMenuItem mnuPagarVenta;
     private javax.swing.JMenuItem mnuPagoCredito;
+    private javax.swing.JMenuItem mnuReporteVentasDiarias;
     private javax.swing.JMenuItem mnuVentasDiarias;
     // End of variables declaration//GEN-END:variables
 
