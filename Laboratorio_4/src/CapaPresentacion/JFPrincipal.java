@@ -143,11 +143,10 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jToolBar1.add(btnLogin);
 
         btnContraseña.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/changeuser.png"))); // NOI18N
-        btnContraseña.setEnabled(false);
+        btnContraseña.setToolTipText("Cambiar Contraseña");
         btnContraseña.setFocusable(false);
         btnContraseña.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnContraseña.setPreferredSize(new java.awt.Dimension(50, 39));
-        btnContraseña.setToolTipText("Cambiar Contraseña");
         btnContraseña.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnContraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,11 +170,10 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jToolBar1.add(jSeparator1);
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/consultar.png"))); // NOI18N
-        btnConsultar.setEnabled(false);
+        btnConsultar.setToolTipText("Consultar Productos");
         btnConsultar.setFocusable(false);
         btnConsultar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnConsultar.setPreferredSize(new java.awt.Dimension(50, 39));
-        btnConsultar.setToolTipText("Consultar Productos");
         btnConsultar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,20 +183,18 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jToolBar1.add(btnConsultar);
 
         btnVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/vender.png"))); // NOI18N
-        btnVenta.setEnabled(false);
+        btnVenta.setToolTipText("Registrar Venta");
         btnVenta.setFocusable(false);
         btnVenta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnVenta.setPreferredSize(new java.awt.Dimension(50, 39));
-        btnVenta.setToolTipText("Registrar Venta");
         btnVenta.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnVenta);
 
         btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/cliente.png"))); // NOI18N
-        btnCliente.setEnabled(false);
+        btnCliente.setToolTipText("Registrar Cliente");
         btnCliente.setFocusable(false);
         btnCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCliente.setPreferredSize(new java.awt.Dimension(50, 39));
-        btnCliente.setToolTipText("Registrar Cliente");
         btnCliente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,11 +204,10 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jToolBar1.add(btnCliente);
 
         btnPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/pago.png"))); // NOI18N
-        btnPagar.setEnabled(false);
+        btnPagar.setToolTipText("Registrar Pago");
         btnPagar.setFocusable(false);
         btnPagar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPagar.setPreferredSize(new java.awt.Dimension(50, 39));
-        btnPagar.setToolTipText("Registrar Pago");
         btnPagar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btnPagar);
         jToolBar1.add(jSeparator2);
@@ -342,7 +337,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuBar1.add(jmLogin);
 
         jmMantenimiento.setText("Mantenimiento");
-        jmMantenimiento.setEnabled(false);
 
         jmiUsuario.setText("Usuarios");
         jmiUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -379,7 +373,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuBar1.add(jmMantenimiento);
 
         jmnVentas.setText("Ventas");
-        jmnVentas.setEnabled(false);
 
         jMenuItem8.setText("Consultar Producto");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
@@ -436,7 +429,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuBar1.add(jmnVentas);
 
         jmConsultas.setText("Consultas");
-        jmConsultas.setEnabled(false);
 
         jMenu6.setText("Consultas");
 
@@ -509,7 +501,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuBar1.add(jmConsultas);
 
         jmReportes.setText("Reportes");
-        jmReportes.setEnabled(false);
 
         mnuVentasDiarias1.setText("Facturación");
         mnuVentasDiarias1.addActionListener(new java.awt.event.ActionListener() {
@@ -726,10 +717,16 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
 
     private void mnuReporteVentasDiariasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporteVentasDiariasActionPerformed
         // TODO add your handling code here:
+        JDPagoCredito obj = new JDPagoCredito(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
     }//GEN-LAST:event_mnuReporteVentasDiariasActionPerformed
 
     private void mnuPagarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPagarVentaActionPerformed
         // TODO add your handling code here:
+        JDPagoContado obj = new JDPagoContado(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
     }//GEN-LAST:event_mnuPagarVentaActionPerformed
 
     /**
@@ -783,58 +780,63 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
             if(sesion){
                 lblUsuario.setText(nomUsuario);
                 if (cargo.equalsIgnoreCase("Gerente General")) {
-                    jmiCambiarContraseña.setEnabled(true);
-                    jmiCambiarUsuario.setEnabled(true);
-                    jmMantenimiento.setEnabled(true);
-                    jmnVentas.setEnabled(true);
-                    jmConsultas.setEnabled(true);
-                    jmReportes.setEnabled(true);
-                    btnContraseña.setEnabled(true);                
-                    btnConsultar.setEnabled(true);
-                    btnVenta.setEnabled(true);
-                    btnCliente.setEnabled(true);
-                    btnPagar.setEnabled(true);                
+                    jmiCambiarContraseña.setVisible(true);
+                    jmiCambiarUsuario.setVisible(true);
+                    jmiCerrarSesion.setVisible(true);
+                    jmMantenimiento.setVisible(true);
+                    jmnVentas.setVisible(true);
+                    jmConsultas.setVisible(true);
+                    jmReportes.setVisible(true);
+                    btnContraseña.setVisible(true);                
+                    btnConsultar.setVisible(true);
+                    btnVenta.setVisible(true);
+                    btnPagar.setVisible(true);
+                    btnCliente.setVisible(true);               
                 }
                 if (cargo.equalsIgnoreCase("Supervisor")) {
-                    jmiCambiarContraseña.setEnabled(true);
-                    jmiCambiarUsuario.setEnabled(true);
-                    jmMantenimiento.setEnabled(true);
+                    jmiCambiarContraseña.setVisible(true);
+                    jmiCambiarUsuario.setVisible(true);
+                    jmiCerrarSesion.setVisible(true);
+                    jmMantenimiento.setVisible(true);
                     jmiUsuario.setVisible(false);
-                    jmnVentas.setEnabled(true);
-                    jmConsultas.setEnabled(true);
-                    jmReportes.setEnabled(true);
-                    btnContraseña.setEnabled(true);                
-                    btnConsultar.setEnabled(true);
-                    btnVenta.setEnabled(true);
-                    btnCliente.setEnabled(true);
-                    btnPagar.setEnabled(true);                
+                    jmnVentas.setVisible(true);
+                    jmConsultas.setVisible(true);
+                    jmReportes.setVisible(true);
+                    btnContraseña.setVisible(true);                
+                    btnConsultar.setVisible(true);
+                    btnVenta.setVisible(true);
+                    btnPagar.setVisible(true);
+                    btnCliente.setVisible(true); 
                 }
 
                 if (cargo.equalsIgnoreCase("Vendedor")) {
-                    jmiCambiarContraseña.setEnabled(true);
-                    jmiCambiarUsuario.setEnabled(true);
+                    jmiCambiarContraseña.setVisible(true);
+                    jmiCambiarUsuario.setVisible(true);
+                    jmiCerrarSesion.setVisible(true);
                     jmMantenimiento.setVisible(false);
-                    jmnVentas.setEnabled(true);
-                    jmConsultas.setEnabled(true);
+                    jmnVentas.setVisible(true);
+                    jmConsultas.setVisible(true);
                     jmReportes.setVisible(false);
-                    btnContraseña.setEnabled(true);                
-                    btnConsultar.setEnabled(true);
-                    btnVenta.setEnabled(true);
-                    btnCliente.setEnabled(true);
-                    btnPagar.setEnabled(true);                
+                    btnContraseña.setVisible(false);                
+                    btnConsultar.setVisible(true);
+                    btnVenta.setVisible(false);
+                    btnPagar.setVisible(true);
+                    btnCliente.setVisible(false);   
                 }
 
                 if (cargo.equalsIgnoreCase("Almacenero")) {
-                    jmiCambiarContraseña.setEnabled(true);
-                    jmiCambiarUsuario.setEnabled(true);
+                    jmiCambiarContraseña.setVisible(true);
+                    jmiCambiarUsuario.setVisible(true);
+                    jmiCerrarSesion.setVisible(true);
                     jmMantenimiento.setVisible(false);
                     jmnVentas.setVisible(false);
-                    jmConsultas.setEnabled(true);
-                    jmReportes.setVisible(false);
-                    btnContraseña.setEnabled(true);                
-                    btnConsultar.setEnabled(true);
-                    btnVenta.setEnabled(true);
-                    btnCliente.setEnabled(true);                
+                    jmConsultas.setVisible(false);
+                    jmReportes.setVisible(true);
+                    btnContraseña.setVisible(true);                
+                    btnConsultar.setVisible(true);
+                    btnVenta.setVisible(false);
+                    btnPagar.setVisible(false);
+                    btnCliente.setVisible(false); 
                 }
                 
                 if (cargo.equalsIgnoreCase("")) {
@@ -848,6 +850,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                     btnContraseña.setVisible(false);                
                     btnConsultar.setVisible(false);
                     btnVenta.setVisible(false);
+                    btnPagar.setVisible(false);
                     btnCliente.setVisible(false);                
                 }
                 lblCargo.setText(cargo);
