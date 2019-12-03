@@ -129,7 +129,7 @@ public class clsCliente {
             }
             
         } catch (Exception e) {
-            throw new Exception("Error al registrar Producto");
+            throw new Exception("Error al registrar Cliente");
         }finally{
             objConectar.desconectar();
         } 

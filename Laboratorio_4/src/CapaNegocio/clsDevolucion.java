@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -38,23 +39,35 @@ public class clsDevolucion {
     }
     
     public void registrarDevolucionVenta(String cod, String motivo, String montodev, Integer us, JTable tbl, int numventa ) throws SQLException, Exception{
-        try {
+        try {    
+            Integer dias=0;
+            strSQL="SELECT CURRENT_DATE-fecha as dias FROM venta WHERE numventa=" + numventa ;
             objConectar.conectar();
-            con = objConectar.getConnection();
+            con=objConectar.getConnection();
             con.setAutoCommit(false);
-            sent = con.createStatement();
-            strSQL = "INSERT INTO devolucion values ("+cod+" , CURRENT_DATE , '"+motivo+"' , "+montodev+" , "+us +");";
-            sent.executeUpdate(strSQL);
-            for (int i = 0; i < tbl.getRowCount(); i++) {
-                strSQL = "UPDATE producto SET stock=stock + " + tbl.getValueAt(i, 2) + " WHERE codproducto = "+ tbl.getValueAt(i, 0);
-                sent.executeUpdate(strSQL);
+            sent=con.createStatement();
+            rs=sent.executeQuery(strSQL);
+            while(rs.next()){
+                dias=rs.getInt("dias");
             }
-            strSQL = "DELETE FROM detalle where numventa = " + numventa;
-            sent.executeUpdate(strSQL);
-            strSQL = "DELETE FROM cuota where codventa = " + numventa;
-            sent.executeUpdate(strSQL);
-            strSQL = "DELETE FROM venta where numventa = " + numventa;
-            sent.executeUpdate(strSQL);
+            
+            if(dias<=7){
+                strSQL = "INSERT INTO devolucion values ("+cod+" , CURRENT_DATE , '"+motivo+"' , "+montodev+" , "+us +");";
+                sent.executeUpdate(strSQL);
+                for (int i = 0; i < tbl.getRowCount(); i++) {
+                    strSQL = "UPDATE producto SET stock=stock + " + tbl.getValueAt(i, 2) + " WHERE codproducto = "+ tbl.getValueAt(i, 0);
+                    sent.executeUpdate(strSQL);
+                }
+                strSQL = "DELETE FROM detalle where numventa = " + numventa;
+                sent.executeUpdate(strSQL);
+                strSQL = "DELETE FROM cuota where codventa = " + numventa;
+                sent.executeUpdate(strSQL);
+                strSQL = "DELETE FROM venta where numventa = " + numventa;
+                sent.executeUpdate(strSQL);
+                 JOptionPane.showMessageDialog(null,"Devolucion realizada correctamente");
+            }else{
+                JOptionPane.showMessageDialog(null,"Se han excedido la cantidad de Dias permitidos");
+            }
             con.commit();
         } catch (Exception e) {
             con.rollback();
