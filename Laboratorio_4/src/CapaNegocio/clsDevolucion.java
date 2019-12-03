@@ -41,7 +41,7 @@ public class clsDevolucion {
     public void registrarDevolucionVenta(String cod, String motivo, String montodev, Integer us, JTable tbl, int numventa ) throws SQLException, Exception{
         try {    
             Integer dias=0;
-            strSQL="SELECT CURRENT_DATE-fecha as dias FROM venta WHERE numventa="+ numventa+" and tipopago=false" ;
+            strSQL="SELECT CURRENT_DATE-fecha as dias FROM venta WHERE numventa="+ numventa+" estadopago=true" ;
             objConectar.conectar();
             con=objConectar.getConnection();
             con.setAutoCommit(false);

@@ -119,6 +119,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Pagar Venta"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuPagarVentaActionPerformed"/>
+                  </Events>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mnuPagoCredito">
                   <Properties>
