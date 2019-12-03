@@ -90,7 +90,8 @@ subtotal DECIMAL(10, 2) NULL,
 total DECIMAL(10, 2) NOT NULL,
 tipoComprobante BOOLEAN NOT NULL, --True: Boleta, False: Factura
 estadoPago BOOLEAN NOT NULL,
-tipoPago BOOLEAN NULL --True: Contado, False: Credito
+tipoPago BOOLEAN NULL, --True: Contado, False: Credito
+serie VARCHAR NOT NULL DEFAULT 'F001',
 );
 
 CREATE TABLE DETALLE(
@@ -122,6 +123,16 @@ CREATE TABLE devolucion(
 	atendidopor INT NOT NULL
 );
 
+CREATE TABLE establecimiento (
+	cod int not null PRIMARY KEY,
+	razon_social varchar(50) not null,
+	ruc char(11) not null,
+	direccion varchar(50) not null,
+	distrito varchar(30) not null,
+	provincia varchar(30) not null,
+	departamento varchar(30) not null
+);
+
 --CREACIÓN DE CLAVES FORÁNEAS
 ALTER TABLE DEVOLUCION ADD CONSTRAINT FK_USUARIO_DEVOLUCION FOREIGN KEY (atendidopor) REFERENCES USUARIO(CODUSUARIO);
 ALTER TABLE PRODUCTO ADD CONSTRAINT FK_MARCA_PRODUCTO FOREIGN KEY (codMarca) REFERENCES MARCA;
@@ -134,6 +145,7 @@ ALTER TABLE DETALLE ADD CONSTRAINT FK_VENTA_DETALLE FOREIGN KEY (numVenta) REFER
 ALTER TABLE DETALLE ADD CONSTRAINT PK_DETALLE PRIMARY KEY (numVenta, codProducto);
 ALTER TABLE cuota ADD CONSTRAINT PK_cuota PRIMARY KEY (codventa, numcuota);
 ALTER TABLE cuota ADD CONSTRAINT FK_venta_cuota FOREIGN KEY (codventa) REFERENCES venta;
+
 
 --CREACIÓN DE PROCEDIMIENTOS ALMACENADOS
 CREATE OR REPLACE FUNCTION LISTAR_DEUDA(d varchar)RETURNS TABLE(NumVenta int,NumCuota int, Monto decimal(10,2),Fecha date, Estado boolean) AS
@@ -204,10 +216,10 @@ $$ language 'plpgsql';
 INSERT INTO usuario VALUES (1,'ADMIN' , '123456' , 'Juan Perez Perez' , 'Gerente General' , false , 'Ciudad de Nacimiento' , 'Lima' );
 INSERT INTO usuario VALUES (2,'INVITADO' , 'usat2019' , 'Maria Mendoza' , 'Invitado' , false , 'Primer número celular' , '979105594' );
 INSERT INTO usuario VALUES (3,'JEVE-PCM' , 'chiclayo' , 'Pedro Casas Merino' , 'Vendedor' , true , 'Nombre de tu mascota' , 'Boby' );
-INSERT INTO usuario VALUES (4,'SUP-Patricia' , '47530' , 'Patricia Paola Castro Fernandez' , 'Supervisor' , true ,  NULL  ,  NULL  );
-INSERT INTO usuario VALUES (5,'VEN-Cinthya' , '94098' , 'Cinthya Lisseth Yomona Parraguez' , 'Vendedor' , true ,  NULL  ,  NULL  );
-INSERT INTO usuario VALUES (6,'ALM-Sara' , '56411' , 'Sara Benel Ramírez' , 'Almacenero' , true ,  NULL  ,  NULL  );
-INSERT INTO usuario VALUES (7,'ADMIN-JCarlos' , '37603' , 'José Carlos Vilchez Villegas' , 'Gerente General' , true ,  NULL  ,  NULL  );
+INSERT INTO usuario VALUES (4,'SUP-Patricia' , '123' , 'Patricia Paola Castro Fernandez' , 'Supervisor' , true ,  NULL  ,  NULL  );
+INSERT INTO usuario VALUES (5,'VEN-Cinthya' , '123' , 'Cinthya Lisseth Yomona Parraguez' , 'Vendedor' , true ,  NULL  ,  NULL  );
+INSERT INTO usuario VALUES (6,'ALM-Sara' , '123' , 'Sara Benel Ramírez' , 'Almacenero' , true ,  NULL  ,  NULL  );
+INSERT INTO usuario VALUES (7,'ADMIN-JCarlos' , '123' , 'José Carlos Vilchez Villegas' , 'Gerente General' , true ,  NULL  ,  NULL  );
 
 INSERT INTO MARCA VALUES (1, 'EPSON', TRUE);
 INSERT INTO MARCA VALUES (2, 'SAMSUNG', TRUE);
@@ -239,6 +251,8 @@ INSERT INTO CLIENTE VALUES(4, '46197244', null, 'Pedro Zelada', '934016823', 'La
 INSERT INTO CLIENTE VALUES(5, null, '75193466519', 'Los Olivares SAC', '953194069', 'Chiclayo', 'olivares.info@gmail.com', TRUE, 2);
 INSERT INTO CLIENTE VALUES(6, '71359403', null, 'Julio Jaramillo', '991025349', 'Ferreñafe', 'jjaramillo@gmail.com', TRUE, 1);
 INSERT INTO CLIENTE VALUES(7, '79163522', '731526940', 'Gustavo Rios', '920136490', 'Chiclayo', 'riosgustavo@hotmail.com', TRUE, 3);
+
+INSERT INTO ESTABLECIMIENTO VALUES (1, 'La Impresora', '12345678910', 'Los Naranjos 348', 'Chiclayo', 'Chiclayo', 'Lambayeque');
 
 /* REEMPLAZADO POR UNA TRANSACCIÓN
 --TRIGGER PARA ACTUALIZAR VENTA CUANDO SE TERMINEN DE PAGAR LAS CUOTAS
