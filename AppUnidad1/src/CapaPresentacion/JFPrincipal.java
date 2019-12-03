@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package CapaPresentacion;
 
 import CapaNegocio.clsUsuario;
-import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
@@ -14,7 +8,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 /**
  INTEGRANTES:
@@ -31,9 +24,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     String nomUsuario;
     clsUsuario objUsuario = new clsUsuario();
     boolean sesion = false;
-    /**
-     * Creates new form JPrincipal
-     */
+    
     public JFPrincipal() {
         initComponents();
         lblUsuario.setText("");
@@ -64,14 +55,14 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
 
         jMenuItem12 = new javax.swing.JMenuItem();
         jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
+        btnContraseña = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnConsultar = new javax.swing.JButton();
+        btnVenta = new javax.swing.JButton();
+        btnCliente = new javax.swing.JButton();
+        btnPagar = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -88,37 +79,39 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jLabel6 = new javax.swing.JLabel();
         lblHora = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        lblCargo = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jmLogin = new javax.swing.JMenu();
+        jmiCambiarUsuario = new javax.swing.JMenuItem();
+        jmiCambiarContraseña = new javax.swing.JMenuItem();
+        jmiCerrarSesion = new javax.swing.JMenuItem();
+        jmMantenimiento = new javax.swing.JMenu();
+        jmiUsuario = new javax.swing.JMenuItem();
+        jmiMarca = new javax.swing.JMenuItem();
+        jmiCategoria = new javax.swing.JMenuItem();
+        jmiProducto = new javax.swing.JMenuItem();
+        jmnVentas = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem18 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         mnuPagarVenta = new javax.swing.JMenuItem();
         mnuPagoCredito = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jmConsultas = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         mnuVentasDiarias = new javax.swing.JMenuItem();
         mnuCreditosClientes = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem17 = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
         mnuReporteVentasDiarias = new javax.swing.JMenuItem();
+        jmReportes = new javax.swing.JMenu();
+        mnuVentasDiarias1 = new javax.swing.JMenuItem();
 
         jMenuItem12.setText("jMenuItem12");
 
@@ -136,77 +129,92 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
 
         jToolBar1.setRollover(true);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/user.png"))); // NOI18N
-        jButton1.setToolTipText("Iniciar Sesión");
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setPreferredSize(new java.awt.Dimension(50, 39));
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/user.png"))); // NOI18N
+        btnLogin.setFocusable(false);
+        btnLogin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnLogin.setPreferredSize(new java.awt.Dimension(50, 39));
+        btnLogin.setToolTipText("Iniciar Sesión");
+        btnLogin.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton1);
+        jToolBar1.add(btnLogin);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/changeuser.png"))); // NOI18N
-        jButton2.setToolTipText("Cambiar Contraseña");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setPreferredSize(new java.awt.Dimension(50, 39));
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnContraseña.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/changeuser.png"))); // NOI18N
+        btnContraseña.setEnabled(false);
+        btnContraseña.setFocusable(false);
+        btnContraseña.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnContraseña.setPreferredSize(new java.awt.Dimension(50, 39));
+        btnContraseña.setToolTipText("Cambiar Contraseña");
+        btnContraseña.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnContraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnContraseñaActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton2);
+        jToolBar1.add(btnContraseña);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/logout.png"))); // NOI18N
-        jButton3.setToolTipText("Cerrar Sesión");
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setPreferredSize(new java.awt.Dimension(50, 39));
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/logout.png"))); // NOI18N
+        btnCerrar.setFocusable(false);
+        btnCerrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCerrar.setPreferredSize(new java.awt.Dimension(50, 39));
+        btnCerrar.setToolTipText("Cerrar Sesión");
+        btnCerrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnCerrarActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton3);
+        jToolBar1.add(btnCerrar);
         jToolBar1.add(jSeparator1);
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/consultar.png"))); // NOI18N
-        jButton4.setToolTipText("Consultar Productos");
-        jButton4.setFocusable(false);
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton4.setPreferredSize(new java.awt.Dimension(50, 39));
-        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton4);
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/consultar.png"))); // NOI18N
+        btnConsultar.setEnabled(false);
+        btnConsultar.setFocusable(false);
+        btnConsultar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnConsultar.setPreferredSize(new java.awt.Dimension(50, 39));
+        btnConsultar.setToolTipText("Consultar Productos");
+        btnConsultar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnConsultar);
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/vender.png"))); // NOI18N
-        jButton5.setToolTipText("Registrar Venta");
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setPreferredSize(new java.awt.Dimension(50, 39));
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton5);
+        btnVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/vender.png"))); // NOI18N
+        btnVenta.setEnabled(false);
+        btnVenta.setFocusable(false);
+        btnVenta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnVenta.setPreferredSize(new java.awt.Dimension(50, 39));
+        btnVenta.setToolTipText("Registrar Venta");
+        btnVenta.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnVenta);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/cliente.png"))); // NOI18N
-        jButton6.setToolTipText("Registrar Cliente");
-        jButton6.setFocusable(false);
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setPreferredSize(new java.awt.Dimension(50, 39));
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton6);
+        btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/cliente.png"))); // NOI18N
+        btnCliente.setEnabled(false);
+        btnCliente.setFocusable(false);
+        btnCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCliente.setPreferredSize(new java.awt.Dimension(50, 39));
+        btnCliente.setToolTipText("Registrar Cliente");
+        btnCliente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClienteActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnCliente);
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/pago.png"))); // NOI18N
-        jButton7.setToolTipText("Registrar Pago");
-        jButton7.setFocusable(false);
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setPreferredSize(new java.awt.Dimension(50, 39));
-        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton7);
+        btnPagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/pago.png"))); // NOI18N
+        btnPagar.setEnabled(false);
+        btnPagar.setFocusable(false);
+        btnPagar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPagar.setPreferredSize(new java.awt.Dimension(50, 39));
+        btnPagar.setToolTipText("Registrar Pago");
+        btnPagar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnPagar);
         jToolBar1.add(jSeparator2);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -262,17 +270,23 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jLabel11.setText("   ");
         jPanel4.add(jLabel11);
 
+        lblCargo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCargo.setText("jLabel4");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 189, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
+                .addComponent(lblCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(lblCargo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel2);
@@ -294,76 +308,78 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jMenu1.setText("Login");
+        jmLogin.setText("Login");
 
-        jMenuItem1.setText("Cambiar Usuario");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmiCambiarUsuario.setText("Cambiar Usuario");
+        jmiCambiarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmiCambiarUsuarioActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jmLogin.add(jmiCambiarUsuario);
 
-        jMenuItem3.setText("Cambiar Contraseña");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jmiCambiarContraseña.setText("Cambiar Contraseña");
+        jmiCambiarContraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jmiCambiarContraseñaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jmLogin.add(jmiCambiarContraseña);
 
-        jMenuItem2.setText("Cerrar Sesión");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jmiCerrarSesion.setText("Cerrar Sesión");
+        jmiCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jmiCerrarSesionActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jmLogin.add(jmiCerrarSesion);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jmLogin);
 
-        jMenu2.setText("Mantenimiento");
+        jmMantenimiento.setText("Mantenimiento");
+        jmMantenimiento.setEnabled(false);
 
-        jMenuItem4.setText("Usuarios");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jmiUsuario.setText("Usuarios");
+        jmiUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jmiUsuarioActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem4);
+        jmMantenimiento.add(jmiUsuario);
 
-        jMenuItem5.setText("Marca");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        jmiMarca.setText("Marca");
+        jmiMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                jmiMarcaActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem5);
+        jmMantenimiento.add(jmiMarca);
 
-        jMenuItem6.setText("Categoría");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jmiCategoria.setText("Categoría");
+        jmiCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jmiCategoriaActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem6);
+        jmMantenimiento.add(jmiCategoria);
 
-        jMenuItem7.setText("Producto");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        jmiProducto.setText("Producto");
+        jmiProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                jmiProductoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem7);
+        jmMantenimiento.add(jmiProducto);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jmMantenimiento);
 
-        jMenu3.setText("Ventas");
+        jmnVentas.setText("Ventas");
+        jmnVentas.setEnabled(false);
 
         jMenuItem8.setText("Consultar Producto");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
@@ -371,7 +387,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                 jMenuItem8ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem8);
+        jmnVentas.add(jMenuItem8);
 
         jMenuItem9.setText("Gestionar Cliente");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
@@ -379,7 +395,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                 jMenuItem9ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem9);
+        jmnVentas.add(jMenuItem9);
 
         jMenuItem10.setText("Registrar Venta");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
@@ -387,32 +403,11 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                 jMenuItem10ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem10);
-
-        jMenuItem11.setText("Devolver Venta");
-        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem11ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem11);
-
-        jMenuItem18.setText("Cambiar Producto");
-        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem18ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem18);
+        jmnVentas.add(jMenuItem10);
 
         jMenu5.setText("Registrar Pago");
 
         mnuPagarVenta.setText("Pagar Venta");
-        mnuPagarVenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuPagarVentaActionPerformed(evt);
-            }
-        });
         jMenu5.add(mnuPagarVenta);
 
         mnuPagoCredito.setText("Pagar Cuotas");
@@ -423,11 +418,20 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         });
         jMenu5.add(mnuPagoCredito);
 
-        jMenu3.add(jMenu5);
+        jmnVentas.add(jMenu5);
 
-        jMenuBar1.add(jMenu3);
+        jMenuItem13.setText("Consultar Caja");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jmnVentas.add(jMenuItem13);
 
-        jMenu4.setText("Reportes");
+        jMenuBar1.add(jmnVentas);
+
+        jmConsultas.setText("Consultas");
+        jmConsultas.setEnabled(false);
 
         jMenu6.setText("Consultas");
 
@@ -447,47 +451,47 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         });
         jMenu6.add(mnuCreditosClientes);
 
-        jMenuItem13.setText("Consultar Caja");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
-            }
-        });
-        jMenu6.add(jMenuItem13);
-
-        jMenu4.add(jMenu6);
-
-        jMenuItem14.setText("Ventas Por Rango de Fechas");
+        jMenuItem14.setText("Consultar Caja");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem14ActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem14);
+        jMenu6.add(jMenuItem14);
 
-        jMenuItem15.setText("Listado de Clientes");
+        jmConsultas.add(jMenu6);
+
+        jMenuItem15.setText("Ventas Por Rango de Fechas");
         jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem15ActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem15);
+        jmConsultas.add(jMenuItem15);
 
-        jMenuItem16.setText("Productos por Categoría");
+        jMenuItem16.setText("Listado de Clientes");
         jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem16ActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem16);
+        jmConsultas.add(jMenuItem16);
 
-        jMenuItem17.setText("Reporte de Ventas");
+        jMenuItem17.setText("Productos por Categoría");
         jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem17ActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem17);
+        jmConsultas.add(jMenuItem17);
+
+        jMenuItem18.setText("Reporte de Ventas");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
+        jmConsultas.add(jMenuItem18);
 
         mnuReporteVentasDiarias.setText("Reporte de ventas diarias");
         mnuReporteVentasDiarias.addActionListener(new java.awt.event.ActionListener() {
@@ -495,9 +499,22 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                 mnuReporteVentasDiariasActionPerformed(evt);
             }
         });
-        jMenu4.add(mnuReporteVentasDiarias);
+        jmConsultas.add(mnuReporteVentasDiarias);
 
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(jmConsultas);
+
+        jmReportes.setText("Reportes");
+        jmReportes.setEnabled(false);
+
+        mnuVentasDiarias1.setText("Facturación");
+        mnuVentasDiarias1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuVentasDiarias1ActionPerformed(evt);
+            }
+        });
+        jmReportes.add(mnuVentasDiarias1);
+
+        jMenuBar1.add(jmReportes);
 
         setJMenuBar(jMenuBar1);
 
@@ -522,11 +539,11 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         cerrarSesion();
         iniciarSesion();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
@@ -541,62 +558,62 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         }
     }//GEN-LAST:event_formWindowClosing
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         // TODO add your handling code here:
         int rpta = JOptionPane.showConfirmDialog(rootPane, "¿Seguro que desea Salir?", "SISTEMA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
         if(rpta==0){
             cerrarSesion();
             System.exit(0);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jmiCambiarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCambiarUsuarioActionPerformed
         // TODO add your handling code here:
         cerrarSesion();
         iniciarSesion();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jmiCambiarUsuarioActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jmiCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCerrarSesionActionPerformed
         // TODO add your handling code here:
         int rpta = JOptionPane.showConfirmDialog(rootPane, "¿Seguro que desea Salir?", "SISTEMA", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
         if(rpta==0){
             cerrarSesion();
             System.exit(0);
         }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_jmiCerrarSesionActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jmiCambiarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCambiarContraseñaActionPerformed
         // TODO add your handling code here:
         cambiarContraseña();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_jmiCambiarContraseñaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContraseñaActionPerformed
         // TODO add your handling code here:
         cambiarContraseña();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnContraseñaActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jmiMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMarcaActionPerformed
         // TODO add your handling code here:
         JDMantenimientoMarca objMantMarca = new JDMantenimientoMarca(this, true);
         objMantMarca.setLocationRelativeTo(this);
         objMantMarca.setVisible(true);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_jmiMarcaActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void jmiCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCategoriaActionPerformed
         // TODO add your handling code here:
         JDMantenimientoCategoria objMantCategoria = new JDMantenimientoCategoria(this, true);
         objMantCategoria.setLocationRelativeTo(this);
         objMantCategoria.setVisible(true);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_jmiCategoriaActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void jmiProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProductoActionPerformed
         // TODO add your handling code here:
         JDMantenimientoProducto objMantProducto = new JDMantenimientoProducto(this, true);
         objMantProducto.setLocationRelativeTo(this);
         objMantProducto.setVisible(true);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    }//GEN-LAST:event_jmiProductoActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jmiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuarioActionPerformed
         // TODO add your handling code here:
         JDMantenimientoUsuario objMantUsuario = new JDMantenimientoUsuario(this, true);
         if (!user.equals("admin")){
@@ -605,7 +622,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         }
         objMantUsuario.setLocationRelativeTo(this);
         objMantUsuario.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jmiUsuarioActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
@@ -635,19 +652,31 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         objpago.setVisible(true);
     }//GEN-LAST:event_mnuPagoCreditoActionPerformed
 
-    private void mnuVentasDiariasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuVentasDiariasActionPerformed
-        // TODO add your handling code here:
-        JDVentasDiarias obj = new JDVentasDiarias(this, true);
-        obj.setLocationRelativeTo(this);
-        obj.setVisible(true);
-    }//GEN-LAST:event_mnuVentasDiariasActionPerformed
-
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
         // TODO add your handling code here:
         JDConsultasCaja obj = new JDConsultasCaja(this, true);
         obj.setLocationRelativeTo(this);
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnClienteActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void mnuVentasDiarias1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuVentasDiarias1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuVentasDiarias1ActionPerformed
+
+    private void mnuVentasDiariasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuVentasDiariasActionPerformed
+        // TODO add your handling code here:
+        JDVentasDiarias obj = new JDVentasDiarias(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_mnuVentasDiariasActionPerformed
 
     private void mnuCreditosClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCreditosClientesActionPerformed
         // TODO add your handling code here:
@@ -656,66 +685,43 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setVisible(true);
     }//GEN-LAST:event_mnuCreditosClientesActionPerformed
 
-    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        // TODO add your handling code here:
-        try {
-            // TODO add your handling code here:
-            JDDevolucionVenta obj = new JDDevolucionVenta(this, true);
-            obj.setUser(objUsuario.conocerCodusuario(user));
-            obj.setLocationRelativeTo(this);
-            obj.setVisible(true);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }//GEN-LAST:event_jMenuItem11ActionPerformed
-
-    private void mnuPagarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPagarVentaActionPerformed
-        // TODO add your handling code here:
-        JDPagarVenta obj = new JDPagarVenta(this, true);
-        obj.setLocationRelativeTo(this);
-        obj.setVisible(true);
-    }//GEN-LAST:event_mnuPagarVentaActionPerformed
-
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         // TODO add your handling code here:
-        JDVentasPorFechas obj = new JDVentasPorFechas(this, true);
+        JDConsultasCaja obj = new JDConsultasCaja(this, true);
         obj.setLocationRelativeTo(this);
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
         // TODO add your handling code here:
-        FrmReporteClienteListado obj = new FrmReporteClienteListado();
+        JDVentasPorFechas obj = new JDVentasPorFechas(this, true);
+        obj.setLocationRelativeTo(this);
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
         // TODO add your handling code here:
-        JDReporteProductos obj = new JDReporteProductos(this, true);
-        obj.setLocationRelativeTo(this);
+        FrmReporteClienteListado obj = new FrmReporteClienteListado();
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
-    private void mnuReporteVentasDiariasActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-        JDVentasDiarias obj = new JDVentasDiarias(this, true);
-        obj.setLocationRelativeTo(this);
-        obj.setVisible(true);
-    }  
-    
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
         // TODO add your handling code here:
-        JDReporteVentas obj = new JDReporteVentas(this, true);
+        JDReporteProductos obj = new JDReporteProductos(this, true);
         obj.setLocationRelativeTo(this);
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
         // TODO add your handling code here:
-        JDCambiarProducto obj = new JDCambiarProducto(this, true);
+        JDReporteVentas obj = new JDReporteVentas(this, true);
         obj.setLocationRelativeTo(this);
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem18ActionPerformed
+
+    private void mnuReporteVentasDiariasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporteVentasDiariasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuReporteVentasDiariasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -754,20 +760,94 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     }
 
     void iniciarSesion(){
-        JDInicioSesion objLogin = new JDInicioSesion(this, rootPaneCheckingEnabled);
-        objLogin.setLocationRelativeTo(null);
-        objLogin.setVisible(true);
-        nomUsuario = objLogin.getNombreUsuario();
-        user = objLogin.getUsername();
-        sesion = objLogin.getValue();
-        String datosSesion = objLogin.getDatosSesion();
-        lblDatosSesion.setText(datosSesion);
-        
-        if(sesion){
-            lblUsuario.setText(nomUsuario);
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "No ha iniciado Sesión, No puede acceder a la Aplicación", "ERROR", JOptionPane.ERROR_MESSAGE);
-            System.exit(0);
+        try {
+            JDInicioSesion objLogin = new JDInicioSesion(this, rootPaneCheckingEnabled);
+            objLogin.setLocationRelativeTo(null);
+            objLogin.setVisible(true);
+            nomUsuario = objLogin.getNombreUsuario();
+            user = objLogin.getUsername();
+            sesion = objLogin.getValue();
+            String datosSesion = objLogin.getDatosSesion();
+            lblDatosSesion.setText(datosSesion);
+            String cargo = objUsuario.privilegios(user);                        
+            
+            if(sesion){
+                lblUsuario.setText(nomUsuario);
+                if (cargo.equalsIgnoreCase("Gerente General")) {
+                    jmiCambiarContraseña.setEnabled(true);
+                    jmiCambiarUsuario.setEnabled(true);
+                    jmMantenimiento.setEnabled(true);
+                    jmnVentas.setEnabled(true);
+                    jmConsultas.setEnabled(true);
+                    jmReportes.setEnabled(true);
+                    btnContraseña.setEnabled(true);                
+                    btnConsultar.setEnabled(true);
+                    btnVenta.setEnabled(true);
+                    btnCliente.setEnabled(true);
+                    btnPagar.setEnabled(true);                
+                }
+                if (cargo.equalsIgnoreCase("Supervisor")) {
+                    jmiCambiarContraseña.setEnabled(true);
+                    jmiCambiarUsuario.setEnabled(true);
+                    jmMantenimiento.setEnabled(true);
+                    jmiUsuario.setVisible(false);
+                    jmnVentas.setEnabled(true);
+                    jmConsultas.setEnabled(true);
+                    jmReportes.setEnabled(true);
+                    btnContraseña.setEnabled(true);                
+                    btnConsultar.setEnabled(true);
+                    btnVenta.setEnabled(true);
+                    btnCliente.setEnabled(true);
+                    btnPagar.setEnabled(true);                
+                }
+
+                if (cargo.equalsIgnoreCase("Vendedor")) {
+                    jmiCambiarContraseña.setEnabled(true);
+                    jmiCambiarUsuario.setEnabled(true);
+                    jmMantenimiento.setVisible(false);
+                    jmnVentas.setEnabled(true);
+                    jmConsultas.setEnabled(true);
+                    jmReportes.setVisible(false);
+                    btnContraseña.setEnabled(true);                
+                    btnConsultar.setEnabled(true);
+                    btnVenta.setEnabled(true);
+                    btnCliente.setEnabled(true);
+                    btnPagar.setEnabled(true);                
+                }
+
+                if (cargo.equalsIgnoreCase("Almacenero")) {
+                    jmiCambiarContraseña.setEnabled(true);
+                    jmiCambiarUsuario.setEnabled(true);
+                    jmMantenimiento.setVisible(false);
+                    jmnVentas.setVisible(false);
+                    jmConsultas.setEnabled(true);
+                    jmReportes.setVisible(false);
+                    btnContraseña.setEnabled(true);                
+                    btnConsultar.setEnabled(true);
+                    btnVenta.setEnabled(true);
+                    btnCliente.setEnabled(true);                
+                }
+                
+                if (cargo.equalsIgnoreCase("")) {
+                    jmiCambiarContraseña.setVisible(false);
+                    jmiCambiarUsuario.setVisible(true);
+                    jmiCerrarSesion.setVisible(false);
+                    jmMantenimiento.setVisible(false);
+                    jmnVentas.setVisible(false);
+                    jmConsultas.setVisible(false);
+                    jmReportes.setEnabled(false);
+                    btnContraseña.setVisible(false);                
+                    btnConsultar.setVisible(false);
+                    btnVenta.setVisible(false);
+                    btnCliente.setVisible(false);                
+                }
+                lblCargo.setText(cargo);
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "No ha iniciado Sesión, No puede acceder a la Aplicación", "ERROR", JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(JFPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -803,15 +883,24 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         }
     }
     
+    void privilegios(String nomUser){
+        try {
+            
+        } catch (Exception e) {
+        }
+    }
+    
+    
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnCliente;
+    private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnContraseña;
+    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnPagar;
+    private javax.swing.JButton btnVenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -820,16 +909,10 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
@@ -837,12 +920,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
@@ -853,6 +930,19 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JMenu jmConsultas;
+    private javax.swing.JMenu jmLogin;
+    private javax.swing.JMenu jmMantenimiento;
+    private javax.swing.JMenu jmReportes;
+    private javax.swing.JMenuItem jmiCambiarContraseña;
+    private javax.swing.JMenuItem jmiCambiarUsuario;
+    private javax.swing.JMenuItem jmiCategoria;
+    private javax.swing.JMenuItem jmiCerrarSesion;
+    private javax.swing.JMenuItem jmiMarca;
+    private javax.swing.JMenuItem jmiProducto;
+    private javax.swing.JMenuItem jmiUsuario;
+    private javax.swing.JMenu jmnVentas;
+    private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblDatosSesion;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblHora;
@@ -862,6 +952,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem mnuPagoCredito;
     private javax.swing.JMenuItem mnuReporteVentasDiarias;
     private javax.swing.JMenuItem mnuVentasDiarias;
+    private javax.swing.JMenuItem mnuVentasDiarias1;
     // End of variables declaration//GEN-END:variables
 
     @Override

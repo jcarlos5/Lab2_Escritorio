@@ -165,9 +165,9 @@ public class clsCuota {
         }
     }
      
-     //para saber cuanto dinero ingreso en pagos por dia contando los creditos
+     //ventas PAGADAS AL CONTADO
     public float conocerMonto() throws Exception{
-        strSQL = "SELECT SUM(total) as MontoTotal FROM venta WHERE fecha = current_date ";
+        strSQL = "SELECT SUM(c.monto) as MontoTotal FROM venta v INNER JOIN cuota c ON v.numventa = c.codventa WHERE c.fechapago = current_date and v.tipopago = true and c.cancelada = true;";
         try {
             rs=objConectar.consultarBD(strSQL);
             while (rs.next()){
@@ -179,9 +179,9 @@ public class clsCuota {
     return 0;
     }
     
-    //para saber cuanto dinero ingreso en pagos por dia CONTADO
+    //Monto TOTAL caja: ventas pagadas al CONTADO + cuotas PAGADAS
     public float conocerMontoCaja() throws Exception{
-        strSQL = "SELECT SUM(total) as MontoTotal FROM venta WHERE fecha= current_date and tipopago = true; ";
+        strSQL = "SELECT SUM(monto) as MontoTotal FROM cuota WHERE fechapago = current_date and cancelada = true; ";
         try {
             rs=objConectar.consultarBD(strSQL);
             while (rs.next()){
@@ -209,6 +209,20 @@ public class clsCuota {
     
     //para saber el monto de solo creditos que hemos dado al dia
     public float conocerMontoCreditos() throws Exception{
+        strSQL = "SELECT SUM(c.monto) as MontoTotal FROM venta v INNER JOIN cuota c ON v.numventa = c.codventa WHERE c.fechapago = current_date and v.tipopago = false and c.cancelada = true;";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while (rs.next()){
+              return rs.getFloat("MontoTotal");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al conocer el monto pasado en CUOTAS");
+        }
+        return 0;
+    }
+    
+    //para saber el monto de solo creditos que hemos dado al dia
+    public float ventasCreditos() throws Exception{
         strSQL = "SELECT SUM(total) as MontoTotal FROM venta WHERE fecha= current_date and tipopago = false;";
         try {
             rs=objConectar.consultarBD(strSQL);

@@ -66,10 +66,10 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         txtCodigo = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtCargo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnContraseña = new javax.swing.JButton();
         btnPregunta = new javax.swing.JButton();
+        cmbCargo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(".:Mantenimiento Usuario:.");
@@ -107,9 +107,9 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         });
         contenedorTabla.setViewportView(tblUsuarios);
 
-        btnNuevo.setBackground(new java.awt.Color(153, 153, 255));
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/mas.png"))); // NOI18N
         btnNuevo.setText("NUEVO");
+        btnNuevo.setBackground(new java.awt.Color(153, 153, 255));
         btnNuevo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnNuevo.setMaximumSize(new java.awt.Dimension(120, 50));
         btnNuevo.setPreferredSize(new java.awt.Dimension(120, 25));
@@ -119,9 +119,9 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
             }
         });
 
-        btnModificar.setBackground(new java.awt.Color(255, 204, 0));
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/modificar.png"))); // NOI18N
         btnModificar.setText("MODIFICAR");
+        btnModificar.setBackground(new java.awt.Color(255, 204, 0));
         btnModificar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnModificar.setMaximumSize(new java.awt.Dimension(120, 50));
         btnModificar.setPreferredSize(new java.awt.Dimension(120, 25));
@@ -131,9 +131,9 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
             }
         });
 
-        btnEliminar.setBackground(new java.awt.Color(255, 51, 51));
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/eliminar.png"))); // NOI18N
         btnEliminar.setText("ELIMINAR");
+        btnEliminar.setBackground(new java.awt.Color(255, 51, 51));
         btnEliminar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnEliminar.setMaximumSize(new java.awt.Dimension(120, 50));
         btnEliminar.setPreferredSize(new java.awt.Dimension(120, 25));
@@ -145,9 +145,9 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
 
         jLabel1.setText("Código:");
 
-        btnDardeBaja.setBackground(new java.awt.Color(204, 102, 255));
         btnDardeBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/baja.png"))); // NOI18N
         btnDardeBaja.setText("DAR DE BAJA");
+        btnDardeBaja.setBackground(new java.awt.Color(204, 102, 255));
         btnDardeBaja.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnDardeBaja.setMaximumSize(new java.awt.Dimension(120, 50));
         btnDardeBaja.setPreferredSize(new java.awt.Dimension(120, 25));
@@ -159,9 +159,9 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
 
         jLabel2.setText("Usuario:");
 
-        btnLimpiar.setBackground(new java.awt.Color(255, 255, 255));
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/limpiar.png"))); // NOI18N
         btnLimpiar.setText("LIMPIAR");
+        btnLimpiar.setBackground(new java.awt.Color(255, 255, 255));
         btnLimpiar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnLimpiar.setMaximumSize(new java.awt.Dimension(120, 50));
         btnLimpiar.setPreferredSize(new java.awt.Dimension(120, 25));
@@ -173,9 +173,9 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
 
         lblEstado.setText("Estado:");
 
-        btnSalir.setBackground(new java.awt.Color(255, 255, 255));
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/salir.png"))); // NOI18N
         btnSalir.setText("SALIR");
+        btnSalir.setBackground(new java.awt.Color(255, 255, 255));
         btnSalir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnSalir.setMaximumSize(new java.awt.Dimension(120, 50));
         btnSalir.setPreferredSize(new java.awt.Dimension(120, 25));
@@ -223,6 +223,8 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
             }
         });
 
+        cmbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerente General", "Supervisor", "Vendedor", "Almacenero", "Invitado" }));
+
         javax.swing.GroupLayout contenedorLayout = new javax.swing.GroupLayout(contenedor);
         contenedor.setLayout(contenedorLayout);
         contenedorLayout.setHorizontalGroup(
@@ -238,17 +240,21 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                             .addComponent(jLabel4)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
-                        .addGap(15, 15, 15)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chkVigencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorLayout.createSequentialGroup()
-                                .addComponent(txtCodigo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBuscar)
-                                .addGap(4, 4, 4))
-                            .addComponent(txtCargo, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtNombre)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(contenedorLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chkVigencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorLayout.createSequentialGroup()
+                                        .addComponent(txtCodigo)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnBuscar)
+                                        .addGap(4, 4, 4))
+                                    .addComponent(txtNombre)
+                                    .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(contenedorLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbCargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(20, 20, 20)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
@@ -298,7 +304,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                         .addGap(20, 20, 20)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblEstado)
@@ -344,7 +350,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                 if (validarDatos()){
                     btnNuevo.setText("NUEVO");
                     String clave = objUsuario.generarClave();
-                    objUsuario.registrar(Integer.parseInt(txtCodigo.getText()), txtUsuario.getText(), clave, txtNombre.getText(), txtCargo.getText(), chkVigencia.isSelected());
+                    objUsuario.registrar(Integer.parseInt(txtCodigo.getText()), txtUsuario.getText(), clave, txtNombre.getText(), cmbCargo.getSelectedItem().toString(), chkVigencia.isSelected());
                     JOptionPane.showMessageDialog(rootPane, "Contraseña: " + clave, "REGISTRO EXITOSO", JOptionPane.INFORMATION_MESSAGE);
                     limpiarControles();
                     listarUsuarios();
@@ -393,7 +399,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                 if (rsUsuario.next()){
                         txtUsuario.setText(rsUsuario.getString("nomusuario"));
                         txtNombre.setText(rsUsuario.getString("nombrecompleto"));
-                        txtCargo.setText(rsUsuario.getString("cargo"));
+                        cmbCargo.setSelectedItem(rsUsuario.getString("cargo"));
                         chkVigencia.setSelected(rsUsuario.getBoolean("estado"));
                         rsUsuario.close();
                         habilitarEd();
@@ -411,7 +417,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             if(validarDatos()){
-                objUsuario.modificarUsuario(Integer.parseInt(txtCodigo.getText()), txtUsuario.getText(), txtNombre.getText(), txtCargo.getText(), chkVigencia.isSelected());
+                objUsuario.modificarUsuario(Integer.parseInt(txtCodigo.getText()), txtUsuario.getText(), txtNombre.getText(), cmbCargo.getSelectedItem().toString(), chkVigencia.isSelected());
                 if (modoPerfil){
                     dispose();
                 }else{
@@ -520,7 +526,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         txtCodigo.setText("");
         txtUsuario.setText("");
         txtNombre.setText("");
-        txtCargo.setText("");
+        cmbCargo.setSelectedIndex(0);
         chkVigencia.setSelected(false);
         deshabilitarEd();
     }
@@ -593,7 +599,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
             if (rs.next()){
                 txtCodigo.setText(rs.getString("codusuario"));
                 txtNombre.setText(rs.getString("nombrecompleto"));
-                txtCargo.setText(rs.getString("cargo"));
+                cmbCargo.setSelectedItem(rs.getString("cargo"));
                 txtUsuario.setText(rs.getString("nomusuario"));
                 chkVigencia.setSelected(rs.getBoolean("estado"));
             }
@@ -682,6 +688,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
     private javax.swing.JButton btnPregunta;
     private javax.swing.JButton btnSalir;
     private javax.swing.JCheckBox chkVigencia;
+    private javax.swing.JComboBox<String> cmbCargo;
     private javax.swing.JPanel contenedor;
     private javax.swing.JScrollPane contenedorTabla;
     private javax.swing.JLabel jLabel1;
@@ -690,7 +697,6 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JTable tblUsuarios;
-    private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtUsuario;

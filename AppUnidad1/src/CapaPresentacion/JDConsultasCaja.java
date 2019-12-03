@@ -46,13 +46,15 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
         lblTitulo = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtMontoTOTAL = new javax.swing.JTextField();
+        txtMontoTOTAL_CAJA = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtMontoCAJA = new javax.swing.JTextField();
+        txtVentasCONTADO = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtMontoCREDITO = new javax.swing.JTextField();
+        txtVentasCUOTA = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtCAJA = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtVentasCREDITO = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(".:Balance de Caja:.");
@@ -114,15 +116,25 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
 
         jLabel4.setText("Monto TOTAL:");
 
-        txtMontoTOTAL.setEditable(false);
+        txtMontoTOTAL_CAJA.setEditable(false);
+        txtMontoTOTAL_CAJA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMontoTOTAL_CAJAActionPerformed(evt);
+            }
+        });
 
-        jLabel5.setText("Monto en CAJA:");
+        jLabel5.setText("Ventas al CONTADO:");
 
-        txtMontoCAJA.setEditable(false);
+        txtVentasCONTADO.setEditable(false);
+        txtVentasCONTADO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtVentasCONTADOActionPerformed(evt);
+            }
+        });
 
-        jLabel7.setText("Monto en CRÉDITO:");
+        jLabel7.setText("Ventas por CUOTAS:");
 
-        txtMontoCREDITO.setEditable(false);
+        txtVentasCUOTA.setEditable(false);
 
         jLabel6.setText("Cantidad Caja:");
 
@@ -131,6 +143,10 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
                 txtCAJAActionPerformed(evt);
             }
         });
+
+        jLabel8.setText("Ventas al CRÉDITO:");
+
+        txtVentasCREDITO.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,24 +158,27 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6))
-                        .addGap(40, 40, 40)
+                        .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6))
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtMontoCAJA, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtMontoTOTAL, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCAJA, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txtVentasCONTADO, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtVentasCUOTA, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtMontoTOTAL_CAJA, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCAJA, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtMontoCREDITO, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnSalir)))))
+                                .addGap(5, 5, 5)
+                                .addComponent(jLabel8)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtVentasCREDITO, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalir)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -167,24 +186,33 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtCAJA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtMontoTOTAL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtMontoCAJA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtMontoCREDITO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalir))
-                .addGap(20, 20, 20))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalir)
+                        .addGap(20, 20, 20))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtCAJA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtMontoTOTAL_CAJA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtVentasCONTADO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(13, 13, 13)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtVentasCUOTA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtVentasCREDITO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(12, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -232,6 +260,14 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
         evaluar(montoCajera);
         mostrarBalance();
     }//GEN-LAST:event_txtCAJAActionPerformed
+
+    private void txtMontoTOTAL_CAJAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoTOTAL_CAJAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMontoTOTAL_CAJAActionPerformed
+
+    private void txtVentasCONTADOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVentasCONTADOActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtVentasCONTADOActionPerformed
    
     public void evaluar(float montCajera){
         try {
@@ -250,12 +286,14 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
     
     private void mostrarBalance(){
         try {
-            float montoTotal = obj.conocerMonto();
-            float montoCaja = obj.conocerMontoCaja();
-            float montoCredito = obj.conocerMontoCreditos();
-            txtMontoTOTAL.setText(String.valueOf(montoTotal));
-            txtMontoCAJA.setText(String.valueOf(montoCaja));
-            txtMontoCREDITO.setText(String.valueOf(montoCredito)); 
+            float MontoTOTAL_CAJA = obj.conocerMontoCaja();
+            float VentasCONTADO = obj.conocerMonto();
+            float VentasCUOTA = obj.conocerMontoCreditos();
+            float VentasCREDITO = obj.ventasCreditos();
+            txtMontoTOTAL_CAJA.setText(String.valueOf(MontoTOTAL_CAJA));
+            txtVentasCONTADO.setText(String.valueOf(VentasCONTADO));
+            txtVentasCUOTA.setText(String.valueOf(VentasCUOTA)); 
+            txtVentasCREDITO.setText(String.valueOf(VentasCREDITO)); 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -308,6 +346,22 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -332,13 +386,15 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextField txtCAJA;
-    private javax.swing.JTextField txtMontoCAJA;
-    private javax.swing.JTextField txtMontoCREDITO;
-    private javax.swing.JTextField txtMontoTOTAL;
+    private javax.swing.JTextField txtMontoTOTAL_CAJA;
+    private javax.swing.JTextField txtVentasCONTADO;
+    private javax.swing.JTextField txtVentasCREDITO;
+    private javax.swing.JTextField txtVentasCUOTA;
     // End of variables declaration//GEN-END:variables
 }

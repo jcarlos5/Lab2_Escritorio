@@ -191,6 +191,20 @@ public class clsUsuario {
         return 0;
     }
     
+    // Conceder privilegios de Usuario
+    public String privilegios(String user) throws Exception{
+        strSQL = "SELECT cargo FROM usuario WHERE nomusuario = '" + user + "'";
+        try {
+            rs = objConectar.consultarBD(strSQL);
+            if (rs.next()) {
+                return rs.getString("cargo");
+            }
+        } catch (Exception e) {
+            throw new Exception("No tiene permisos");
+        }
+        return "";
+    }
+    
     public String generarClave(){
         return String.valueOf((int)(Math.random() * 100000) + 11111);
     }
