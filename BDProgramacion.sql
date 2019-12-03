@@ -1,8 +1,7 @@
 /*
 ================================================================
 --Fecha de Creación	: 02 de Octubre del 2019
---Última moficiación	: 23 de Octubre del 2019
---Autor			: VILCHEZ VILLEGAS, José Carlos
+--Última moficiación	: 03 de Diciemre del 2019
 ================================================================
 */
 
@@ -202,9 +201,13 @@ $$ language 'plpgsql';
 
 --INSERCIÓN DE EJEMPLOS
 
-INSERT INTO USUARIO VALUES(1, 'admin', '123456', 'Juan Perez Perez', 'Gerente General', TRUE, 'Ciudad de Nacimiento', 'Lima');
-INSERT INTO USUARIO VALUES(2, 'invitado', 'usat2019', 'Maria Mendoza', 'supervisor', FALSE, 'Primer número celular', '979105594');
-INSERT INTO USUARIO VALUES(3, 'venta', 'chiclayo', 'Pedro Casas Merino', 'Jefe de ventas', TRUE, 'Nombre de tu mascota', 'Boby');
+INSERT INTO usuario VALUES (1,'ADMIN' , '123456' , 'Juan Perez Perez' , 'Gerente General' , false , 'Ciudad de Nacimiento' , 'Lima' );
+INSERT INTO usuario VALUES (2,'INVITADO' , 'usat2019' , 'Maria Mendoza' , 'Invitado' , false , 'Primer número celular' , '979105594' );
+INSERT INTO usuario VALUES (3,'JEVE-PCM' , 'chiclayo' , 'Pedro Casas Merino' , 'Vendedor' , true , 'Nombre de tu mascota' , 'Boby' );
+INSERT INTO usuario VALUES (4,'SUP-Patricia' , '47530' , 'Patricia Paola Castro Fernandez' , 'Supervisor' , true ,  NULL  ,  NULL  );
+INSERT INTO usuario VALUES (5,'VEN-Cinthya' , '94098' , 'Cinthya Lisseth Yomona Parraguez' , 'Vendedor' , true ,  NULL  ,  NULL  );
+INSERT INTO usuario VALUES (6,'ALM-Sara' , '56411' , 'Sara Benel Ramírez' , 'Almacenero' , true ,  NULL  ,  NULL  );
+INSERT INTO usuario VALUES (7,'ADMIN-JCarlos' , '37603' , 'José Carlos Vilchez Villegas' , 'Gerente General' , true ,  NULL  ,  NULL  );
 
 INSERT INTO MARCA VALUES (1, 'EPSON', TRUE);
 INSERT INTO MARCA VALUES (2, 'SAMSUNG', TRUE);
@@ -320,7 +323,7 @@ BEGIN
 
 	return TRUE;
 
-	exception when others then return FALSE
+	exception when others then return FALSE;
 END
 $$ language 'plpgsql';
 
@@ -397,3 +400,14 @@ BEGIN
 	INNER JOIN cliente c on c.codcliente = v.codcliente where v.fecha=CURRENT_DATE;
 END;
 $$language 'plpgsql';
+
+--Monto TOTAL caja:
+SELECT SUM(monto) as MontoTotal FROM cuota WHERE fechapago = current_date and cancelada = true;
+--Monto VENTAS al CONTADO:
+SELECT SUM(c.monto) as MontoTotal FROM venta v INNER JOIN cuota c ON v.numventa = c.codventa 
+WHERE c.fechapago = current_date and v.tipopago = true and c.cancelada = true;
+--Monto VENTAS por CUOTAS:
+SELECT SUM(c.monto) as MontoTotal FROM venta v INNER JOIN cuota c ON v.numventa = c.codventa 
+WHERE c.fechapago = current_date and v.tipopago = false and c.cancelada = true;
+--Ventas realizadas al CRÉDITO
+SELECT SUM(total) as MontoTotal FROM venta WHERE fecha= current_date and tipopago = false;
