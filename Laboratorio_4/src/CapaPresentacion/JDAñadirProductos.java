@@ -143,19 +143,28 @@ public class JDAñadirProductos extends javax.swing.JDialog {
     private void pasarDatos(int cod, int ctd){
         try {
             int stock = objProducto.getStock(cod);
-            
-            if(ctd <= stock){
-                prod = cod;
-                cant = ctd;
-                String descuento = String.valueOf(JOptionPane.showInputDialog(rootPane, "Ingrese el porcentaje de descuento:", "0"));
-                try{
-                    desc = Integer.parseInt(descuento);
-                }catch(Exception e){
+            if (ctd<0){
+                JOptionPane.showMessageDialog(rootPane, "No se acepta una cantidad negativa");
+            }else {
+                if(ctd <= stock){
+                    prod = cod;
+                    cant = ctd;
+                    String descuento = String.valueOf(JOptionPane.showInputDialog(rootPane, "Ingrese el porcentaje de descuento:", "0"));
+                    try{
+                        desc = Integer.parseInt(descuento);
+                        if (desc > 100 || desc < 0){
+                            desc=0;
+                            JOptionPane.showMessageDialog(rootPane, "Descuento no válido");
+                        }else{
+                            dispose();
+                        }
+                    }catch(Exception e){
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Stock Insuficiente");
                 }
-                dispose();
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Stock Insuficiente");
             }
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
