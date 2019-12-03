@@ -41,7 +41,7 @@ public class clsDevolucion {
     public void registrarDevolucionVenta(String cod, String motivo, String montodev, Integer us, JTable tbl, int numventa ) throws SQLException, Exception{
         try {    
             Integer dias=0;
-            strSQL="SELECT CURRENT_DATE-fecha as dias FROM venta WHERE numventa=" + numventa ;
+            strSQL="SELECT CURRENT_DATE-fecha as dias FROM venta WHERE numventa="+ numventa+" and tipopago=false" ;
             objConectar.conectar();
             con=objConectar.getConnection();
             con.setAutoCommit(false);
@@ -51,7 +51,7 @@ public class clsDevolucion {
                 dias=rs.getInt("dias");
             }
             
-            if(dias<=7){
+            if(dias>=0 && dias<=7){
                 strSQL = "INSERT INTO devolucion values ("+cod+" , CURRENT_DATE , '"+motivo+"' , "+montodev+" , "+us +");";
                 sent.executeUpdate(strSQL);
                 for (int i = 0; i < tbl.getRowCount(); i++) {
