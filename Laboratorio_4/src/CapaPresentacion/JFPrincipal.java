@@ -724,7 +724,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
 
     private void mnuPagarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPagarVentaActionPerformed
         // TODO add your handling code here:
-        JDPagoContado obj = new JDPagoContado(this, true);
+        JDPagarVenta obj = new JDPagarVenta(this, true);
         obj.setLocationRelativeTo(this);
         obj.setVisible(true);
     }//GEN-LAST:event_mnuPagarVentaActionPerformed
