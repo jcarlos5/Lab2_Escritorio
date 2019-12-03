@@ -28,7 +28,7 @@
 **/nbproject/private/
 **/nbproject/Makefile-*.mk
 **/nbproject/Package-*.bash
-build/
+AppUnidad1/build/
 nbbuild/
 dist/
 nbdist/
