@@ -286,17 +286,19 @@ public class JDCambiarProducto extends javax.swing.JDialog {
 
     private void tblDetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalleMouseClicked
         // TODO add your handling code here:
-        prod_old = Integer.parseInt(String.valueOf(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 0)));
-        JDAñadirProductos objAnaProd = new JDAñadirProductos((Frame) SwingUtilities.getWindowAncestor(this), true);
-        objAnaProd.setLocationRelativeTo(this);
-        objAnaProd.setVisible(true);
-        int producto = objAnaProd.getCod();
-        prod_new = producto;
-        int cantidad = objAnaProd.getCant();
-        cant_new = cantidad;
-        int descuento = objAnaProd.getDesc();
-        desc_new = descuento;
-        agregarProducto(producto, cantidad, descuento);
+        if(tblDetalle.isEnabled()){
+            prod_old = Integer.parseInt(String.valueOf(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 0)));
+            JDAñadirProductos objAnaProd = new JDAñadirProductos((Frame) SwingUtilities.getWindowAncestor(this), true);
+            objAnaProd.setLocationRelativeTo(this);
+            objAnaProd.setVisible(true);
+            int producto = objAnaProd.getCod();
+            prod_new = producto;
+            int cantidad = objAnaProd.getCant();
+            cant_new = cantidad;
+            int descuento = objAnaProd.getDesc();
+            desc_new = descuento;
+            agregarProducto(producto, cantidad, descuento);
+        }
     }//GEN-LAST:event_tblDetalleMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -329,12 +331,15 @@ public class JDCambiarProducto extends javax.swing.JDialog {
                     }
                 }
                 
-                
                 int stock = objProducto.getStock(producto);
                 
                 if (repetido){
+                    int aux = Integer.parseInt(String.valueOf(tblDetalle.getValueAt(fila, 2)));
+                    cantidad += aux;
                     stock += Integer.parseInt(String.valueOf(tblDetalle.getValueAt(tblDetalle.getSelectedRow(), 2)));
+                    modelo.removeRow(fila);
                 }
+                
                 
                 if(cantidad > stock){
                     cantidad = stock;
@@ -347,7 +352,9 @@ public class JDCambiarProducto extends javax.swing.JDialog {
                     modelo.addRow(new Object[]{rs.getString("codproducto"), rs.getString("nomproducto"), cantidad, rs.getFloat("precio"), descuento, (cantidad * (rs.getFloat("precio")-descuento*rs.getFloat("precio")/100))});
                 }
                 
-                modelo.removeRow(tblDetalle.getSelectedRow());
+                try{
+                    modelo.removeRow(tblDetalle.getSelectedRow());
+                }catch(Exception e){}
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, e.getMessage());
             }
