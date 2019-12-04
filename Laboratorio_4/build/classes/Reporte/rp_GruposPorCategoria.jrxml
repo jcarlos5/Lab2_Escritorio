@@ -70,10 +70,6 @@ WHERE p.vigencia=TRUE;]]>
 				</textElement>
 				<text><![CDATA[REPORTE DE PRODUCTOS POR CATEGORÍA]]></text>
 			</staticText>
-			<image>
-				<reportElement x="14" y="10" width="62" height="59" uuid="44da5643-f353-4965-b0af-4b1094913252"/>
-				<imageExpression><![CDATA["C:\\Users\\USUARIO\\Documents\\GitHub\\Lab2_Escritorio\\AppUnidad1\\src\\src\\icon.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>

@@ -106,12 +106,11 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         mnuCreditosClientes = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
-        jMenuItem16 = new javax.swing.JMenuItem();
-        jMenuItem17 = new javax.swing.JMenuItem();
-        jMenuItem18 = new javax.swing.JMenuItem();
-        mnuReporteVentasDiarias = new javax.swing.JMenuItem();
         jmReportes = new javax.swing.JMenu();
         mnuVentasDiarias1 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
+        mnuReporteVentasDiarias = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         jMenuItem12.setText("jMenuItem12");
 
@@ -466,38 +465,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         });
         jmConsultas.add(jMenuItem15);
 
-        jMenuItem16.setText("Listado de Clientes");
-        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem16ActionPerformed(evt);
-            }
-        });
-        jmConsultas.add(jMenuItem16);
-
-        jMenuItem17.setText("Productos por Categoría");
-        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem17ActionPerformed(evt);
-            }
-        });
-        jmConsultas.add(jMenuItem17);
-
-        jMenuItem18.setText("Reporte de Ventas");
-        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem18ActionPerformed(evt);
-            }
-        });
-        jmConsultas.add(jMenuItem18);
-
-        mnuReporteVentasDiarias.setText("Reporte de ventas diarias");
-        mnuReporteVentasDiarias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuReporteVentasDiariasActionPerformed(evt);
-            }
-        });
-        jmConsultas.add(mnuReporteVentasDiarias);
-
         jMenuBar1.add(jmConsultas);
 
         jmReportes.setText("Reportes");
@@ -509,6 +476,30 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
             }
         });
         jmReportes.add(mnuVentasDiarias1);
+
+        jMenuItem16.setText("Reporte listado de Clientes");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+        jmReportes.add(jMenuItem16);
+
+        mnuReporteVentasDiarias.setText("Reporte de ventas diarias");
+        mnuReporteVentasDiarias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReporteVentasDiariasActionPerformed(evt);
+            }
+        });
+        jmReportes.add(mnuReporteVentasDiarias);
+
+        jMenuItem1.setText("Reporte de Existencias");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jmReportes.add(jMenuItem1);
 
         jMenuBar1.add(jmReportes);
 
@@ -701,20 +692,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
-    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
-        // TODO add your handling code here:
-        JDReporteProductos obj = new JDReporteProductos(this, true);
-        obj.setLocationRelativeTo(this);
-        obj.setVisible(true);
-    }//GEN-LAST:event_jMenuItem17ActionPerformed
-
-    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
-        // TODO add your handling code here:
-        JDReporteVentas obj = new JDReporteVentas(this, true);
-        obj.setLocationRelativeTo(this);
-        obj.setVisible(true);
-    }//GEN-LAST:event_jMenuItem18ActionPerformed
-
     private void mnuReporteVentasDiariasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporteVentasDiariasActionPerformed
         // TODO add your handling code here:
         JDReporteVentasDiarias obj = new JDReporteVentasDiarias(this, true);
@@ -728,6 +705,13 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setLocationRelativeTo(this);
         obj.setVisible(true);
     }//GEN-LAST:event_mnuPagarVentaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        JDReporteExistenciaProductos obj = new JDReporteExistenciaProductos(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -924,14 +908,13 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
-    private javax.swing.JMenuItem jMenuItem17;
-    private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
