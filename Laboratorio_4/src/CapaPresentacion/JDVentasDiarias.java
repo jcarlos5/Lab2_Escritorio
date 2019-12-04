@@ -242,6 +242,7 @@ public class JDVentasDiarias extends javax.swing.JDialog {
         
             rsMarcas = objVenta.listarVenta(fech);
             while (rsMarcas.next()){
+                String estpago = (rsMarcas.getBoolean("estadopago"))?"Pagado":"No pagado";
                 String tipoc = (rsMarcas.getBoolean("tipocomprobante")) ? "Boleta":"Factura" ;
                 model.addRow(new Object[]{rsMarcas.getInt("numventa"), 
                     rsMarcas.getString("fecha"),
@@ -249,7 +250,7 @@ public class JDVentasDiarias extends javax.swing.JDialog {
                     rsMarcas.getFloat("subtotal"),
                     rsMarcas.getFloat("igv"),
                     rsMarcas.getFloat("total"),
-                    rsMarcas.getBoolean("estadopago")
+                    estpago
                 } );
             }
             tblVentasDiarias.setModel(model);

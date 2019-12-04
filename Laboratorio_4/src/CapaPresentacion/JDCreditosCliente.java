@@ -189,6 +189,7 @@ public class JDCreditosCliente extends javax.swing.JDialog {
         
             rs = objVenta.listarVentaCredito(cli);
             while (rs.next()){
+                String estpago = (rs.getBoolean("estadopago"))?"Pagado":"No pagado";
                 String tipoc = (rs.getBoolean("tipocomprobante")) ? "Boleta":"Factura" ;
                 model.addRow(new Object[]{rs.getInt("numventa"), 
                     rs.getString("fecha"),
@@ -196,7 +197,7 @@ public class JDCreditosCliente extends javax.swing.JDialog {
                     rs.getFloat("igv"),
                     rs.getFloat("subtotal"),
                     rs.getFloat("total"),
-                    rs.getBoolean("estadopago")
+                    estpago
                 } );
             }
             tblVentasCredito.setModel(model);
