@@ -717,7 +717,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
 
     private void mnuReporteVentasDiariasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporteVentasDiariasActionPerformed
         // TODO add your handling code here:
-        JDPagoCredito obj = new JDPagoCredito(this, true);
+        JDReporteVentasDiarias obj = new JDReporteVentasDiarias(this, true);
         obj.setLocationRelativeTo(this);
         obj.setVisible(true);
     }//GEN-LAST:event_mnuReporteVentasDiariasActionPerformed
