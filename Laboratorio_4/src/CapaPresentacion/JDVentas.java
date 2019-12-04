@@ -603,7 +603,6 @@ public class JDVentas extends javax.swing.JDialog {
                         int ctd = Integer.parseInt(rpta);
                         if (ctd > 0 ){
                             int prod = Integer.parseInt(String.valueOf(tblProductos.getValueAt(tblProductos.getSelectedRow(), 0)));
-                            
                             int stock = objProducto.getStock(prod);
                             if(ctd <= stock){
                                 String descpor = String.valueOf(tblProductos.getValueAt(tblProductos.getSelectedRow(), 3));
@@ -614,8 +613,13 @@ public class JDVentas extends javax.swing.JDialog {
                                 JOptionPane.showMessageDialog(rootPane, "Stock Insuficiente");
                             }
                         }else{
-                            JOptionPane.showMessageDialog(rootPane, "El registro ha sido eliminado");
-                            modelo.removeRow(tblProductos.getSelectedRow());
+                            if (ctd < 0){
+                                JOptionPane.showMessageDialog(rootPane, "El nuevo descuento no es permitido");
+                            }else{
+                                JOptionPane.showMessageDialog(rootPane, "El registro ha sido eliminado");
+                                modelo.removeRow(tblProductos.getSelectedRow());
+                            }
+                            
                         }
                     }
                 } catch (Exception e) {
