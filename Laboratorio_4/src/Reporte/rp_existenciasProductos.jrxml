@@ -26,10 +26,6 @@
 				</textElement>
 				<text><![CDATA[Reporte de Existencias de Productos]]></text>
 			</staticText>
-			<image>
-				<reportElement x="33" y="0" width="48" height="42" uuid="27d1c94f-5ad7-49d8-b8c2-f7b266864735"/>
-				<imageExpression><![CDATA["D:\\Ingeniería de Sistemas y computación\\6°CICLO\\DESARROLLO DE APLICACIONES DE ESCRITORIO\\A-4-11-19\\Ramita\\Lab2_Escritorio\\AppUnidad1\\src\\src\\icon1.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
