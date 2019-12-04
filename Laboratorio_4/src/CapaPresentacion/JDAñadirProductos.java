@@ -24,7 +24,7 @@ public class JDAñadirProductos extends javax.swing.JDialog {
 
     clsProducto objProducto = new clsProducto();
     
-    private int prod=0;
+    private Integer prod=0;
     private int cant=0;
     private int desc=0;
     /**
@@ -153,7 +153,7 @@ public class JDAñadirProductos extends javax.swing.JDialog {
                     try{
                         desc = Integer.parseInt(descuento);
                         if (desc > 100 || desc < 0){
-                            desc=0;
+                            prod = 0;
                             JOptionPane.showMessageDialog(rootPane, "Descuento no válido");
                         }else{
                             dispose();
