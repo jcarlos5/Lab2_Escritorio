@@ -91,7 +91,7 @@ total DECIMAL(10, 2) NOT NULL,
 tipoComprobante BOOLEAN NOT NULL, --True: Boleta, False: Factura
 estadoPago BOOLEAN NOT NULL,
 tipoPago BOOLEAN NULL, --True: Contado, False: Credito
-serie VARCHAR NOT NULL DEFAULT 'F001',
+serie VARCHAR NOT NULL DEFAULT 'F001'
 );
 
 CREATE TABLE DETALLE(
