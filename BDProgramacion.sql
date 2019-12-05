@@ -53,6 +53,14 @@ descripcion varchar(100) null,
 vigencia boolean not null
 );
 
+CREATE TABLE PROVEEDOR(
+codProveedor integer primary key,
+nombre varchar(45) not null,
+ruc varchar(11) null,
+direccion varchar(45) not null,
+estado boolean not null
+);
+
 CREATE TABLE PRODUCTO(
 codProducto int not null primary key,
 nomProducto varchar(30) not null,
@@ -61,7 +69,8 @@ precio decimal (8, 2) not null,
 stock int not null,
 vigencia boolean not null,
 codMarca int not null,
-codCategoria int not null
+codCategoria int not null,
+codProveedor int not null
 );
 
 CREATE TABLE TIPO_CLIENTE(
@@ -134,27 +143,8 @@ CREATE TABLE establecimiento (
 );
 
 
-CREATE TABLE proveedor(
-codProveedor integer primary key,
-nombre varchar(45) not null,
-apellido varchar(45) null,
-direccion varchar(45) not null,
-estado boolean not null
-);
 
-CREATE TABLE almacen(
-codProveedor integer not null,
-codProducto integer not null,
-fecha date not null,
-cantidad integer not null,
-precio_compra float not null,
 
-CONSTRAINT FK_Proveedor FOREIGN KEY (codProveedor)
-REFERENCES proveedor(codProveedor),
-CONSTRAINT FK_Producto FOREIGN KEY (codProducto)
-REFERENCES producto(codProducto),
-CONSTRAINT pk_clave PRIMARY KEY(codProveedor,codProducto)
-);
 --CREACIÓN DE CLAVES FORÁNEAS
 ALTER TABLE DEVOLUCION ADD CONSTRAINT FK_USUARIO_DEVOLUCION FOREIGN KEY (atendidopor) REFERENCES USUARIO(CODUSUARIO);
 ALTER TABLE PRODUCTO ADD CONSTRAINT FK_MARCA_PRODUCTO FOREIGN KEY (codMarca) REFERENCES MARCA;

@@ -40,11 +40,11 @@ public class clsProducto {
         return 0;
     }
     
-    public void registrar(Integer cod, String nom, String descrip, double precio, int stock, Boolean vig, int codMarca, int codCate) throws Exception{
+    public void registrar(Integer cod, String nom, String descrip, double precio, int stock, Boolean vig, int codMarca, int codCate,int codPro) throws Exception{
         try {         
             objConectar.conectar();
             Connection con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("INSERT INTO producto VALUES(?,?,?,?,?,?,?,?)");
+            CallableStatement sentencia = con.prepareCall("INSERT INTO producto VALUES(?,?,?,?,?,?,?,?,?)");
             sentencia.setInt(1,cod);
             sentencia.setString(2, nom);
             sentencia.setString(3, descrip);
@@ -53,6 +53,7 @@ public class clsProducto {
             sentencia.setBoolean(6, vig);
             sentencia.setInt(7, codMarca);
             sentencia.setInt(8, codCate);
+            sentencia.setInt(9, codPro);
             sentencia.executeUpdate(); 
             JOptionPane.showMessageDialog(null, "Registrado Correctamente");            
         } catch (Exception e) {
