@@ -70,7 +70,6 @@ public class clsProveedor {
         
     }
 
-
     public Integer obtenerCodigoTipoProveedor(String nom) throws Exception{
         strSQL = "select codProveedor from proveedor where nombre='" + nom + "'" ;
         try {
@@ -81,6 +80,18 @@ public class clsProveedor {
         }
         return 0;
     }
+    
+    public String obtenerProveedor(int cod) throws Exception{
+        strSQL = "SELECT proveedor.nombre as razonsocial FROM proveedor INNER JOIN producto ON producto.codproveedor=proveedor.codproveedor WHERE proveedor.codproveedor=" + cod + "" ;
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            if (rs.next()) return rs.getString("razonsocial");
+        } catch (Exception e) {
+            throw new Exception("Error al obtener el nombre del Proveedor");
+        }
+        return null;
+    }    
+    
     
     public ResultSet listarProveedores() throws Exception{
         strSQL = "select * from proveedor WHERE estado=true" ;

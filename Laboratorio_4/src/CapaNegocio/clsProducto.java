@@ -62,6 +62,17 @@ public class clsProducto {
             objConectar.desconectar();
         } 
     }
+
+    public Integer obtenerCodigoProducto(String nom) throws Exception{
+        strSQL = "SELECT codProducto FROM proveedor WHERE nomproducto='" + nom + "'" ;
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            if (rs.next()) return rs.getInt("codProducto");
+        } catch (Exception e) {
+            throw new Exception("Error al obtener el Codigo del Producto");
+        }
+        return 0;
+    }
     
     public ResultSet buscarProducto(Integer cod) throws Exception{
         strSQL = "SELECT * FROM producto WHERE codproducto=" + cod + ";";
@@ -134,6 +145,26 @@ public class clsProducto {
             throw new Exception("Error al dar de Baja el producto");
         }
     }
+    
+    
+    public void ActualizarStock(Integer codP, Integer cantidad) throws Exception{
+       try {
+         //registar proveedor
+           objConectar.conectar();
+           con = objConectar.getConnection();
+           CallableStatement sentencia = con.prepareCall("UPDATE producto set stock=stock+? WHERE codProducto=?)");
+           sentencia.setInt(1, codP);
+           sentencia.setInt(2, cantidad);
+
+          JOptionPane.showMessageDialog(null, "Actualizado Correctamente"); 
+        } catch (Exception e) {
+            throw new Exception("Error al Actualizar Stock");
+        }finally{
+            objConectar.desconectar();
+        } 
+        
+    }
+
     
     public ResultSet filtrarMarca(int marca, String nom, int min, int max) throws Exception{
         strSQL = "SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE codmarca = " + marca + " AND UPPER(nomproducto) LIKE UPPER('%" + nom + "%') AND precio BETWEEN " + min + " AND " + max + ") p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;" ;
