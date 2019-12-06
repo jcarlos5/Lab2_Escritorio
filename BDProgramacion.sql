@@ -1,7 +1,11 @@
-/*
+﻿/*
 ================================================================
 --Fecha de Creación	: 02 de Octubre del 2019
 --Última moficiación	: 03 de Diciemre del 2019
+--Integrantes		: Benel Ramirez
+			  Castro Fernandez
+			  Vilchez Villegas
+			  Yomona Parraguez
 ================================================================
 */
 
@@ -149,7 +153,9 @@ CREATE TABLE establecimiento (
 	departamento varchar(30) not null
 );
 
-
+CREATE TABLE parametro (
+ganancia decimal(3,2) not null
+);
 
 
 --CREACIÓN DE CLAVES FORÁNEAS
@@ -252,12 +258,14 @@ INSERT INTO CATEGORIA VALUES (2, 'CELULARES', 'Smarphones', TRUE);
 INSERT INTO CATEGORIA VALUES (3, 'COMPUTO', 'Ordenadores y partes', TRUE);
 INSERT INTO CATEGORIA VALUES (4, 'LAPTOPS', 'Gamers y Normal', TRUE);
 
-INSERT INTO PRODUCTO VALUES (1, 'EPSON LX570', 'Color: Negro', 900.00, 50, TRUE, 1, 1);
-INSERT INTO PRODUCTO VALUES (2, 'Laptop HP 2459', 'Color: Negro', 5400.00, 10, TRUE, 6, 4);
-INSERT INTO PRODUCTO VALUES (3, 'Laptop SM-59711', 'Color: Blanco', 3000.00, 20, TRUE, 2, 4);
-INSERT INTO PRODUCTO VALUES (4, 'Monitor LG UHD', 'Color: Negro', 500.00, 60, TRUE, 3, 3);
-INSERT INTO PRODUCTO VALUES (5, 'Monitor IBM 2400', 'Color: Gris', 500.00, 75, TRUE, 5, 3);
-INSERT INTO PRODUCTO VALUES (6, 'HUAWEI P30', 'Color: Azul, Rosa y Rojo', 3200.00, 70, TRUE, 4, 2);
+INSERT INTO PROVEEDOR VALUES (1, 'PROVEEDOR 01', '12345678910', 'Callecita 123', TRUE);
+
+INSERT INTO PRODUCTO VALUES (1, 'EPSON LX570', 'Color: Negro', 900.00, 50, TRUE, 1, 1, 1);
+INSERT INTO PRODUCTO VALUES (2, 'Laptop HP 2459', 'Color: Negro', 5400.00, 10, TRUE, 6, 4, 1);
+INSERT INTO PRODUCTO VALUES (3, 'Laptop SM-59711', 'Color: Blanco', 3000.00, 20, TRUE, 2, 4, 1);
+INSERT INTO PRODUCTO VALUES (4, 'Monitor LG UHD', 'Color: Negro', 500.00, 60, TRUE, 3, 3, 1);
+INSERT INTO PRODUCTO VALUES (5, 'Monitor IBM 2400', 'Color: Gris', 500.00, 75, TRUE, 5, 3, 1);
+INSERT INTO PRODUCTO VALUES (6, 'HUAWEI P30', 'Color: Azul, Rosa y Rojo', 3200.00, 70, TRUE, 4, 2, 1);
 
 INSERT INTO PROVEEDOR VALUES(1,'IBM','72120524567','Las Madarinas 123',true);
 INSERT INTO PROVEEDOR VALUES(2,'Lenovo','72120524569','Las Manzanas 123',true);
