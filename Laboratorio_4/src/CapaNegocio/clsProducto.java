@@ -40,11 +40,11 @@ public class clsProducto {
         return 0;
     }
     
-    public void registrar(Integer cod, String nom, String descrip, double precio, int stock, Boolean vig, int codMarca, int codCate,int codPro) throws Exception{
+    public void registrar(Integer cod, String nom, String descrip, double precio, int stock, Boolean vig, int codMarca, int codCate) throws Exception{
         try {         
             objConectar.conectar();
             Connection con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("INSERT INTO producto VALUES(?,?,?,?,?,?,?,?,?)");
+            CallableStatement sentencia = con.prepareCall("INSERT INTO producto VALUES(?,?,?,?,?,?,?,?)");
             sentencia.setInt(1,cod);
             sentencia.setString(2, nom);
             sentencia.setString(3, descrip);
@@ -53,7 +53,6 @@ public class clsProducto {
             sentencia.setBoolean(6, vig);
             sentencia.setInt(7, codMarca);
             sentencia.setInt(8, codCate);
-            sentencia.setInt(9, codPro);
             sentencia.executeUpdate(); 
             JOptionPane.showMessageDialog(null, "Registrado Correctamente");            
         } catch (Exception e) {
@@ -127,6 +126,28 @@ public class clsProducto {
             throw new Exception("Error al listar productos");
         }
     }
+    
+     public ResultSet listarProductosVig() throws Exception{
+        strSQL = "SELECT p.*, m.nommarca, c.nomcategoria FROM producto p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria WHERE vigencia=true ORDER BY codproducto;" ;
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al listar productos");
+        }
+    }
+    
+    public String ProveedorProducto(Integer codP) throws Exception{
+     strSQL = "SELECT proveedor.nombre FROM proveedor INNER JOIN alamacen ON alamcen.codproveedor=proveedor.codproveedor INNER JOIN producto ON producto.codproducto=almacen.codproducto WHERE producto.codProducto="+codP+";" ;
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            return rs.getString("nombre");
+        } catch (Exception e) {
+            throw new Exception("Error al listar El Proveedor de un Producto");
+        }   
+    }
+    
+    
     
     public void modificarProducto(Integer cod, String nombre, String descrip, double precio, int stock, boolean vigencia, int codMarca, int codCategoria) throws Exception {
         strSQL="UPDATE producto SET nomproducto = '" + nombre + "', descripcion = '" + descrip + "', precio='" + precio + "', stock='" + stock + "', vigencia = " + vigencia + ", codmarca = '" + codMarca + "', codcategoria = '" + codCategoria + "' WHERE codProducto ='" + cod + "';";

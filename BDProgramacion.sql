@@ -73,8 +73,15 @@ precio decimal (8, 2) not null,
 stock int not null,
 vigencia boolean not null,
 codMarca int not null,
-codCategoria int not null,
-codProveedor int not null
+codCategoria int not null
+);
+
+CREATE TABLE ALMACEN(
+codAlmacen integer not null,
+codProveedor int not null references proveedor,
+codProducto int not null references producto,
+fecha date not null,
+precio decimal(8, 2) not null
 );
 
 CREATE TABLE TIPO_CLIENTE(
