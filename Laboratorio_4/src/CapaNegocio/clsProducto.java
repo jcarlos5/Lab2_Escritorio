@@ -72,6 +72,17 @@ public class clsProducto {
         }
         return 0;
     }
+
+    public String obtenerCategoriaProducto(Integer cod) throws Exception{
+        strSQL = "SELECT categoria.nomcategoria as cate FROM producto INNER JOIN categoria ON categoria.codcategoria=producto.codcategoria WHERE producto.codproucto="+cod+"" ;
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            if (rs.next()) return rs.getString("cate");
+        } catch (Exception e) {
+            throw new Exception("Error al obtener el Nombre de la Categoria de un Producto");
+        }
+        return null;
+    }    
     
     public ResultSet buscarProducto(Integer cod) throws Exception{
         strSQL = "SELECT * FROM producto WHERE codproducto=" + cod + ";";
