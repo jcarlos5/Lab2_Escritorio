@@ -9,12 +9,12 @@
 ================================================================
 */
 
--- Database: "BDProgramacion"
+-- Database: 'BDProgramacion'
 
--- DROP DATABASE "BDProgramacion";
+-- DROP DATABASE 'BDProgramacion';
 
 /*
-CREATE DATABASE "BDProgramacion"
+CREATE DATABASE 'BDProgramacion'
   WITH OWNER = postgres
        ENCODING = 'UTF8'
        TABLESPACE = pg_default
@@ -266,6 +266,11 @@ INSERT INTO PRODUCTO VALUES (3, 'Laptop SM-59711', 'Color: Blanco', 3000.00, 20,
 INSERT INTO PRODUCTO VALUES (4, 'Monitor LG UHD', 'Color: Negro', 500.00, 60, TRUE, 3, 3, 1);
 INSERT INTO PRODUCTO VALUES (5, 'Monitor IBM 2400', 'Color: Gris', 500.00, 75, TRUE, 5, 3, 1);
 INSERT INTO PRODUCTO VALUES (6, 'HUAWEI P30', 'Color: Azul, Rosa y Rojo', 3200.00, 70, TRUE, 4, 2, 1);
+
+INSERT INTO PROVEEDOR VALUES(1,'IBM','72120524567','Las Madarinas 123',true);
+INSERT INTO PROVEEDOR VALUES(2,'Lenovo','72120524569','Las Manzanas 123',true);
+INSERT INTO PROVEEDOR VALUES(3,'HP','75120524567','kakao 567',true);
+INSERT INTO PROVEEDOR VALUES(4,'IBM','72120524123','La libertad 457',true);
 
 INSERT INTO TIPO_CLIENTE VALUES(1, 'Persona Natural');
 INSERT INTO TIPO_CLIENTE VALUES(2, 'Persona Jurídica');
