@@ -37,22 +37,32 @@ public class clsCliente {
     }
     
     public ResultSet filtrarClientes(String cadena) throws Exception{
-        strSQL = "SELECT * FROM CLIENTE WHERE dni LIKE '" + cadena + "%' OR ruc LIKE '" + cadena + "%';";
         try {
-            rs = objConectar.consultarBD(strSQL);
-            return rs;
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM CLIENTE WHERE dni LIKE ? OR ruc LIKE ?");
+            sentencia.setString(1, cadena);
+            sentencia.setString(2, cadena);
+            ResultSet resultado = sentencia.executeQuery();
+            return resultado;
         } catch (Exception e) {
-            throw new Exception("Error al listar Clientes");
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
         }
     }
     
     public ResultSet listarTipoClientes() throws Exception{
-        strSQL = "SELECT * FROM TIPO_CLIENTE;";
         try {
-            rs = objConectar.consultarBD(strSQL);
-            return rs;
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM TIPO_CLIENTE");
+            ResultSet resultado = sentencia.executeQuery();
+            return resultado;
         } catch (Exception e) {
-            throw new Exception("Error al listar Tipos de Cliente");
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
         }
     }
     
@@ -195,66 +205,128 @@ public class clsCliente {
     }
     
     public void modificarCliente(String cod, String dni, String ruc, String nom, String tel, String correo, String direccion, Boolean vig, int codtipo) throws Exception {
-        
-        switch (codtipo) {
-            case 1:
-                strSQL="UPDATE cliente SET dni='" + dni + "', ruc = null, nombres='" + nom + "', telefono='" + tel + "', correo='" + correo + "', direccion='" + direccion + "', vigencia= " + vig + ", codtipo=" + codtipo + " WHERE codcliente = " + cod + ";";
-                break;
-            case 2:
-                strSQL="UPDATE cliente SET dni=null,  ruc='" + ruc + "', nombres='" + nom + "', telefono='" + tel + "', correo='" + correo + "', direccion='" + direccion + "', vigencia= " + vig + ", codtipo=" + codtipo + " WHERE codcliente = " + cod + ";";
-                break;
-            default:
-                strSQL="UPDATE cliente SET dni='" + dni + "', ruc='" + ruc + "', nombres='" + nom + "', telefono='" + tel + "', correo='" + correo + "', direccion='" + direccion + "', vigencia= " + vig + ", codtipo=" + codtipo + " WHERE codcliente = " + cod + ";";
-                break;
-        }
-        
-        try {
-            objConectar.ejecutarBD(strSQL);
+try {
+            if (codtipo==1){
+            
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("UPDATE cliente SET dni=?, ruc =?, nombres=?, telefono=?, correo=?, direccion=?, vigencia= ?, codtipo=? WHERE codcliente =?");
+            sentencia.setString(1, dni);
+            sentencia.setString(2, null); //"'null'"
+            sentencia.setString(3, nom);
+            sentencia.setString(4, tel);
+            sentencia.setString(5, correo);
+            sentencia.setString(6,direccion);
+            sentencia.setBoolean(7, vig);
+            sentencia.setInt(8, codtipo);
+            sentencia.setInt(9,Integer.parseInt(cod));
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+            
+            }
+            
+            if (codtipo==2){
+                
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("UPDATE cliente SET dni=?, ruc =?, nombres=?, telefono=?, correo=?, direccion=?, vigencia= ?, codtipo=? WHERE codcliente =?");
+            sentencia.setString(1, null);//"'null'"
+            sentencia.setString(2, ruc); 
+            sentencia.setString(3, nom);
+            sentencia.setString(4, tel);
+            sentencia.setString(5, correo);
+            sentencia.setString(6,direccion);
+            sentencia.setBoolean(7, vig);
+            sentencia.setInt(8, codtipo);
+            sentencia.setInt(9,Integer.parseInt(cod));
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+            
+            }
+            
+            if (codtipo==3){
+                
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("UPDATE cliente SET dni=?, ruc =?, nombres=?, telefono=?, correo=?, direccion=?, vigencia= ?, codtipo=? WHERE codcliente =?");
+            sentencia.setString(1, dni);
+            sentencia.setString(2, ruc); 
+            sentencia.setString(3, nom);
+            sentencia.setString(4, tel);
+            sentencia.setString(5, correo);
+            sentencia.setString(6,direccion);
+            sentencia.setBoolean(7, vig);
+            sentencia.setInt(8, codtipo);
+            sentencia.setInt(9,Integer.parseInt(cod));
+            sentencia.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+            
+            }
+            
         } catch (Exception e) {
-            throw new Exception("Error al modificar cliente");
-        }
+            throw new Exception("Error al registrar Cliente");
+        }finally{
+            objConectar.desconectar();
+        } 
     }
     
     public void darDeBajaCliente(Integer cod) throws Exception {
-        strSQL="UPDATE cliente SET vigencia = false WHERE codcliente =" + cod + ";";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("UPDATE cliente SET vigencia = false WHERE codcliente=?");
+            sentencia.setInt(1, cod);
+            sentencia.executeUpdate();
         } catch (Exception e) {
-            throw new Exception("Error al dar de Baja al cliente");
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
         }
     }
     
     public ResultSet buscarCliente(String doc) throws Exception{
-        strSQL = "SELECT c.*, t.nombre FROM (SELECT * FROM cliente WHERE dni = '" + doc + "' OR ruc = '" + doc + "') c INNER JOIN TIPO_CLIENTE t ON c.codtipo = t.codtipo;";
         try {
-            rs = objConectar.consultarBD(strSQL);
-            return rs;
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT c.*, t.nombre FROM (SELECT * FROM cliente WHERE dni = ? OR ruc = ?) c INNER JOIN TIPO_CLIENTE t ON c.codtipo = t.codtipo");
+            sentencia.setString(1, doc);
+            sentencia.setString(2, doc);
+            ResultSet resultado=sentencia.executeQuery();
+            return resultado;
         } catch (Exception e) {
-            throw new Exception("Error al listar Clientes");
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
         }
     }
     
     public ResultSet verificarDocumento(int cod) throws Exception{
-        strSQL = "SELECT dni, ruc FROM cliente WHERE codcliente = "+ cod +";";
         try {
-            rs = objConectar.consultarBD(strSQL);
-            return rs;
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT dni, ruc FROM cliente WHERE codcliente = ?");
+            sentencia.setInt(1, cod);
+            ResultSet resultado=sentencia.executeQuery();
+            return resultado;
         } catch (Exception e) {
-            throw new Exception("Error al verificar Cliente");
-        }
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
+        }        
     }
     
     public boolean isAcreditable(String cod) throws Exception{
-        strSQL = "SELECT * FROM venta WHERE codcliente = " + cod + " and estadopago = false and tipopago = false;";
         try {
-            rs = objConectar.consultarBD(strSQL);
-            if(rs.next()){
-                return false;
-            }else{
-                return true;
-            }
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM venta WHERE codcliente =? and estadopago = false and tipopago = false");
+            sentencia.setInt(1, Integer.parseInt(cod));
+            ResultSet resultado=sentencia.executeQuery();
+            return resultado.getBoolean("");
         } catch (Exception e) {
-            throw new Exception("Error al verificar Cliente");
-        }
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
+        }         
     }
 }

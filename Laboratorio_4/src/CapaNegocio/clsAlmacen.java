@@ -23,6 +23,7 @@ public class clsAlmacen {
     ResultSet rs=null;
     Connection con=null;
     Statement sent;
+    float porcentaje_ganacia=(float) 0.30;
        
     public void ActualizarStock(Integer codP, Integer codprov,Integer cantidad ,Float precio) throws Exception{
        try {
@@ -32,7 +33,7 @@ public class clsAlmacen {
            sent = con.createStatement();
            strSQL = "INSERT INTO almacen VALUES(SELECT COALESCE(max(codalmacen),0)+1 FROM codalmacen,"+codprov+","+codP+",CURRENT_DATE,"+precio+");";
            sent.executeUpdate(strSQL);
-           strSQL = "UPDATE producto set precio="+precio+"*0.30 ,stock=stock+"+cantidad+" WHERE codProducto="+codP+";";
+           strSQL = "UPDATE producto set precio="+precio+"*"+porcentaje_ganacia+" ,stock=stock+"+cantidad+" WHERE codProducto="+codP+";";
            sent.executeUpdate(strSQL);
           JOptionPane.showMessageDialog(null, "Actualizado Correctamente"); 
           con.commit();

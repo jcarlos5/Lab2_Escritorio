@@ -6,6 +6,7 @@
 package CapaNegocio;
 
 import CapaDatos.clsJDBC;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -47,12 +48,17 @@ public class clsCategoria {
     }
     
     public ResultSet buscarCategoria(Integer cod) throws Exception{
-        strSQL = "SELECT * FROM categoria WHERE codcategoria=" + cod + ";";
-        try {
-            rs=objConectar.consultarBD(strSQL);
-            return rs;
+         try {
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM categoria WHERE codcategoria=?");
+            sentencia.setInt(1, cod);
+            ResultSet resultado = sentencia.executeQuery();
+            return resultado;
         } catch (Exception e) {
-            throw new Exception("Error al buscar categoria");
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
         }
     }
     
@@ -101,12 +107,16 @@ public class clsCategoria {
     }
 
     public ResultSet listarCategorias() throws Exception{
-        strSQL = "SELECT * FROM categoria;" ;
-        try {
-            rs=objConectar.consultarBD(strSQL);
-            return rs;
+         try {
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM categoria;");
+            ResultSet resultado = sentencia.executeQuery();
+            return resultado;
         } catch (Exception e) {
-            throw new Exception("Error al listar categorias");
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
         }
     }
     
@@ -149,28 +159,32 @@ public class clsCategoria {
     }
     
     public int getCodigo(String nombre) throws Exception{
-        strSQL = "SELECT codcategoria FROM categoria WHERE nomcategoria='"+nombre+"';" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
-            while (rs.next()){
-                return rs.getInt("codcategoria");
-            }
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT codcategoria FROM categoria WHERE nomcategoria=?");
+            sentencia.setString(1, nombre);
+            ResultSet resultado = sentencia.executeQuery();
+            return resultado.getInt("codcategoria");
         } catch (Exception e) {
-            throw new Exception("Error al buscar codigo categoria");
+            throw new Exception("Error ");
+        }finally{
+            objConectar.desconectar();
         }
-        return 0;
     }
     
     public String getNombre(int codigo) throws Exception{
-        strSQL = "SELECT nomcategoria FROM categoria WHERE codcategoria='"+codigo+"';" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
-            while (rs.next()){
-                return rs.getString("nomcategoria");
-            }
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT nomcategoria FROM categoria WHERE codcategoria=?");
+            sentencia.setInt(1, codigo);
+            ResultSet resultado = sentencia.executeQuery();
+            return resultado.getString("codcategoria");
         } catch (Exception e) {
-            throw new Exception("Error al listar categorias");
+            throw new Exception("Error ");
+        }finally{
+            objConectar.desconectar();
         }
-        return null;
     }
 }
