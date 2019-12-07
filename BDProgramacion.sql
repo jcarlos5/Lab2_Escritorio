@@ -154,7 +154,9 @@ CREATE TABLE establecimiento (
 );
 
 CREATE TABLE parametro (
-ganancia decimal(3,2) not null
+codparametro int not null primary key,
+nombre varchar(50) not null,
+valor decimal(3,2) not null
 );
 
 
@@ -285,6 +287,8 @@ INSERT INTO CLIENTE VALUES(6, '71359403', null, 'Julio Jaramillo', '991025349', 
 INSERT INTO CLIENTE VALUES(7, '79163522', '731526940', 'Gustavo Rios', '920136490', 'Chiclayo', 'riosgustavo@hotmail.com', TRUE, 3);
 
 INSERT INTO ESTABLECIMIENTO VALUES (1, 'La Impresora', '12345678910', 'Los Naranjos 348', 'Chiclayo', 'Chiclayo', 'Lambayeque');
+
+INSERT INTO PARAMETRO VALUES (1, 'Ganacia', 2.00);
 
 /* REEMPLAZADO POR UNA TRANSACCIÓN
 --TRIGGER PARA ACTUALIZAR VENTA CUANDO SE TERMINEN DE PAGAR LAS CUOTAS

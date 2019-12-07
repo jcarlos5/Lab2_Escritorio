@@ -42,7 +42,7 @@ public class clsMarca {
         //strSQL="INSERT INTO MARCA VALUES(" + cod + ",'" + nom + "'," + vig + ");";
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("INSERT INTO MARCA VALUES(?,?,?);");
             sentencia.setInt(1,cod);
             sentencia.setString(2,nom);
