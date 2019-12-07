@@ -24,8 +24,11 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 
 /**
- *
- * @author JCarlos
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
 public class clsDocumentoVenta {
     clsJDBC objConectar = new clsJDBC();
