@@ -13,8 +13,11 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author user
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
 public class clsAlmacen {
  

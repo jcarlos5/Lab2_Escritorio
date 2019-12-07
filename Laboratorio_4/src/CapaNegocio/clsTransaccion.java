@@ -9,8 +9,11 @@ import CapaDatos.clsJDBC;
 import java.sql.*;
 
 /**
- *
- * @author JCarlos
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
 public class clsTransaccion {
     clsJDBC objConectar = new clsJDBC();

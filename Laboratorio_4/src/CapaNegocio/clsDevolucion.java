@@ -15,8 +15,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
- *
- * @author Sara
+ INTEGRANTES:
+   - BENEL RAMIREZ, Sara
+   - CASTRO FERNANDEZ, Paola   
+   - VILCHEZ VILLEGAS, José Carlos
+   - YOMONA PARRAGUEZ, Cinthya
  */
 public class clsDevolucion {
     clsJDBC objConectar = new clsJDBC();

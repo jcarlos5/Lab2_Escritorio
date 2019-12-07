@@ -154,7 +154,9 @@ CREATE TABLE establecimiento (
 );
 
 CREATE TABLE parametro (
-ganancia decimal(3,2) not null
+codparametro int not null primary key,
+nombre varchar(50) not null,
+valor decimal(3,2) not null
 );
 
 
@@ -286,6 +288,8 @@ INSERT INTO CLIENTE VALUES(7, '79163522', '731526940', 'Gustavo Rios', '92013649
 
 INSERT INTO ESTABLECIMIENTO VALUES (1, 'La Impresora', '12345678910', 'Los Naranjos 348', 'Chiclayo', 'Chiclayo', 'Lambayeque');
 
+INSERT INTO PARAMETRO VALUES (1, 'Ganacia', 2.00);
+
 /* REEMPLAZADO POR UNA TRANSACCIÓN
 --TRIGGER PARA ACTUALIZAR VENTA CUANDO SE TERMINEN DE PAGAR LAS CUOTAS
 CREATE OR REPLACE FUNCTION actualizarventa() RETURNS TRIGGER AS
@@ -344,6 +348,7 @@ DECLARE
 	mont_new decimal(10,2);
 	subm_new decimal(10,2);
 	igv_new decimal(10,2);
+	prod_repetido int;
 BEGIN
 	--ELIMINAR EL PRODUCTO NO DESEADO
 	SELECT cantidad INTO cant_old FROM detalle WHERE numventa = numven and codproducto = prod_old;
@@ -355,9 +360,18 @@ BEGIN
 	subt_new = cant_new*(prec_new - ((prec_new*desc_new)/100));
 	
 	--AGREGAR EL NUEVO PRODUCTO
-	INSERT INTO detalle(numventa, codproducto, cantidad, precioventa, descuento, subtotal)
-		VALUES (numven, prod_new, cant_new, prec_new, desc_new, subt_new);
-	UPDATE producto set stock = stock - cant_new WHERE codproducto = prod_new;
+		--Comprobar si no se han cambiado por un producto que ya existe en la venta
+		SELECT count(*) INTO prod_repetido FROM detalle WHERE numventa = numven and codproducto = prod_new;
+		--Realizar la inserción
+		if prod_repetido = 0 then
+			INSERT INTO detalle(numventa, codproducto, cantidad, precioventa, descuento, subtotal)
+				VALUES (numven, prod_new, cant_new, prec_new, desc_new, subt_new);
+		else
+			UPDATE detalle SET cantidad = cantidad+cant_new, descuento = desc_new, precioventa = prec_new WHERE numventa = numven and codproducto = prod_new;
+			UPDATE detalle SET subtotal = cantidad*(precioventa - ((precioventa*descuento)/100)) WHERE numventa = numven and codproducto = prod_new;
+		end if;
+
+		UPDATE producto set stock = stock - cant_new WHERE codproducto = prod_new;
 
 	--CALCULAR NUEVOS DATOS DE LA VENTA
 	SELECT sum(subtotal) INTO subm_new FROM detalle WHERE numventa = numven;

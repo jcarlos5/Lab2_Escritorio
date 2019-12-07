@@ -180,9 +180,8 @@ public class clsVenta {
         try {
             boolean rpta = false;
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             try {
-
                 con.setAutoCommit(false);
                 CallableStatement sentencia = con.prepareCall("SELECT fn_cambiarProducto(?, ?, ?, ?, ?)");
                 sentencia.setInt(1, numven);

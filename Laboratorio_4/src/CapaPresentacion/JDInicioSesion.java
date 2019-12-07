@@ -329,7 +329,7 @@ public class JDInicioSesion extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(rootPane, "El usuario no está vigente", "ERROR", JOptionPane.ERROR_MESSAGE);
                     }
                 }else{
-                    JOptionPane.showMessageDialog(rootPane, "El usuario no está Existe", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, "El usuario no Existe", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
