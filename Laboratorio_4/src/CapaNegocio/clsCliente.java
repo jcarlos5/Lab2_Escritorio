@@ -39,7 +39,7 @@ public class clsCliente {
     public ResultSet filtrarClientes(String cadena) throws Exception{
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT * FROM CLIENTE WHERE dni LIKE ? OR ruc LIKE ?");
             sentencia.setString(1, cadena);
             sentencia.setString(2, cadena);
@@ -55,7 +55,7 @@ public class clsCliente {
     public ResultSet listarTipoClientes() throws Exception{
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT * FROM TIPO_CLIENTE");
             ResultSet resultado = sentencia.executeQuery();
             return resultado;
@@ -148,9 +148,14 @@ public class clsCliente {
     
     
     public ResultSet buscarCliente(Integer cod) throws Exception{
-        strSQL = "SELECT * FROM cliente WHERE codcliente=" + cod + ";";
+        //strSQL = "SELECT * FROM cliente WHERE codcliente=" + cod + ";";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM cliente WHERE codcliente= ?;");
+            sentencia.setInt(1,cod);
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al buscar cliente");
@@ -170,27 +175,39 @@ public class clsCliente {
             objConectar.conectar();
             con=objConectar.getConnection();
             con.setAutoCommit(false);
-            sent=con.createStatement();
-            strSQL="SELECT COUNT(*) FROM venta WHERE codcliente=" + cod + ";";
-            rs=sent.executeQuery(strSQL);
+            CallableStatement sentencia = con.prepareCall("SELECT COUNT(*) FROM venta WHERE codcliente= ?;");
+            sentencia.setInt(1,cod);
+            rs = sentencia.executeQuery();
+            //sent=con.createStatement();
+            //strSQL="SELECT COUNT(*) FROM venta WHERE codcliente=" + cod + ";";
+            //rs=sent.executeQuery(strSQL);
             
             if(rs.next()){
                 if(rs.getInt(1)>0){
                     ResultSet rs1;
-                    strSQL="SELECT COUNT(*) FROM venta WHERE estadopago=false and codcliente=" + cod +";";
-                    rs1=sent.executeQuery(strSQL);
+                    sentencia = con.prepareCall("SELECT COUNT(*) FROM venta WHERE estadopago=false and codcliente= ?;");
+                    sentencia.setInt(1,cod);
+                    rs1 = sentencia.executeQuery();
+                    //strSQL="SELECT COUNT(*) FROM venta WHERE estadopago=false and codcliente=" + cod +";";
+                    //rs1=sent.executeQuery(strSQL);
                     if(rs1.next()){
                         if(rs1.getInt(1)>0){
                             elim = null;
                         }else{
-                            strSQL="UPDATE cliente set vigencia=false WHERE codcliente=" + cod + ";";
-                            sent.executeUpdate(strSQL);
+                            sentencia = con.prepareCall("UPDATE cliente set vigencia=false WHERE codcliente= ?;");
+                            sentencia.setInt(1,cod);
+                            sentencia.executeUpdate();
+                            //strSQL="UPDATE cliente set vigencia=false WHERE codcliente=" + cod + ";";
+                            //sent.executeUpdate(strSQL);
                             elim = false;
                         }
                     }
                 }else{
-                    strSQL="DELETE FROM cliente WHERE codcliente=" + cod + ";";
-                    sent.executeUpdate(strSQL);
+                    sentencia = con.prepareCall("DELETE FROM cliente WHERE codcliente= ?;");
+                    sentencia.setInt(1,cod);
+                    sentencia.executeUpdate();
+                    //strSQL="DELETE FROM cliente WHERE codcliente=" + cod + ";";
+                    //sent.executeUpdate(strSQL);
                     elim = true;
                 }
             }
@@ -205,62 +222,57 @@ public class clsCliente {
     }
     
     public void modificarCliente(String cod, String dni, String ruc, String nom, String tel, String correo, String direccion, Boolean vig, int codtipo) throws Exception {
-try {
+        try {
             if (codtipo==1){
-            
-            objConectar.conectar();
-            Connection con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("UPDATE cliente SET dni=?, ruc =?, nombres=?, telefono=?, correo=?, direccion=?, vigencia= ?, codtipo=? WHERE codcliente =?");
-            sentencia.setString(1, dni);
-            sentencia.setString(2, null); //"'null'"
-            sentencia.setString(3, nom);
-            sentencia.setString(4, tel);
-            sentencia.setString(5, correo);
-            sentencia.setString(6,direccion);
-            sentencia.setBoolean(7, vig);
-            sentencia.setInt(8, codtipo);
-            sentencia.setInt(9,Integer.parseInt(cod));
-            sentencia.executeUpdate(); 
-            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+                objConectar.conectar();
+                Connection con = objConectar.getConnection();
+                CallableStatement sentencia = con.prepareCall("UPDATE cliente SET dni=?, ruc =?, nombres=?, telefono=?, correo=?, direccion=?, vigencia= ?, codtipo=? WHERE codcliente =?");
+                sentencia.setString(1, dni);
+                sentencia.setString(2, null); //"'null'"
+                sentencia.setString(3, nom);
+                sentencia.setString(4, tel);
+                sentencia.setString(5, correo);
+                sentencia.setString(6,direccion);
+                sentencia.setBoolean(7, vig);
+                sentencia.setInt(8, codtipo);
+                sentencia.setInt(9,Integer.parseInt(cod));
+                sentencia.executeUpdate(); 
+                JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
             
             }
             
             if (codtipo==2){
-                
-            objConectar.conectar();
-            Connection con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("UPDATE cliente SET dni=?, ruc =?, nombres=?, telefono=?, correo=?, direccion=?, vigencia= ?, codtipo=? WHERE codcliente =?");
-            sentencia.setString(1, null);//"'null'"
-            sentencia.setString(2, ruc); 
-            sentencia.setString(3, nom);
-            sentencia.setString(4, tel);
-            sentencia.setString(5, correo);
-            sentencia.setString(6,direccion);
-            sentencia.setBoolean(7, vig);
-            sentencia.setInt(8, codtipo);
-            sentencia.setInt(9,Integer.parseInt(cod));
-            sentencia.executeUpdate(); 
-            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
-            
+                objConectar.conectar();
+                Connection con = objConectar.getConnection();
+                CallableStatement sentencia = con.prepareCall("UPDATE cliente SET dni=?, ruc =?, nombres=?, telefono=?, correo=?, direccion=?, vigencia= ?, codtipo=? WHERE codcliente =?");
+                sentencia.setString(1, null);//"'null'"
+                sentencia.setString(2, ruc); 
+                sentencia.setString(3, nom);
+                sentencia.setString(4, tel);
+                sentencia.setString(5, correo);
+                sentencia.setString(6,direccion);
+                sentencia.setBoolean(7, vig);
+                sentencia.setInt(8, codtipo);
+                sentencia.setInt(9,Integer.parseInt(cod));
+                sentencia.executeUpdate(); 
+                JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
             }
             
             if (codtipo==3){
-                
-            objConectar.conectar();
-            Connection con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("UPDATE cliente SET dni=?, ruc =?, nombres=?, telefono=?, correo=?, direccion=?, vigencia= ?, codtipo=? WHERE codcliente =?");
-            sentencia.setString(1, dni);
-            sentencia.setString(2, ruc); 
-            sentencia.setString(3, nom);
-            sentencia.setString(4, tel);
-            sentencia.setString(5, correo);
-            sentencia.setString(6,direccion);
-            sentencia.setBoolean(7, vig);
-            sentencia.setInt(8, codtipo);
-            sentencia.setInt(9,Integer.parseInt(cod));
-            sentencia.executeUpdate(); 
-            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
-            
+                objConectar.conectar();
+                Connection con = objConectar.getConnection();
+                CallableStatement sentencia = con.prepareCall("UPDATE cliente SET dni=?, ruc =?, nombres=?, telefono=?, correo=?, direccion=?, vigencia= ?, codtipo=? WHERE codcliente =?");
+                sentencia.setString(1, dni);
+                sentencia.setString(2, ruc); 
+                sentencia.setString(3, nom);
+                sentencia.setString(4, tel);
+                sentencia.setString(5, correo);
+                sentencia.setString(6,direccion);
+                sentencia.setBoolean(7, vig);
+                sentencia.setInt(8, codtipo);
+                sentencia.setInt(9,Integer.parseInt(cod));
+                sentencia.executeUpdate(); 
+                JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
             }
             
         } catch (Exception e) {

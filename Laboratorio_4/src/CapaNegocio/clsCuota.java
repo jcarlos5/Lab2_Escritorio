@@ -29,37 +29,35 @@ public class clsCuota {
     
     //para registrar pagos
     public void registrarCuota(String numVenta, String numCuota, String fecha, String fpago, String estado, String montoIngresado, String vuelto,String monto) throws Exception{
-        objConectar.conectar();
-        Connection con = objConectar.getConnection();
-        if (fpago.equalsIgnoreCase("null")){//No le veo sentido al if :/
-            
-            CallableStatement sentencia = con.prepareCall("INSERT INTO cuota VALUES(?,?,?,?,?,?,?,?)");
-            sentencia.setInt(1,Integer.parseInt(numVenta));
-            sentencia.setInt(2,Integer.parseInt(numCuota));
-            sentencia.setString(3, fecha);
-            sentencia.setString(4, null);
-            sentencia.setBoolean(5, Boolean.parseBoolean(estado));
-            sentencia.setFloat(6, Float.parseFloat(montoIngresado));
-            sentencia.setFloat(7, Float.parseFloat(vuelto));
-            sentencia.setFloat(8, Float.parseFloat(monto));
-            sentencia.executeUpdate(); 
-            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
-            
-        }else {
-            CallableStatement sentencia = con.prepareCall("INSERT INTO cuota VALUES(?,?,?,?,?,?,?,?)");
-            sentencia.setInt(1,Integer.parseInt(numVenta));
-            sentencia.setInt(2,Integer.parseInt(numCuota));
-            sentencia.setString(3, fecha);
-            sentencia.setString(4, fpago);
-            sentencia.setBoolean(5, Boolean.parseBoolean(estado));
-            sentencia.setFloat(6, Float.parseFloat(montoIngresado));
-            sentencia.setFloat(7, Float.parseFloat(vuelto));
-            sentencia.setFloat(8, Float.parseFloat(monto));
-            sentencia.executeUpdate(); 
-            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
-        }
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            if (fpago.equalsIgnoreCase("null")){//No le veo sentido al if :/
+                CallableStatement sentencia = con.prepareCall("INSERT INTO cuota VALUES(?,?,?,?,?,?,?,?)");
+                sentencia.setInt(1,Integer.parseInt(numVenta));
+                sentencia.setInt(2,Integer.parseInt(numCuota));
+                sentencia.setString(3, fecha);
+                sentencia.setString(4, null);
+                sentencia.setBoolean(5, Boolean.parseBoolean(estado));
+                sentencia.setFloat(6, Float.parseFloat(montoIngresado));
+                sentencia.setFloat(7, Float.parseFloat(vuelto));
+                sentencia.setFloat(8, Float.parseFloat(monto));
+                sentencia.executeUpdate(); 
+                JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+            }else {
+                CallableStatement sentencia = con.prepareCall("INSERT INTO cuota VALUES(?,?,?,?,?,?,?,?)");
+                sentencia.setInt(1,Integer.parseInt(numVenta));
+                sentencia.setInt(2,Integer.parseInt(numCuota));
+                sentencia.setString(3, fecha);
+                sentencia.setString(4, fpago);
+                sentencia.setBoolean(5, Boolean.parseBoolean(estado));
+                sentencia.setFloat(6, Float.parseFloat(montoIngresado));
+                sentencia.setFloat(7, Float.parseFloat(vuelto));
+                sentencia.setFloat(8, Float.parseFloat(monto));
+                sentencia.executeUpdate(); 
+                JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+            }
+            //objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
             throw new Exception("Error al registrar el pago de la venta");
         }
@@ -71,13 +69,28 @@ public class clsCuota {
             objConectar.conectar();
             con = objConectar.getConnection();
             con.setAutoCommit(false);
-            sent = con.createStatement();
-            strSQL="UPDATE venta SET estadopago = " + tipo + ", tipopago = " + tipo + " WHERE numventa=" + datos[0][0] + ";";
-            sent.executeUpdate(strSQL);
+            CallableStatement sentencia = con.prepareCall("UPDATE venta SET estadopago = ?, tipopago = ? WHERE numventa= ?;");
+            sentencia.setBoolean(1,tipo);
+            sentencia.setBoolean(2,tipo);
+            sentencia.setInt(3, Integer.parseInt(datos[0][0]));
+            sentencia.executeUpdate();
+            //sent = con.createStatement();
+            //strSQL="UPDATE venta SET estadopago = " + tipo + ", tipopago = " + tipo + " WHERE numventa=" + datos[0][0] + ";";
+            //sent.executeUpdate(strSQL);
             
             for (String[] dato : datos) {
-                strSQL="INSERT INTO cuota VALUES (" + dato[0] + ", " + dato[1] + ", '" + dato[2] + "' , " + dato[3] + " , " + dato[4] + ", " + dato[5] + " , " + dato[6] + ","+dato[7]+");";
-                sent.executeUpdate(strSQL);
+                sentencia = con.prepareCall("INSERT INTO cuota VALUES (?, ?, ?, ?, ?, , ?, ?);");
+                sentencia.setInt(1, Integer.parseInt(dato[0]));
+                sentencia.setInt(2, Integer.parseInt(dato[1]));
+                sentencia.setDate(3, Date.valueOf(dato[2]));
+                sentencia.setDate(4, Date.valueOf(dato[3]));
+                sentencia.setBoolean(5, Boolean.parseBoolean(dato[4]));
+                sentencia.setFloat(6, Float.parseFloat(dato[5]));
+                sentencia.setFloat(7, Float.parseFloat(dato[6]));
+                sentencia.setFloat(8, Float.parseFloat(dato[7]));
+                sentencia.executeUpdate();
+                //strSQL="INSERT INTO cuota VALUES (" + dato[0] + ", " + dato[1] + ", '" + dato[2] + "' , " + dato[3] + " , " + dato[4] + ", " + dato[5] + " , " + dato[6] + ","+dato[7]+");";
+                //sent.executeUpdate(strSQL);
             }
             
             con.commit();
@@ -89,9 +102,14 @@ public class clsCuota {
     
     //listar las cuotas pendientes de pago de un cliente
     public ResultSet listarcuotasporpagar(String documento) throws Exception{
-         strSQL = "SELECT * FROM LISTAR_DEUDA('"+documento+"');";
+        //strSQL = "SELECT * FROM LISTAR_DEUDA('"+documento+"');";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM LISTAR_DEUDA(?);");
+            sentencia.setString(1,documento);
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al listar las cuotas pendientes de pago del cliente");
@@ -116,18 +134,30 @@ public class clsCuota {
             objConectar.conectar();
             con = objConectar.getConnection();
             con.setAutoCommit(false);
-            sent = con.createStatement();
+            //sent = con.createStatement();
             
-            strSQL = "UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE,ingreso="+montoIngresado+",vuelto="+vuelto+" WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
-            sent.executeUpdate(strSQL);
+            CallableStatement sentencia = con.prepareCall("UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE,ingreso=?,vuelto=? WHERE numcuota=? AND codventa=?;");
+            sentencia.setFloat(1,montoIngresado);
+            sentencia.setFloat(2,vuelto);
+            sentencia.setInt(3,codcuota);
+            sentencia.setInt(3,codventa);
+            sentencia.executeUpdate();
+            //strSQL = "UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE,ingreso="+montoIngresado+",vuelto="+vuelto+" WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
+            //sent.executeUpdate(strSQL);
             
-            strSQL = "SELECT count(*) FROM cuota WHERE cancelada = false AND codventa="+codventa+";";
-            rs=objConectar.consultarBD(strSQL);
+            sentencia = con.prepareCall("SELECT count(*) FROM cuota WHERE cancelada = false AND codventa= ?;");
+            sentencia.setInt(1,codventa);
+            rs = sentencia.executeQuery();
+            //strSQL = "SELECT count(*) FROM cuota WHERE cancelada = false AND codventa="+codventa+";";
+            //rs=objConectar.consultarBD(strSQL);
             
             if (rs.next()){
                 if(rs.getInt(1)==1){
-                    strSQL="UPDATE venta SET estadopago = true WHERE numventa=" + codventa + ";";
-                    sent.executeUpdate(strSQL);
+                    sentencia = con.prepareCall("UPDATE venta SET estadopago = true WHERE numventa= ?;");
+                    sentencia.setInt(1,codventa);
+                    sentencia.executeUpdate();
+                    //strSQL="UPDATE venta SET estadopago = true WHERE numventa=" + codventa + ";";
+                    //sent.executeUpdate(strSQL);
                     fin=true;
                 }
             }
@@ -142,9 +172,14 @@ public class clsCuota {
     
     //Saber si hay deudas
     public int saberdeuda(String documento) throws Exception{
-         strSQL = "SELECT * FROM DEUDA('"+documento+"') as resultado;";
-        try {
-            rs=objConectar.consultarBD(strSQL);
+        //strSQL = "SELECT * FROM DEUDA('"+documento+"') as resultado;";
+        try{
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM DEUDA(?) as resultado;");
+            sentencia.setString(1,documento);
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             while(rs.next()){
                 return rs.getInt("resultado");
             }
@@ -155,10 +190,14 @@ public class clsCuota {
     }
     
     public ResultSet datoscliente(String documento) throws Exception{
-        strSQL = "SELECT * FROM DATOSCLIENTE('"+documento+"');";
-
+        //strSQL = "SELECT * FROM DATOSCLIENTE('"+documento+"');";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM DATOSCLIENTE(?);");
+            sentencia.setString(1,documento);
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al extraer los datos del cliente");
@@ -176,7 +215,7 @@ public class clsCuota {
         } catch (Exception e) {
             throw new Exception("Error al conocer el monto TOTAL");
         }
-    return 0;
+        return 0;
     }
     
     //Monto TOTAL caja: ventas pagadas al CONTADO + cuotas PAGADAS
@@ -236,10 +275,14 @@ public class clsCuota {
     }            
 
     public ResultSet cuotasPorVenta(int venta) throws Exception{
-        strSQL = "SELECT * FROM cuota where codventa="+ venta+" ;";
-
+        //strSQL = "SELECT * FROM cuota where codventa="+ venta+" ;";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM cuota where codventa= ?;");
+            sentencia.setInt(1,venta);
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al extraer los datos del cliente");
@@ -247,10 +290,14 @@ public class clsCuota {
     }
     
     public Integer cuotasPagadasPorVenta(int venta) throws Exception{
-        strSQL = "SELECT sum(monto) as monto FROM cuota where codventa="+ venta+" and cancelada=true;";
-
+        //strSQL = "SELECT sum(monto) as monto FROM cuota where codventa="+ venta+" and cancelada=true;";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT sum(monto) as monto FROM cuota where codventa= ? and cancelada=true;");
+            sentencia.setInt(1,venta);
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             while (rs.next()){
                 return rs.getInt("monto");
             }

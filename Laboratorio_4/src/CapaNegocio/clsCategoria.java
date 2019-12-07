@@ -39,9 +39,17 @@ public class clsCategoria {
     }
     
     public void registrar(Integer cod, String nom, String descrip, Boolean vig) throws Exception{
-        strSQL="INSERT INTO categoria VALUES(" + cod + ",'" + nom + "','" + descrip + "'," + vig + ");";
+        //strSQL="INSERT INTO categoria VALUES(" + cod + ",'" + nom + "','" + descrip + "'," + vig + ");";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("INSERT INTO categoria VALUES(?,?,?,?);");
+            sentencia.setInt(1,cod);
+            sentencia.setString(2,nom);
+            sentencia.setString(3,descrip);
+            sentencia.setBoolean(4, vig);
+            rs = sentencia.executeQuery();
+            //objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
             throw new Exception("Error al registrar la categoria");
         }
@@ -76,30 +84,43 @@ public class clsCategoria {
     public void eliminarCategoria(Integer cod) throws Exception {
         try {
             boolean logica = false;
-            strSQL="SELECT * FROM producto WHERE codcategoria=" + cod + ";";
-            rs = objConectar.consultarBD(strSQL);
-            while(rs.next()){
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM producto WHERE codcategoria= ?;");
+            sentencia.setInt(1, cod);
+            rs = sentencia.executeQuery();
+            //strSQL="SELECT * FROM producto WHERE codcategoria=" + cod + ";";
+            //rs = objConectar.consultarBD(strSQL);
+            if(rs.next()){
                 logica = true;
             }
             if(logica){
                 objConectar.conectar();
-                objConectar.getConnection().setAutoCommit(false);
+                con = objConectar.getConnection();
+                con.setAutoCommit(false);
                 
-                Statement sent = objConectar.getConnection().createStatement();
-                strSQL="UPDATE producto SET vigencia = false WHERE codcategoria=" + cod + ";";
-                sent.executeUpdate(strSQL);
+                sentencia = con.prepareCall("UPDATE producto SET vigencia = false WHERE codcategoria= ?;");
+                sentencia.setInt(1, cod);
+                sentencia.executeUpdate();
+                //Statement sent = objConectar.getConnection().createStatement();
+                //strSQL="UPDATE producto SET vigencia = false WHERE codcategoria=" + cod + ";";
+                //sent.executeUpdate(strSQL);
                 
-                sent = objConectar.getConnection().createStatement();
-                strSQL="UPDATE categoria SET vigencia = false WHERE codcategoria=" + cod + ";";
-                sent.executeUpdate(strSQL);
+                sentencia = con.prepareCall("UPDATE categoria SET vigencia = false WHERE codcategoria= ?;");
+                sentencia.setInt(1, cod);
+                sentencia.executeUpdate();
+                //sent = objConectar.getConnection().createStatement();
+                //strSQL="UPDATE categoria SET vigencia = false WHERE codcategoria=" + cod + ";";
+                //sent.executeUpdate(strSQL);
                 
-                objConectar.getConnection().commit();
+                con.commit();
             }else{
-                strSQL="DELETE FROM categoria WHERE codcategoria=" + cod + ";";
-                objConectar.ejecutarBD(strSQL);
+                sentencia = con.prepareCall("DELETE FROM categoria WHERE codcategoria= ?;");
+                sentencia.setInt(1, cod);
+                sentencia.executeUpdate();
+                //strSQL="DELETE FROM categoria WHERE codcategoria=" + cod + ";";
+                //objConectar.ejecutarBD(strSQL);
             }
         } catch (Exception e) {
-            objConectar.getConnection().rollback();
+            con.rollback();
             throw new Exception(e.getMessage());
         }finally{
             objConectar.desconectar();
@@ -126,11 +147,22 @@ public class clsCategoria {
             objConectar.conectar();
             con=objConectar.getConnection();
             con.setAutoCommit(false);
-            strSQL="UPDATE categoria SET nomcategoria = '" + nombre + "', vigencia = " + vigencia + ", descripcion = '" + descrip + "' WHERE codcategoria =" + cod + ";";
-            sent.executeUpdate(strSQL);
             
-            strSQL="UPDATE producto SET vigencia = " + vigencia + " WHERE codcategoria=" + cod + ";";
-            sent.executeUpdate(strSQL);
+            CallableStatement sentencia = con.prepareCall("UPDATE categoria SET nomcategoria = ?, vigencia = ?, descripcion = ? WHERE codcategoria = ?;");
+            sentencia.setString(1, nombre);
+            sentencia.setBoolean(2, vigencia);
+            sentencia.setString(3, descrip);
+            sentencia.setInt(4, cod);
+            sentencia.executeUpdate();
+            //strSQL="UPDATE categoria SET nomcategoria = '" + nombre + "', vigencia = " + vigencia + ", descripcion = '" + descrip + "' WHERE codcategoria =" + cod + ";";
+            //sent.executeUpdate(strSQL);
+            
+            sentencia = con.prepareCall("UPDATE producto SET vigencia = ? WHERE codcategoria= ?;");
+            sentencia.setBoolean(1, vigencia);
+            sentencia.setInt(2, cod);
+            sentencia.executeUpdate();
+            //strSQL="UPDATE producto SET vigencia = " + vigencia + " WHERE codcategoria=" + cod + ";";
+            //sent.executeUpdate(strSQL);
             
             con.commit();
         } catch (Exception e) {
@@ -145,11 +177,18 @@ public class clsCategoria {
             objConectar.conectar();
             con=objConectar.getConnection();
             con.setAutoCommit(false);
-            strSQL="UPDATE categoria SET vigencia = false WHERE codcategoria =" + cod + ";";
-            sent.executeUpdate(strSQL);
             
-            strSQL="UPDATE producto SET vigencia = false WHERE codcategoria=" + cod + ";";
-            sent.executeUpdate(strSQL);
+            CallableStatement sentencia = con.prepareCall("UPDATE categoria SET vigencia = false WHERE codcategoria = ?;");
+            sentencia.setInt(1, cod);
+            sentencia.executeUpdate();
+            //strSQL="UPDATE categoria SET vigencia = false WHERE codcategoria =" + cod + ";";
+            //sent.executeUpdate(strSQL);
+            
+            sentencia = con.prepareCall("UPDATE producto SET vigencia = false WHERE codcategoria= ?;");
+            sentencia.setInt(1, cod);
+            sentencia.executeUpdate();
+            //strSQL="UPDATE producto SET vigencia = false WHERE codcategoria=" + cod + ";";
+            //sent.executeUpdate(strSQL);
             
             con.commit();
         } catch (Exception e) {
