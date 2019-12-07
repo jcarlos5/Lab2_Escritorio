@@ -38,3 +38,4 @@ nbdist/
 Laboratorio_4/nbproject/project.properties
 Laboratorio_4/nbproject/project.properties
 *.properties
+/Laboratorio_4/build/
