@@ -25,9 +25,15 @@ public class clsUsuario {
     ResultSet rs;
     
     public String login(String user, String pass) throws Exception{
-        strSQL = "SELECT nombreCompleto FROM USUARIO WHERE nomUsuario='" + user + "' and clave='" + pass + "' and estado = true;";
+        //strSQL = "SELECT nombreCompleto FROM USUARIO WHERE nomUsuario='" + user + "' and clave='" + pass + "' and estado = true;";
         try {
-            rs = objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT nombreCompleto FROM USUARIO WHERE nomUsuario=? and clave=? and estado = true;");
+            sentencia.setString(1,user);
+            sentencia.setString(2,pass);
+            rs = sentencia.executeQuery();
+            //objConectar.consultarBD(strSQL);
             while (rs.next()){
                 return rs.getString("nombreCompleto");
             }
@@ -38,9 +44,14 @@ public class clsUsuario {
     }
     
     public boolean validarExistencia(String user) throws Exception{
-        strSQL = "SELECT * FROM USUARIO WHERE nomUsuario = '" + user + "';";
+        //strSQL = "SELECT * FROM USUARIO WHERE nomUsuario = '" + user + "';";
         try {
-            rs = objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM USUARIO WHERE nomUsuario = ?;");
+            sentencia.setString(1,user);
+            rs = sentencia.executeQuery();
+            //rs = objConectar.consultarBD(strSQL);
             while (rs.next()){
                 return true;
             }
@@ -51,9 +62,14 @@ public class clsUsuario {
     }
     
     public boolean validarVigencia(String user) throws Exception{
-        strSQL = "SELECT estado FROM USUARIO WHERE nomUsuario = '" + user + "';";
+        //strSQL = "SELECT estado FROM USUARIO WHERE nomUsuario = '" + user + "';";
         try {
-            rs = objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT estado FROM USUARIO WHERE nomUsuario = ?;");
+            sentencia.setString(1,user);
+            rs = sentencia.executeQuery();
+            //rs = objConectar.consultarBD(strSQL);
             while (rs.next()){
                 return rs.getBoolean("estado");
             }
@@ -64,9 +80,14 @@ public class clsUsuario {
     }
     
     public String obtenerPreguntaSecreta(String usu) throws Exception{
-        strSQL = "select pregunta from usuario where nomusuario='" + usu + "'";
+        //strSQL = "select pregunta from usuario where nomusuario='" + usu + "'";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("select pregunta from usuario where nomusuario=?;");
+            sentencia.setString(1,usu);
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             while(rs.next()){
                 return rs.getString("pregunta");
             }
@@ -77,9 +98,15 @@ public class clsUsuario {
     }
     
     public String validarPreguntaSecreta(String usu, String rpta) throws Exception{
-        strSQL = "select nombrecompleto from usuario where nomusuario='" + usu + "' and UPPER(respuesta)=UPPER('" + rpta + "') and estado=true";
+        //strSQL = "select nombrecompleto from usuario where nomusuario='" + usu + "' and UPPER(respuesta)=UPPER('" + rpta + "') and estado=true";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("select nombrecompleto from usuario where nomusuario=? and UPPER(respuesta)=UPPER(?) and estado=true");
+            sentencia.setString(1,usu);
+            sentencia.setString(2,rpta);
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             while(rs.next()){
                 return rs.getString("nombrecompleto");
             }
@@ -90,27 +117,43 @@ public class clsUsuario {
     }
     
     public void cambiarContraseña(String nuevaCon, String nombre) throws Exception{
-        strSQL="UPDATE usuario SET clave='" + nuevaCon + "' where nomusuario='" + nombre + "'";
+        //strSQL="UPDATE usuario SET clave='" + nuevaCon + "' where nomusuario='" + nombre + "'";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("UPDATE usuario SET clave=? where nomusuario=?");
+            sentencia.setString(1,nuevaCon);
+            sentencia.setString(2,nombre);
+            sentencia.executeUpdate();
+            //objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
             throw new Exception("Error al cambiar la contraseña..");
         }
     }
     
     public void registrarInicio(String user) throws Exception{
-        strSQL="INSERT INTO movimiento(codusuario, fecha, hora, estado) VALUES ((SELECT codusuario FROM usuario WHERE nomusuario = '" + user + "'), CURRENT_DATE, CURRENT_TIME, TRUE);";
+        //strSQL="INSERT INTO movimiento(codusuario, fecha, hora, estado) VALUES ((SELECT codusuario FROM usuario WHERE nomusuario = '" + user + "'), CURRENT_DATE, CURRENT_TIME, TRUE);";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("INSERT INTO movimiento(codusuario, fecha, hora, estado) VALUES ((SELECT codusuario FROM usuario WHERE nomusuario = ?), CURRENT_DATE, CURRENT_TIME, TRUE);");
+            sentencia.setString(1,user);
+            sentencia.executeUpdate();
+            //objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
             throw new Exception("Error guardar Inicio de Sesión");
         }
     }
     
     public void registrarCierre(String user) throws Exception{
-        strSQL="UPDATE movimiento SET estado = false where codusuario = (SELECT codusuario FROM usuario WHERE nomusuario = '" + user + "')";
+        //strSQL="UPDATE movimiento SET estado = false where codusuario = (SELECT codusuario FROM usuario WHERE nomusuario = '" + user + "')";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("UPDATE movimiento SET estado = false where codusuario = (SELECT codusuario FROM usuario WHERE nomusuario = ?)");
+            sentencia.setString(1,user);
+            sentencia.executeUpdate();
+            //objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
             throw new Exception("Error guardar Cierre de Sesión");
         }
@@ -127,11 +170,16 @@ public class clsUsuario {
     
     public String[] ultimaSesion(String user) throws Exception{
         String sesion[] = new String[2];
-        strSQL= "select * from movimiento " +
-                "where codusuario = (SELECT codusuario FROM usuario WHERE nomusuario = '" + user + "') and estado = false " +
-                "order by fecha desc, hora desc limit 1;";
+//        strSQL= "select * from movimiento " +
+//                "where codusuario = (SELECT codusuario FROM usuario WHERE nomusuario = '" + user + "') and estado = false " +
+//                "order by fecha desc, hora desc limit 1;";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("select * from movimiento where codusuario = (SELECT codusuario FROM usuario WHERE nomusuario = ?) and estado = false order by fecha desc, hora desc limit 1;");
+            sentencia.setString(1,user);
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
             SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm:ss a");
             while(rs.next()){
@@ -147,11 +195,16 @@ public class clsUsuario {
     
     public String sesionActual(String user) throws Exception{
         String sesion = "";
-        strSQL= "select * from movimiento " +
-                "where codusuario = (SELECT codusuario FROM usuario WHERE nomusuario = '" + user + "') and estado = true " +
-                "order by fecha desc, hora desc limit 1;";
+//        strSQL= "select * from movimiento " +
+//                "where codusuario = (SELECT codusuario FROM usuario WHERE nomusuario = '" + user + "') and estado = true " +
+//                "order by fecha desc, hora desc limit 1;";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("select * from movimiento where codusuario = (SELECT codusuario FROM usuario WHERE nomusuario = ?) and estado = true order by fecha desc, hora desc limit 1;");
+            sentencia.setString(1,user);
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
             SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm:ss a");
             while(rs.next()){
@@ -165,10 +218,15 @@ public class clsUsuario {
     }
     
     public String contarSesiones(String user) throws Exception{
-        strSQL= "select count(*) from movimiento " +
-                "where codusuario = (SELECT codusuario FROM usuario WHERE nomusuario = '" + user + "') group by codusuario;";
+//        strSQL= "select count(*) from movimiento " +
+//                "where codusuario = (SELECT codusuario FROM usuario WHERE nomusuario = '" + user + "') group by codusuario;";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("select count(*) from movimiento where codusuario = (SELECT codusuario FROM usuario WHERE nomusuario = ?) group by codusuario;");
+            sentencia.setString(1,user);
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             while(rs.next()){
                 return String.valueOf(rs.getInt(1));
             }
@@ -193,9 +251,14 @@ public class clsUsuario {
     
     // Conceder privilegios de Usuario
     public String privilegios(String user) throws Exception{
-        strSQL = "SELECT cargo FROM usuario WHERE nomusuario = '" + user + "'";
+        //strSQL = "SELECT cargo FROM usuario WHERE nomusuario = '" + user + "'";
         try {
-            rs = objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT cargo FROM usuario WHERE nomusuario = ?;");
+            sentencia.setString(1,user);
+            rs = sentencia.executeQuery();
+            //rs = objConectar.consultarBD(strSQL);
             if (rs.next()) {
                 return rs.getString("cargo");
             }
@@ -265,9 +328,14 @@ public class clsUsuario {
     }
     
     public ResultSet buscarUsuario(Integer cod) throws Exception{
-        strSQL = "SELECT * FROM usuario WHERE codusuario=" + cod + ";";
+        //strSQL = "SELECT * FROM usuario WHERE codusuario=" + cod + ";";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM usuario WHERE codusuario= ?;");
+            sentencia.setInt(1,cod);
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al buscar usuario");
@@ -275,9 +343,14 @@ public class clsUsuario {
     }
     
     public void eliminarUsuario(int cod) throws Exception {
-        strSQL="DELETE FROM usuario WHERE codusuario=" + cod + ";";
+        //strSQL="DELETE FROM usuario WHERE codusuario=" + cod + ";";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("DELETE FROM usuario WHERE codusuario=?;");
+            sentencia.setInt(1,cod);
+            sentencia.executeUpdate();
+            //objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
             throw new Exception("Error al eliminar usuario");
         }
@@ -294,9 +367,18 @@ public class clsUsuario {
     }
     
     public void modificarUsuario(Integer cod, String user, String nom, String cargo, Boolean vig) throws Exception {
-        strSQL="UPDATE usuario SET nomusuario = '" + user + "', nombrecompleto = '" + nom + "', cargo = '" + cargo + "', estado = " + vig + " WHERE codusuario =" + cod + ";";
+        //strSQL="UPDATE usuario SET nomusuario = '" + user + "', nombrecompleto = '" + nom + "', cargo = '" + cargo + "', estado = " + vig + " WHERE codusuario =" + cod + ";";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("UPDATE usuario SET nomusuario = ?, nombrecompleto = ?, cargo = ?, estado = ? WHERE codusuario =?;");
+            sentencia.setString(1,user);
+            sentencia.setString(2,nom);
+            sentencia.setString(3,cargo);
+            sentencia.setBoolean(4,vig);
+            sentencia.setInt(5,cod);
+            sentencia.executeUpdate();
+            //objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
             throw new Exception("Error al modificar usuario");
         }
@@ -323,27 +405,44 @@ public class clsUsuario {
     }
     
     public void cambiarPreguntaSecreta(String user, String pregunta, String rpta) throws Exception{
-        strSQL="UPDATE usuario SET pregunta = '" + pregunta + "', respuesta = '" + rpta + "' WHERE nomusuario ='" + user + "';";
+        //strSQL="UPDATE usuario SET pregunta = '" + pregunta + "', respuesta = '" + rpta + "' WHERE nomusuario ='" + user + "';";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("UPDATE usuario SET pregunta = ?, respuesta = ? WHERE nomusuario =?;");
+            sentencia.setString(1,pregunta);
+            sentencia.setString(2,rpta);
+            sentencia.setString(3,user);
+            sentencia.executeUpdate();
+            //objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
             throw new Exception("Error al modificar usuario");
         }
     }
     
     public void darDeBajaUsuario(Integer cod) throws Exception {
-        strSQL="UPDATE usuario SET estado = false WHERE codusuario =" + cod + ";";
+        //strSQL="UPDATE usuario SET estado = false WHERE codusuario =" + cod + ";";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("UPDATE usuario SET estado = false WHERE codusuario = ?;");
+            sentencia.setInt(1,cod);
+            sentencia.executeUpdate();
+            //objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
             throw new Exception("Error al dar de Baja al usuario");
         }
     }
     
     public ResultSet getDatos(String user) throws Exception{
-        strSQL = "SELECT * FROM usuario WHERE nomusuario = '" + user + "';" ;
+        //strSQL = "SELECT * FROM usuario WHERE nomusuario = '" + user + "';" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM usuario WHERE nomusuario = ?;");
+            sentencia.setString(1,user);
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al listar datos de usuario");
@@ -351,11 +450,16 @@ public class clsUsuario {
     }
     
     public int conocerCodusuario (String user) throws Exception{
-        String data = "select codUsuario from usuario where nomusuario='"+user+"'";
+        //String data = "select codUsuario from usuario where nomusuario='"+user+"'";
         try {
-            ResultSet resul = objConectar.consultarBD(data);
-            while (resul.next()) {
-                return resul.getInt("codUsuario");
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("select codUsuario from usuario where nomusuario=?;");
+            sentencia.setString(1,user);
+            rs = sentencia.executeQuery();
+            //ResultSet resul = objConectar.consultarBD(data);
+            while (rs.next()) {
+                return rs.getInt("codUsuario");
             }
         } catch (Exception e) {
             throw new Exception("Error al obtener el codigo de usuario");
