@@ -93,7 +93,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jmiCategoria = new javax.swing.JMenuItem();
         jmiProducto = new javax.swing.JMenuItem();
         jmnVentas = new javax.swing.JMenu();
-        jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -101,6 +100,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         mnuPagoCredito = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
         jmConsultas = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         mnuVentasDiarias = new javax.swing.JMenuItem();
         mnuCreditosClientes = new javax.swing.JMenuItem();
@@ -128,11 +128,11 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
 
         jToolBar1.setRollover(true);
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/user.png"))); // NOI18N
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/chang_user.png"))); // NOI18N
+        btnLogin.setToolTipText("Cambiar usuario");
         btnLogin.setFocusable(false);
         btnLogin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnLogin.setPreferredSize(new java.awt.Dimension(50, 39));
-        btnLogin.setToolTipText("Iniciar Sesión");
         btnLogin.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,6 +187,11 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         btnVenta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnVenta.setPreferredSize(new java.awt.Dimension(50, 39));
         btnVenta.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentaActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnVenta);
 
         btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/cliente.png"))); // NOI18N
@@ -208,6 +213,11 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         btnPagar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPagar.setPreferredSize(new java.awt.Dimension(50, 39));
         btnPagar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagarActionPerformed(evt);
+            }
+        });
         jToolBar1.add(btnPagar);
         jToolBar1.add(jSeparator2);
 
@@ -373,14 +383,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
 
         jmnVentas.setText("Ventas");
 
-        jMenuItem8.setText("Consultar Producto");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
-            }
-        });
-        jmnVentas.add(jMenuItem8);
-
         jMenuItem9.setText("Gestionar Cliente");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -428,6 +430,14 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuBar1.add(jmnVentas);
 
         jmConsultas.setText("Consultas");
+
+        jMenuItem8.setText("Consultar Producto");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jmConsultas.add(jMenuItem8);
 
         jMenu6.setText("Consultas");
 
@@ -648,10 +658,16 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         // TODO add your handling code here:
+        JDMantenimientoCliente objMantCliente = new JDMantenimientoCliente(this, true);
+        objMantCliente.setLocationRelativeTo(this);
+        objMantCliente.setVisible(true);
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         // TODO add your handling code here:
+        JDConsultas objConsultas = new JDConsultas(this, true);
+        objConsultas.setLocationRelativeTo(this);
+        objConsultas.setVisible(true);
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void mnuVentasDiarias1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuVentasDiarias1ActionPerformed
@@ -712,6 +728,20 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setLocationRelativeTo(this);
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void btnVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaActionPerformed
+        // TODO add your handling code here:
+        JDVentas objVentas = new JDVentas(this, true);
+        objVentas.setLocationRelativeTo(this);
+        objVentas.setVisible(true);
+    }//GEN-LAST:event_btnVentaActionPerformed
+
+    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
+        // TODO add your handling code here:
+        JDPagarVenta obj = new JDPagarVenta(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_btnPagarActionPerformed
 
     /**
      * @param args the command line arguments
