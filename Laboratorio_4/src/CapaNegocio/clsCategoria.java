@@ -48,7 +48,7 @@ public class clsCategoria {
     }
     
     public ResultSet buscarCategoria(Integer cod) throws Exception{
-         try {
+        try {
             objConectar.conectar();
             Connection con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT * FROM categoria WHERE codcategoria=?");
