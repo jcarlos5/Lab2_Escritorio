@@ -88,9 +88,12 @@ public class clsProveedor {
     }
     
     public String obtenerProveedor(int cod) throws Exception{
-        strSQL = "SELECT proveedor.nombre as razonsocial FROM proveedor INNER JOIN producto ON producto.codproveedor=proveedor.codproveedor WHERE proveedor.codproveedor=" + cod + "" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT proveedor.nombre as razonsocial FROM proveedor INNER JOIN producto ON producto.codproveedor=proveedor.codproveedor WHERE proveedor.codproveedor= ?");
+            sentencia.setInt(1, cod);
+            rs=sentencia.executeQuery();
             if (rs.next()) return rs.getString("razonsocial");
         } catch (Exception e) {
             throw new Exception("Error al obtener el nombre del Proveedor");
@@ -100,9 +103,11 @@ public class clsProveedor {
     
     
     public ResultSet listarProveedores() throws Exception{
-        strSQL = "select * from proveedor WHERE estado=true" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM proveedor WHERE estado=true");
+            rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al listar Proveedores");
@@ -110,9 +115,11 @@ public class clsProveedor {
     }  
     
     public Integer generarCodigoProveedor() throws Exception{
-        strSQL = "SELECT COALESCE(max(codProveedor),0)+1 AS codigo FROM proveedor" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT COALESCE(max(codProveedor),0)+1 AS codigo FROM proveedor");
+            rs=sentencia.executeQuery();
             while(rs.next()){
                 return rs.getInt("codigo");
             }

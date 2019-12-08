@@ -23,6 +23,8 @@ public class clsUsuario {
     clsJDBC objConectar = new clsJDBC();
     String strSQL;
     ResultSet rs;
+    Connection con=null;
+    Statement sent;
     
     public String login(String user, String pass) throws Exception{
         //strSQL = "SELECT nombreCompleto FROM USUARIO WHERE nomUsuario='" + user + "' and clave='" + pass + "' and estado = true;";
@@ -160,9 +162,11 @@ public class clsUsuario {
     }
     
     public void cerrarSesiones() throws Exception{
-        strSQL="UPDATE movimiento SET estado = false;";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("UPDATE movimiento SET estado = false;");
+            sentencia.executeUpdate();
         } catch (Exception e) {
             throw new Exception("Error cerrar Sesiones");
         }
@@ -237,9 +241,11 @@ public class clsUsuario {
     }
     
     public Integer generarCodigoUsuario() throws Exception{
-        strSQL = "SELECT COALESCE(max(codusuario),0)+1 AS codigo FROM usuario;" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT COALESCE(max(codusuario),0)+1 AS codigo FROM usuario;");
+            rs=sentencia.executeQuery();
             while(rs.next()){
                 return rs.getInt("codigo");
             }
