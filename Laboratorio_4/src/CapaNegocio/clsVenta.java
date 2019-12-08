@@ -41,6 +41,7 @@ public class clsVenta {
         return 0;
     }
     
+    //registramos la venta, el detalle de la venta y actualizamos el Stock de los productos
     public void registrar(int cod, float total, float subtotal, float igv, boolean tipo, int cliente, JTable tblProductos) throws Exception{
         try {
             objConectar.conectar();
@@ -68,7 +69,10 @@ public class clsVenta {
                 sentencia.setFloat(6, Float.parseFloat(tblProductos.getValueAt(i, 6).toString()));
                 sentencia.executeUpdate();
                 
-                strSQL = "UPDATE producto SET stock = stock-"+ Integer.parseInt(tblProductos.getValueAt(i, 5).toString())+" WHERE codproducto=" + Integer.parseInt(tblProductos.getValueAt(i, 0).toString()) + ";";
+                //strSQL = "UPDATE producto SET stock = stock-"+ Integer.parseInt(tblProductos.getValueAt(i, 5).toString())+" WHERE codproducto=" + Integer.parseInt(tblProductos.getValueAt(i, 0).toString()) + ";";
+                sentencia = con.prepareCall("UPDATE producto SET stock = stock-? WHERE codproducto=?");
+                sentencia.setInt(1, Integer.parseInt(tblProductos.getValueAt(i, 5).toString()));
+                sentencia.setInt(2, Integer.parseInt(tblProductos.getValueAt(i, 0).toString()));
                 sent.executeUpdate(strSQL);
             }
             con.commit();           
@@ -79,7 +83,8 @@ public class clsVenta {
             objConectar.desconectar();
         }
     }
-    
+    //ya no es necesario
+    /*
     public void registrarDetalle(String venta, String prod, String cant, String preVen, String desc, String sub) throws Exception{
         strSQL = "INSERT INTO detalle VALUES (" + venta + ", " + prod + ", " + cant + ", " + preVen + ", " + desc +", " + sub +");";
         try {
@@ -88,12 +93,16 @@ public class clsVenta {
             throw new Exception("Error al guardar el detalle de venta");
         }
     }
+    */
+    
     
     //para listar todas las ventas pendientes de pago - JDPAGO
     public ResultSet listarVentaPagoPendiente() throws Exception{
-        strSQL = "SELECT * FROM venta WHERE estadopago=false;";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM venta WHERE estadopago=false;");
+            rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al buscar venta");
@@ -109,13 +118,18 @@ public class clsVenta {
             throw new Exception("Error al buscar ventas");
         }
     }
+    
+    
     //para listar las ventas por fecha
     //el tipo de dato Date es de la libreria de sql 
     //para el jd ventas diarias 
     public ResultSet listarVenta(Date fecha) throws Exception{
-        strSQL = "SELECT * FROM venta WHERE fecha='"+fecha+"';";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM venta WHERE fecha= ?");
+            sentencia.setDate(1, fecha);
+            rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al buscar marca");
