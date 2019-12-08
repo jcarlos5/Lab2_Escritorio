@@ -386,6 +386,7 @@ public class JDConsultas extends javax.swing.JDialog {
             txtTotalProductos.setText(String.valueOf(tblListado.getRowCount()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            txtNombre.setText("");
         }
     }
     

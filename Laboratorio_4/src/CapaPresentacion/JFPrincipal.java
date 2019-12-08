@@ -92,6 +92,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jmiMarca = new javax.swing.JMenuItem();
         jmiCategoria = new javax.swing.JMenuItem();
         jmiProducto = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jmnVentas = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -99,6 +100,8 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         mnuPagarVenta = new javax.swing.JMenuItem();
         mnuPagoCredito = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jmConsultas = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
@@ -106,6 +109,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         mnuCreditosClientes = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jmReportes = new javax.swing.JMenu();
         mnuVentasDiarias1 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
@@ -379,6 +383,14 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         });
         jmMantenimiento.add(jmiProducto);
 
+        jMenuItem5.setText("Parámetros");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jmMantenimiento.add(jMenuItem5);
+
         jMenuBar1.add(jmMantenimiento);
 
         jmnVentas.setText("Ventas");
@@ -427,6 +439,22 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         });
         jmnVentas.add(jMenuItem13);
 
+        jMenuItem2.setText("Cambiar Producto");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jmnVentas.add(jMenuItem2);
+
+        jMenuItem3.setText("Devolver Venta");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jmnVentas.add(jMenuItem3);
+
         jMenuBar1.add(jmnVentas);
 
         jmConsultas.setText("Consultas");
@@ -474,6 +502,14 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
             }
         });
         jmConsultas.add(jMenuItem15);
+
+        jMenuItem4.setText("Estadísticas de Ventas");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jmConsultas.add(jMenuItem4);
 
         jMenuBar1.add(jmConsultas);
 
@@ -644,7 +680,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
 
     private void mnuPagoCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPagoCreditoActionPerformed
         // TODO add your handling code here:
-        JDPagoCreditoD objpago = new JDPagoCreditoD(this,true);
+        JDPagoCuotas objpago = new JDPagoCuotas(this,true);
         objpago.setLocationRelativeTo(this);
         objpago.setVisible(true);
     }//GEN-LAST:event_mnuPagoCreditoActionPerformed
@@ -742,6 +778,34 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setLocationRelativeTo(this);
         obj.setVisible(true);
     }//GEN-LAST:event_btnPagarActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        JDCambiarProducto obj = new JDCambiarProducto(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        JDDevolucionVenta obj = new JDDevolucionVenta(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        JDEstadisticasVenta obj = new JDEstadisticasVenta(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        JDMantenimientoParametros obj = new JDMantenimientoParametros(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -945,6 +1009,10 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;

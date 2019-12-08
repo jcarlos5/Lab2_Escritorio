@@ -282,6 +282,7 @@ public class clsProducto {
             rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
+            //VARIAS VECES LA BASE SE DATOS SE DESCONECTA :C
             throw new Exception("Error al filtrar productos");
         }
     }
