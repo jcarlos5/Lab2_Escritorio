@@ -46,16 +46,27 @@ public class clsVenta {
             objConectar.conectar();
             con=objConectar.getConnection();
             con.setAutoCommit(false);
-            sent = con.createStatement();
-            strSQL = "INSERT INTO venta VALUES (" + cod + ", " + cliente + ", CURRENT_DATE, " + igv + ", " + subtotal + ", " + total + ", " + tipo + ", false, null );";
-            sent.executeUpdate(strSQL);
+            CallableStatement sentencia = con.prepareCall("INSERT INTO venta VALUES (?,?, CURRENT_DATE,?, ?, ?, ?, false, null );");
+            sentencia.setInt(1, cod);
+            sentencia.setInt(6, cliente);
+            sentencia.setFloat(4, igv);
+            sentencia.setFloat(3, subtotal);
+            sentencia.setFloat(2, total);
+            sentencia.setBoolean(5,tipo);
+            sentencia.executeUpdate();
             
             int ctd = tblProductos.getRowCount();
             for (int i=0; i<ctd; i++){
                 String descuento = tblProductos.getValueAt(i, 3).toString();
-                
-                strSQL = "INSERT INTO detalle VALUES (" + cod + ", " + tblProductos.getValueAt(i, 0).toString() + ", " + tblProductos.getValueAt(i, 5).toString() + ", " + tblProductos.getValueAt(i, 2).toString() + ", " + descuento.substring(0, descuento.length()-1) +", " + tblProductos.getValueAt(i, 6).toString() +");";
-                sent.executeUpdate(strSQL);
+                //strSQL = "INSERT INTO detalle VALUES (" + cod + ", " + tblProductos.getValueAt(i, 0).toString() + ", " + tblProductos.getValueAt(i, 5).toString() + ", " + tblProductos.getValueAt(i, 2).toString() + ", " + descuento.substring(0, descuento.length()-1) +", " + tblProductos.getValueAt(i, 6).toString() +");";
+                sentencia = con.prepareCall("INSERT INTO detalle VALUES ( ? , ? , ? , ? , ? , ? );");
+                sentencia.setInt(1, cod);
+                sentencia.setInt(2, Integer.parseInt(tblProductos.getValueAt(i, 0).toString()));
+                sentencia.setInt(3, Integer.parseInt(tblProductos.getValueAt(i, 5).toString()));
+                sentencia.setFloat(4, Float.parseFloat(tblProductos.getValueAt(i, 2).toString()));
+                sentencia.setInt(5, Integer.parseInt(descuento.substring(0, descuento.length()-1)));
+                sentencia.setFloat(6, Float.parseFloat(tblProductos.getValueAt(i, 6).toString()));
+                sentencia.executeUpdate();
                 
                 strSQL = "UPDATE producto SET stock = stock-"+ Integer.parseInt(tblProductos.getValueAt(i, 5).toString())+" WHERE codproducto=" + Integer.parseInt(tblProductos.getValueAt(i, 0).toString()) + ";";
                 sent.executeUpdate(strSQL);
