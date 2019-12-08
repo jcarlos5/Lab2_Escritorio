@@ -150,11 +150,13 @@ public class clsProveedor {
             objConectar.conectar();
             con=objConectar.getConnection();
             con.setAutoCommit(false);
-            sent=con.createStatement();
-            strSQL="UPDATE proveedor set estado=false WHERE codProveedor="+cod;
-            sent.executeUpdate(strSQL);
-            strSQL="UPDATE producto set vigencia=false WHERE codProveedor="+cod;
-            sent.executeUpdate(strSQL);
+            CallableStatement sentencia = con.prepareCall("UPDATE proveedor set estado=false  WHERE codProveedor=?");
+            sentencia.setInt(1, cod);
+            sentencia.executeUpdate();
+            
+            sentencia = con.prepareCall("UPDATE producto set vigencia=false WHERE codproducto=(SELECT codproducto FROM almacen WHERE codProveedor= ?);");
+            sentencia.setInt(1, cod);
+            sentencia.executeUpdate();
             JOptionPane.showMessageDialog(null, "Eliminado Correctamente DB");   
             con.commit();
             
@@ -169,28 +171,33 @@ public class clsProveedor {
  public void eliminarProveedor(Integer cod) throws Exception {
         Integer cantidad=0;
         try {
-            strSQL="SELECT COUNT(*) AS cantidad FROM proveedor INNER JOIN producto on producto.codProveedor=proveedor.codProveedor WHERE proveedor.codProveedor="+cod+"";
+            strSQL="";
             objConectar.conectar();
             con=objConectar.getConnection();
             con.setAutoCommit(false);
-            sent=con.createStatement();
-            rs=sent.executeQuery(strSQL);
+            CallableStatement sentencia = con.prepareCall("SELECT COUNT(*) AS cantidad FROM proveedor INNER JOIN almacen ON almacen.codproveedor=proveedor.codproveedor INNER JOIN producto on producto.codproducto=almacen.codproducto WHERE proveedor.codProveedor= ?");
+            sentencia.setInt(1, cod);
+            rs=sentencia.executeQuery();
             
             while(rs.next()){
                 cantidad=rs.getInt("cantidad");
             }
  
-            if(cantidad>0){                
-                String strSQL1;
-                strSQL1="UPDATE proveedor set estado=false WHERE codProveedor="+cod;
-                sent.executeUpdate(strSQL1);
-                strSQL1="UPDATE producto set vigencia=false WHERE codProveedor="+cod;
-                sent.executeUpdate(strSQL1);
-                JOptionPane.showMessageDialog(null, "Eliminado Correctamente DB");
+            if(cantidad>0){
+                sentencia = con.prepareCall("UPDATE proveedor set estado=false WHERE codProveedor= ?");
+                sentencia.setInt(1, cod);
+                sentencia.executeUpdate();
+                
+                sentencia = con.prepareCall("UPDATE producto set vigencia=false WHERE codproducto=(SELECT codproducto FROM almacen WHERE codProveedor= ?)");
+                sentencia.setInt(1, cod);
+                sentencia.executeUpdate();
+
             }else{
-                String strSQL1="DELETE FROM proveedor WHERE codProveedor="+cod;
+
+                sentencia = con.prepareCall("DELETE FROM proveedor WHERE codProveedor= ?");
+                sentencia.setInt(1, cod);
+                sentencia.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Eliminado Correctamente");
-                sent.executeUpdate(strSQL1);
             }    
             con.commit();
             
