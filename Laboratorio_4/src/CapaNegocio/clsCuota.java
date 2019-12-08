@@ -78,7 +78,7 @@ public class clsCuota {
             //sent.executeUpdate(strSQL);
             
             for (String[] dato : datos) {
-                sentencia = con.prepareCall("INSERT INTO cuota VALUES (?, ?, ?, ?, ?, , ?, ?);");
+                sentencia = con.prepareCall("INSERT INTO cuota VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
                 sentencia.setInt(1, Integer.parseInt(dato[0]));
                 sentencia.setInt(2, Integer.parseInt(dato[1]));
                 sentencia.setDate(3, Date.valueOf(dato[2]));
@@ -138,7 +138,7 @@ public class clsCuota {
             sentencia.setFloat(1,montoIngresado);
             sentencia.setFloat(2,vuelto);
             sentencia.setInt(3,codcuota);
-            sentencia.setInt(3,codventa);
+            sentencia.setInt(4,codventa);
             sentencia.executeUpdate();
             //strSQL = "UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE,ingreso="+montoIngresado+",vuelto="+vuelto+" WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
             //sent.executeUpdate(strSQL);
