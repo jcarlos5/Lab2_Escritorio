@@ -137,10 +137,12 @@ public class clsVenta {
     }
 
     public ResultSet listarVenta(int numVenta) throws Exception{
-        strSQL = "SELECT v.*, c.dni, c.ruc,c.nombres, cu.vuelto, cu.ingreso, cu.cancelada FROM venta v inner join cliente c on v.codcliente=c.codcliente inner join cuota cu on v.numventa=cu.codventa"
-                + " WHERE numventa = " + numVenta;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT v.*, c.dni, c.ruc,c.nombres, cu.vuelto, cu.ingreso, cu.cancelada FROM venta v INNER JOIN cliente c on v.codcliente=c.codcliente INNER JOIN cuota cu on v.numventa=cu.codvent WHERE numventa = ?");
+            sentencia.setInt(1, numVenta);
+            rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al listar ventas por numero de venta");
@@ -159,9 +161,13 @@ public class clsVenta {
     
     //para listar los detalles por venta
     public ResultSet listarDetalleVenta(int venta) throws Exception{
-        strSQL = "SELECT d.*, p.nomproducto FROM detalle d inner join producto p on d.codproducto=p.codproducto WHERE d.numventa = " + venta+ " ;";
+        strSQL = "";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT d.*, p.nomproducto FROM detalle d inner join producto p on d.codproducto=p.codproducto WHERE d.numventa = ? ;");
+            sentencia.setInt(1, venta);
+            rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
             throw new Exception("Error ");
@@ -179,9 +185,12 @@ public class clsVenta {
     }
     
     public ResultSet listarTodasVentaPorCliente(int codcliente) throws Exception{
-        strSQL = "SELECT * FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE c.codcliente = " + codcliente + " and estadopago is not null;";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE c.codcliente = ? and estadopago is not null;");
+            sentencia.setInt(1, codcliente);
+            rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
             throw new Exception("Error ");
@@ -189,9 +198,12 @@ public class clsVenta {
     }
     
     public Boolean getComprobante(int numVenta) throws Exception{
-        strSQL = "SELECT tipoComprobante FROM venta WHERE numventa = " + numVenta + ";";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT tipoComprobante FROM venta WHERE numventa = ?");
+            sentencia.setInt(1, numVenta);
+            rs=sentencia.executeQuery();
             if(rs.next()){
                 return rs.getBoolean(1);
             }
