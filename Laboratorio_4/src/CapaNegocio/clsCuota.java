@@ -78,7 +78,7 @@ public class clsCuota {
             //sent.executeUpdate(strSQL);
             
             for (String[] dato : datos) {
-                sentencia = con.prepareCall("INSERT INTO cuota VALUES (?, ?, ?, ?, ?, , ?, ?);");
+                sentencia = con.prepareCall("INSERT INTO cuota VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
                 sentencia.setInt(1, Integer.parseInt(dato[0]));
                 sentencia.setInt(2, Integer.parseInt(dato[1]));
                 sentencia.setDate(3, Date.valueOf(dato[2]));
