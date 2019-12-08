@@ -106,13 +106,13 @@ public class clsProveedor {
         try {
             objConectar.conectar();
             con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("SELECT * FROM proveedor WHERE estado=true");
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM proveedor WHERE estado = true");
             rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al listar Proveedores");
         }
-    }  
+    }   
     
     public Integer generarCodigoProveedor() throws Exception{
         try {
@@ -208,6 +208,28 @@ public class clsProveedor {
             objConectar.desconectar();
         } 
     }
+ 
+    public ResultSet buscarProveedorRUC(String ruc) throws Exception{
+        strSQL = "SELECT * FROM proveedor WHERE ruc = '" + ruc + "';";
+        try {
+            rs = objConectar.consultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al buscar proveedor");
+        }
+    }
     
+     public Integer buscarXruc_cod(String ruc) throws Exception{
+        strSQL = "SELECT * FROM proveedor WHERE ruc = '" + ruc + "';";
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                return rs.getInt("codproveedor");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al buscar el Proveedor");
+        }
+        return 0;
+    }
      
 }

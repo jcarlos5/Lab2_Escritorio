@@ -69,7 +69,7 @@ CREATE TABLE PRODUCTO(
 codProducto int not null primary key,
 nomProducto varchar(30) not null,
 descripcion varchar(100) not null,
-precio decimal (8, 2) not null,
+precioVenta decimal (8, 2) not null,
 stock int not null,
 vigencia boolean not null,
 codMarca int not null,
@@ -77,11 +77,15 @@ codCategoria int not null
 );
 
 CREATE TABLE ALMACEN(
-codAlmacen integer not null,
-codProveedor int not null references proveedor,
-codProducto int not null references producto,
-fecha date not null,
-precio decimal(8, 2) not null
+	codInven INTEGER NOT NULL,
+	numCompra VARCHAR(10) NOT NULL,
+	fecha DATE NOT NULL DEFAULT CURRENT_DATE,
+	codProveedor INTEGER NOT NULL REFERENCES proveedor,
+	codProducto INTEGER NOT NULL REFERENCES producto,
+	cantProducto INTEGER NOT NULL,
+	precioCompra DECIMAL(8,2) NOT NULL,
+	montoTotal DECIMAL(8,2) NOT NULl,
+	PRIMARY KEY (codInven,numCompra,codProducto)
 );
 
 CREATE TABLE TIPO_CLIENTE(

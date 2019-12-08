@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  INTEGRANTES:
@@ -27,6 +28,45 @@ public class clsAlmacen {
     Connection con=null;
     Statement sent;
     float porcentaje_ganacia;
+    
+    public Integer generarCodigoVenta() throws Exception{
+        strSQL = "SELECT COALESCE(max(codInven),0)+1 AS codigo FROM almacen;" ;
+        try {
+            rs=objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                return rs.getInt("codigo");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al generar código del Nuevo Inventario");
+        }
+        return 0;
+    }
+    
+    public void registrar(int numIven, String bolCom, int prov, float total, JTable tblProductos) throws Exception{
+        try {
+            objConectar.conectar();
+            con=objConectar.getConnection();
+            con.setAutoCommit(false);
+            CallableStatement sentencia = con.prepareCall("INSERT INTO almacen VALUES (?, ?, current_date, ?, ?, ?, ?, ?);;");
+            int ctd = tblProductos.getRowCount();
+            for (int i=0; i<ctd; i++){
+                sentencia.setInt(1, numIven);
+                sentencia.setString(2, bolCom);
+                sentencia.setInt(3, prov);
+                sentencia.setInt(4, Integer.parseInt(tblProductos.getValueAt(i, 0).toString()));
+                sentencia.setInt(5, Integer.parseInt(tblProductos.getValueAt(i, 3).toString()));
+                sentencia.setFloat(6, Float.parseFloat(tblProductos.getValueAt(i, 2).toString()));
+                sentencia.setFloat(7,total);
+                sentencia.executeUpdate();
+            }            
+            con.commit();           
+        } catch (Exception e) {
+            con.rollback();
+            throw new Exception("Error al guardar Inventario");
+        }finally{
+            objConectar.desconectar();
+        }
+    }
 
     public clsAlmacen() {
         try {

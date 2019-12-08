@@ -115,6 +115,8 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuItem16 = new javax.swing.JMenuItem();
         mnuReporteVentasDiarias = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jmAlmacen = new javax.swing.JMenu();
+        jmiRegistrarCompra = new javax.swing.JMenuItem();
 
         jMenuItem12.setText("jMenuItem12");
 
@@ -549,6 +551,18 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
 
         jMenuBar1.add(jmReportes);
 
+        jmAlmacen.setText("Almacén");
+
+        jmiRegistrarCompra.setText("Registrar Compra");
+        jmiRegistrarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRegistrarCompraActionPerformed(evt);
+            }
+        });
+        jmAlmacen.add(jmiRegistrarCompra);
+
+        jMenuBar1.add(jmAlmacen);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -807,6 +821,13 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jmiRegistrarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRegistrarCompraActionPerformed
+        // TODO add your handling code here:
+        JDRegistrarCompra obj = new JDRegistrarCompra(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_jmiRegistrarCompraActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -865,6 +886,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                     jmnVentas.setVisible(true);
                     jmConsultas.setVisible(true);
                     jmReportes.setVisible(true);
+                    jmAlmacen.setVisible(true);
                     btnContraseña.setVisible(true);                
                     btnConsultar.setVisible(true);
                     btnVenta.setVisible(true);
@@ -880,6 +902,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                     jmnVentas.setVisible(true);
                     jmConsultas.setVisible(true);
                     jmReportes.setVisible(true);
+                    jmAlmacen.setVisible(false);
                     btnContraseña.setVisible(true);                
                     btnConsultar.setVisible(true);
                     btnVenta.setVisible(true);
@@ -895,6 +918,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                     jmnVentas.setVisible(true);
                     jmConsultas.setVisible(true);
                     jmReportes.setVisible(false);
+                    jmAlmacen.setVisible(false);
                     btnContraseña.setVisible(false);                
                     btnConsultar.setVisible(true);
                     btnVenta.setVisible(false);
@@ -910,6 +934,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                     jmnVentas.setVisible(false);
                     jmConsultas.setVisible(false);
                     jmReportes.setVisible(true);
+                    jmAlmacen.setVisible(true);
                     btnContraseña.setVisible(true);                
                     btnConsultar.setVisible(true);
                     btnVenta.setVisible(false);
@@ -924,7 +949,8 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                     jmMantenimiento.setVisible(false);
                     jmnVentas.setVisible(false);
                     jmConsultas.setVisible(false);
-                    jmReportes.setEnabled(false);
+                    jmReportes.setVisible(false);
+                    jmAlmacen.setVisible(false);
                     btnContraseña.setVisible(false);                
                     btnConsultar.setVisible(false);
                     btnVenta.setVisible(false);
@@ -1023,6 +1049,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JMenu jmAlmacen;
     private javax.swing.JMenu jmConsultas;
     private javax.swing.JMenu jmLogin;
     private javax.swing.JMenu jmMantenimiento;
@@ -1033,6 +1060,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem jmiCerrarSesion;
     private javax.swing.JMenuItem jmiMarca;
     private javax.swing.JMenuItem jmiProducto;
+    private javax.swing.JMenuItem jmiRegistrarCompra;
     private javax.swing.JMenuItem jmiUsuario;
     private javax.swing.JMenu jmnVentas;
     private javax.swing.JLabel lblCargo;
