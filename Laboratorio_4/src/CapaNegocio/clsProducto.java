@@ -46,7 +46,7 @@ public class clsProducto {
     public void registrar(Integer cod, String nom, String descrip, double precio, int stock, Boolean vig, int codMarca, int codCate) throws Exception{
         try {         
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("INSERT INTO producto VALUES(?,?,?,?,?,?,?,?)");
             sentencia.setInt(1,cod);
             sentencia.setString(2, nom);
@@ -110,23 +110,32 @@ public class clsProducto {
         Integer cantidad=0;
 
         try {
-            strSQL="SELECT COUNT(*) AS cantidad FROM detalle WHERE codproducto=" + cod ;
+            //strSQL="SELECT COUNT(*) AS cantidad FROM detalle WHERE codproducto=" + cod ;
             objConectar.conectar();
-            Connection con =objConectar.getConnection();
+            con =objConectar.getConnection();
             con.setAutoCommit(false);
-            sent=con.createStatement();
-            rs=sent.executeQuery(strSQL);
+            CallableStatement sentencia = con.prepareCall("SELECT COUNT(*) AS cantidad FROM detalle WHERE codproducto= ?;");
+            sentencia.setInt(1, cod);
+            rs = sentencia.executeQuery();
+            //sent=con.createStatement();
+            //rs=sent.executeQuery(strSQL);
             
             while(rs.next()){
-                cantidad=rs.getInt("cantidad");
+                cantidad = rs.getInt("cantidad");
             }
             if(cantidad>0){
-                String strSQL1="UPDATE producto set vigencia=false WHERE codproducto=" + cod;
-                sent.executeUpdate(strSQL1);
+                //String strSQL1="UPDATE producto set vigencia=false WHERE codproducto=" + cod;
+                //sent.executeUpdate(strSQL1);
+                sentencia = con.prepareCall("UPDATE producto set vigencia=false WHERE codproducto= ?;");
+                sentencia.setInt(1, cod);
+                sentencia.executeUpdate();
                 JOptionPane.showMessageDialog(null, " Producto Eliminado Correctamente");
             }else{
-                String strSQL1="DELETE FROM producto WHERE codproducto=" + cod;
-                sent.executeUpdate(strSQL1);
+                //String strSQL1="DELETE FROM producto WHERE codproducto=" + cod;
+                //sent.executeUpdate(strSQL1);
+                sentencia = con.prepareCall("DELETE FROM producto WHERE codproducto= ?;");
+                sentencia.setInt(1, cod);
+                sentencia.executeUpdate();
                 JOptionPane.showMessageDialog(null, " Producto Eliminado Correctamente");
             }    
             con.commit();
@@ -201,7 +210,7 @@ public class clsProducto {
     }
     
     public void darDeBajaProducto(Integer cod) throws Exception {
-        strSQL=";";
+        //strSQL=";";
         try {
             objConectar.conectar();
             con = objConectar.getConnection();
@@ -281,8 +290,8 @@ public class clsProducto {
         try {
             objConectar.conectar();
             con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE UPPER(nomproducto) LIKE UPPER('%?%') AND vigencia=true) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;" );
-            sentencia.setString(1, nom);
+            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE UPPER(nomproducto) LIKE UPPER(?) AND vigencia=true) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;" );
+            sentencia.setString(1, "%"+nom+"%");
             rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {

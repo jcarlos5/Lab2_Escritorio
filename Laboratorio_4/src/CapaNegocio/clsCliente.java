@@ -45,8 +45,8 @@ public class clsCliente {
             objConectar.conectar();
             con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT * FROM CLIENTE WHERE dni LIKE ? OR ruc LIKE ?");
-            sentencia.setString(1, cadena);
-            sentencia.setString(2, cadena);
+            sentencia.setString(1, cadena+"%");
+            sentencia.setString(2, cadena+"%");
             ResultSet resultado = sentencia.executeQuery();
             return resultado;
         } catch (Exception e) {

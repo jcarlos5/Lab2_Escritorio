@@ -47,13 +47,14 @@ public class clsVenta {
             objConectar.conectar();
             con=objConectar.getConnection();
             con.setAutoCommit(false);
-            CallableStatement sentencia = con.prepareCall("INSERT INTO venta VALUES (?,?, CURRENT_DATE,?, ?, ?, ?, false, null );");
+            CallableStatement sentencia = con.prepareCall("INSERT INTO venta VALUES (?,?, CURRENT_DATE,?, ?, ?, ?, false, null , '001');");
             sentencia.setInt(1, cod);
-            sentencia.setInt(6, cliente);
-            sentencia.setFloat(4, igv);
-            sentencia.setFloat(3, subtotal);
-            sentencia.setFloat(2, total);
-            sentencia.setBoolean(5,tipo);
+            sentencia.setInt(2, cliente);
+            sentencia.setFloat(3, igv);
+            sentencia.setFloat(4, subtotal);
+            sentencia.setFloat(5, total);
+            sentencia.setBoolean(6,tipo);
+            
             sentencia.executeUpdate();
             
             int ctd = tblProductos.getRowCount();
@@ -73,12 +74,12 @@ public class clsVenta {
                 sentencia = con.prepareCall("UPDATE producto SET stock = stock-? WHERE codproducto=?");
                 sentencia.setInt(1, Integer.parseInt(tblProductos.getValueAt(i, 5).toString()));
                 sentencia.setInt(2, Integer.parseInt(tblProductos.getValueAt(i, 0).toString()));
-                sent.executeUpdate(strSQL);
+                sentencia.executeUpdate();
             }
             con.commit();           
         } catch (Exception e) {
             con.rollback();
-            throw new Exception("Error al guardar venta");
+            throw new Exception(e.getMessage());
         }finally{
             objConectar.desconectar();
         }

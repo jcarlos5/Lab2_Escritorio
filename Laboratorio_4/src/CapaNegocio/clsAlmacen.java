@@ -26,20 +26,46 @@ public class clsAlmacen {
     ResultSet rs=null;
     Connection con=null;
     Statement sent;
-    float porcentaje_ganacia=(float) 0.30;
+    float porcentaje_ganacia;
+
+    public clsAlmacen() {
+        try {
+            objConectar.conectar();
+            strSQL = "SELECT valor FROM parametro WHERE nombre = Ganancia;";
+            rs = objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                this.porcentaje_ganacia = rs.getFloat("valor");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
        
     public void ActualizarStock(Integer codP, Integer codprov,Integer cantidad ,Float precio) throws Exception{
        try {
-           objConectar.conectar();
-           con=objConectar.getConnection();
-           con.setAutoCommit(false);
-           sent = con.createStatement();
-           strSQL = "INSERT INTO almacen VALUES(SELECT COALESCE(max(codalmacen),0)+1 FROM codalmacen,"+codprov+","+codP+",CURRENT_DATE,"+precio+");";
-           sent.executeUpdate(strSQL);
-           strSQL = "UPDATE producto set precio="+precio+"+"+precio+"*"+porcentaje_ganacia+" ,stock=stock+"+cantidad+" WHERE codProducto="+codP+";";
-           sent.executeUpdate(strSQL);
-          JOptionPane.showMessageDialog(null, "Actualizado Correctamente"); 
-          con.commit();
+            objConectar.conectar();
+            con=objConectar.getConnection();
+            con.setAutoCommit(false);
+            //sent = con.createStatement();
+            //strSQL = "INSERT INTO almacen VALUES(SELECT COALESCE(max(codalmacen),0)+1 FROM codalmacen,"+codprov+","+codP+",CURRENT_DATE,"+precio+");";
+            //sent.executeUpdate(strSQL);
+            CallableStatement sentencia = con.prepareCall("INSERT INTO almacen VALUES(SELECT COALESCE(max(codalmacen),0)+1 FROM codalmacen, ?, ?,CURRENT_DATE, ?);");
+            sentencia.setInt(1, codprov);
+            sentencia.setInt(2, codP);
+            sentencia.setFloat(3, precio);
+            sentencia.executeUpdate();
+
+            //strSQL = "UPDATE producto set precio="+precio+"+"+precio+"*"+porcentaje_ganacia+" ,stock=stock+"+cantidad+" WHERE codProducto="+codP+";";
+            //sent.executeUpdate(strSQL);
+            sentencia = con.prepareCall("UPDATE producto set precio= ?,stock=stock+? WHERE codProducto= ?;");
+            sentencia.setFloat(1, (precio+(precio*porcentaje_ganacia)));
+            sentencia.setInt(2, cantidad);
+            sentencia.setInt(3, codP);
+            sentencia.executeUpdate();
+            
+            con.commit();
+            
+            JOptionPane.showMessageDialog(null, "Actualizado Correctamente"); 
         } catch (Exception e) {
             con.rollback();
             throw new Exception("Error al Actualizar Stock");
@@ -48,7 +74,4 @@ public class clsAlmacen {
         } 
         
     }
-    
-    
-    
 }
