@@ -47,7 +47,7 @@ public class clsVenta {
             objConectar.conectar();
             con=objConectar.getConnection();
             con.setAutoCommit(false);
-            CallableStatement sentencia = con.prepareCall("INSERT INTO venta VALUES (?,?, CURRENT_DATE,?, ?, ?, ?, false, null , '001');");
+            CallableStatement sentencia = con.prepareCall("INSERT INTO venta VALUES (?,?, CURRENT_DATE,?, ?, ?, ?, false, null ,'001');");
             sentencia.setInt(1, cod);
             sentencia.setInt(2, cliente);
             sentencia.setFloat(3, igv);
