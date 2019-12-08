@@ -26,16 +26,19 @@ public class clsMarca {
     Statement sent;
     
     public Integer generarCodigoMarca() throws Exception{
-        strSQL = "SELECT COALESCE(max(codMarca),0)+1 AS codigo FROM marca;" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
-            while(rs.next()){
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT COALESCE(max(codMarca),0)+1 AS codigo FROM marca;");
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
+            while (rs.next()){
                 return rs.getInt("codigo");
-            }
+            } 
         } catch (Exception e) {
-            throw new Exception("Error al generar código de marca");
+            throw new Exception("Error al extraer los datos del cliente");
         }
-        return 0;
+        return 0;        
     }
     
     public void registrar(Integer cod, String nom, Boolean vig) throws Exception{

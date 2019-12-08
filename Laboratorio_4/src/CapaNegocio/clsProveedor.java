@@ -73,10 +73,13 @@ public class clsProveedor {
         
     }
 
-    public Integer obtenerCodigoTipoProveedor(String nom) throws Exception{
-        strSQL = "select codProveedor from proveedor where nombre='" + nom + "'" ;
+    public Integer obtenerCodigoProveedor(String nom) throws Exception{
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("select codProveedor from proveedor where nombre=?");
+            sentencia.setString(1, nom);
+            rs=sentencia.executeQuery();
             if (rs.next()) return rs.getInt("codproveedor");
         } catch (Exception e) {
             throw new Exception("Error al obtener el Codigo del Proveedor");

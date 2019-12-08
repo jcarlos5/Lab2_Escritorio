@@ -102,8 +102,7 @@ public class clsCuota {
     
     //listar las cuotas pendientes de pago de un cliente
     public ResultSet listarcuotasporpagar(String documento) throws Exception{
-        //strSQL = "SELECT * FROM LISTAR_DEUDA('"+documento+"');";
-        try {
+     try {
             objConectar.conectar();
             con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT * FROM LISTAR_DEUDA(?);");
@@ -206,70 +205,90 @@ public class clsCuota {
      
      //ventas PAGADAS AL CONTADO
     public float conocerMonto() throws Exception{
-        strSQL = "SELECT SUM(c.monto) as MontoTotal FROM venta v INNER JOIN cuota c ON v.numventa = c.codventa WHERE c.fechapago = current_date and v.tipopago = true and c.cancelada = true;";
         try {
-            rs=objConectar.consultarBD(strSQL);
-            while (rs.next()){
-              return rs.getFloat("MontoTotal");
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT SUM(c.monto) as MontoTotal FROM venta v INNER JOIN cuota c ON v.numventa = c.codventa WHERE c.fechapago = current_date and v.tipopago = true and c.cancelada = true");
+            ResultSet resultado=sentencia.executeQuery();
+            while( resultado.next()){
+              return resultado.getFloat("MontoTotal");                
             }
         } catch (Exception e) {
-            throw new Exception("Error al conocer el monto TOTAL");
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
         }
         return 0;
     }
     
     //Monto TOTAL caja: ventas pagadas al CONTADO + cuotas PAGADAS
     public float conocerMontoCaja() throws Exception{
-        strSQL = "SELECT SUM(monto) as MontoTotal FROM cuota WHERE fechapago = current_date and cancelada = true; ";
         try {
-            rs=objConectar.consultarBD(strSQL);
-            while (rs.next()){
-                return rs.getFloat("MontoTotal");
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT SUM(monto) as MontoTotal FROM cuota WHERE fechapago = current_date and cancelada = true");
+            ResultSet resultado=sentencia.executeQuery();
+            while (resultado.next()){
+                return resultado.getFloat("MontoTotal");
             }
         } catch (Exception e) {
-            throw new Exception("Error al conocer el monto de CAJA");
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
         }
-        return 0;
+        return 0;        
     }
     
      //para saber cuanto dinero ingreso en pagos por cuotas de ventas PASADAS
     public float creditosPagados() throws Exception{
-        strSQL = "SELECT sum(monto) as monto FROM cuota where fechapago = current_date;";
         try {
-            rs=objConectar.consultarBD(strSQL);
-            while (rs.next()){
-                return rs.getFloat("monto");
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT sum(monto) as monto FROM cuota where fechapago = current_date");
+            ResultSet resultado=sentencia.executeQuery();
+            while(resultado.next()){
+                return resultado.getFloat("monto");                
             }
         } catch (Exception e) {
-            throw new Exception("Error al conocer el monto de CAJA");
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
         }
         return 0;
     }
     
     //para saber el monto de solo creditos que hemos dado al dia
     public float conocerMontoCreditos() throws Exception{
-        strSQL = "SELECT SUM(c.monto) as MontoTotal FROM venta v INNER JOIN cuota c ON v.numventa = c.codventa WHERE c.fechapago = current_date and v.tipopago = false and c.cancelada = true;";
         try {
-            rs=objConectar.consultarBD(strSQL);
-            while (rs.next()){
-              return rs.getFloat("MontoTotal");
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT SUM(c.monto) as MontoTotal FROM venta v INNER JOIN cuota c ON v.numventa = c.codventa WHERE c.fechapago = current_date and v.tipopago = false and c.cancelada = true");
+            ResultSet resultado=sentencia.executeQuery();
+            while (resultado.next()){
+                return resultado.getFloat("MontoTotal");                
             }
         } catch (Exception e) {
-            throw new Exception("Error al conocer el monto pasado en CUOTAS");
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
         }
         return 0;
     }
     
     //para saber el monto de solo creditos que hemos dado al dia
     public float ventasCreditos() throws Exception{
-        strSQL = "SELECT SUM(total) as MontoTotal FROM venta WHERE fecha= current_date and tipopago = false;";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            Connection con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT SUM(total) as MontoTotal FROM venta WHERE fecha= current_date and tipopago = false");
+            ResultSet resultado=sentencia.executeQuery();
             while (rs.next()){
-              return rs.getFloat("MontoTotal");
+               return resultado.getFloat("MontoTotal"); 
             }
         } catch (Exception e) {
-            throw new Exception("Error al conocer el monto pasado en CUOTAS");
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
         }
         return 0;
     }            

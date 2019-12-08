@@ -26,14 +26,17 @@ public class clsCategoria {
     Statement sent;
     
     public Integer generarCodigoCategoria() throws Exception{
-        strSQL = "SELECT COALESCE(max(codcategoria),0)+1 AS codigo FROM categoria;" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
-            while(rs.next()){
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT COALESCE(max(codcategoria),0)+1 AS codigo FROM categoria;");
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
+            while (rs.next()){
                 return rs.getInt("codigo");
-            }
+            } 
         } catch (Exception e) {
-            throw new Exception("Error al generar código de categoria");
+            throw new Exception("Error al extraer los datos del cliente");
         }
         return 0;
     }
@@ -204,12 +207,15 @@ public class clsCategoria {
             CallableStatement sentencia = con.prepareCall("SELECT codcategoria FROM categoria WHERE nomcategoria=?");
             sentencia.setString(1, nombre);
             ResultSet resultado = sentencia.executeQuery();
-            return resultado.getInt("codcategoria");
+            while(resultado.next()){
+                return resultado.getInt("codcategoria");
+            }
         } catch (Exception e) {
             throw new Exception("Error ");
         }finally{
             objConectar.desconectar();
         }
+        return 0;
     }
     
     public String getNombre(int codigo) throws Exception{
@@ -219,11 +225,14 @@ public class clsCategoria {
             CallableStatement sentencia = con.prepareCall("SELECT nomcategoria FROM categoria WHERE codcategoria=?");
             sentencia.setInt(1, codigo);
             ResultSet resultado = sentencia.executeQuery();
-            return resultado.getString("codcategoria");
+            while(resultado.next()){
+                return resultado.getString("codcategoria");
+            }
         } catch (Exception e) {
             throw new Exception("Error ");
         }finally{
             objConectar.desconectar();
         }
+        return null;
     }
 }

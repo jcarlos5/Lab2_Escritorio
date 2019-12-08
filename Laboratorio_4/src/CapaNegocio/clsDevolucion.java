@@ -6,6 +6,7 @@
 package CapaNegocio;
 
 import CapaDatos.clsJDBC;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -29,14 +30,16 @@ public class clsDevolucion {
     Statement sent;
     
     public Integer generarCodigoDev() throws Exception{
-        strSQL = "SELECT COALESCE(max(numerodev),0)+1 AS codigo FROM devolucion;" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT COALESCE(max(numerodev),0)+1 AS codigo FROM devolucion;");
+            rs = sentencia.executeQuery();
             while(rs.next()){
                 return rs.getInt("codigo");
             }
         } catch (Exception e) {
-            throw new Exception("Error al generar código de marca");
+            throw new Exception("Error al extraer los datos del cliente");
         }
         return 0;
     }

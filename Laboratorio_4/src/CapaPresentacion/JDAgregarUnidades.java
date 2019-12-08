@@ -241,7 +241,7 @@ public class JDAgregarUnidades extends javax.swing.JDialog {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         try {
-           objAlamcen.ActualizarStock(objProducto.obtenerCodigoProducto(cboProducto.getSelectedItem().toString()),objProveedor.obtenerCodigoTipoProveedor(cboProveedor.getSelectedItem().toString()), (int)spnCantidad.getValue(), Float.parseFloat(txtprecio.getText()));
+           objAlamcen.ActualizarStock(objProducto.obtenerCodigoProducto(cboProducto.getSelectedItem().toString()),objProveedor.obtenerCodigoProveedor(cboProveedor.getSelectedItem().toString()), (int)spnCantidad.getValue(), Float.parseFloat(txtprecio.getText()));
            llenarProducto();
         } catch (Exception e) {
         }

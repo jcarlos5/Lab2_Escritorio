@@ -27,12 +27,16 @@ public class clsCliente {
     Statement sent;
     
     public ResultSet listarClientes() throws Exception{
-        strSQL = "SELECT c.*, t.nombre FROM CLIENTE c INNER JOIN TIPO_CLIENTE t ON c.codtipo = t.codtipo ORDER BY codcliente;";
         try {
-            rs = objConectar.consultarBD(strSQL);
-            return rs;
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT c.*, t.nombre FROM CLIENTE c INNER JOIN TIPO_CLIENTE t ON c.codtipo = t.codtipo ORDER BY codcliente");
+            ResultSet resultado = sentencia.executeQuery();
+            return resultado;
         } catch (Exception e) {
-            throw new Exception("Error al listar Clientes");
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
         }
     }
     
@@ -67,14 +71,18 @@ public class clsCliente {
     }
     
     public Integer generarCodigoCliente() throws Exception{
-        strSQL = "SELECT COALESCE(max(codcliente),0)+1 AS codigo FROM cliente;" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
-            while(rs.next()){
-                return rs.getInt("codigo");
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT COALESCE(max(codcliente),0)+1 AS codigo FROM cliente");
+            ResultSet resultado = sentencia.executeQuery();
+            while (resultado.next()){
+               return resultado.getInt("codigo"); 
             }
         } catch (Exception e) {
-            throw new Exception("Error al generar código de cliente");
+            throw new Exception(e.getMessage());
+        }finally{
+            objConectar.desconectar();
         }
         return 0;
     }
@@ -326,19 +334,25 @@ public class clsCliente {
             objConectar.desconectar();
         }        
     }
+
     
+///No recuerso si iva así esta función :/    
     public boolean isAcreditable(String cod) throws Exception{
         try {
             objConectar.conectar();
             Connection con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("SELECT * FROM venta WHERE codcliente =? and estadopago = false and tipopago = false");
+            CallableStatement sentencia = con.prepareCall("SELECT estadopago FROM venta WHERE codcliente =? and estadopago = false and tipopago = false");
             sentencia.setInt(1, Integer.parseInt(cod));
             ResultSet resultado=sentencia.executeQuery();
-            return resultado.getBoolean("");
+            while (resultado.next()){
+               return resultado.getBoolean("estadopago");
+            }
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }finally{
             objConectar.desconectar();
-        }         
+        }
+        return false;
     }
+    
 }

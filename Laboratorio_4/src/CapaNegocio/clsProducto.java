@@ -28,15 +28,18 @@ public class clsProducto {
     Statement sent;
     
     public Integer generarCodigoProducto() throws Exception{
-        strSQL = "SELECT COALESCE(max(codproducto),0)+1 AS codigo FROM producto;" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
-            while(rs.next()){
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT COALESCE(max(codproducto),0)+1 AS codigo FROM producto;");
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
+            while (rs.next()){
                 return rs.getInt("codigo");
-            }
+            } 
         } catch (Exception e) {
-            throw new Exception("Error al generar código de producto");
-        }
+            throw new Exception("Error al extraer los datos del cliente");
+        }        
         return 0;
     }
     
@@ -63,9 +66,12 @@ public class clsProducto {
     }
 
     public Integer obtenerCodigoProducto(String nom) throws Exception{
-        strSQL = "SELECT codProducto FROM proveedor WHERE nomproducto='" + nom + "'" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT codProducto FROM proveedor WHERE nomproducto= ?;");
+            sentencia.setInt(1,Integer.parseInt(nom));
+            rs = sentencia.executeQuery();            
             if (rs.next()) return rs.getInt("codProducto");
         } catch (Exception e) {
             throw new Exception("Error al obtener el Codigo del Producto");
@@ -74,9 +80,12 @@ public class clsProducto {
     }
 
     public String obtenerCategoriaProducto(Integer cod) throws Exception{
-        strSQL = "SELECT categoria.nomcategoria as cate FROM producto INNER JOIN categoria ON categoria.codcategoria=producto.codcategoria WHERE producto.codproucto="+cod+"" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT categoria.nomcategoria as cate FROM producto INNER JOIN categoria ON categoria.codcategoria=producto.codcategoria WHERE producto.codproucto= ?;");
+            sentencia.setInt(1, cod);
+            rs = sentencia.executeQuery();  
             if (rs.next()) return rs.getString("cate");
         } catch (Exception e) {
             throw new Exception("Error al obtener el Nombre de la Categoria de un Producto");
@@ -85,9 +94,12 @@ public class clsProducto {
     }    
     
     public ResultSet buscarProducto(Integer cod) throws Exception{
-        strSQL = "SELECT * FROM producto WHERE codproducto=" + cod + ";";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM producto WHERE codproducto=?");
+            sentencia.setInt(1, cod);
+            rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al buscar producto");
@@ -96,8 +108,7 @@ public class clsProducto {
     
     public void eliminarProducto(Integer cod) throws Exception {
         Integer cantidad=0;
-        
-        
+
         try {
             strSQL="SELECT COUNT(*) AS cantidad FROM detalle WHERE codproducto=" + cod ;
             objConectar.conectar();
@@ -129,9 +140,11 @@ public class clsProducto {
     }
 
     public ResultSet listarProductos() throws Exception{
-        strSQL = "SELECT p.*, m.nommarca, c.nomcategoria FROM producto p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria ORDER BY codproducto;" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM producto p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria ORDER BY codproducto");
+            rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al listar productos");
@@ -139,9 +152,11 @@ public class clsProducto {
     }
     
      public ResultSet listarProductosVig() throws Exception{
-        strSQL = "SELECT p.*, m.nommarca, c.nomcategoria FROM producto p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria WHERE vigencia=true ORDER BY codproducto;" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM producto p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria WHERE vigencia=true ORDER BY codproducto");
+            rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al listar productos");
@@ -149,59 +164,65 @@ public class clsProducto {
     }
     
     public String ProveedorProducto(Integer codP) throws Exception{
-     strSQL = "SELECT proveedor.nombre FROM proveedor INNER JOIN alamacen ON alamcen.codproveedor=proveedor.codproveedor INNER JOIN producto ON producto.codproducto=almacen.codproducto WHERE producto.codProducto="+codP+";" ;
+     strSQL = ""+codP+";" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
-            return rs.getString("nombre");
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT proveedor.nombre FROM proveedor INNER JOIN alamacen ON alamcen.codproveedor=proveedor.codproveedor INNER JOIN producto ON producto.codproducto=almacen.codproducto WHERE producto.codProducto=");
+            sentencia.setInt(1, codP);
+            rs=sentencia.executeQuery();
+            while(rs.next()){
+                return rs.getString("nombre");
+            }
         } catch (Exception e) {
             throw new Exception("Error al listar El Proveedor de un Producto");
-        }   
+        }
+        return null;
     }
     
-    
-    
+
     public void modificarProducto(Integer cod, String nombre, String descrip, double precio, int stock, boolean vigencia, int codMarca, int codCategoria) throws Exception {
-        strSQL="UPDATE producto SET nomproducto = '" + nombre + "', descripcion = '" + descrip + "', precio='" + precio + "', stock='" + stock + "', vigencia = " + vigencia + ", codmarca = '" + codMarca + "', codcategoria = '" + codCategoria + "' WHERE codProducto ='" + cod + "';";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("UPDATE producto SET nomproducto = ?, descripcion = ?, precio=?, stock=?, vigencia = ?, codmarca = ?, codcategoria = ? WHERE codProducto =?");
+            sentencia.setString(1, nombre);
+            sentencia.setString(2, descrip);
+            sentencia.setDouble(3, precio);
+            sentencia.setInt(4, stock);
+            sentencia.setBoolean(5, vigencia);
+            sentencia.setInt(6, codMarca);
+            sentencia.setInt(7, codCategoria);
+            sentencia.setInt(8, cod);
+            sentencia.executeUpdate();
         } catch (Exception e) {
             throw new Exception("Error al modificar el producto");
         }
     }
     
     public void darDeBajaProducto(Integer cod) throws Exception {
-        strSQL="UPDATE producto SET vigencia = false WHERE codproducto =" + cod + ";";
+        strSQL=";";
         try {
-            objConectar.ejecutarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("UPDATE producto SET vigencia = false WHERE codproducto =?");
+            sentencia.setInt(1, cod);
+            sentencia.executeUpdate();
         } catch (Exception e) {
             throw new Exception("Error al dar de Baja el producto");
         }
     }
-    
-    
-    public void ActualizarStock(Integer codP, Integer cantidad) throws Exception{
-       try {
-         //registar proveedor
-           objConectar.conectar();
-           con = objConectar.getConnection();
-           CallableStatement sentencia = con.prepareCall("UPDATE producto set stock=stock+? WHERE codProducto=?)");
-           sentencia.setInt(1, codP);
-           sentencia.setInt(2, cantidad);
-
-          JOptionPane.showMessageDialog(null, "Actualizado Correctamente"); 
-        } catch (Exception e) {
-            throw new Exception("Error al Actualizar Stock");
-        }finally{
-            objConectar.desconectar();
-        } 
         
-    }
-
-    
     public ResultSet filtrarMarca(int marca, String nom, int min, int max) throws Exception{
-        strSQL = "SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE codmarca = " + marca + " AND UPPER(nomproducto) LIKE UPPER('%" + nom + "%') AND precio BETWEEN " + min + " AND " + max + ") p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE codmarca =? AND UPPER(nomproducto) LIKE UPPER('%?%') AND precio BETWEEN ? AND ?) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria");
+            sentencia.setInt(1, marca);
+            sentencia.setString(2, nom);
+            sentencia.setInt(3, min);
+            sentencia.setInt(4, max);
+            rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al filtrar productos");
@@ -209,9 +230,15 @@ public class clsProducto {
     }
     
     public ResultSet filtrarCategoria(int categoria, String nom, int min, int max) throws Exception{
-        strSQL = "SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE codcategoria = " + categoria + " AND UPPER(nomproducto) LIKE UPPER('%" + nom + "%') AND precio BETWEEN " + min + " AND " + max + ") p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE codcategoria = ? AND UPPER(nomproducto) LIKE UPPER('%?%') AND precio BETWEEN ? AND ?) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria");
+            sentencia.setInt(1, categoria);
+            sentencia.setString(2, nom);
+            sentencia.setInt(3, min);
+            sentencia.setInt(4, max);            
+            rs=sentencia.executeQuery();;
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al filtrar productos");
@@ -219,9 +246,16 @@ public class clsProducto {
     }
     
     public ResultSet filtrar(int marca, int categoria, String nom, int min, int max) throws Exception{
-        strSQL = "SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE codmarca = " + marca + " AND codcategoria = " + categoria + " AND UPPER(nomproducto) LIKE UPPER('%" + nom + "%') AND precio BETWEEN " + min + " AND " + max + ") p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE codmarca = ? AND codcategoria = ? AND UPPER(nomproducto) LIKE UPPER('%?%') AND precio BETWEEN ? AND ?) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;" );
+            sentencia.setInt(1, marca);
+            sentencia.setInt(2, categoria);
+            sentencia.setString(3, nom);
+            sentencia.setInt(4, min);
+            sentencia.setInt(5, max);
+            rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al filtrar productos");
@@ -229,9 +263,14 @@ public class clsProducto {
     }
     
     public ResultSet filtrar(String nom, int min, int max) throws Exception{
-        strSQL = "SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE UPPER(nomproducto) LIKE UPPER('%" + nom + "%') AND precio BETWEEN " + min + " AND " + max + ") p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE UPPER(nomproducto) LIKE UPPER('%?%') AND precio BETWEEN ? AND ? ) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;");
+            sentencia.setString(1, nom);
+            sentencia.setInt(2, min);
+            sentencia.setInt(3, max);
+            rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al filtrar productos");
@@ -239,9 +278,12 @@ public class clsProducto {
     }
     
     public ResultSet filtrar(String nom) throws Exception{
-        strSQL = "SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE UPPER(nomproducto) LIKE UPPER('%" + nom + "%') AND vigencia=true) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE UPPER(nomproducto) LIKE UPPER('%?%') AND vigencia=true) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;" );
+            sentencia.setString(1, nom);
+            rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al filtrar productos");
@@ -249,9 +291,11 @@ public class clsProducto {
     }
     
     public int getPrecioMax() throws Exception{
-        strSQL = "SELECT MAX(precio) FROM producto;" ;
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT MAX(precio) FROM producto;");
+            rs=sentencia.executeQuery();
             if(rs.next()){
                 return rs.getInt(1);
             }
@@ -262,9 +306,12 @@ public class clsProducto {
     }
     
     public int getStock(int cod) throws Exception{
-        strSQL = "SELECT stock FROM producto WHERE codproducto = " + cod + ";";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT stock FROM producto WHERE codproducto = ?");
+            sentencia.setInt(1, cod);
+            rs=sentencia.executeQuery();
             if(rs.next()){
                 return rs.getInt(1);
             }
