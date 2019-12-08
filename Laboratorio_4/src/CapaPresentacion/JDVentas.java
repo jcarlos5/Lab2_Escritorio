@@ -105,7 +105,7 @@ public class JDVentas extends javax.swing.JDialog {
         btnModDesc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".:Registrar Venta:.");
+        setTitle(".:REGISTRAR VENTA:.");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {

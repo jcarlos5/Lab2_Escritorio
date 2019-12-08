@@ -52,7 +52,7 @@ public class JDCambiarContraseña extends javax.swing.JDialog {
         txtConfirmarContraseña = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("MODIFICAR CONTRASEÑA");
+        setTitle(".:MODIFICAR CONTRASEÑA:.");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {

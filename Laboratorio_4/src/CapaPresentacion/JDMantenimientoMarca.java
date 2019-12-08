@@ -56,7 +56,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
         txtCodigo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".:Mantenimiento Marca:.");
+        setTitle(".:MANTENIMIENTO DE MARCAS:.");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -84,9 +84,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tblMarcas);
 
-        btnNuevo.setBackground(new java.awt.Color(153, 153, 255));
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/mas.png"))); // NOI18N
         btnNuevo.setText("NUEVO");
+        btnNuevo.setBackground(new java.awt.Color(153, 153, 255));
         btnNuevo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnNuevo.setPreferredSize(new java.awt.Dimension(120, 25));
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -95,9 +95,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 204, 0));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/modificar.png"))); // NOI18N
         jButton2.setText("MODIFICAR");
+        jButton2.setBackground(new java.awt.Color(255, 204, 0));
         jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton2.setPreferredSize(new java.awt.Dimension(120, 25));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -106,9 +106,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 51, 51));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/eliminar.png"))); // NOI18N
         jButton3.setText("ELIMINAR");
+        jButton3.setBackground(new java.awt.Color(255, 51, 51));
         jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton3.setPreferredSize(new java.awt.Dimension(120, 25));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -119,9 +119,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
 
         jLabel1.setText("Código:");
 
-        jButton4.setBackground(new java.awt.Color(204, 102, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/baja.png"))); // NOI18N
         jButton4.setText("DAR DE BAJA");
+        jButton4.setBackground(new java.awt.Color(204, 102, 255));
         jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton4.setPreferredSize(new java.awt.Dimension(120, 25));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -132,9 +132,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
 
         jLabel2.setText("Nombre:");
 
-        jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/limpiar.png"))); // NOI18N
         jButton5.setText("LIMPIAR");
+        jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton5.setPreferredSize(new java.awt.Dimension(120, 25));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -145,9 +145,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
 
         jLabel3.setText("Vigencia:");
 
-        jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/salir.png"))); // NOI18N
         jButton6.setText("SALIR");
+        jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton6.setPreferredSize(new java.awt.Dimension(120, 25));
         jButton6.addActionListener(new java.awt.event.ActionListener() {

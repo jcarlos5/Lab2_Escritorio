@@ -76,7 +76,7 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
         cboCategoria = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".:Mantenimiento Producto:.");
+        setTitle(".:MANTENIMIENTO DE PRODUCTOS:.");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {

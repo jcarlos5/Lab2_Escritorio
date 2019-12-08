@@ -57,6 +57,7 @@ public class JDBoleta extends javax.swing.JDialog {
         lblIgv = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(".:BOLETA DE VENTA:.");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Boleta de Venta");

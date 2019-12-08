@@ -37,6 +37,7 @@ public class JDTransacciones extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(".:PROBAR TRANSACCIONES:.");
 
         jLabel1.setText("Transacciones:");
 

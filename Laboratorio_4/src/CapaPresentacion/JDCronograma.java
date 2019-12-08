@@ -43,7 +43,7 @@ public class JDCronograma extends javax.swing.JDialog {
         tblCronograma = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".: Cronograma de PAGO del CLIENTE:.");
+        setTitle(".:CRONOGRAMA DE PAGO DEL CLIENTE:.");
         setBackground(new java.awt.Color(222, 227, 218));
 
         jScrollPane1.setViewportView(tblCronograma);

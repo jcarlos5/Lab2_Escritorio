@@ -58,7 +58,7 @@ public class JDPagoContado extends javax.swing.JDialog {
         btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".:Registrar Pago al Contado:.");
+        setTitle(".:PAGO AL CONTADO:.");
 
         jPanel1.setBackground(new java.awt.Color(222, 227, 218));
 

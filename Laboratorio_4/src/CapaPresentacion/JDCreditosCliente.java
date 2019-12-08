@@ -52,7 +52,7 @@ public class JDCreditosCliente extends javax.swing.JDialog {
         tblClientes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".: Buscar por DNI / RUC el crédito del CLIENTE :.");
+        setTitle(".:CRÉDITOS DEL CLIENTE:.");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);

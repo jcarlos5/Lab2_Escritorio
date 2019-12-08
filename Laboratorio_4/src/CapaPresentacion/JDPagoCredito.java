@@ -71,7 +71,7 @@ public class JDPagoCredito extends javax.swing.JDialog {
         tblCuotas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".:Registrar Pago al Crédito:.");
+        setTitle(".:PAGO AL CRÉDITO:.");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);

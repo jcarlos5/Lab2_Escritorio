@@ -3,7 +3,7 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="Devoluci&#xf3;n de Venta"/>
+    <Property name="title" type="java.lang.String" value=".:DEVOLUCI&#xd3;N DE VENTA:."/>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="da" green="e3" red="de" type="rgb"/>
     </Property>

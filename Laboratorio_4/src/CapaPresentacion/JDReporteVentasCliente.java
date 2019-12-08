@@ -40,6 +40,7 @@ public class JDReporteVentasCliente extends javax.swing.JDialog {
         vistaReporte = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(".:REPORTE DE VENTAS POR CLIENTE:.");
 
         jLabel1.setText("INGRESE EL DNI DEL CLIENTE:");
 

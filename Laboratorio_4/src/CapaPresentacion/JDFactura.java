@@ -62,12 +62,13 @@ public class JDFactura extends javax.swing.JDialog {
         lblTipoPago = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(".:FACTURA:.");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("FACTURA N°");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        lblnumBoleta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblnumBoleta.setText("??");
+        lblnumBoleta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -88,11 +89,11 @@ public class JDFactura extends javax.swing.JDialog {
 
         jLabel9.setText("MONTO TOTAL:   s/.");
 
-        jLabel10.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 36)); // NOI18N
         jLabel10.setText("EMPRESA DE VENTAS");
+        jLabel10.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 36)); // NOI18N
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel12.setText("R.U.C. 45036791428");
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
 
         jLabel14.setText("SUBTOTAL:   s/.");
 
@@ -104,8 +105,8 @@ public class JDFactura extends javax.swing.JDialog {
         lblIgv.setText("???");
         lblIgv.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 35)); // NOI18N
         jLabel3.setText("LOGO.PNG");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 35)); // NOI18N
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 

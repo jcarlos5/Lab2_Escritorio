@@ -54,6 +54,7 @@ public class JDPagarVenta extends javax.swing.JDialog {
         txtNombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(".:REGISTRAR PAGO DE VENTA:.");
 
         jLabel1.setText("Cliente:");
 

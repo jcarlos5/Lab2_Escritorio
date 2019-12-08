@@ -63,7 +63,7 @@ public class JDInicioSesion extends javax.swing.JDialog {
         lblUltimaSesion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("INICIAR SESIÓN");
+        setTitle(".:INICIAR SESIÓN:.");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(222, 227, 218));

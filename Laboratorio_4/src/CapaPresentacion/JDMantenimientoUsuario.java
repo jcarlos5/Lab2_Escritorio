@@ -72,7 +72,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         cmbCargo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".:Mantenimiento Usuario:.");
+        setTitle(".:MANTENIMIENTO DE USUARIOS:.");
         setResizable(false);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
@@ -107,9 +107,9 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         });
         contenedorTabla.setViewportView(tblUsuarios);
 
+        btnNuevo.setBackground(new java.awt.Color(153, 153, 255));
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/mas.png"))); // NOI18N
         btnNuevo.setText("NUEVO");
-        btnNuevo.setBackground(new java.awt.Color(153, 153, 255));
         btnNuevo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnNuevo.setMaximumSize(new java.awt.Dimension(120, 50));
         btnNuevo.setPreferredSize(new java.awt.Dimension(120, 25));
@@ -119,9 +119,9 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
             }
         });
 
+        btnModificar.setBackground(new java.awt.Color(255, 204, 0));
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/modificar.png"))); // NOI18N
         btnModificar.setText("MODIFICAR");
-        btnModificar.setBackground(new java.awt.Color(255, 204, 0));
         btnModificar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnModificar.setMaximumSize(new java.awt.Dimension(120, 50));
         btnModificar.setPreferredSize(new java.awt.Dimension(120, 25));
@@ -131,9 +131,9 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
             }
         });
 
+        btnEliminar.setBackground(new java.awt.Color(255, 51, 51));
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/eliminar.png"))); // NOI18N
         btnEliminar.setText("ELIMINAR");
-        btnEliminar.setBackground(new java.awt.Color(255, 51, 51));
         btnEliminar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnEliminar.setMaximumSize(new java.awt.Dimension(120, 50));
         btnEliminar.setPreferredSize(new java.awt.Dimension(120, 25));
@@ -145,9 +145,9 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
 
         jLabel1.setText("Código:");
 
+        btnDardeBaja.setBackground(new java.awt.Color(204, 102, 255));
         btnDardeBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/baja.png"))); // NOI18N
         btnDardeBaja.setText("DAR DE BAJA");
-        btnDardeBaja.setBackground(new java.awt.Color(204, 102, 255));
         btnDardeBaja.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnDardeBaja.setMaximumSize(new java.awt.Dimension(120, 50));
         btnDardeBaja.setPreferredSize(new java.awt.Dimension(120, 25));
@@ -159,9 +159,9 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
 
         jLabel2.setText("Usuario:");
 
+        btnLimpiar.setBackground(new java.awt.Color(255, 255, 255));
         btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/limpiar.png"))); // NOI18N
         btnLimpiar.setText("LIMPIAR");
-        btnLimpiar.setBackground(new java.awt.Color(255, 255, 255));
         btnLimpiar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnLimpiar.setMaximumSize(new java.awt.Dimension(120, 50));
         btnLimpiar.setPreferredSize(new java.awt.Dimension(120, 25));
@@ -173,9 +173,9 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
 
         lblEstado.setText("Estado:");
 
+        btnSalir.setBackground(new java.awt.Color(255, 255, 255));
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/salir.png"))); // NOI18N
         btnSalir.setText("SALIR");
-        btnSalir.setBackground(new java.awt.Color(255, 255, 255));
         btnSalir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnSalir.setMaximumSize(new java.awt.Dimension(120, 50));
         btnSalir.setPreferredSize(new java.awt.Dimension(120, 25));

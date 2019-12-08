@@ -69,6 +69,7 @@ public class JDCambiarProducto extends javax.swing.JDialog {
         lblMonto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(".:CAMBIAR PRODUCTO:.");
 
         jLabel1.setText("Cliente:");
 

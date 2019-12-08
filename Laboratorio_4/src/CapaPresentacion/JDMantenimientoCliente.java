@@ -70,7 +70,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         txtNombre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".:Mantenimiento del Cliente:.");
+        setTitle(".:MANTENIMIENTO DE CLIENTES:.");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {

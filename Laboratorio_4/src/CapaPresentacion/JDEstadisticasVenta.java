@@ -48,7 +48,7 @@ public class JDEstadisticasVenta extends javax.swing.JDialog {
         txtNumVenta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Estadísticas de Venta");
+        setTitle(".:ESTADÍSTICAS DE VENTAS:.");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);

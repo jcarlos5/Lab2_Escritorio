@@ -7,7 +7,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value=".:Registrar Pago al Cr&#xe9;dito:."/>
+    <Property name="title" type="java.lang.String" value=".:PAGO AL CR&#xc9;DITO:."/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>

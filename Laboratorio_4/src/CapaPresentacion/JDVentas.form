@@ -7,7 +7,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value=".:Registrar Venta:."/>
+    <Property name="title" type="java.lang.String" value=".:REGISTRAR VENTA:."/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -126,10 +126,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblTitulo">
           <Properties>
+            <Property name="text" type="java.lang.String" value="DOCUMENTO DE VENTA"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="DOCUMENTO DE VENTA"/>
           </Properties>
         </Component>
       </SubComponents>

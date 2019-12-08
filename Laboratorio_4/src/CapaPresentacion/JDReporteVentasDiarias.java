@@ -37,6 +37,7 @@ public class JDReporteVentasDiarias extends javax.swing.JDialog {
         vistaReporte = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(".:REPORTE DE VENTAS DIARIAS:.");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);

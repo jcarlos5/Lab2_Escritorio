@@ -115,7 +115,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuItem12.setText("jMenuItem12");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle(":. SISTEMA DE COMERCIALIZACIÓN .:");
+        setTitle(".:SISTEMA DE COMERCIALIZACIÓN:.");
         setIconImage(getIconImage());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {

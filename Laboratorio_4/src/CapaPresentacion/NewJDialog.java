@@ -34,6 +34,7 @@ public class NewJDialog extends javax.swing.JDialog {
         txt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(".:NO SE SABE PARA QUE SE CREÓ:.");
 
         txt.setText("jTextField1");
         txt.addActionListener(new java.awt.event.ActionListener() {

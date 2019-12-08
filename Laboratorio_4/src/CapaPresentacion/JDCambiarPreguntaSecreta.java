@@ -52,7 +52,7 @@ public class JDCambiarPreguntaSecreta extends javax.swing.JDialog {
         txtRespuesta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cambiar Pregunta Secreta");
+        setTitle(".:CAMBIAR PREGUNTA SECRETA:.");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);

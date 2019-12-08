@@ -66,7 +66,7 @@ public class JDVentasPorFechas extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".:Listar Ventas Por Rango de Fechas:.");
+        setTitle(".:LISTAR VENTAS POR RANGO DE FECHA:.");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);

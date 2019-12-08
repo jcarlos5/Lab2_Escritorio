@@ -60,7 +60,7 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".:Mantenimiento Categoria:.");
+        setTitle(".:MANTENIMIENTO DE CATEGORÍAS:.");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {

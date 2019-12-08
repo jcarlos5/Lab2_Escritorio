@@ -43,6 +43,7 @@ public class JDTicket extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(".:TICKET DE VENTA:.");
 
         txtImprimir.setText("Imprimir");
         txtImprimir.addActionListener(new java.awt.event.ActionListener() {
