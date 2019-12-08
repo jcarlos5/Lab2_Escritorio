@@ -89,69 +89,57 @@ public class clsCliente {
     
     public void registrar(String cod, String dni, String ruc, String nom, String tel, String correo, String direccion, Boolean vig, int codtipo) throws Exception{
        try {
+            objConectar.conectar();
+            con = objConectar.getConnection();
             if (codtipo==1){
-            
-            objConectar.conectar();
-            Connection con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?,?)");
-            sentencia.setInt(1,Integer.parseInt(cod));
-            sentencia.setInt(2,codtipo);
-            sentencia.setString(3, dni);
-            sentencia.setString(4, null); //"'null'"
-            sentencia.setString(5, nom);
-            sentencia.setString(6, tel);
-            sentencia.setString(7, correo);
-            sentencia.setString(8,direccion);
-            sentencia.setBoolean(9, vig);
-            sentencia.executeUpdate(); 
-            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
-            
+                CallableStatement sentencia = con.prepareCall("INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?,?)");
+                sentencia.setInt(1,Integer.parseInt(cod));
+                sentencia.setInt(2,codtipo);
+                sentencia.setString(3, dni);
+                sentencia.setString(4, null); //"'null'"
+                sentencia.setString(5, nom);
+                sentencia.setString(6, tel);
+                sentencia.setString(7, correo);
+                sentencia.setString(8,direccion);
+                sentencia.setBoolean(9, vig);
+                sentencia.executeUpdate(); 
+                JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+            }else{
+                if (codtipo==2){
+                    CallableStatement sentencia = con.prepareCall("INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?,?)");
+                    sentencia.setInt(1,Integer.parseInt(cod));
+                    sentencia.setInt(2,codtipo);
+                    sentencia.setString(3, null);
+                    sentencia.setString(4, ruc); //"'null'"
+                    sentencia.setString(5, nom);
+                    sentencia.setString(6, tel);
+                    sentencia.setString(7, correo);
+                    sentencia.setString(8,direccion);
+                    sentencia.setBoolean(9, vig);
+                    sentencia.executeUpdate();  
+                    JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+                }else{
+                    if (codtipo==3){
+                        CallableStatement sentencia = con.prepareCall("INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?,?)");
+                        sentencia.setInt(1,Integer.parseInt(cod));
+                        sentencia.setInt(2,codtipo);
+                        sentencia.setString(3, dni);
+                        sentencia.setString(4, ruc); //"'null'"
+                        sentencia.setString(5, nom);
+                        sentencia.setString(6, tel);
+                        sentencia.setString(7, correo);
+                        sentencia.setString(8,direccion);
+                        sentencia.setBoolean(9, vig);
+                        sentencia.executeUpdate(); 
+                        JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+                    }
+                }
             }
-            
-            if (codtipo==2){
-                
-            objConectar.conectar();
-            Connection con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?,?)");
-            sentencia.setInt(1,Integer.parseInt(cod));
-            sentencia.setInt(2,codtipo);
-            sentencia.setString(3, dni);
-            sentencia.setString(4, null); //"'null'"
-            sentencia.setString(5, nom);
-            sentencia.setString(6, tel);
-            sentencia.setString(7, correo);
-            sentencia.setString(8,direccion);
-            sentencia.setBoolean(9, vig);
-            sentencia.executeUpdate();  
-            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
-            
-            }
-            
-            if (codtipo==3){
-                
-            objConectar.conectar();
-            Connection con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?,?)");
-            sentencia.setInt(1,Integer.parseInt(cod));
-            sentencia.setInt(2,codtipo);
-            sentencia.setString(3, dni);
-            sentencia.setString(4, null); //"'null'"
-            sentencia.setString(5, nom);
-            sentencia.setString(6, tel);
-            sentencia.setString(7, correo);
-            sentencia.setString(8,direccion);
-            sentencia.setBoolean(9, vig);
-            sentencia.executeUpdate(); 
-            JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
-            
-            }
-            
         } catch (Exception e) {
             throw new Exception("Error al registrar Cliente");
         }finally{
             objConectar.desconectar();
-        } 
-        
+        }
     }
     
     
@@ -231,9 +219,9 @@ public class clsCliente {
     
     public void modificarCliente(String cod, String dni, String ruc, String nom, String tel, String correo, String direccion, Boolean vig, int codtipo) throws Exception {
         try {
+            objConectar.conectar();
+            con = objConectar.getConnection();
             if (codtipo==1){
-                objConectar.conectar();
-                Connection con = objConectar.getConnection();
                 CallableStatement sentencia = con.prepareCall("UPDATE cliente SET dni=?, ruc =?, nombres=?, telefono=?, correo=?, direccion=?, vigencia= ?, codtipo=? WHERE codcliente =?");
                 sentencia.setString(1, dni);
                 sentencia.setString(2, null); //"'null'"
@@ -247,42 +235,37 @@ public class clsCliente {
                 sentencia.executeUpdate(); 
                 JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
             
+            }else{
+                if (codtipo==2){
+                    CallableStatement sentencia = con.prepareCall("UPDATE cliente SET dni=?, ruc =?, nombres=?, telefono=?, correo=?, direccion=?, vigencia= ?, codtipo=? WHERE codcliente =?");
+                    sentencia.setString(1, null);//"'null'"
+                    sentencia.setString(2, ruc); 
+                    sentencia.setString(3, nom);
+                    sentencia.setString(4, tel);
+                    sentencia.setString(5, correo);
+                    sentencia.setString(6,direccion);
+                    sentencia.setBoolean(7, vig);
+                    sentencia.setInt(8, codtipo);
+                    sentencia.setInt(9,Integer.parseInt(cod));
+                    sentencia.executeUpdate(); 
+                    JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+                }else{
+                    if (codtipo==3){
+                        CallableStatement sentencia = con.prepareCall("UPDATE cliente SET dni=?, ruc =?, nombres=?, telefono=?, correo=?, direccion=?, vigencia= ?, codtipo=? WHERE codcliente =?");
+                        sentencia.setString(1, dni);
+                        sentencia.setString(2, ruc); 
+                        sentencia.setString(3, nom);
+                        sentencia.setString(4, tel);
+                        sentencia.setString(5, correo);
+                        sentencia.setString(6,direccion);
+                        sentencia.setBoolean(7, vig);
+                        sentencia.setInt(8, codtipo);
+                        sentencia.setInt(9,Integer.parseInt(cod));
+                        sentencia.executeUpdate(); 
+                        JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+                    }
+                }
             }
-            
-            if (codtipo==2){
-                objConectar.conectar();
-                Connection con = objConectar.getConnection();
-                CallableStatement sentencia = con.prepareCall("UPDATE cliente SET dni=?, ruc =?, nombres=?, telefono=?, correo=?, direccion=?, vigencia= ?, codtipo=? WHERE codcliente =?");
-                sentencia.setString(1, null);//"'null'"
-                sentencia.setString(2, ruc); 
-                sentencia.setString(3, nom);
-                sentencia.setString(4, tel);
-                sentencia.setString(5, correo);
-                sentencia.setString(6,direccion);
-                sentencia.setBoolean(7, vig);
-                sentencia.setInt(8, codtipo);
-                sentencia.setInt(9,Integer.parseInt(cod));
-                sentencia.executeUpdate(); 
-                JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
-            }
-            
-            if (codtipo==3){
-                objConectar.conectar();
-                Connection con = objConectar.getConnection();
-                CallableStatement sentencia = con.prepareCall("UPDATE cliente SET dni=?, ruc =?, nombres=?, telefono=?, correo=?, direccion=?, vigencia= ?, codtipo=? WHERE codcliente =?");
-                sentencia.setString(1, dni);
-                sentencia.setString(2, ruc); 
-                sentencia.setString(3, nom);
-                sentencia.setString(4, tel);
-                sentencia.setString(5, correo);
-                sentencia.setString(6,direccion);
-                sentencia.setBoolean(7, vig);
-                sentencia.setInt(8, codtipo);
-                sentencia.setInt(9,Integer.parseInt(cod));
-                sentencia.executeUpdate(); 
-                JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
-            }
-            
         } catch (Exception e) {
             throw new Exception("Error al registrar Cliente");
         }finally{
@@ -293,7 +276,7 @@ public class clsCliente {
     public void darDeBajaCliente(Integer cod) throws Exception {
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("UPDATE cliente SET vigencia = false WHERE codcliente=?");
             sentencia.setInt(1, cod);
             sentencia.executeUpdate();
@@ -307,7 +290,7 @@ public class clsCliente {
     public ResultSet buscarCliente(String doc) throws Exception{
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT c.*, t.nombre FROM (SELECT * FROM cliente WHERE dni = ? OR ruc = ?) c INNER JOIN TIPO_CLIENTE t ON c.codtipo = t.codtipo");
             sentencia.setString(1, doc);
             sentencia.setString(2, doc);
@@ -323,7 +306,7 @@ public class clsCliente {
     public ResultSet verificarDocumento(int cod) throws Exception{
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT dni, ruc FROM cliente WHERE codcliente = ?");
             sentencia.setInt(1, cod);
             ResultSet resultado=sentencia.executeQuery();
@@ -334,13 +317,12 @@ public class clsCliente {
             objConectar.desconectar();
         }        
     }
-
     
 ///No recuerso si iva así esta función :/    
     public boolean isAcreditable(String cod) throws Exception{
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT estadopago FROM venta WHERE codcliente =? and estadopago = false and tipopago = false");
             sentencia.setInt(1, Integer.parseInt(cod));
             ResultSet resultado=sentencia.executeQuery();
@@ -354,5 +336,4 @@ public class clsCliente {
         }
         return false;
     }
-    
 }

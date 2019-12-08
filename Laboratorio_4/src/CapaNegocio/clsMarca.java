@@ -61,7 +61,7 @@ public class clsMarca {
         //strSQL = "SELECT * FROM marca WHERE codMarca=" + cod + ";";
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT * FROM marca WHERE codMarca=?;");
             sentencia.setInt(1,cod);
             rs = sentencia.executeQuery();

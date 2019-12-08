@@ -61,7 +61,7 @@ public class clsCategoria {
     public ResultSet buscarCategoria(Integer cod) throws Exception{
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT * FROM categoria WHERE codcategoria=?");
             sentencia.setInt(1, cod);
             ResultSet resultado = sentencia.executeQuery();
@@ -133,7 +133,7 @@ public class clsCategoria {
     public ResultSet listarCategorias() throws Exception{
          try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT * FROM categoria;");
             ResultSet resultado = sentencia.executeQuery();
             return resultado;
@@ -203,7 +203,7 @@ public class clsCategoria {
     public int getCodigo(String nombre) throws Exception{
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT codcategoria FROM categoria WHERE nomcategoria=?");
             sentencia.setString(1, nombre);
             ResultSet resultado = sentencia.executeQuery();
@@ -221,7 +221,7 @@ public class clsCategoria {
     public String getNombre(int codigo) throws Exception{
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT nomcategoria FROM categoria WHERE codcategoria=?");
             sentencia.setInt(1, codigo);
             ResultSet resultado = sentencia.executeQuery();

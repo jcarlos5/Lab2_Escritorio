@@ -111,9 +111,14 @@ public class clsVenta {
     }
     //para listar las ventas pendientes de pago por cliente - JDPAGO
     public ResultSet listarVentaPagoPendiente(String codcliente) throws Exception{
-        strSQL = "SELECT * FROM venta WHERE estadopago=false and tipopago is null and codcliente="+codcliente+";";
+        //strSQL = "SELECT * FROM venta WHERE estadopago=false and tipopago is null and codcliente="+codcliente+";";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM venta WHERE estadopago=false and tipopago is null and codcliente= ?;");
+            sentencia.setInt(1, Integer.parseInt(codcliente));
+            rs = sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             return rs;
         } catch (Exception e) {
             throw new Exception("Error al buscar ventas");
@@ -151,9 +156,14 @@ public class clsVenta {
     }
     //para listar las ventas no pagadas del cliente
     public ResultSet listarVentaPorCliente(int codcliente) throws Exception{
-        strSQL = "SELECT * FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE codcliente = " + codcliente + " and estadopago = false;";
+        //strSQL = "SELECT * FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE codcliente = " + codcliente + " and estadopago = false;";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE codcliente = ? and estadopago = false;");
+            sentencia.setInt(1, codcliente);
+            rs=sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             return rs;
         } catch (Exception e) {
             throw new Exception("Error ");
@@ -162,7 +172,7 @@ public class clsVenta {
     
     //para listar los detalles por venta
     public ResultSet listarDetalleVenta(int venta) throws Exception{
-        strSQL = "";
+        //strSQL = "";
         try {
             objConectar.conectar();
             con = objConectar.getConnection();
@@ -176,9 +186,15 @@ public class clsVenta {
     }
     
     public ResultSet listarVentaCredito(String dniruc) throws Exception{
-        strSQL = "SELECT * FROM (SELECT * FROM venta WHERE tipopago=false) v INNER JOIN cliente c on v.codcliente=c.codcliente WHERE c.dni ='" + dniruc+"' or c.ruc='"+dniruc+"';";
+        //strSQL = "SELECT * FROM (SELECT * FROM venta WHERE tipopago=false) v INNER JOIN cliente c on v.codcliente=c.codcliente WHERE c.dni ='" + dniruc+"' or c.ruc='"+dniruc+"';";
         try {
-            rs=objConectar.consultarBD(strSQL);
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM (SELECT * FROM venta WHERE tipopago=false) v INNER JOIN cliente c on v.codcliente=c.codcliente WHERE c.dni =? or c.ruc=?;");
+            sentencia.setString(1, dniruc);
+            sentencia.setString(2, dniruc);
+            rs=sentencia.executeQuery();
+            //rs=objConectar.consultarBD(strSQL);
             return rs;
         } catch (Exception e) {
             throw new Exception("Error ");
@@ -248,7 +264,7 @@ public class clsVenta {
     public ResultSet estadisticas() throws Exception{
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("select * from fn_estadisticas_venta()");
             ResultSet resultado = sentencia.executeQuery();
             return resultado;
@@ -277,7 +293,7 @@ public class clsVenta {
     public ResultSet getVentasFechas(Date f1, Date f2) throws Exception{
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT * FROM fn_filtrar_ventas(?,?)");
             sentencia.setDate(1, f1);
             sentencia.setDate(2, f2);

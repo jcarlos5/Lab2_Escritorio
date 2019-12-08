@@ -33,23 +33,22 @@ public class clsCuota {
             objConectar.conectar();
             con = objConectar.getConnection();
             if (fpago.equalsIgnoreCase("null")){//No le veo sentido al if :/
-                CallableStatement sentencia = con.prepareCall("INSERT INTO cuota VALUES(?,?,?,?,?,?,?,?)");
+                CallableStatement sentencia = con.prepareCall("INSERT INTO cuota VALUES(?,?,?,null,?,?,?,?)");
                 sentencia.setInt(1,Integer.parseInt(numVenta));
                 sentencia.setInt(2,Integer.parseInt(numCuota));
-                sentencia.setString(3, fecha);
-                sentencia.setString(4, null);
-                sentencia.setBoolean(5, Boolean.parseBoolean(estado));
-                sentencia.setFloat(6, Float.parseFloat(montoIngresado));
-                sentencia.setFloat(7, Float.parseFloat(vuelto));
-                sentencia.setFloat(8, Float.parseFloat(monto));
+                sentencia.setDate(3, Date.valueOf(fecha));
+                sentencia.setBoolean(4, Boolean.parseBoolean(estado));
+                sentencia.setFloat(5, Float.parseFloat(montoIngresado));
+                sentencia.setFloat(6, Float.parseFloat(vuelto));
+                sentencia.setFloat(7, Float.parseFloat(monto));
                 sentencia.executeUpdate(); 
                 JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
             }else {
                 CallableStatement sentencia = con.prepareCall("INSERT INTO cuota VALUES(?,?,?,?,?,?,?,?)");
                 sentencia.setInt(1,Integer.parseInt(numVenta));
                 sentencia.setInt(2,Integer.parseInt(numCuota));
-                sentencia.setString(3, fecha);
-                sentencia.setString(4, fpago);
+                sentencia.setDate(3, Date.valueOf(fecha));
+                sentencia.setDate(4, Date.valueOf(fpago));
                 sentencia.setBoolean(5, Boolean.parseBoolean(estado));
                 sentencia.setFloat(6, Float.parseFloat(montoIngresado));
                 sentencia.setFloat(7, Float.parseFloat(vuelto));
