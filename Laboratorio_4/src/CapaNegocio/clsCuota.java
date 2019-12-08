@@ -161,6 +161,7 @@ public class clsCuota {
             }
             
             con.commit();
+            JOptionPane.showMessageDialog(null, "Todo Okay");
             return fin;
         } catch (Exception e) {
             con.rollback();
