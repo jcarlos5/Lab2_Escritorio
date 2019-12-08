@@ -47,7 +47,8 @@ public class clsAlmacen {
             objConectar.conectar();
             con=objConectar.getConnection();
             con.setAutoCommit(false);
-            CallableStatement sentencia = con.prepareCall("INSERT INTO almacen VALUES (?, ?, current_date, ?, ?, ?, ?, ?);;");
+            CallableStatement sentencia;
+            sentencia= con.prepareCall("INSERT INTO almacen VALUES (?, ?, current_date, ?, ?, ?, ?, ?);;");
             int ctd = tblProductos.getRowCount();
             for (int i=0; i<ctd; i++){
                 sentencia.setInt(1, numIven);
@@ -58,7 +59,21 @@ public class clsAlmacen {
                 sentencia.setFloat(6, Float.parseFloat(tblProductos.getValueAt(i, 2).toString()));
                 sentencia.setFloat(7,total);
                 sentencia.executeUpdate();
-            }            
+                
+                sentencia = con.prepareCall("UPDATE producto SET stock = stock+? WHERE codproducto=?");
+                sentencia.setInt(1, Integer.parseInt(tblProductos.getValueAt(i,3 ).toString()));
+                sentencia.setInt(2, Integer.parseInt(tblProductos.getValueAt(i, 0).toString()));
+                sentencia.executeUpdate();
+                
+                float precioCom = Float.parseFloat(tblProductos.getValueAt(i, 2).toString());
+                float ganancia = (precioCom * 20)/100 ;
+                float nuevoPrecio = precioCom + ganancia;
+                sentencia = con.prepareCall("UPDATE producto SET precio = ? WHERE codproducto=?");
+                sentencia.setFloat(1, nuevoPrecio);
+                sentencia.setInt(2, Integer.parseInt(tblProductos.getValueAt(i, 0).toString()));
+                sentencia.executeUpdate();
+            }                        
+            
             con.commit();           
         } catch (Exception e) {
             con.rollback();
@@ -81,37 +96,5 @@ public class clsAlmacen {
         }
     }
        
-    public void ActualizarStock(Integer codP, Integer codprov,Integer cantidad ,Float precio) throws Exception{
-       try {
-            objConectar.conectar();
-            con=objConectar.getConnection();
-            con.setAutoCommit(false);
-            //sent = con.createStatement();
-            //strSQL = "INSERT INTO almacen VALUES(SELECT COALESCE(max(codalmacen),0)+1 FROM codalmacen,"+codprov+","+codP+",CURRENT_DATE,"+precio+");";
-            //sent.executeUpdate(strSQL);
-            CallableStatement sentencia = con.prepareCall("INSERT INTO almacen VALUES(SELECT COALESCE(max(codalmacen),0)+1 FROM codalmacen, ?, ?,CURRENT_DATE, ?);");
-            sentencia.setInt(1, codprov);
-            sentencia.setInt(2, codP);
-            sentencia.setFloat(3, precio);
-            sentencia.executeUpdate();
-
-            //strSQL = "UPDATE producto set precio="+precio+"+"+precio+"*"+porcentaje_ganacia+" ,stock=stock+"+cantidad+" WHERE codProducto="+codP+";";
-            //sent.executeUpdate(strSQL);
-            sentencia = con.prepareCall("UPDATE producto set precio= ?,stock=stock+? WHERE codProducto= ?;");
-            sentencia.setFloat(1, (precio+(precio*porcentaje_ganacia)));
-            sentencia.setInt(2, cantidad);
-            sentencia.setInt(3, codP);
-            sentencia.executeUpdate();
-            
-            con.commit();
-            
-            JOptionPane.showMessageDialog(null, "Actualizado Correctamente"); 
-        } catch (Exception e) {
-            con.rollback();
-            throw new Exception("Error al Actualizar Stock");
-        }finally{
-            objConectar.desconectar();
-        } 
-        
-    }
+    
 }
