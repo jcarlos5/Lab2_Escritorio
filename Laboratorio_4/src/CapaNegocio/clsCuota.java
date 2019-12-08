@@ -138,7 +138,7 @@ public class clsCuota {
             sentencia.setFloat(1,montoIngresado);
             sentencia.setFloat(2,vuelto);
             sentencia.setInt(3,codcuota);
-            sentencia.setInt(3,codventa);
+            sentencia.setInt(4,codventa);
             sentencia.executeUpdate();
             //strSQL = "UPDATE cuota SET cancelada=TRUE, fechapago=CURRENT_DATE,ingreso="+montoIngresado+",vuelto="+vuelto+" WHERE numcuota="+codcuota+" AND codventa="+codventa+";";
             //sent.executeUpdate(strSQL);
