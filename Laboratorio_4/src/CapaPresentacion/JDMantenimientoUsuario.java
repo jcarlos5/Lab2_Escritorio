@@ -28,6 +28,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
     clsUsuario objUsuario = new clsUsuario();
     boolean modoPerfil = false;
     String user = "";
+    boolean modificando=false;
     
     /**
      * Creates new form JDRegistrarMarca
@@ -199,9 +200,17 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
             }
         });
 
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
         txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCodigoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyReleased(evt);
             }
         });
 
@@ -403,13 +412,21 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                         chkVigencia.setSelected(rsUsuario.getBoolean("estado"));
                         rsUsuario.close();
                         habilitarEd();
+                        btnNuevo.setText("NUEVO");
+                        if(txtUsuario.getText().equals(user)){
+                            btnPregunta.setEnabled(true);
+                        }else{
+                            btnPregunta.setEnabled(false);
+                        }
+                        modificando = true;
                 }else{
-                    JOptionPane.showMessageDialog(this,"Código de Categoria no existe!");
+                    JOptionPane.showMessageDialog(this,"Código de usuario no existe!");
                     limpiarControles();
                 }
             }   
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            txtCodigo.setText("");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -448,13 +465,12 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         txtCodigo.setText(String.valueOf(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 0)));
         btnBuscarActionPerformed(null);
         btnNuevo.setText("NUEVO");
-        if(txtUsuario.getText().equals("admin")){
+        if(txtUsuario.getText().equals(user)){
             btnPregunta.setEnabled(true);
-            user = "admin";
         }else{
             btnPregunta.setEnabled(false);
-            user = "";
         }
+        modificando = true;
     }//GEN-LAST:event_tblUsuariosMouseClicked
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -474,9 +490,6 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            btnBuscarActionPerformed(null);
-        }
     }//GEN-LAST:event_txtCodigoKeyPressed
 
     private void btnContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContraseñaActionPerformed
@@ -517,10 +530,23 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
     private void btnPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreguntaActionPerformed
         // TODO add your handling code here:
         JDCambiarPreguntaSecreta objCambiarPregunta = new JDCambiarPreguntaSecreta((Frame) SwingUtilities.getWindowAncestor(this), true);
-        objCambiarPregunta.setUser(txtUsuario.getText());
+        objCambiarPregunta.setUser(txtCodigo.getText());
         objCambiarPregunta.setLocationRelativeTo(this);
         objCambiarPregunta.setVisible(true);
     }//GEN-LAST:event_btnPreguntaActionPerformed
+
+    private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
+        // TODO add your handling code here:
+        if(modificando){
+            limpiarControles();
+            modificando = false;
+        }
+    }//GEN-LAST:event_txtCodigoKeyReleased
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+        btnBuscarActionPerformed(null);
+    }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void limpiarControles(){
         txtCodigo.setText("");
@@ -564,6 +590,10 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         btnEliminar.setEnabled(true);
         btnDardeBaja.setEnabled(true);
         btnContraseña.setEnabled(true);
+    }
+    
+    public void setUser(String usu){
+        user = usu;
     }
     
     public void modoPerfil(String usuario){

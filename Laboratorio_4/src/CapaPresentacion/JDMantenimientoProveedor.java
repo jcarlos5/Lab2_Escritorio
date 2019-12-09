@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class JDMantenimientoProveedor extends javax.swing.JDialog {
     clsProveedor objProveedor = new clsProveedor();
-    
+    boolean modificando = false;
     /**
      * Creates new form JDRegistrarMarca
      */
@@ -170,6 +170,17 @@ public class JDMantenimientoProveedor extends javax.swing.JDialog {
             }
         });
 
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyPressed(evt);
+            }
+        });
+
         jLabel5.setText("RUC:");
 
         jLabel7.setText("Nombres:");
@@ -310,6 +321,7 @@ public class JDMantenimientoProveedor extends javax.swing.JDialog {
                 }
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -340,11 +352,13 @@ public class JDMantenimientoProveedor extends javax.swing.JDialog {
             }else{
                 rsProveedor= objProveedor.buscarProveedor(Integer.parseInt(txtCodigo.getText()));
                 if (rsProveedor.next()){
+                    btnNuevo.setText("NUEVO");
                     txtNombre.setText(rsProveedor.getString("nombre"));
                     txtRuc.setText(rsProveedor.getString("ruc"));
                     txtDireccion.setText(rsProveedor.getString("direccion"));
                     chkVigencia.setSelected(rsProveedor.getBoolean("vigencia"));
                     rsProveedor.close();
+                    modificando = true;
                 }else{
                     JOptionPane.showMessageDialog(this,"Código del Proveedor no existe!");
                     limpiarControles();
@@ -382,6 +396,7 @@ public class JDMantenimientoProveedor extends javax.swing.JDialog {
 
     private void tblProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedorMouseClicked
         // TODO add your handling code here:
+        btnNuevo.setText("NUEVO");
         txtCodigo.setText(String.valueOf(tblProveedor.getValueAt(tblProveedor.getSelectedRow(), 0)));
         btnBuscarActionPerformed(null);
     }//GEN-LAST:event_tblProveedorMouseClicked
@@ -389,12 +404,26 @@ public class JDMantenimientoProveedor extends javax.swing.JDialog {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         limpiarControles();
+        btnNuevo.setText("");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+        btnBuscarActionPerformed(null);
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
+        // TODO add your handling code here:
+        if(modificando){
+            limpiarControles();
+            modificando = false;
+        }
+    }//GEN-LAST:event_txtCodigoKeyPressed
 
     private void limpiarControles(){
         txtCodigo.setText("");

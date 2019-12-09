@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class JDMantenimientoCliente extends javax.swing.JDialog {
     clsCliente objCliente = new clsCliente();
+    boolean modificando = false;
     
     /**
      * Creates new form JDRegistrarMarca
@@ -174,6 +175,20 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
+            }
+        });
+
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyReleased(evt);
             }
         });
 
@@ -346,6 +361,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
                 }
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -386,6 +402,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
             }else{
                 rsCliente= objCliente.buscarCliente(Integer.parseInt( txtCodigo.getText()));
                 if (rsCliente.next()){
+                        btnNuevo.setText("NUEVO");
                         txtNombre.setText(rsCliente.getString("nombres"));
                         int codtipo = rsCliente.getInt("codtipo");
                         cboTipo.setSelectedIndex(codtipo-1);
@@ -406,6 +423,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
                         txtTelefono.setText(rsCliente.getString("telefono"));
                         chkVigencia.setSelected(rsCliente.getBoolean("vigencia"));
                         rsCliente.close();
+                        modificando = true;
                 }else{
                     JOptionPane.showMessageDialog(this,"Código de Cliente no existe!");
                     limpiarControles();
@@ -443,6 +461,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
 
     private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
         // TODO add your handling code here:
+        btnNuevo.setText("NUEVO");
         txtCodigo.setText(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0)));
         btnBuscarActionPerformed(null);
     }//GEN-LAST:event_tblClientesMouseClicked
@@ -450,6 +469,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         limpiarControles();
+        btnNuevo.setText("NUEVO");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -474,6 +494,24 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
                 break;
         }
     }//GEN-LAST:event_cboTipoActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+        btnBuscarActionPerformed(null);
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoKeyPressed
+
+    private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
+        // TODO add your handling code here:
+        if(modificando){
+            limpiarControles();
+            modificando = false;
+            btnNuevo.setText("NUEVO");
+        }
+    }//GEN-LAST:event_txtCodigoKeyReleased
 
     private void limpiarControles(){
         txtCodigo.setText("");

@@ -27,7 +27,7 @@ CREATE DATABASE 'BDProgramacion'
 
 CREATE TABLE USUARIO(
 codUsuario int not null primary key,
-nomUsuario varchar(20) not null,
+nomUsuario varchar(20) not null unique,
 clave varchar(20) not null,
 nombreCompleto varchar(80) not null,
 cargo varchar(30) null,

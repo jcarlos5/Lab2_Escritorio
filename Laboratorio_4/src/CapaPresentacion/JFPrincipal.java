@@ -24,6 +24,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     String nomUsuario;
     clsUsuario objUsuario = new clsUsuario();
     boolean sesion = false;
+    String cargo;
     
     public JFPrincipal() {
         initComponents();
@@ -663,7 +664,8 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private void jmiUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiUsuarioActionPerformed
         // TODO add your handling code here:
         JDMantenimientoUsuario objMantUsuario = new JDMantenimientoUsuario(this, true);
-        if (!user.equals("admin")){
+        objMantUsuario.setUser(user);
+        if (!cargo.equalsIgnoreCase("Gerente General")){
             objMantUsuario.modoPerfil(user);
             //objMantUsuario.setSize(objMantUsuario.getWidth(), objMantUsuario.getSizePerfil());
         }
@@ -874,7 +876,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
             sesion = objLogin.getValue();
             String datosSesion = objLogin.getDatosSesion();
             lblDatosSesion.setText(datosSesion);
-            String cargo = objUsuario.privilegios(user);                        
+            cargo = objUsuario.privilegios(user);                        
             
             if(sesion){
                 lblUsuario.setText(nomUsuario);

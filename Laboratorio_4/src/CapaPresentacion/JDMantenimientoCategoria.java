@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class JDMantenimientoCategoria extends javax.swing.JDialog {
 
     clsCategoria objCategoria = new clsCategoria();
+    boolean modificando = false;
     /**
      * Creates new form JDRegistrarMarca
      */
@@ -338,11 +339,13 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
             }else{
                 rsCategoria = objCategoria.buscarCategoria(Integer.parseInt( txtCodigo.getText()));
                 if (rsCategoria.next()){
+                        btnNuevo.setText("NUEVO");
                         txtNombre.setText(rsCategoria.getString("nomcategoria"));
                         txtDescripcion.setText(rsCategoria.getString("descripcion"));
                         chkVigencia.setSelected(rsCategoria.getBoolean("vigencia"));
                         rsCategoria.close();
                         habilitarEd();
+                        modificando = true;
                 }else{
                     JOptionPane.showMessageDialog(this,"Código de Categoria no existe!");
                     limpiarControles();
@@ -378,6 +381,7 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
 
     private void tblCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCategoriasMouseClicked
         // TODO add your handling code here:
+        btnNuevo.setText("NUEVO");
         txtCodigo.setText(String.valueOf(tblCategorias.getValueAt(tblCategorias.getSelectedRow(), 0)));
         btnBuscarActionPerformed(null);
     }//GEN-LAST:event_tblCategoriasMouseClicked
@@ -399,6 +403,10 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
         // TODO add your handling code here:
+        if(modificando){
+            limpiarControles();
+            modificando = false;
+        }
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             btnBuscarActionPerformed(null);
         }

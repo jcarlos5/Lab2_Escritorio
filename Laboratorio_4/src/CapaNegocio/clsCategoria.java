@@ -226,7 +226,7 @@ public class clsCategoria {
             sentencia.setInt(1, codigo);
             ResultSet resultado = sentencia.executeQuery();
             while(resultado.next()){
-                return resultado.getString("codcategoria");
+                return resultado.getString("nomcategoria");
             }
         } catch (Exception e) {
             throw new Exception("Error ");

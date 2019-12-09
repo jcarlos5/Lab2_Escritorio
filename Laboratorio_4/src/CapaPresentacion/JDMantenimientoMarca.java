@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class JDMantenimientoMarca extends javax.swing.JDialog {
 
     clsMarca objMarca = new clsMarca();
+    boolean modificando = false;
     /**
      * Creates new form JDRegistrarMarca
      */
@@ -84,9 +85,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tblMarcas);
 
+        btnNuevo.setBackground(new java.awt.Color(153, 153, 255));
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/mas.png"))); // NOI18N
         btnNuevo.setText("NUEVO");
-        btnNuevo.setBackground(new java.awt.Color(153, 153, 255));
         btnNuevo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnNuevo.setPreferredSize(new java.awt.Dimension(120, 25));
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -95,9 +96,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(255, 204, 0));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/modificar.png"))); // NOI18N
         jButton2.setText("MODIFICAR");
-        jButton2.setBackground(new java.awt.Color(255, 204, 0));
         jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton2.setPreferredSize(new java.awt.Dimension(120, 25));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -106,9 +107,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(255, 51, 51));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/eliminar.png"))); // NOI18N
         jButton3.setText("ELIMINAR");
-        jButton3.setBackground(new java.awt.Color(255, 51, 51));
         jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton3.setPreferredSize(new java.awt.Dimension(120, 25));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -119,9 +120,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
 
         jLabel1.setText("Código:");
 
+        jButton4.setBackground(new java.awt.Color(204, 102, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/baja.png"))); // NOI18N
         jButton4.setText("DAR DE BAJA");
-        jButton4.setBackground(new java.awt.Color(204, 102, 255));
         jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton4.setPreferredSize(new java.awt.Dimension(120, 25));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -132,9 +133,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
 
         jLabel2.setText("Nombre:");
 
+        jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/limpiar.png"))); // NOI18N
         jButton5.setText("LIMPIAR");
-        jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton5.setPreferredSize(new java.awt.Dimension(120, 25));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -145,9 +146,9 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
 
         jLabel3.setText("Vigencia:");
 
+        jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/salir.png"))); // NOI18N
         jButton6.setText("SALIR");
-        jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton6.setPreferredSize(new java.awt.Dimension(120, 25));
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -162,6 +163,17 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
+            }
+        });
+
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyPressed(evt);
             }
         });
 
@@ -275,6 +287,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
                 }
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -291,9 +304,10 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
             }else{
                 objMarca.eliminarMarca(Integer.parseInt(txtCodigo.getText()));
                 limpiarControles();
-                 listarMarcas();
+                listarMarcas();
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -309,6 +323,8 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
                         txtNombre.setText(rsMarca.getString("nomMarca"));
                         chkVigencia.setSelected(rsMarca.getBoolean("vigencia"));
                         rsMarca.close();
+                        btnNuevo.setText("NUEVO");
+                        modificando = true;
                 }else{
                     JOptionPane.showMessageDialog(this,"Código de Marca no existe!");
                     limpiarControles();
@@ -344,6 +360,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
 
     private void tblMarcasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMarcasMouseClicked
         // TODO add your handling code here:
+        btnNuevo.setText("NUEVO");
         txtCodigo.setText(String.valueOf(tblMarcas.getValueAt(tblMarcas.getSelectedRow(), 0)));
         btnBuscarActionPerformed(null);
     }//GEN-LAST:event_tblMarcasMouseClicked
@@ -351,12 +368,26 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         limpiarControles();
+        btnNuevo.setText("NUEVO");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+        btnBuscarActionPerformed(null);
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
+        // TODO add your handling code here:
+        if(modificando){
+            limpiarControles();
+            modificando = false;
+        }
+    }//GEN-LAST:event_txtCodigoKeyPressed
 
     private void limpiarControles(){
         txtCodigo.setText("");
