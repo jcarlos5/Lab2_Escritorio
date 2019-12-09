@@ -194,7 +194,7 @@ public class clsProducto {
         try {
             objConectar.conectar();
             con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("UPDATE producto SET nomproducto = ?, descripcion = ?, precio=?, stock=?, vigencia = ?, codmarca = ?, codcategoria = ? WHERE codProducto =?");
+            CallableStatement sentencia = con.prepareCall("UPDATE producto SET nomproducto = ?, descripcion = ?, precioventa=?, stock=?, vigencia = ?, codmarca = ?, codcategoria = ? WHERE codProducto =?");
             sentencia.setString(1, nombre);
             sentencia.setString(2, descrip);
             sentencia.setDouble(3, precio);
@@ -226,7 +226,7 @@ public class clsProducto {
         try {
             objConectar.conectar();
             con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE codmarca =? AND UPPER(nomproducto) LIKE UPPER(?) AND precio BETWEEN ? AND ?) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria");
+            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE codmarca =? AND UPPER(nomproducto) LIKE UPPER(?) AND precioventa BETWEEN ? AND ?) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria");
             sentencia.setInt(1, marca);
             sentencia.setString(2, '%'+nom+'%');
             sentencia.setInt(3, min);
@@ -242,7 +242,7 @@ public class clsProducto {
         try {
             objConectar.conectar();
             con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE codcategoria = ? AND UPPER(nomproducto) LIKE UPPER(?) AND precio BETWEEN ? AND ?) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria");
+            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE codcategoria = ? AND UPPER(nomproducto) LIKE UPPER(?) AND precioventa BETWEEN ? AND ?) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria");
             sentencia.setInt(1, categoria);
             sentencia.setString(2, '%'+nom+'%');
             sentencia.setInt(3, min);
@@ -258,7 +258,7 @@ public class clsProducto {
         try {
             objConectar.conectar();
             con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE codmarca = ? AND codcategoria = ? AND UPPER(nomproducto) LIKE UPPER(?) AND precio BETWEEN ? AND ?) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;" );
+            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE codmarca = ? AND codcategoria = ? AND UPPER(nomproducto) LIKE UPPER(?) AND precioventa BETWEEN ? AND ?) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;" );
             sentencia.setInt(1, marca);
             sentencia.setInt(2, categoria);
             sentencia.setString(3, '%'+nom+'%');
@@ -275,7 +275,7 @@ public class clsProducto {
         try {
             objConectar.conectar();
             con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE UPPER(nomproducto) LIKE UPPER(?) AND precio BETWEEN ? AND ? ) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;");
+            CallableStatement sentencia = con.prepareCall("SELECT p.*, m.nommarca, c.nomcategoria FROM (SELECT * FROM producto WHERE UPPER(nomproducto) LIKE UPPER(?) AND precioventa BETWEEN ? AND ? ) p INNER JOIN marca m ON p.codmarca = m.codmarca INNER JOIN categoria c ON p.codcategoria = c.codcategoria;");
             sentencia.setString(1, '%'+nom+'%');
             sentencia.setInt(2, min);
             sentencia.setInt(3, max);
@@ -304,7 +304,7 @@ public class clsProducto {
         try {
             objConectar.conectar();
             con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("SELECT MAX(precio) FROM producto;");
+            CallableStatement sentencia = con.prepareCall("SELECT MAX(precioventa) FROM producto;");
             rs=sentencia.executeQuery();
             if(rs.next()){
                 return rs.getInt(1);

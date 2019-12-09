@@ -68,7 +68,7 @@ public class clsAlmacen {
                 float precioCom = Float.parseFloat(tblProductos.getValueAt(i, 2).toString());
                 float ganancia = (precioCom * 20)/100 ;
                 float nuevoPrecio = precioCom + ganancia;
-                sentencia = con.prepareCall("UPDATE producto SET precio = ? WHERE codproducto=?");
+                sentencia = con.prepareCall("UPDATE producto SET precioventa = ? WHERE codproducto=?");
                 sentencia.setFloat(1, nuevoPrecio);
                 sentencia.setInt(2, Integer.parseInt(tblProductos.getValueAt(i, 0).toString()));
                 sentencia.executeUpdate();

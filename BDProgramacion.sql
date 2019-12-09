@@ -358,7 +358,7 @@ BEGIN
 	DELETE FROM detalle WHERE numventa = numven and codproducto = prod_old;
 
 	--BUSCAR DATOS DEL NUEVO PRODUCTO
-	SELECT precio INTO prec_new FROM producto WHERE codproducto = prod_new;
+	SELECT precioventa INTO prec_new FROM producto WHERE codproducto = prod_new;
 	subt_new = cant_new*(prec_new - ((prec_new*desc_new)/100));
 
 	--AGREGAR EL NUEVO PRODUCTO
@@ -468,7 +468,7 @@ Create or replace function fn_actualizar_precios() returns trigger as
 $$
 Declare
 Begin
-	update producto set precio = precio - precio*(old.valor/100) + precio*(new.valor/100);
+	update producto set precioventa = precioventa - precioventa*(old.valor/100) + precioventa*(new.valor/100);
 	return new;
 end;
 $$ language 'plpgsql';
