@@ -33,7 +33,7 @@ public class clsAlmacen {
         strSQL = "SELECT COALESCE(max(codInven),0)+1 AS codigo FROM almacen;" ;
         try {
             rs=objConectar.consultarBD(strSQL);
-            while(rs.next()){
+            if(rs.next()){
                 return rs.getInt("codigo");
             }
         } catch (Exception e) {
@@ -86,7 +86,7 @@ public class clsAlmacen {
     public clsAlmacen() {
         try {
             objConectar.conectar();
-            strSQL = "SELECT valor FROM parametro WHERE nombre = Ganancia;";
+            strSQL = "SELECT valor FROM parametro WHERE nombre='Ganacia';";
             rs = objConectar.consultarBD(strSQL);
             while(rs.next()){
                 this.porcentaje_ganacia = rs.getFloat("valor");
