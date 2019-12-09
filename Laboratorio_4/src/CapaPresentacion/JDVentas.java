@@ -799,7 +799,7 @@ public class JDVentas extends javax.swing.JDialog {
                 rs = objProducto.buscarProducto(producto);
                 
                 while(rs.next()){
-                    modelo.addRow(new Object[]{rs.getString("codproducto"), rs.getString("nomproducto"), rs.getString("precio"), descuento+"%", rs.getFloat("precio")-descuento*rs.getFloat("precio")/100,cantidad, (cantidad * (rs.getFloat("precio")-descuento*rs.getFloat("precio")/100))});
+                    modelo.addRow(new Object[]{rs.getString("codproducto"), rs.getString("nomproducto"), rs.getString("precioventa"), descuento+"%", rs.getFloat("precioventa")-descuento*rs.getFloat("precioventa")/100,cantidad, (cantidad * (rs.getFloat("precioventa")-descuento*rs.getFloat("precioventa")/100))});
                 }
                 btnQuitar.setEnabled(true);
                 btnModificar.setEnabled(true);

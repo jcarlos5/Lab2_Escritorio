@@ -413,7 +413,7 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
                         btnNuevo.setText("NUEVO");
                         txtNombre.setText(rsProducto.getString("nomProducto"));
                         txtDescripcion.setText(rsProducto.getString("descripcion"));
-                        txtPrecio.setText(rsProducto.getString("precio"));
+                        txtPrecio.setText(rsProducto.getString("precioventa"));
                         spnStock.setValue(rsProducto.getInt("stock"));
                         chkVigencia.setSelected(rsProducto.getBoolean("vigencia"));
                         cboMarca.setSelectedItem(objMarca.getNombre(rsProducto.getInt("codmarca")));
@@ -539,7 +539,7 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
         try {
             rsProductos=objProducto.listarProductos();
             while(rsProductos.next()){
-                modelo.addRow(new Object[]{rsProductos.getInt("codProducto"),rsProductos.getString("nomProducto"), rsProductos.getString("descripcion"), rsProductos.getString("precio"), rsProductos.getString("stock"), rsProductos.getBoolean("vigencia")?"SÍ":"NO", rsProductos.getString("nommarca"), rsProductos.getString("nomcategoria")});
+                modelo.addRow(new Object[]{rsProductos.getInt("codProducto"),rsProductos.getString("nomProducto"), rsProductos.getString("descripcion"), rsProductos.getString("precioventa"), rsProductos.getString("stock"), rsProductos.getBoolean("vigencia")?"SÍ":"NO", rsProductos.getString("nommarca"), rsProductos.getString("nomcategoria")});
            }
         } catch (Exception e) {
            JOptionPane.showMessageDialog(rootPane, e.getMessage());

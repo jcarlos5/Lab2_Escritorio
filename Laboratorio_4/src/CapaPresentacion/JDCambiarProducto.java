@@ -352,7 +352,7 @@ public class JDCambiarProducto extends javax.swing.JDialog {
                 rs = objProducto.buscarProducto(producto);
                 
                 while(rs.next()){
-                    modelo.addRow(new Object[]{rs.getString("codproducto"), rs.getString("nomproducto"), cantidad, rs.getFloat("precio"), descuento, (cantidad * (rs.getFloat("precio")-descuento*rs.getFloat("precio")/100))});
+                    modelo.addRow(new Object[]{rs.getString("codproducto"), rs.getString("nomproducto"), cantidad, rs.getFloat("precioventa"), descuento, (cantidad * (rs.getFloat("precioventa")-descuento*rs.getFloat("precioventa")/100))});
                 }
                 
                 try{
