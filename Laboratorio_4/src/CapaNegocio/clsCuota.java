@@ -68,7 +68,7 @@ public class clsCuota {
             objConectar.conectar();
             con = objConectar.getConnection();
             con.setAutoCommit(false);
-            CallableStatement sentencia = con.prepareCall("UPDATE venta SET estadopago = ?, tipopago = ? WHERE numventa= ?;");
+            CallableStatement sentencia = con.prepareCall("UPDATE venta SET estadopago = ?  , tipopago = ? WHERE numventa= ?;");
             sentencia.setBoolean(1,tipo);
             sentencia.setBoolean(2,tipo);
             sentencia.setInt(3, Integer.parseInt(datos[0][0]));
@@ -78,7 +78,7 @@ public class clsCuota {
             //sent.executeUpdate(strSQL);
             
             for (String[] dato : datos) {
-                sentencia = con.prepareCall("INSERT INTO cuota VALUES (?, ?, ?, ?, ?, , ?, ?);");
+                sentencia = con.prepareCall("INSERT INTO cuota VALUES (?, ?, ?, ?, ?,?, ?, ?);");
                 sentencia.setInt(1, Integer.parseInt(dato[0]));
                 sentencia.setInt(2, Integer.parseInt(dato[1]));
                 sentencia.setDate(3, Date.valueOf(dato[2]));

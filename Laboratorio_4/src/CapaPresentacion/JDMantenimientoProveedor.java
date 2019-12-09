@@ -389,6 +389,7 @@ public class JDMantenimientoProveedor extends javax.swing.JDialog {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         limpiarControles();
+        btnNuevo.setText("NUEVO");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -418,7 +419,7 @@ public class JDMantenimientoProveedor extends javax.swing.JDialog {
             modelo.addColumn("VIGENCIA");
             
             while(rsProveedors.next()){
-                modelo.addRow(new Object[]{rsProveedors.getString("codProveedor"), rsProveedors.getString("nombre"), rsProveedors.getString("ruc"), rsProveedors.getBoolean("vigencia")?"SÍ":"NO"});
+                modelo.addRow(new Object[]{rsProveedors.getString("codProveedor"), rsProveedors.getString("nombre"), rsProveedors.getString("ruc"),rsProveedors.getString("direccion"), rsProveedors.getBoolean("estado")?"SÍ":"NO"});
             }
             tblProveedor.setModel(modelo);
         } catch (Exception e) {
