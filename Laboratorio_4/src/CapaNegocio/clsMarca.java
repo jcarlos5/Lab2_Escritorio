@@ -111,8 +111,6 @@ public class clsMarca {
                 sentencia3.executeUpdate();
                 //strSQL="UPDATE marca SET vigencia = false WHERE codMarca=" + cod + ";";
                 //sent.executeUpdate(strSQL);
-                
-                con.commit();
             }else{
                 CallableStatement sentencia2 = con.prepareCall("DELETE FROM marca WHERE codMarca=?;");
                 sentencia2.setInt(1,cod);
@@ -120,6 +118,7 @@ public class clsMarca {
                 //strSQL="DELETE FROM marca WHERE codMarca=" + cod + ";";
                 //objConectar.ejecutarBD(strSQL);
             }
+            con.commit();
         } catch (Exception e) {
             con.rollback();
             throw new Exception(e.getMessage());

@@ -55,6 +55,8 @@ public class JDBoleta extends javax.swing.JDialog {
         lblsubtotal = new javax.swing.JLabel();
         IGV = new javax.swing.JLabel();
         lblIgv = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblTipoPago = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(".:BOLETA DE VENTA:.");
@@ -119,6 +121,10 @@ public class JDBoleta extends javax.swing.JDialog {
         lblIgv.setText("???");
         lblIgv.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabel3.setText("TIPO DE PAGO:");
+
+        lblTipoPago.setText("????");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -159,17 +165,21 @@ public class JDBoleta extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblsubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(IGV)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblIgv, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(lblIgv, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTipoPago)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -213,7 +223,9 @@ public class JDBoleta extends javax.swing.JDialog {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblMonto)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel3)
+                    .addComponent(lblTipoPago))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -304,7 +316,8 @@ public class JDBoleta extends javax.swing.JDialog {
                 lblsubtotal.setText(rs.getString(7));
                 lblIgv.setText(rs.getString(8));
                 lblMonto.setText(rs.getString(6));
-                modelo.addRow(new Object[]{rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14)});
+                lblTipoPago.setText(rs.getBoolean(15)?"CONTADO":"CRÉDITO");
+                modelo.addRow(new Object[]{rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(14), rs.getString(13)});
             }
             tblDetalle.setModel(modelo);
         } catch (Exception e) {
@@ -321,6 +334,7 @@ public class JDBoleta extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
@@ -331,6 +345,7 @@ public class JDBoleta extends javax.swing.JDialog {
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblIgv;
     private javax.swing.JLabel lblMonto;
+    private javax.swing.JLabel lblTipoPago;
     private javax.swing.JLabel lblnumBoleta;
     private javax.swing.JLabel lblsubtotal;
     private javax.swing.JTable tblDetalle;

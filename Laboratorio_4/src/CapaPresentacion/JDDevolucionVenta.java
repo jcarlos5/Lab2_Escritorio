@@ -8,6 +8,7 @@ package CapaPresentacion;
 import CapaNegocio.clsCliente;
 import CapaNegocio.clsCuota;
 import CapaNegocio.clsDevolucion;
+import CapaNegocio.clsUsuario;
 import CapaNegocio.clsVenta;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
@@ -431,8 +432,16 @@ public class JDDevolucionVenta extends javax.swing.JDialog {
         }
     }
     
-    public void setUser(int user){
-        usuario = user;
+    public void setUser(String user){
+        clsUsuario objU = new clsUsuario();
+        try {
+            ResultSet rs = objU.getDatos(user);
+            if(rs.next()){
+                usuario = rs.getInt("codusuario");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
     }
     /**
      * @param args the command line arguments

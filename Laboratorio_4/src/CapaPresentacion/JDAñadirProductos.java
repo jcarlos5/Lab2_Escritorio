@@ -245,7 +245,7 @@ public class JDAñadirProductos extends javax.swing.JDialog {
         try {
             rsProductos=objProducto.filtrar(txtNombreProducto.getText());
             while(rsProductos.next()){
-                modelo.addRow(new Object[]{rsProductos.getInt("codProducto"),rsProductos.getString("nomProducto"), rsProductos.getString("descripcion"), rsProductos.getString("precio"), rsProductos.getString("stock"), rsProductos.getString("nommarca"), rsProductos.getString("nomcategoria")});
+                modelo.addRow(new Object[]{rsProductos.getInt("codProducto"),rsProductos.getString("nomProducto"), rsProductos.getString("descripcion"), rsProductos.getString("precioventa"), rsProductos.getString("stock"), rsProductos.getString("nommarca"), rsProductos.getString("nomcategoria")});
            }
         } catch (Exception e) {
            JOptionPane.showMessageDialog(rootPane, e.getMessage());

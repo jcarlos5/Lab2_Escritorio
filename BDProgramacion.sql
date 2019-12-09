@@ -27,7 +27,7 @@ CREATE DATABASE 'BDProgramacion'
 
 CREATE TABLE USUARIO(
 codUsuario int not null primary key,
-nomUsuario varchar(20) not null,
+nomUsuario varchar(20) not null unique,
 clave varchar(20) not null,
 nombreCompleto varchar(80) not null,
 cargo varchar(30) null,
@@ -308,11 +308,11 @@ BEGIN
 	inner join venta on cliente.codcliente=venta.codcliente
 	inner join (SELECT * FROM cuota WHERE cuota.codventa=new.codventa) c on c.codventa=venta.numventa
 	WHERE c.cancelada=true;
-	
+
 	IF(d=c)THEN
 		UPDATE venta SET estadopago=true WHERE numventa=new.codventa;
 	END IF;
-	
+
 	return new;
 END;
 $$LANGUAGE 'plpgsql';
@@ -331,7 +331,7 @@ BEGIN
 	UPDATE public.producto
    	SET stock=stock-new.cantidad
  	WHERE producto.codproducto = new.codproducto;
-	
+
 	return new;
 END;
 $$LANGUAGE 'plpgsql';
@@ -358,9 +358,9 @@ BEGIN
 	DELETE FROM detalle WHERE numventa = numven and codproducto = prod_old;
 
 	--BUSCAR DATOS DEL NUEVO PRODUCTO
-	SELECT precio INTO prec_new FROM producto WHERE codproducto = prod_new;
+	SELECT precioventa INTO prec_new FROM producto WHERE codproducto = prod_new;
 	subt_new = cant_new*(prec_new - ((prec_new*desc_new)/100));
-	
+
 	--AGREGAR EL NUEVO PRODUCTO
 		--Comprobar si no se han cambiado por un producto que ya existe en la venta
 		SELECT count(*) INTO prod_repetido FROM detalle WHERE numventa = numven and codproducto = prod_new;
@@ -416,13 +416,13 @@ $$ language 'plpgsql';
 
 --DROP FUNCTION fn_filtrar_ventas(finicio date, ffinal date)
 CREATE OR REPLACE FUNCTION fn_filtrar_ventas(finicio date, ffinal date) RETURNS TABLE(numventa integer, fecha date, cliente character varying,
-											total numeric, subtotal numeric, igv numeric, estadopago boolean, 
+											total numeric, subtotal numeric, igv numeric, estadopago boolean,
 											tipopago boolean, tipocomprobante boolean) AS
 $$
 DECLARE
 BEGIN
 	RETURN query
-	SELECT v.numventa, v.fecha, c.nombres, v.total,v.subtotal, v.igv, v.estadopago, v.tipopago, v.tipocomprobante 
+	SELECT v.numventa, v.fecha, c.nombres, v.total,v.subtotal, v.igv, v.estadopago, v.tipopago, v.tipocomprobante
 	FROM venta v
 	INNER JOIN cliente c on c.codcliente = v.codcliente
 	WHERE v.fecha>=finicio and v.fecha<=ffinal
@@ -435,12 +435,12 @@ LANGUAGE 'plpgsql';
 --DATOS NECESARIOS PARA ELABORAR BOLETA O FACTURA
 CREATE OR REPLACE FUNCTION fn_generar_boleta(num int) RETURNS TABLE(numero int, fecha date, nombres varchar(100), dni char(8), ruc char(11), total numeric(10,2),
 									subtotal numeric(10,2), igv numeric(10,2), comprobante boolean, cantidad int, producto varchar(30),
-									precioventa numeric(10,2), monto numeric(10,2)) AS
+									precioventa numeric(10,2), monto numeric(10,2), descuento smallint, tipopago boolean, direccion varchar(50)) AS
 $$
 DECLARE
 BEGIN
 	RETURN query
-	SELECT v.numventa, v.fecha, c.nombres, c.dni, c.ruc, v.total, v.subtotal, v.igv, v.tipocomprobante, d.cantidad, p.nomproducto, d.precioventa, d.subtotal
+	SELECT v.numventa, v.fecha, c.nombres, c.dni, c.ruc, v.total, v.subtotal, v.igv, v.tipocomprobante, d.cantidad, p.nomproducto, d.precioventa, d.subtotal, d.descuento, v.tipopago, c.direccion
 	FROM (SELECT * FROM venta b WHERE b.numventa=num) v
 	INNER JOIN cliente c on c.codcliente = v.codcliente
 	INNER JOIN detalle d on d.numventa = v.numventa
@@ -449,27 +449,40 @@ END
 $$ language 'plpgsql';
 
 --PA LISTAR VENTAS DIARIAS
-CREATE OR REPLACE FUNCTION fn_ventas_diarias() RETURNS TABLE(numero int, fecha date, nombres varchar(100), 
+CREATE OR REPLACE FUNCTION fn_ventas_diarias() RETURNS TABLE(numero int, fecha date, nombres varchar(100),
 															 dni char(8), ruc char(11), total numeric(10,2),
 									subtotal numeric(10,2), igv numeric(10,2), comprobante boolean, estado boolean, tipopago text) AS
 $$
 DECLARE
 BEGIN
 	return query
-	select v.numventa, v.fecha, c.nombres, c.dni, c.ruc, v.total, v.subtotal, v.igv, v.tipocomprobante, 
+	select v.numventa, v.fecha, c.nombres, c.dni, c.ruc, v.total, v.subtotal, v.igv, v.tipocomprobante,
 	v.estadopago, (case v.tipopago when true then '1' when false then '0' else null end )
 	from venta v
 	INNER JOIN cliente c on c.codcliente = v.codcliente where v.fecha=CURRENT_DATE;
 END;
 $$language 'plpgsql';
 
+--TIGGER PARA ACTUALIZAR PRECIOS
+Create or replace function fn_actualizar_precios() returns trigger as
+$$
+Declare
+Begin
+	update producto set precioventa = precioventa - precioventa*(old.valor/100) + precioventa*(new.valor/100);
+	return new;
+end;
+$$ language 'plpgsql';
+
+Create trigger tr_update_precios after update on parametro
+	for each row execute procedure fn_actualizar_precios();
+
 --Monto TOTAL caja:
 SELECT SUM(monto) as MontoTotal FROM cuota WHERE fechapago = current_date and cancelada = true;
 --Monto VENTAS al CONTADO:
-SELECT SUM(c.monto) as MontoTotal FROM venta v INNER JOIN cuota c ON v.numventa = c.codventa 
+SELECT SUM(c.monto) as MontoTotal FROM venta v INNER JOIN cuota c ON v.numventa = c.codventa
 WHERE c.fechapago = current_date and v.tipopago = true and c.cancelada = true;
 --Monto VENTAS por CUOTAS:
-SELECT SUM(c.monto) as MontoTotal FROM venta v INNER JOIN cuota c ON v.numventa = c.codventa 
+SELECT SUM(c.monto) as MontoTotal FROM venta v INNER JOIN cuota c ON v.numventa = c.codventa
 WHERE c.fechapago = current_date and v.tipopago = false and c.cancelada = true;
 --Ventas realizadas al CRÉDITO
 SELECT SUM(total) as MontoTotal FROM venta WHERE fecha= current_date and tipopago = false;

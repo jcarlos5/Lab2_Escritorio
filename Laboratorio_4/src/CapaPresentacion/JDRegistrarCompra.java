@@ -591,12 +591,12 @@ public class JDRegistrarCompra extends javax.swing.JDialog {
             ResultSet rs = null;
             rs = objPro.listarProveedores();
             DefaultTableModel modeloPro = new DefaultTableModel();
-                modeloPro.addColumn("CÓDIGO");
-                modeloPro.addColumn("RUC");
-                modeloPro.addColumn("NOMBRE");
-                while (rs.next()) {
-                    modeloPro.addRow(new Object [] {rs.getInt("codProveedor"),rs.getString("ruc"), rs.getString("nombre")});
-                }
+            modeloPro.addColumn("CÓDIGO");
+            modeloPro.addColumn("RUC");
+            modeloPro.addColumn("PROVEEDOR");
+            while (rs.next()) {
+                modeloPro.addRow(new Object [] {rs.getInt("codProveedor"),rs.getString("ruc"), rs.getString("nombre")});
+            }
             tblProveedor.setModel(modeloPro);
         } catch (Exception ex) {
             Logger.getLogger(JDRegistrarCompra.class.getName()).log(Level.SEVERE, null, ex);

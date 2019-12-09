@@ -44,15 +44,15 @@ public class clsDevolucion {
     }
     
     public void registrarDevolucionVenta(String cod, String motivo, String montodev, Integer us, JTable tbl, int numventa ) throws SQLException, Exception{
+        objConectar.conectar();
+        con=objConectar.getConnection();
+        con.setAutoCommit(false);
         try {    
             Integer dias=0;
             //strSQL="SELECT CURRENT_DATE-fecha as dias FROM venta WHERE numventa="+ numventa+" estadopago=true" ;
-            objConectar.conectar();
-            con=objConectar.getConnection();
-            con.setAutoCommit(false);
             //sent=con.createStatement();
             //rs=sent.executeQuery(strSQL);
-            CallableStatement sentencia = con.prepareCall("SELECT CURRENT_DATE-fecha as dias FROM venta WHERE numventa= ? estadopago=true");
+            CallableStatement sentencia = con.prepareCall("SELECT CURRENT_DATE-fecha as dias FROM venta WHERE numventa= ? and estadopago=true");
             sentencia.setInt(1, numventa);
             rs = sentencia.executeQuery();
             while(rs.next()){
@@ -91,11 +91,12 @@ public class clsDevolucion {
                 sentencia = con.prepareCall("DELETE FROM venta where numventa = ?;");
                 sentencia.setInt(1, numventa);
                 sentencia.executeUpdate();
-                JOptionPane.showMessageDialog(null,"Devolucion realizada correctamente");
+                con.commit();
+                //JOptionPane.showMessageDialog(null,"Devolucion realizada correctamente");
             }else{
                 JOptionPane.showMessageDialog(null,"Se han excedido la cantidad de Dias permitidos");
             }
-            con.commit();
+            //con.commit();
         } catch (Exception e) {
             con.rollback();
             throw new Exception("Error al ejecutar la transacción");

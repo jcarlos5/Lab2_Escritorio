@@ -331,7 +331,7 @@ public class JDPagoCredito extends javax.swing.JDialog {
         
         
         for(int i=0; i<cant; i++){
-            String newFecha = String.format("%02d-%02d-%04d",fecha.get(Calendar.DAY_OF_MONTH),fecha.get(Calendar.MONTH)+1,fecha.get(Calendar.YEAR));
+            String newFecha = String.format("%04d-%02d-%02d",fecha.get(Calendar.YEAR),fecha.get(Calendar.MONTH)+1,fecha.get(Calendar.DAY_OF_MONTH));
             modelo.addRow(new Object[]{i+1, newFecha, String.valueOf(apagar)});
             
             cuotas[i] = new String[]{txtNumeroVenta.getText(), String.valueOf(i+1), newFecha, "null", "false", "null", "null", String.valueOf(apagar)};

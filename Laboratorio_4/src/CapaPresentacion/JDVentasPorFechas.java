@@ -195,22 +195,21 @@ public class JDVentasPorFechas extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowActivated
 
     private void tblVentasDiariasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVentasDiariasMouseClicked
-        
+        try {
             String id =String.valueOf(tblVentasDiarias.getValueAt(tblVentasDiarias.getSelectedRow(), 0));
             clsVenta objV = new clsVenta();
-            try {
-                ResultSet rs = objV.listarVenta(Integer.valueOf(id));
-                if(rs.next()){
-                    String doc = (rs.getBoolean("tipocomprobante"))?rs.getString("dni"):rs.getString("ruc");
-                    JDVentaDatos objVentaDatos = new JDVentaDatos((Frame) SwingUtilities.getWindowAncestor(this), true);
-                    objVentaDatos.setDatos(rs.getInt("numventa"),rs.getString("nombres"), doc,rs.getFloat("subtotal"), rs.getFloat("igv"), rs.getFloat("total"),rs.getFloat("vuelto"), rs.getBoolean("cancelada"),rs.getBoolean("tipocomprobante") );
-                    objVentaDatos.listarDetalle(rs.getInt("numventa"));
-                    objVentaDatos.setLocationRelativeTo(this);
-                    objVentaDatos.setVisible(true);
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this,"Error");
+            ResultSet rs = objV.listarVenta(Integer.valueOf(id));
+            if(rs.next()){
+                String doc = (rs.getBoolean("tipocomprobante"))?rs.getString("dni"):rs.getString("ruc");
+                JDVentaDatos objVentaDatos = new JDVentaDatos((Frame) SwingUtilities.getWindowAncestor(this), true);
+                objVentaDatos.setDatos(rs.getInt("numventa"),rs.getString("nombres"), doc,rs.getFloat("subtotal"), rs.getFloat("igv"), rs.getFloat("total"),rs.getFloat("vuelto"), rs.getBoolean("cancelada"),rs.getBoolean("tipocomprobante") );
+                objVentaDatos.listarDetalle(rs.getInt("numventa"));
+                objVentaDatos.setLocationRelativeTo(this);
+                objVentaDatos.setVisible(true);
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
     }//GEN-LAST:event_tblVentasDiariasMouseClicked
     
     private void addListener(JDateChooser fecha) {
@@ -262,6 +261,8 @@ public class JDVentasPorFechas extends javax.swing.JDialog {
                     i++;
                     modelo.addRow(new Object[]{i, rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getBoolean(7)?"Pagado":"No Pagado", rs.getBoolean(8)?"Contado":"Crédito", rs.getBoolean(9)?"Boleta":"Factura"});
                 }
+                
+                lblCantVentas.setText(String.valueOf(modelo.getRowCount()));
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());

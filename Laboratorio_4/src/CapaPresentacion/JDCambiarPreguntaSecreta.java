@@ -7,6 +7,7 @@ package CapaPresentacion;
 
 import CapaNegocio.clsUsuario;
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -193,7 +194,14 @@ public class JDCambiarPreguntaSecreta extends javax.swing.JDialog {
     }
     
     public void setUser(String usuario){
-        user = usuario;
+        clsUsuario objU = new clsUsuario();
+        try {
+            ResultSet rs = objU.buscarUsuario(Integer.parseInt(usuario));
+            if(rs.next()){
+                user = rs.getString("nomusuario");
+            }
+        } catch (Exception e) {
+        }
     }
     
     private void rellenarCampos(){

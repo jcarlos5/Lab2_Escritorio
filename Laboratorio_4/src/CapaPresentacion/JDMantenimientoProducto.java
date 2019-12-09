@@ -30,6 +30,7 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
     clsMarca objMarca = new clsMarca();
     clsProveedor objProveedor = new clsProveedor();
     clsProducto objProducto = new clsProducto();
+    boolean modificando = false;
     /**
      * Creates new form JDRegistrarMarca
      */
@@ -196,9 +197,17 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
             }
         });
 
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
         txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCodigoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyReleased(evt);
             }
         });
 
@@ -388,6 +397,7 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
                 listarProductos();
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -400,21 +410,24 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
             }else{
                 rsProducto = objProducto.buscarProducto(Integer.parseInt( txtCodigo.getText()));
                 if (rsProducto.next()){
+                        btnNuevo.setText("NUEVO");
                         txtNombre.setText(rsProducto.getString("nomProducto"));
                         txtDescripcion.setText(rsProducto.getString("descripcion"));
-                        txtPrecio.setText(rsProducto.getString("precio"));
+                        txtPrecio.setText(rsProducto.getString("precioventa"));
                         spnStock.setValue(rsProducto.getInt("stock"));
                         chkVigencia.setSelected(rsProducto.getBoolean("vigencia"));
                         cboMarca.setSelectedItem(objMarca.getNombre(rsProducto.getInt("codmarca")));
                         cboCategoria.setSelectedItem(objCategoria.getNombre(rsProducto.getInt("codcategoria")));
                         rsProducto.close();
                         habilitarEd();
+                        modificando = true;
                 }else{
                     JOptionPane.showMessageDialog(this,"Código de Categoria no existe!");
                     limpiarControles();
                 }
             }   
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -445,9 +458,9 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
 
     private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked
         // TODO add your handling code here:
+        btnNuevo.setText("NUEVO");
         txtCodigo.setText(String.valueOf(tblProductos.getValueAt(tblProductos.getSelectedRow(), 0)));
         btnBuscarActionPerformed(null);
-        btnNuevo.setText("NUEVO");
     }//GEN-LAST:event_tblProductosMouseClicked
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -467,9 +480,6 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            btnBuscarActionPerformed(null);
-        }
     }//GEN-LAST:event_txtCodigoKeyPressed
 
     private void cboMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboMarcaActionPerformed
@@ -489,6 +499,19 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
             categoria.setVisible(true);
         }
     }//GEN-LAST:event_cboCategoriaActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+        btnBuscarActionPerformed(null);
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
+        // TODO add your handling code here:
+        if(modificando){
+            limpiarControles();
+            modificando = false;
+        }
+    }//GEN-LAST:event_txtCodigoKeyReleased
 
     private void limpiarControles(){
         txtCodigo.setText("");
@@ -516,7 +539,7 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
         try {
             rsProductos=objProducto.listarProductos();
             while(rsProductos.next()){
-                modelo.addRow(new Object[]{rsProductos.getInt("codProducto"),rsProductos.getString("nomProducto"), rsProductos.getString("descripcion"), rsProductos.getString("precio"), rsProductos.getString("stock"), rsProductos.getBoolean("vigencia")?"SÍ":"NO", rsProductos.getString("nommarca"), rsProductos.getString("nomcategoria")});
+                modelo.addRow(new Object[]{rsProductos.getInt("codProducto"),rsProductos.getString("nomProducto"), rsProductos.getString("descripcion"), rsProductos.getString("precioventa"), rsProductos.getString("stock"), rsProductos.getBoolean("vigencia")?"SÍ":"NO", rsProductos.getString("nommarca"), rsProductos.getString("nomcategoria")});
            }
         } catch (Exception e) {
            JOptionPane.showMessageDialog(rootPane, e.getMessage());

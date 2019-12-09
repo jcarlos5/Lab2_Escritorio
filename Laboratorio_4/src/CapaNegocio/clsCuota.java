@@ -78,15 +78,13 @@ public class clsCuota {
             //sent.executeUpdate(strSQL);
             
             for (String[] dato : datos) {
-                sentencia = con.prepareCall("INSERT INTO cuota VALUES (?, ?, ?, ?, ?,?, ?, ?);");
+                sentencia = con.prepareCall("INSERT INTO cuota VALUES (?, ?, ?, null, ?, null, null, ?);");
+
                 sentencia.setInt(1, Integer.parseInt(dato[0]));
                 sentencia.setInt(2, Integer.parseInt(dato[1]));
                 sentencia.setDate(3, Date.valueOf(dato[2]));
-                sentencia.setDate(4, Date.valueOf(dato[3]));
-                sentencia.setBoolean(5, Boolean.parseBoolean(dato[4]));
-                sentencia.setFloat(6, Float.parseFloat(dato[5]));
-                sentencia.setFloat(7, Float.parseFloat(dato[6]));
-                sentencia.setFloat(8, Float.parseFloat(dato[7]));
+                sentencia.setBoolean(4, Boolean.parseBoolean(dato[4]));
+                sentencia.setFloat(5, Float.parseFloat(dato[7]));
                 sentencia.executeUpdate();
                 //strSQL="INSERT INTO cuota VALUES (" + dato[0] + ", " + dato[1] + ", '" + dato[2] + "' , " + dato[3] + " , " + dato[4] + ", " + dato[5] + " , " + dato[6] + ","+dato[7]+");";
                 //sent.executeUpdate(strSQL);
@@ -150,7 +148,7 @@ public class clsCuota {
             //rs=objConectar.consultarBD(strSQL);
             
             if (rs.next()){
-                if(rs.getInt(1)==1){
+                if(rs.getInt(1)==0){
                     sentencia = con.prepareCall("UPDATE venta SET estadopago = true WHERE numventa= ?;");
                     sentencia.setInt(1,codventa);
                     sentencia.executeUpdate();
@@ -161,7 +159,6 @@ public class clsCuota {
             }
             
             con.commit();
-            JOptionPane.showMessageDialog(null, "Todo Okay");
             return fin;
         } catch (Exception e) {
             con.rollback();
@@ -279,11 +276,11 @@ public class clsCuota {
     public float ventasCreditos() throws Exception{
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT SUM(total) as MontoTotal FROM venta WHERE fecha= current_date and tipopago = false");
-            ResultSet resultado=sentencia.executeQuery();
+            rs =sentencia.executeQuery();
             while (rs.next()){
-               return resultado.getFloat("MontoTotal"); 
+               return rs.getFloat("MontoTotal"); 
             }
         } catch (Exception e) {
             throw new Exception(e.getMessage());

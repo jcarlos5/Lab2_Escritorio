@@ -114,6 +114,7 @@ public class JDVentaDatos extends javax.swing.JDialog {
 
             }
         ));
+        tblDetalle.setEnabled(false);
         jScrollPane1.setViewportView(tblDetalle);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

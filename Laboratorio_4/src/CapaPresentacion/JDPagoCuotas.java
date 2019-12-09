@@ -268,6 +268,9 @@ public class JDPagoCuotas extends javax.swing.JDialog {
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         try {
+            tblCuotas.changeSelection(0, 1, false, false);
+            tblCuotasMouseClicked(null);
+            txtMontoIngresadoActionPerformed(null);
             pagar();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
@@ -339,18 +342,22 @@ public class JDPagoCuotas extends javax.swing.JDialog {
     private void txtMontoIngresadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoIngresadoActionPerformed
         // TODO add your handling code here:
         try {
-            MontoI=Float.parseFloat(txtMontoIngresado.getText());
+            if(txtMontoIngresado.getText().length()>0){
+                MontoI=Float.parseFloat(txtMontoIngresado.getText());
             
-            if (MontoI<Float.parseFloat(monto)){
-                JOptionPane.showMessageDialog(this, "El Monto Ingresado es Menor Monto Solicitado");
-                Vuelto=null;
-                txtVuelto.setText("");
-                txtMontoIngresado.setText("");
-            }else{
-                Vuelto=MontoI-Float.parseFloat(monto);
-                txtVuelto.setText(String.valueOf(Vuelto));
+                if (MontoI<Float.parseFloat(monto)){
+                    JOptionPane.showMessageDialog(this, "El Monto Ingresado es Menor Monto Solicitado");
+                    Vuelto=null;
+                    txtVuelto.setText("");
+                    txtMontoIngresado.setText("");
+                }else{
+                    Vuelto=MontoI-Float.parseFloat(monto);
+                    txtVuelto.setText(String.valueOf(Vuelto));
+                    pagar();
+                }
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
         
     }//GEN-LAST:event_txtMontoIngresadoActionPerformed

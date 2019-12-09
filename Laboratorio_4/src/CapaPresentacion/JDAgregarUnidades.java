@@ -240,11 +240,7 @@ public class JDAgregarUnidades extends javax.swing.JDialog {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        try {
-           objAlamcen.ActualizarStock(objProducto.obtenerCodigoProducto(cboProducto.getSelectedItem().toString()),objProveedor.obtenerCodigoProveedor(cboProveedor.getSelectedItem().toString()), (int)spnCantidad.getValue(), Float.parseFloat(txtprecio.getText()));
-           llenarProducto();
-        } catch (Exception e) {
-        }
+        
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -290,7 +286,7 @@ public class JDAgregarUnidades extends javax.swing.JDialog {
         try {
             rsProductos=objProducto.listarProductos();
             while(rsProductos.next()){
-                modelo.addRow(new Object[]{rsProductos.getInt("codProducto"),rsProductos.getString("nomProducto"), rsProductos.getString("descripcion"), rsProductos.getString("precio"), rsProductos.getString("stock"), rsProductos.getBoolean("vigencia")?"SÍ":"NO", rsProductos.getString("nommarca"), rsProductos.getString("nomcategoria")});
+                modelo.addRow(new Object[]{rsProductos.getInt("codProducto"),rsProductos.getString("nomProducto"), rsProductos.getString("descripcion"), rsProductos.getString("precioventa"), rsProductos.getString("stock"), rsProductos.getBoolean("vigencia")?"SÍ":"NO", rsProductos.getString("nommarca"), rsProductos.getString("nomcategoria")});
            }
         } catch (Exception e) {
            JOptionPane.showMessageDialog(rootPane, e.getMessage());

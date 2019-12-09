@@ -28,6 +28,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
     clsUsuario objUsuario = new clsUsuario();
     boolean modoPerfil = false;
     String user = "";
+    boolean modificando=false;
     
     /**
      * Creates new form JDRegistrarMarca
@@ -66,7 +67,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         txtCodigo = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblCargo = new javax.swing.JLabel();
         btnContraseña = new javax.swing.JButton();
         btnPregunta = new javax.swing.JButton();
         cmbCargo = new javax.swing.JComboBox<>();
@@ -199,15 +200,23 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
             }
         });
 
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
         txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCodigoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyReleased(evt);
             }
         });
 
         jLabel4.setText("Nombre:");
 
-        jLabel5.setText("Cargo:");
+        lblCargo.setText("Cargo:");
 
         btnContraseña.setText("Restablecer Contraseña");
         btnContraseña.addActionListener(new java.awt.event.ActionListener() {
@@ -236,7 +245,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contenedorLayout.createSequentialGroup()
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblEstado)
-                            .addComponent(jLabel5)
+                            .addComponent(lblCargo)
                             .addComponent(jLabel4)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
@@ -303,7 +312,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
+                            .addComponent(lblCargo)
                             .addComponent(cmbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -403,13 +412,21 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                         chkVigencia.setSelected(rsUsuario.getBoolean("estado"));
                         rsUsuario.close();
                         habilitarEd();
+                        btnNuevo.setText("NUEVO");
+                        if(txtUsuario.getText().equals(user)){
+                            btnPregunta.setEnabled(true);
+                        }else{
+                            btnPregunta.setEnabled(false);
+                        }
+                        modificando = true;
                 }else{
-                    JOptionPane.showMessageDialog(this,"Código de Categoria no existe!");
+                    JOptionPane.showMessageDialog(this,"Código de usuario no existe!");
                     limpiarControles();
                 }
             }   
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            txtCodigo.setText("");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -448,13 +465,12 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         txtCodigo.setText(String.valueOf(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 0)));
         btnBuscarActionPerformed(null);
         btnNuevo.setText("NUEVO");
-        if(txtUsuario.getText().equals("admin")){
+        if(txtUsuario.getText().equals(user)){
             btnPregunta.setEnabled(true);
-            user = "admin";
         }else{
             btnPregunta.setEnabled(false);
-            user = "";
         }
+        modificando = true;
     }//GEN-LAST:event_tblUsuariosMouseClicked
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -474,9 +490,6 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            btnBuscarActionPerformed(null);
-        }
     }//GEN-LAST:event_txtCodigoKeyPressed
 
     private void btnContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContraseñaActionPerformed
@@ -516,11 +529,36 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
 
     private void btnPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreguntaActionPerformed
         // TODO add your handling code here:
-        JDCambiarPreguntaSecreta objCambiarPregunta = new JDCambiarPreguntaSecreta((Frame) SwingUtilities.getWindowAncestor(this), true);
-        objCambiarPregunta.setUser(txtUsuario.getText());
-        objCambiarPregunta.setLocationRelativeTo(this);
-        objCambiarPregunta.setVisible(true);
+        String clave = JOptionPane.showInputDialog(rootPane, "Ingrese su contraseña Actual", "SISTEMA", JOptionPane.PLAIN_MESSAGE);
+        try {
+            if (clave != null){
+                String nombre = objUsuario.login(txtUsuario.getText(), clave);
+                if(nombre.equals("")){
+                    JOptionPane.showMessageDialog(rootPane, "La contraseña es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    JDCambiarPreguntaSecreta objCambiarPregunta = new JDCambiarPreguntaSecreta((Frame) SwingUtilities.getWindowAncestor(this), true);
+                    objCambiarPregunta.setUser(txtCodigo.getText());
+                    objCambiarPregunta.setLocationRelativeTo(this);
+                    objCambiarPregunta.setVisible(true);
+                }
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
     }//GEN-LAST:event_btnPreguntaActionPerformed
+
+    private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
+        // TODO add your handling code here:
+        if(modificando){
+            limpiarControles();
+            modificando = false;
+        }
+    }//GEN-LAST:event_txtCodigoKeyReleased
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+        btnBuscarActionPerformed(null);
+    }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void limpiarControles(){
         txtCodigo.setText("");
@@ -566,12 +604,18 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         btnContraseña.setEnabled(true);
     }
     
+    public void setUser(String usu){
+        user = usu;
+    }
+    
     public void modoPerfil(String usuario){
         contenedorTabla.setVisible(false);
         btnContraseña.setText("Cambiar Contraseña");
         btnNuevo.setVisible(false);
         btnModificar.setText("Guardar");
         btnModificar.setEnabled(true);
+        lblCargo.setVisible(false);
+        cmbCargo.setVisible(false);
         
         btnEliminar.setVisible(false);
         btnDardeBaja.setVisible(false);
@@ -694,7 +738,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JTable tblUsuarios;
     private javax.swing.JTextField txtCodigo;

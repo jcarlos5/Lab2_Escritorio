@@ -56,17 +56,17 @@ public class clsProveedor {
          //registar proveedor
            objConectar.conectar();
            con = objConectar.getConnection();
-           CallableStatement sentencia = con.prepareCall("UPDATE proveedor set nombre=?, ruc=?,direccion=?,estado=? WHERE codProveedor=?)");
-           sentencia.setInt(1,Integer.parseInt(cod));
-           sentencia.setString(2, nom);
-           sentencia.setString(3, ruc);// campo opcional 
-           sentencia.setString(4, direccion); 
-           sentencia.setBoolean(5, estado);
+           CallableStatement sentencia = con.prepareCall("UPDATE proveedor set nombre=?, ruc=?,direccion=?,estado=? WHERE codProveedor=?");
+           sentencia.setString(1, nom);
+           sentencia.setString(2, ruc);// campo opcional 
+           sentencia.setString(3, direccion); 
+           sentencia.setBoolean(4, estado);
+            sentencia.setInt(5,Integer.parseInt(cod));
            sentencia.executeUpdate(); 
 
-          JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
+          JOptionPane.showMessageDialog(null, "Actualizado Correctamente"); 
         } catch (Exception e) {
-            throw new Exception("Error al registrar Proveedor");
+            throw new Exception("Error al modificar Proveedor");
         }finally{
             objConectar.desconectar();
         } 
@@ -131,16 +131,16 @@ public class clsProveedor {
     
     public ResultSet buscarProveedor(Integer cod) throws Exception{
        try {
-         //registar proveedor
            objConectar.conectar();
            con = objConectar.getConnection();
-           CallableStatement sentencia = con.prepareCall("SELECT * FROM proveedor WHERE codProveedor=?)");
+           CallableStatement sentencia = con.prepareCall("SELECT * FROM proveedor WHERE codProveedor=?");
            sentencia.setInt(1,cod);
            ResultSet rs = sentencia.executeQuery();
            return rs;
           //JOptionPane.showMessageDialog(null, "Registrado Correctamente"); 
         } catch (Exception e) {
-            throw new Exception("Error al registrar Proveedor");
+            throw new Exception("Error al buscar Proveedor");
+            //throw new Exception(e);
         }finally{
             objConectar.desconectar();
         } 

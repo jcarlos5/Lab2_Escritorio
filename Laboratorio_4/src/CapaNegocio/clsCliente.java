@@ -323,11 +323,11 @@ public class clsCliente {
         try {
             objConectar.conectar();
             con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("SELECT estadopago FROM venta WHERE codcliente =? and estadopago = false and tipopago = false");
+            CallableStatement sentencia = con.prepareCall("SELECT count(*) FROM venta WHERE codcliente =? and tipopago = false");
             sentencia.setInt(1, Integer.parseInt(cod));
             ResultSet resultado=sentencia.executeQuery();
             while (resultado.next()){
-               return resultado.getBoolean("estadopago");
+               return resultado.getInt(1)==0? true : false;
             }
         } catch (Exception e) {
             throw new Exception(e.getMessage());

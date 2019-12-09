@@ -268,6 +268,7 @@ public class JDPagarVenta extends javax.swing.JDialog {
     private void limpiarControles(){
         txtDocumento.setText("");
         txtNombre.setText("");
+        listarClientes();
     }
     
     private void llenarDatos(String doc){
