@@ -805,6 +805,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
         JDDevolucionVenta obj = new JDDevolucionVenta(this, true);
+        obj.setUser(user);
         obj.setLocationRelativeTo(this);
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed

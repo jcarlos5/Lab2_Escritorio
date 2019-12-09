@@ -8,6 +8,7 @@ package CapaPresentacion;
 import CapaNegocio.clsCliente;
 import CapaNegocio.clsCuota;
 import CapaNegocio.clsDevolucion;
+import CapaNegocio.clsUsuario;
 import CapaNegocio.clsVenta;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
@@ -272,6 +273,7 @@ public class JDDevolucionVenta extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
+            JOptionPane.showMessageDialog(rootPane, usuario);
             objDev.registrarDevolucionVenta(lblCod.getText(), txtMotivo.getText(), lblMonto.getText(), usuario, tblDetalle, venta);
             JOptionPane.showMessageDialog(this, "Devolución Registrada");
             limpiarControles();
@@ -431,8 +433,16 @@ public class JDDevolucionVenta extends javax.swing.JDialog {
         }
     }
     
-    public void setUser(int user){
-        usuario = user;
+    public void setUser(String user){
+        clsUsuario objU = new clsUsuario();
+        try {
+            ResultSet rs = objU.getDatos(user);
+            if(rs.next()){
+                usuario = rs.getInt("codusuario");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
     }
     /**
      * @param args the command line arguments

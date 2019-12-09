@@ -146,7 +146,7 @@ public class clsVenta {
         try {
             objConectar.conectar();
             con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("SELECT v.*, c.dni, c.ruc,c.nombres, cu.vuelto, cu.ingreso, cu.cancelada FROM venta v INNER JOIN cliente c on v.codcliente=c.codcliente INNER JOIN cuota cu on v.numventa=cu.codvent WHERE numventa = ?");
+            CallableStatement sentencia = con.prepareCall("SELECT v.*, c.dni, c.ruc,c.nombres, cu.vuelto, cu.ingreso, cu.cancelada FROM venta v INNER JOIN cliente c on v.codcliente=c.codcliente INNER JOIN cuota cu on v.numventa=cu.codventa WHERE numventa = ?");
             sentencia.setInt(1, numVenta);
             rs=sentencia.executeQuery();
             return rs;

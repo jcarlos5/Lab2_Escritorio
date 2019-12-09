@@ -275,11 +275,11 @@ public class clsCuota {
     public float ventasCreditos() throws Exception{
         try {
             objConectar.conectar();
-            Connection con = objConectar.getConnection();
+            con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT SUM(total) as MontoTotal FROM venta WHERE fecha= current_date and tipopago = false");
-            ResultSet resultado=sentencia.executeQuery();
+            rs =sentencia.executeQuery();
             while (rs.next()){
-               return resultado.getFloat("MontoTotal"); 
+               return rs.getFloat("MontoTotal"); 
             }
         } catch (Exception e) {
             throw new Exception(e.getMessage());

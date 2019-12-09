@@ -293,7 +293,8 @@ public class JDConsultasCaja extends javax.swing.JDialog implements Runnable{
             txtMontoTOTAL_CAJA.setText(String.valueOf(MontoTOTAL_CAJA));
             txtVentasCONTADO.setText(String.valueOf(VentasCONTADO));
             txtVentasCUOTA.setText(String.valueOf(VentasCUOTA)); 
-            txtVentasCREDITO.setText(String.valueOf(VentasCREDITO)); 
+            txtVentasCREDITO.setText(String.valueOf(VentasCREDITO));
+            txtCAJA.setEditable(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }

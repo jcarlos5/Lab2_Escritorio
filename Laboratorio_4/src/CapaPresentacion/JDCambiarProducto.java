@@ -31,6 +31,7 @@ public class JDCambiarProducto extends javax.swing.JDialog {
     int venta=0;
     int cant_new = 0;
     int desc_new = 0;
+    boolean cambiando = false;
     /**
      * Creates new form JDPagarVenta
      */
@@ -283,6 +284,7 @@ public class JDCambiarProducto extends javax.swing.JDialog {
 
     private void txtDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDocumentoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtDocumentoActionPerformed
 
     private void tblDetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalleMouseClicked
@@ -428,6 +430,7 @@ public class JDCambiarProducto extends javax.swing.JDialog {
                 txtCodCliente.setText(codUser);
                 txtNombre.setText(rs.getString("nombres"));
                 listarClientes();
+                cambiando = true;
             }
             listarVentas(codUser);
         } catch (Exception e) {
