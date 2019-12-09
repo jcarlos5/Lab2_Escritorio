@@ -372,10 +372,12 @@ public class JDVentas extends javax.swing.JDialog {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(btnAnadir)
-                                            .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGap(0, 2, Short.MAX_VALUE)
+                                                .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(btnAnadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnQuitar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(10, 10, 10)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(btnModificar)
@@ -814,13 +816,14 @@ public class JDVentas extends javax.swing.JDialog {
         try{
             subTotal=0;
             for(int i=0; i<tblProductos.getRowCount(); i++){
-                subTotal += Float.parseFloat(String.valueOf(tblProductos.getValueAt(i, 4)));
+                subTotal += Float.parseFloat(String.valueOf(tblProductos.getValueAt(i, 6)));
             }
             float igv = (float) (subTotal * 0.18);
             txtIgv.setText(String.valueOf(igv));
             txtSubTotal.setText(String.valueOf(subTotal));
             txtTotal.setText(String.valueOf(subTotal+igv));
         }catch(Exception e){
+            //JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }
        

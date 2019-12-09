@@ -126,10 +126,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblTitulo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="DOCUMENTO DE VENTA"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="11" style="1"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="DOCUMENTO DE VENTA"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -193,10 +193,13 @@
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="btnCancelar" alignment="0" min="-2" pref="288" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="btnAnadir" min="-2" max="-2" attributes="0"/>
-                                              <Component id="btnQuitar" min="-2" pref="143" max="-2" attributes="0"/>
-                                              <Component id="btnLimpiar" min="-2" pref="143" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
+                                                  <Component id="btnLimpiar" min="-2" pref="143" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="btnAnadir" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="btnQuitar" alignment="1" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">

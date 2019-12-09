@@ -435,12 +435,12 @@ LANGUAGE 'plpgsql';
 --DATOS NECESARIOS PARA ELABORAR BOLETA O FACTURA
 CREATE OR REPLACE FUNCTION fn_generar_boleta(num int) RETURNS TABLE(numero int, fecha date, nombres varchar(100), dni char(8), ruc char(11), total numeric(10,2),
 									subtotal numeric(10,2), igv numeric(10,2), comprobante boolean, cantidad int, producto varchar(30),
-									precioventa numeric(10,2), monto numeric(10,2)) AS
+									precioventa numeric(10,2), monto numeric(10,2), descuento smallint, tipopago boolean, direccion varchar(50)) AS
 $$
 DECLARE
 BEGIN
 	RETURN query
-	SELECT v.numventa, v.fecha, c.nombres, c.dni, c.ruc, v.total, v.subtotal, v.igv, v.tipocomprobante, d.cantidad, p.nomproducto, d.precioventa, d.subtotal
+	SELECT v.numventa, v.fecha, c.nombres, c.dni, c.ruc, v.total, v.subtotal, v.igv, v.tipocomprobante, d.cantidad, p.nomproducto, d.precioventa, d.subtotal, d.descuento, v.tipopago, c.direccion
 	FROM (SELECT * FROM venta b WHERE b.numventa=num) v
 	INNER JOIN cliente c on c.codcliente = v.codcliente
 	INNER JOIN detalle d on d.numventa = v.numventa
