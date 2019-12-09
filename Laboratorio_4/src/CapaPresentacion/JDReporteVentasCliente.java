@@ -146,6 +146,7 @@ public class JDReporteVentasCliente extends javax.swing.JDialog {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
+            this.vistaReporte.setVisible(false);
             Container contenedor = this.vistaReporte;
             contenedor.setLayout(new BorderLayout());
             //parametros

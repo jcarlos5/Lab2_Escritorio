@@ -78,6 +78,7 @@ public class JDReporteVentasDiarias extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
+            this.vistaReporte.setVisible(false);
             Container contenedor = this.vistaReporte;
             contenedor.setLayout(new BorderLayout());
             JRViewer vistaReporte = new Reportes().reporteInterno("rp_VentasDiarias.jasper", null);

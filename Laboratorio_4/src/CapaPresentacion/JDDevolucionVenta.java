@@ -273,7 +273,6 @@ public class JDDevolucionVenta extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-            JOptionPane.showMessageDialog(rootPane, usuario);
             objDev.registrarDevolucionVenta(lblCod.getText(), txtMotivo.getText(), lblMonto.getText(), usuario, tblDetalle, venta);
             JOptionPane.showMessageDialog(this, "Devolución Registrada");
             limpiarControles();

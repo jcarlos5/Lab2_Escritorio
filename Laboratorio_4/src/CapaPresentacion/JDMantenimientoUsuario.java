@@ -67,7 +67,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         txtCodigo = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblCargo = new javax.swing.JLabel();
         btnContraseña = new javax.swing.JButton();
         btnPregunta = new javax.swing.JButton();
         cmbCargo = new javax.swing.JComboBox<>();
@@ -216,7 +216,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
 
         jLabel4.setText("Nombre:");
 
-        jLabel5.setText("Cargo:");
+        lblCargo.setText("Cargo:");
 
         btnContraseña.setText("Restablecer Contraseña");
         btnContraseña.addActionListener(new java.awt.event.ActionListener() {
@@ -245,7 +245,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, contenedorLayout.createSequentialGroup()
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblEstado)
-                            .addComponent(jLabel5)
+                            .addComponent(lblCargo)
                             .addComponent(jLabel4)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
@@ -312,7 +312,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
+                            .addComponent(lblCargo)
                             .addComponent(cmbCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)
                         .addGroup(contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -529,10 +529,22 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
 
     private void btnPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreguntaActionPerformed
         // TODO add your handling code here:
-        JDCambiarPreguntaSecreta objCambiarPregunta = new JDCambiarPreguntaSecreta((Frame) SwingUtilities.getWindowAncestor(this), true);
-        objCambiarPregunta.setUser(txtCodigo.getText());
-        objCambiarPregunta.setLocationRelativeTo(this);
-        objCambiarPregunta.setVisible(true);
+        String clave = JOptionPane.showInputDialog(rootPane, "Ingrese su contraseña Actual", "SISTEMA", JOptionPane.PLAIN_MESSAGE);
+        try {
+            if (clave != null){
+                String nombre = objUsuario.login(txtUsuario.getText(), clave);
+                if(nombre.equals("")){
+                    JOptionPane.showMessageDialog(rootPane, "La contraseña es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    JDCambiarPreguntaSecreta objCambiarPregunta = new JDCambiarPreguntaSecreta((Frame) SwingUtilities.getWindowAncestor(this), true);
+                    objCambiarPregunta.setUser(txtCodigo.getText());
+                    objCambiarPregunta.setLocationRelativeTo(this);
+                    objCambiarPregunta.setVisible(true);
+                }
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
     }//GEN-LAST:event_btnPreguntaActionPerformed
 
     private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
@@ -602,6 +614,8 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         btnNuevo.setVisible(false);
         btnModificar.setText("Guardar");
         btnModificar.setEnabled(true);
+        lblCargo.setVisible(false);
+        cmbCargo.setVisible(false);
         
         btnEliminar.setVisible(false);
         btnDardeBaja.setVisible(false);
@@ -724,7 +738,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JTable tblUsuarios;
     private javax.swing.JTextField txtCodigo;

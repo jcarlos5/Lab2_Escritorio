@@ -88,6 +88,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jmiCambiarUsuario = new javax.swing.JMenuItem();
         jmiCambiarContraseña = new javax.swing.JMenuItem();
         jmiCerrarSesion = new javax.swing.JMenuItem();
+        jmiMisDatos = new javax.swing.JMenuItem();
         jmMantenimiento = new javax.swing.JMenu();
         jmiUsuario = new javax.swing.JMenuItem();
         jmiMarca = new javax.swing.JMenuItem();
@@ -349,6 +350,14 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
             }
         });
         jmLogin.add(jmiCerrarSesion);
+
+        jmiMisDatos.setText("Mis Datos");
+        jmiMisDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiMisDatosActionPerformed(evt);
+            }
+        });
+        jmLogin.add(jmiMisDatos);
 
         jMenuBar1.add(jmLogin);
 
@@ -831,6 +840,11 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setVisible(true);
     }//GEN-LAST:event_jmiRegistrarCompraActionPerformed
 
+    private void jmiMisDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMisDatosActionPerformed
+        // TODO add your handling code here:
+        jmiUsuarioActionPerformed(null);
+    }//GEN-LAST:event_jmiMisDatosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -886,6 +900,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                     jmiCambiarUsuario.setVisible(true);
                     jmiCerrarSesion.setVisible(true);
                     jmMantenimiento.setVisible(true);
+                    jmiMisDatos.setVisible(false);
                     jmnVentas.setVisible(true);
                     jmConsultas.setVisible(true);
                     jmReportes.setVisible(true);
@@ -901,6 +916,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                     jmiCambiarUsuario.setVisible(true);
                     jmiCerrarSesion.setVisible(true);
                     jmMantenimiento.setVisible(true);
+                    jmiMisDatos.setVisible(true);
                     jmiUsuario.setVisible(false);
                     jmnVentas.setVisible(true);
                     jmConsultas.setVisible(true);
@@ -918,6 +934,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                     jmiCambiarUsuario.setVisible(true);
                     jmiCerrarSesion.setVisible(true);
                     jmMantenimiento.setVisible(false);
+                    jmiMisDatos.setVisible(true);
                     jmnVentas.setVisible(true);
                     jmConsultas.setVisible(true);
                     jmReportes.setVisible(false);
@@ -934,6 +951,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                     jmiCambiarUsuario.setVisible(true);
                     jmiCerrarSesion.setVisible(true);
                     jmMantenimiento.setVisible(false);
+                    jmiMisDatos.setVisible(true);
                     jmnVentas.setVisible(false);
                     jmConsultas.setVisible(false);
                     jmReportes.setVisible(true);
@@ -950,6 +968,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                     jmiCambiarUsuario.setVisible(true);
                     jmiCerrarSesion.setVisible(false);
                     jmMantenimiento.setVisible(false);
+                    jmiMisDatos.setVisible(false);
                     jmnVentas.setVisible(false);
                     jmConsultas.setVisible(false);
                     jmReportes.setVisible(false);
@@ -1062,6 +1081,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem jmiCategoria;
     private javax.swing.JMenuItem jmiCerrarSesion;
     private javax.swing.JMenuItem jmiMarca;
+    private javax.swing.JMenuItem jmiMisDatos;
     private javax.swing.JMenuItem jmiProducto;
     private javax.swing.JMenuItem jmiRegistrarCompra;
     private javax.swing.JMenuItem jmiUsuario;
