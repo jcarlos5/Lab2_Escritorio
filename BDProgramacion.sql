@@ -242,6 +242,20 @@ BEGIN
 END;
 $$ language 'plpgsql';
 
+CREATE OR REPLACE FUNCTION ventas_por_cliente(d varchar)
+RETURNS table(numventa int, fecha date, igv numeric, subtotal numeric, monto numeric, serie varchar, codcliente int, nombres varchar,
+			 dni char(8), ruc char(11), nombre varchar) AS
+$$
+DECLARE
+BEGIN
+	return query
+	Select v.numventa, v.fecha, v.igv, v.subtotal, v.total, v.serie, c.codcliente, c.nombres, c.dni, c.ruc, tc.nombre
+	from venta v inner join cliente c on v.codcliente=c.codcliente
+	inner join tipo_cliente tc on c.codtipo = tc.codtipo
+	where c.dni =d or c.ruc =d;
+END;
+$$language 'plpgsql';
+
 --INSERCIÓN DE EJEMPLOS
 
 INSERT INTO usuario VALUES (1,'ADMIN' , '123456' , 'Juan Perez Perez' , 'Gerente General' , false , 'Ciudad de Nacimiento' , 'Lima' );
