@@ -45,6 +45,25 @@ public class clsUsuario {
         return "";
     }
     
+    public String validarClave(String cod, String pass) throws Exception{
+        //strSQL = "SELECT nombreCompleto FROM USUARIO WHERE nomUsuario='" + user + "' and clave='" + pass + "' and estado = true;";
+        try {
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT nombreCompleto FROM USUARIO WHERE codUsuario=? and clave=? and estado = true;");
+            sentencia.setInt(1,Integer.parseInt(cod));
+            sentencia.setString(2,pass);
+            rs = sentencia.executeQuery();
+            //objConectar.consultarBD(strSQL);
+            while (rs.next()){
+                return rs.getString("nombreCompleto");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al iniciar Sesión");
+        }
+        return "";
+    }
+    
     public boolean validarExistencia(String user) throws Exception{
         //strSQL = "SELECT * FROM USUARIO WHERE nomUsuario = '" + user + "';";
         try {

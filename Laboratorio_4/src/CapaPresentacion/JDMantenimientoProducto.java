@@ -480,6 +480,10 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
         // TODO add your handling code here:
+        if(modificando){
+            limpiarControles();
+            modificando = false;
+        }
     }//GEN-LAST:event_txtCodigoKeyPressed
 
     private void cboMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboMarcaActionPerformed
@@ -507,10 +511,6 @@ public class JDMantenimientoProducto extends javax.swing.JDialog {
 
     private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
         // TODO add your handling code here:
-        if(modificando){
-            limpiarControles();
-            modificando = false;
-        }
     }//GEN-LAST:event_txtCodigoKeyReleased
 
     private void limpiarControles(){

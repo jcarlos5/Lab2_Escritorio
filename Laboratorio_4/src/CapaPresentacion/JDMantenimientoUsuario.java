@@ -421,6 +421,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
                         modificando = true;
                 }else{
                     JOptionPane.showMessageDialog(this,"Código de usuario no existe!");
+                    modificando = false;
                     limpiarControles();
                 }
             }   
@@ -490,6 +491,10 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
         // TODO add your handling code here:
+        if(modificando){
+            limpiarControles();
+            modificando = false;
+        }
     }//GEN-LAST:event_txtCodigoKeyPressed
 
     private void btnContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContraseñaActionPerformed
@@ -532,7 +537,7 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
         String clave = JOptionPane.showInputDialog(rootPane, "Ingrese su contraseña Actual", "SISTEMA", JOptionPane.PLAIN_MESSAGE);
         try {
             if (clave != null){
-                String nombre = objUsuario.login(txtUsuario.getText(), clave);
+                String nombre = objUsuario.validarClave(txtCodigo.getText(), clave);
                 if(nombre.equals("")){
                     JOptionPane.showMessageDialog(rootPane, "La contraseña es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
                 }else{
@@ -549,10 +554,6 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
 
     private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
         // TODO add your handling code here:
-        if(modificando){
-            limpiarControles();
-            modificando = false;
-        }
     }//GEN-LAST:event_txtCodigoKeyReleased
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed

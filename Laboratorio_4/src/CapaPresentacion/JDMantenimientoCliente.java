@@ -30,6 +30,8 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
     public JDMantenimientoCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        deshabilitarEd();
+        txtRuc.setEnabled(false);
     }
 
     /**
@@ -45,10 +47,10 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
         btnNuevo = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        btnDardeBaja = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
@@ -110,38 +112,38 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 204, 0));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/mod_user.png"))); // NOI18N
-        jButton2.setText("MODIFICAR");
-        jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton2.setPreferredSize(new java.awt.Dimension(120, 25));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setBackground(new java.awt.Color(255, 204, 0));
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/mod_user.png"))); // NOI18N
+        btnModificar.setText("MODIFICAR");
+        btnModificar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnModificar.setPreferredSize(new java.awt.Dimension(120, 25));
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnModificarActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 51, 51));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/drop_user.png"))); // NOI18N
-        jButton3.setText("ELIMINAR");
-        jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton3.setPreferredSize(new java.awt.Dimension(120, 25));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminar.setBackground(new java.awt.Color(255, 51, 51));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/drop_user.png"))); // NOI18N
+        btnEliminar.setText("ELIMINAR");
+        btnEliminar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnEliminar.setPreferredSize(new java.awt.Dimension(120, 25));
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
 
         jLabel1.setText("Código:");
 
-        jButton4.setBackground(new java.awt.Color(204, 102, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/baja.png"))); // NOI18N
-        jButton4.setText("DAR DE BAJA");
-        jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton4.setPreferredSize(new java.awt.Dimension(120, 25));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnDardeBaja.setBackground(new java.awt.Color(204, 102, 255));
+        btnDardeBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/baja.png"))); // NOI18N
+        btnDardeBaja.setText("DAR DE BAJA");
+        btnDardeBaja.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnDardeBaja.setPreferredSize(new java.awt.Dimension(120, 25));
+        btnDardeBaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnDardeBajaActionPerformed(evt);
             }
         });
 
@@ -237,11 +239,11 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
                                     .addComponent(txtCorreo)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnDardeBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
@@ -310,9 +312,9 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDardeBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -371,7 +373,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         listarClientes();
     }//GEN-LAST:event_formWindowActivated
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         try {
             if(txtCodigo.getText().equals("")){
@@ -391,7 +393,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
@@ -400,6 +402,8 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
             if (txtCodigo.getText().equals("")){
                 JOptionPane.showMessageDialog(this,"Debe ingresar un código para buscar");
             }else{
+                txtRuc.setText("");
+                txtDni.setText("");
                 rsCliente= objCliente.buscarCliente(Integer.parseInt( txtCodigo.getText()));
                 if (rsCliente.next()){
                         btnNuevo.setText("NUEVO");
@@ -424,6 +428,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
                         chkVigencia.setSelected(rsCliente.getBoolean("vigencia"));
                         rsCliente.close();
                         modificando = true;
+                        habilitarEd();
                 }else{
                     JOptionPane.showMessageDialog(this,"Código de Cliente no existe!");
                     limpiarControles();
@@ -434,7 +439,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         try {
             if(validarDatos()){
@@ -447,9 +452,9 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnModificarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnDardeBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDardeBajaActionPerformed
         // TODO add your handling code here:
         try {
             objCliente.darDeBajaCliente(Integer.parseInt(txtCodigo.getText()));
@@ -457,7 +462,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
             listarClientes();
         } catch (Exception e) {
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnDardeBajaActionPerformed
 
     private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
         // TODO add your handling code here:
@@ -502,15 +507,15 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
 
     private void txtCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoKeyPressed
-
-    private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
-        // TODO add your handling code here:
         if(modificando){
             limpiarControles();
             modificando = false;
             btnNuevo.setText("NUEVO");
         }
+    }//GEN-LAST:event_txtCodigoKeyPressed
+
+    private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
+        // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoKeyReleased
 
     private void limpiarControles(){
@@ -522,6 +527,7 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         txtCorreo.setText("");
         txtDireccion.setText("");
         chkVigencia.setSelected(false);
+        deshabilitarEd();
     }
     
     private void listarTiposClientes(){
@@ -561,6 +567,18 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
+    }
+    
+    private void deshabilitarEd(){
+        btnModificar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnDardeBaja.setEnabled(false);
+    }
+    
+    private void habilitarEd(){
+        btnModificar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+        btnDardeBaja.setEnabled(true);
     }
     
     private boolean validarDatos(){
@@ -621,12 +639,12 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnDardeBaja;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JComboBox<String> cboTipo;
     private javax.swing.JCheckBox chkVigencia;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
