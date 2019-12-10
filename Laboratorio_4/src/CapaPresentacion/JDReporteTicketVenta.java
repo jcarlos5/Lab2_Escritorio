@@ -7,6 +7,8 @@ package CapaPresentacion;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.swing.JRViewer;
 import util.Reportes;
@@ -15,15 +17,20 @@ import util.Reportes;
  *
  * @author JCarlos
  */
-public class JDReporteExistenciaProductos extends javax.swing.JDialog {
+public class JDReporteTicketVenta extends javax.swing.JDialog {
 
     /**
-     * Creates new form JDReporteProductos
+     * Creates new form JDReporteTicketVenta
      */
-    public JDReporteExistenciaProductos(java.awt.Frame parent, boolean modal) {
+    Integer v=0;
+    public void obtener(Integer venta){
+        v=venta;
+    }
+    
+    public JDReporteTicketVenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.vistaReporte.setVisible(false);
+        JOptionPane.showMessageDialog(parent, v);
     }
 
     /**
@@ -38,7 +45,6 @@ public class JDReporteExistenciaProductos extends javax.swing.JDialog {
         vistaReporte = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(".:REPORTE DE PRODUCTOS:.");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -49,24 +55,22 @@ public class JDReporteExistenciaProductos extends javax.swing.JDialog {
         vistaReporte.setLayout(vistaReporteLayout);
         vistaReporteLayout.setHorizontalGroup(
             vistaReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 562, Short.MAX_VALUE)
+            .addGap(0, 596, Short.MAX_VALUE)
         );
         vistaReporteLayout.setVerticalGroup(
             vistaReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 334, Short.MAX_VALUE)
+            .addGap(0, 346, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(vistaReporte)
+            .addComponent(vistaReporte, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(vistaReporte)
-                .addGap(0, 0, 0))
+            .addComponent(vistaReporte, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -74,14 +78,21 @@ public class JDReporteExistenciaProductos extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        try {
+
+           try {
+            this.vistaReporte.setVisible(false);
             Container contenedor = this.vistaReporte;
             contenedor.setLayout(new BorderLayout());
-            JRViewer vistaReporte = new Reportes().reporteInterno("rp_existenciasProductos.jasper", null);
+            //parametros
+            Map<String,Object> parametros = new HashMap<String,Object>();
+            parametros.put("p_numventa",v);
+            
+            JRViewer vistaReporte = new Reportes().reporteInterno("rp_ticket_venta.jasper",parametros);
+            //Reportes.imprimirReporte("rp_ventas_cliente", parametros, true);
             contenedor.add(vistaReporte);
             this.vistaReporte.setVisible(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Reporte",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -102,21 +113,20 @@ public class JDReporteExistenciaProductos extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDReporteExistenciaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDReporteTicketVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDReporteExistenciaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDReporteTicketVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDReporteExistenciaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDReporteTicketVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDReporteExistenciaProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDReporteTicketVenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDReporteExistenciaProductos dialog = new JDReporteExistenciaProductos(new javax.swing.JFrame(), true);
+                JDReporteTicketVenta dialog = new JDReporteTicketVenta(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

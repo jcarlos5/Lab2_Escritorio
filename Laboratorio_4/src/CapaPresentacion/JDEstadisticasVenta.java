@@ -91,7 +91,7 @@ public class JDEstadisticasVenta extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(tblDetalle);
 
-        jLabel5.setText("Información de una venta:");
+        jLabel5.setText("N° de Venta:");
 
         txtNumVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,23 +182,32 @@ public class JDEstadisticasVenta extends javax.swing.JDialog {
 
     private void txtNumVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumVentaActionPerformed
         // TODO add your handling code here:
-        try {
-            ResultSet rs = objVenta.ver_venta(Integer.parseInt(txtNumVenta.getText()));
-            DefaultTableModel modelo = new DefaultTableModel();
-            modelo.addColumn("Producto");
-            modelo.addColumn("cantidad");
-            modelo.addColumn("decsuento");
-            modelo.addColumn("Cliente");
-            modelo.addColumn("fecha");
-            modelo.addColumn("Venta");
-            modelo.addColumn("Total");
-            
-            tblDetalle.setModel(modelo);
-            while(rs.next()){
-                modelo.addRow(new Object[]{rs.getString("producto"), rs.getString("cantidad"), rs.getString("descuento"), rs.getString("cliente"), rs.getString("fecha"), rs.getString("numero"), rs.getString("total")});
+        if (txtNumVenta.equals("")){
+            JOptionPane.showMessageDialog(this, "Necesita colocar datos");
+        }else {
+            boolean val = isNumeric(txtNumVenta.getText());
+            if (val == false){
+                JOptionPane.showMessageDialog(this, "Valores no aceptados");
+            }else {
+                try {
+                    ResultSet rs = objVenta.ver_venta(Integer.parseInt(txtNumVenta.getText()));
+                    DefaultTableModel modelo = new DefaultTableModel();
+                    modelo.addColumn("Producto");
+                    modelo.addColumn("cantidad");
+                    modelo.addColumn("decsuento");
+                    modelo.addColumn("Cliente");
+                    modelo.addColumn("fecha");
+                    modelo.addColumn("Venta");
+                    modelo.addColumn("Total");
+
+                    tblDetalle.setModel(modelo);
+                    while(rs.next()){
+                        modelo.addRow(new Object[]{rs.getString("producto"), rs.getString("cantidad"), rs.getString("descuento"), rs.getString("cliente"), rs.getString("fecha"), rs.getString("numero"), rs.getString("total")});
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(rootPane, e.getMessage());
+                }
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_txtNumVentaActionPerformed
 
@@ -213,6 +222,14 @@ public class JDEstadisticasVenta extends javax.swing.JDialog {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }
+    private static boolean isNumeric(String cadena){
+        try {
+                Integer.parseInt(cadena);
+                return true;
+        } catch (NumberFormatException nfe){
+                return false;
         }
     }
     /**
