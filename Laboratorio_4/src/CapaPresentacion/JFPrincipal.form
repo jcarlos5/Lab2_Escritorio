@@ -269,7 +269,7 @@
                 <Property name="text" type="java.lang.String" value="Consultas"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="mnuVentasDiarias">
+                <MenuItem class="javax.swing.JMenuItem" name="mnuVentasDiarias1">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Ventas diarias"/>
                   </Properties>
@@ -277,20 +277,12 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuVentasDiariasActionPerformed"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="mnuCreditosClientes">
+                <MenuItem class="javax.swing.JMenuItem" name="mnuCreditosClientes1">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Creditos de clientes"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuCreditosClientesActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem14">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Consultar Caja"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem14ActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
@@ -340,7 +332,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jToolBar1" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel5" max="32767" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" pref="30" max="-2" attributes="0"/>

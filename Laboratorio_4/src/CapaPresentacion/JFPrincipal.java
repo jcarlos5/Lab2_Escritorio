@@ -3,6 +3,7 @@ package CapaPresentacion;
 import CapaNegocio.clsUsuario;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
@@ -117,10 +118,9 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         mnuReporteVentasDiarias = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        mnuVentasDiarias = new javax.swing.JMenuItem();
-        mnuCreditosClientes = new javax.swing.JMenuItem();
-        //jMenuItem14 = new javax.swing.JMenuItem();
-        jmiRegistrarCompra = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        mnuVentasDiarias1 = new javax.swing.JMenuItem();
+        mnuCreditosClientes1 = new javax.swing.JMenuItem();
 
         jMenuItem12.setText("jMenuItem12");
 
@@ -561,32 +561,25 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         });
         jmReportes.add(jMenuItem6);
 
+        jMenu6.setText("Consultas");
 
-        /*mnuVentasDiarias.setText("Ventas diarias");
-        mnuVentasDiarias.addActionListener(new java.awt.event.ActionListener() {
+        mnuVentasDiarias1.setText("Ventas diarias");
+        mnuVentasDiarias1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuVentasDiariasActionPerformed(evt);
             }
-        });*/
-        //jMenu6.add(mnuVentasDiarias);
+        });
+        jMenu6.add(mnuVentasDiarias1);
 
-        /*mnuCreditosClientes.setText("Creditos de clientes");
-        mnuCreditosClientes.addActionListener(new java.awt.event.ActionListener() {
+        mnuCreditosClientes1.setText("Creditos de clientes");
+        mnuCreditosClientes1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuCreditosClientesActionPerformed(evt);
             }
-        });*/
-        //jMenu6.add(mnuCreditosClientes);
+        });
+        jMenu6.add(mnuCreditosClientes1);
 
-        //jMenuItem14.setText("Consultar Caja");
-        /*jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem14ActionPerformed(evt);
-            }
-        });*/
-        //jMenu6.add(jMenuItem14);
-
-        //jmReportes.add(jMenu6);
+        jmReportes.add(jMenu6);
 
         jMenuBar1.add(jmReportes);
 
@@ -604,7 +597,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1061,6 +1054,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -1104,10 +1098,12 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel lblHora;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenuItem mnuCreditosClientes;
+    private javax.swing.JMenuItem mnuCreditosClientes1;
     private javax.swing.JMenuItem mnuPagarVenta;
     private javax.swing.JMenuItem mnuPagoCredito;
     private javax.swing.JMenuItem mnuReporteVentasDiarias;
     private javax.swing.JMenuItem mnuVentasDiarias;
+    private javax.swing.JMenuItem mnuVentasDiarias1;
     // End of variables declaration//GEN-END:variables
 
     @Override
