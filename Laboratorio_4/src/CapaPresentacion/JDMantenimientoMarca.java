@@ -309,6 +309,7 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
                 objMarca.eliminarMarca(Integer.parseInt(txtCodigo.getText()));
                 limpiarControles();
                 listarMarcas();
+                JOptionPane.showMessageDialog(rootPane, "Eliminación correcta");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());

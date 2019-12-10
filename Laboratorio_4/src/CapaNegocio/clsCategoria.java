@@ -51,7 +51,7 @@ public class clsCategoria {
             sentencia.setString(2,nom);
             sentencia.setString(3,descrip);
             sentencia.setBoolean(4, vig);
-            rs = sentencia.executeQuery();
+            sentencia.executeUpdate();
             //objConectar.ejecutarBD(strSQL);
         } catch (Exception e) {
             throw new Exception("Error al registrar la categoria");
@@ -86,6 +86,9 @@ public class clsCategoria {
     
     public void eliminarCategoria(Integer cod) throws Exception {
         try {
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            con.setAutoCommit(false);
             boolean logica = false;
             CallableStatement sentencia = con.prepareCall("SELECT * FROM producto WHERE codcategoria= ?;");
             sentencia.setInt(1, cod);
@@ -95,11 +98,7 @@ public class clsCategoria {
             if(rs.next()){
                 logica = true;
             }
-            if(logica){
-                objConectar.conectar();
-                con = objConectar.getConnection();
-                con.setAutoCommit(false);
-                
+            if(logica){                
                 sentencia = con.prepareCall("UPDATE producto SET vigencia = false WHERE codcategoria= ?;");
                 sentencia.setInt(1, cod);
                 sentencia.executeUpdate();
@@ -113,8 +112,6 @@ public class clsCategoria {
                 //sent = objConectar.getConnection().createStatement();
                 //strSQL="UPDATE categoria SET vigencia = false WHERE codcategoria=" + cod + ";";
                 //sent.executeUpdate(strSQL);
-                
-                con.commit();
             }else{
                 sentencia = con.prepareCall("DELETE FROM categoria WHERE codcategoria= ?;");
                 sentencia.setInt(1, cod);
@@ -122,6 +119,7 @@ public class clsCategoria {
                 //strSQL="DELETE FROM categoria WHERE codcategoria=" + cod + ";";
                 //objConectar.ejecutarBD(strSQL);
             }
+            con.commit();
         } catch (Exception e) {
             con.rollback();
             throw new Exception(e.getMessage());

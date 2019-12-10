@@ -302,6 +302,7 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
                     objCategoria.registrar(Integer.parseInt(txtCodigo.getText()), txtNombre.getText(), txtDescripcion.getText(), chkVigencia.isSelected());
                     limpiarControles();
                     listarCategorias();
+                    JOptionPane.showMessageDialog(rootPane, "Registro correcto");
                 }else{
                     JOptionPane.showMessageDialog(rootPane, "Por favor Complete todos los datos", "SISTEMA", JOptionPane.WARNING_MESSAGE);
                 }
@@ -324,9 +325,10 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
             }else{
                 objCategoria.eliminarCategoria(Integer.parseInt(txtCodigo.getText()));
                 limpiarControles();
-                 listarCategorias();
+                listarCategorias();
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
