@@ -160,7 +160,7 @@ CREATE TABLE establecimiento (
 CREATE TABLE parametro (
 codparametro int not null primary key,
 nombre varchar(50) not null,
-valor decimal(3,2) not null
+valor decimal(5,2) not null
 );
 
 

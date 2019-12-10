@@ -1032,6 +1032,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
             }
         } catch (Exception ex) {
             Logger.getLogger(JFPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(0);
         }
     }
     
