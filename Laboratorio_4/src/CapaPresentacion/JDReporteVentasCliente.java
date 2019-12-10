@@ -46,8 +46,6 @@ public class JDReporteVentasCliente extends javax.swing.JDialog {
         txtDocumento = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         vistaReporte = new javax.swing.JDesktopPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblClientes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(".:REPORTE DE VENTAS POR CLIENTE:.");
@@ -88,24 +86,6 @@ public class JDReporteVentasCliente extends javax.swing.JDialog {
             .addGap(0, 553, Short.MAX_VALUE)
         );
 
-        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblClientesMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblClientes);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,12 +93,9 @@ public class JDReporteVentasCliente extends javax.swing.JDialog {
             .addComponent(vistaReporte)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDocumento))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(btnBuscar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -131,9 +108,7 @@ public class JDReporteVentasCliente extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(111, 111, 111)
                 .addComponent(vistaReporte))
         );
 
@@ -163,53 +138,13 @@ public class JDReporteVentasCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-         try {
-            clsCliente objCliente = new clsCliente();
-            ResultSet rsClientes = null;
-            rsClientes = objCliente.listarClientes();
-            listarClientes(rsClientes);
-        } catch (Exception ex) {
-            Logger.getLogger(JDReporteVentasCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+     
     }//GEN-LAST:event_formWindowActivated
 
     private void txtDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyTyped
-        try {
-            ResultSet rsClientes = null;
-            rsClientes = objCliente.filtrarClientes(txtDocumento.getText());
-            listarClientes(rsClientes);
-            if (evt.getKeyChar() == KeyEvent.VK_ENTER){
-                btnBuscar.doClick();
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(JDReporteVentasCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+ 
     }//GEN-LAST:event_txtDocumentoKeyTyped
-
-    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
-        String doc = String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0));      
-        txtDocumento.setText(doc);
-        btnBuscar.doClick();
-    }//GEN-LAST:event_tblClientesMouseClicked
-     private void listarClientes(ResultSet rsClientes){
-        
-        try {
-            //rsClientes = objCliente.filtrarClientes(txtDocumento.getText());
-            
-            DefaultTableModel modelo = new DefaultTableModel();
-            
-            modelo.addColumn("DNI");
-            modelo.addColumn("RUC");
-            modelo.addColumn("NOMBRE");
-            
-            while(rsClientes.next()){
-                modelo.addRow(new Object[]{rsClientes.getString("dni"), rsClientes.getString("ruc"), rsClientes.getString("nombres")});
-            }
-            tblClientes.setModel(modelo);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
-        }
-    }
+   
     /**
      * @param args the command line arguments
      */
@@ -255,8 +190,6 @@ public class JDReporteVentasCliente extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JDesktopPane vistaReporte;
     // End of variables declaration//GEN-END:variables
