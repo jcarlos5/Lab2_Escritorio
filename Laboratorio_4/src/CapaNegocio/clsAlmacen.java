@@ -60,10 +60,10 @@ public class clsAlmacen {
             objConectar.conectar();
             con=objConectar.getConnection();
             con.setAutoCommit(false);
-            CallableStatement sentencia;
-            sentencia= con.prepareCall("INSERT INTO almacen VALUES (?, ?, current_date, ?, ?, ?, ?, ?);;");
+            CallableStatement sentencia;           
             int ctd = tblProductos.getRowCount();
             for (int i=0; i<ctd; i++){
+                sentencia= con.prepareCall("INSERT INTO almacen VALUES (?, ?, current_date, ?, ?, ?, ?, ?);");
                 sentencia.setInt(1, numIven);
                 sentencia.setString(2, bolCom);
                 sentencia.setInt(3, prov);
