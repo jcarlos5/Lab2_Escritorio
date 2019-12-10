@@ -120,6 +120,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
 
         jMenuItem12.setText("jMenuItem12");
 
@@ -576,6 +577,14 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         });
         jmReportes.add(jMenuItem6);
 
+        jMenuItem14.setText("Reporte de Caja");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jmReportes.add(jMenuItem14);
+
         jMenuBar1.add(jmReportes);
 
         setJMenuBar(jMenuBar1);
@@ -860,6 +869,13 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        // TODO add your handling code here:
+        JDReporteCaja obj = new JDReporteCaja(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1069,6 +1085,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem2;

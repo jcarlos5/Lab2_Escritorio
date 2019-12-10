@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rp_Caja" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8d1bcc7b-3d71-4d82-a125-95edc853f4c0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="M_Total" class="java.lang.String"/>
+	<parameter name="M_Actual" class="java.lang.String"/>
+	<parameter name="M_Contado" class="java.lang.String"/>
+	<parameter name="M_Cuotas" class="java.lang.String"/>
+	<parameter name="M_Credito" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select current_date as fecha]]>
+	</queryString>
+	<field name="fecha" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="13" width="555" height="45" uuid="8b8d5fc0-6000-4219-b129-24d26837b21f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE CAJA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="210" splitType="Stretch">
+			<staticText>
+				<reportElement x="83" y="49" width="206" height="20" uuid="15e7dc62-7aae-43b1-a515-ec733544109b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad Caja:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="19" width="206" height="20" uuid="1b98d52a-5321-420a-bd5c-52a64f0791b8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="80" width="206" height="20" uuid="9b4ceafd-8ffb-4430-b027-b76f732c25b0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto Total:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="111" width="206" height="20" uuid="4e5c1f2f-2ee9-4b3a-b1ad-2e26105654e4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ventas al Contado:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="141" width="206" height="20" uuid="cd222dae-61e0-407e-aec2-76ebfff9408a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ventas Por cuotas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="171" width="206" height="20" uuid="949c08a9-53d0-4492-a105-0f2ab32152ef"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ventas al Crédito:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="301" y="80" width="100" height="20" uuid="8b2c0d22-6e82-480c-a49a-f363d2bb8f92"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{M_Total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="301" y="49" width="100" height="20" uuid="78187d37-b72f-4a91-838f-b873dc004973"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{M_Actual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="301" y="111" width="100" height="20" uuid="b536f2d3-0627-4680-a91e-3cf1965451e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{M_Contado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="301" y="141" width="100" height="20" uuid="2bb8265d-66ab-43fb-a848-e26b3397c616"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{M_Cuotas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="301" y="171" width="100" height="20" uuid="0090e488-86ac-41cc-ae2c-c981c61b8656"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{M_Credito}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="301" y="19" width="100" height="20" uuid="68214442-2556-4013-a9b0-8494dbbb2233"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="39" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="23" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
