@@ -176,7 +176,16 @@ public class JDCreditosCliente extends javax.swing.JDialog {
     
     private void listarCreditos(String cli){
         ResultSet rs;
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column == 7) {
+                    return true;
+                } else{
+                    return false;
+                }                        
+            }            
+        };
         clsVenta objVenta = new clsVenta();
         try {
             model.addColumn("Codigo");

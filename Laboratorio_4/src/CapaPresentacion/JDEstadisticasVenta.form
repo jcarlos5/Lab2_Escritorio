@@ -178,7 +178,7 @@
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Informaci&#xf3;n de una venta:"/>
+            <Property name="text" type="java.lang.String" value="N&#xb0; de Venta:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNumVenta">

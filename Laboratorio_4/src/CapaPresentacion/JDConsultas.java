@@ -338,7 +338,16 @@ public class JDConsultas extends javax.swing.JDialog {
     private void listar(){
         ResultSet rsProductos = null;
         
-        DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column == 8) {
+                    return true;
+                } else{
+                    return false;
+                }                        
+            }            
+        };
         modelo.addColumn("CÓDIGO");
         modelo.addColumn("NOMBRE");
         modelo.addColumn("DESCRIPCIÓN");
@@ -379,7 +388,7 @@ public class JDConsultas extends javax.swing.JDialog {
             }
             
             while(rsProductos.next()){
-                modelo.addRow(new Object[]{rsProductos.getInt("codProducto"),rsProductos.getString("nomProducto"), rsProductos.getString("descripcion"), rsProductos.getString("precio"), rsProductos.getString("stock"), rsProductos.getBoolean("vigencia")?"SÍ":"NO", rsProductos.getString("nommarca"), rsProductos.getString("nomcategoria")});
+                modelo.addRow(new Object[]{rsProductos.getInt("codProducto"),rsProductos.getString("nomProducto"), rsProductos.getString("descripcion"), rsProductos.getString("precioVenta"), rsProductos.getString("stock"), rsProductos.getBoolean("vigencia")?"SÍ":"NO", rsProductos.getString("nommarca"), rsProductos.getString("nomcategoria")});
             }
             
             tblListado.setModel(modelo);
