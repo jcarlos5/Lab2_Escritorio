@@ -12,7 +12,7 @@ WHERE producto.vigencia = true and stock<=10]]>
 	<field name="codproducto" class="java.lang.Integer"/>
 	<field name="nomproducto" class="java.lang.String"/>
 	<field name="descripcion" class="java.lang.String"/>
-	<field name="precio" class="java.math.BigDecimal"/>
+	<field name="precioventa" class="java.math.BigDecimal"/>
 	<field name="stock" class="java.lang.Integer"/>
 	<field name="vigencia" class="java.lang.Boolean"/>
 	<field name="codmarca" class="java.lang.Integer"/>
@@ -25,16 +25,16 @@ WHERE producto.vigencia = true and stock<=10]]>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="26" y="17" width="509" height="42" uuid="44a9ade9-e421-40da-b054-36e1e96b7d89"/>
+				<reportElement x="0" y="17" width="555" height="42" uuid="44a9ade9-e421-40da-b054-36e1e96b7d89"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="24"/>
 				</textElement>
-				<text><![CDATA[Reporte de Existencias de Productos]]></text>
+				<text><![CDATA[Reporte de Existencias Mínimas de Productos]]></text>
 			</staticText>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="47" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="84" height="35" uuid="22ee7b1e-ce34-4342-8908-18c77159ac18"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -83,7 +83,7 @@ WHERE producto.vigencia = true and stock<=10]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="43" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="84" height="35" uuid="16174a1b-fb84-4569-bc58-4f6b963c6e1f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -97,13 +97,6 @@ WHERE producto.vigencia = true and stock<=10]]>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nomproducto}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="184" y="0" width="100" height="35" uuid="97dd9b8a-1d68-4bca-b3b5-29be99aa4afd"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="284" y="0" width="83" height="35" uuid="4de47a67-7dd8-4452-867d-9728ca349ddf"/>
@@ -125,6 +118,13 @@ WHERE producto.vigencia = true and stock<=10]]>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nommarca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="184" y="0" width="100" height="35" uuid="64bb6ea8-1d3b-4d7f-ae35-d3bd4e2a62fe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precioventa}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
