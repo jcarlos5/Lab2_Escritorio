@@ -353,7 +353,7 @@ public class JDPagoCuotas extends javax.swing.JDialog {
                 }else{
                     Vuelto=MontoI-Float.parseFloat(monto);
                     txtVuelto.setText(String.valueOf(Vuelto));
-                    pagar();
+                    //pagar();
                 }
             }
         } catch (Exception e) {

@@ -195,7 +195,7 @@ public class JDVentasPorFechas extends javax.swing.JDialog {
 
     private void tblVentasDiariasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblVentasDiariasMouseClicked
         try {
-            String id =String.valueOf(tblVentasDiarias.getValueAt(tblVentasDiarias.getSelectedRow(), 0));
+            String id =String.valueOf(tblVentasDiarias.getValueAt(tblVentasDiarias.getSelectedRow(), 1));
             clsVenta objV = new clsVenta();
             ResultSet rs = objV.listarVenta(Integer.valueOf(id));
             if(rs.next()){

@@ -73,12 +73,12 @@ public class FrmReporteClienteListado extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         try {
+            this.vistaReporte.setVisible(false);
             Container contenedor = this.vistaReporte;
             contenedor.setLayout(new BorderLayout());
             JRViewer vistaReporte = new Reportes().reporteInterno("rp_listado_clientes.jasper", null);
             contenedor.add(vistaReporte);
             this.vistaReporte.setVisible(true);
-            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }

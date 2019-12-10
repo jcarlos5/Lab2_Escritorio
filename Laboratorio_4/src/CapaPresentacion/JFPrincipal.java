@@ -96,6 +96,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jmiCategoria = new javax.swing.JMenuItem();
         jmiProducto = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         jmnVentas = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -119,9 +120,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        mnuVentasDiarias1 = new javax.swing.JMenuItem();
-        mnuCreditosClientes1 = new javax.swing.JMenuItem();
 
         jMenuItem12.setText("jMenuItem12");
 
@@ -406,6 +404,14 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         });
         jmMantenimiento.add(jMenuItem5);
 
+        jMenuItem11.setText("Proveedor");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        jmMantenimiento.add(jMenuItem11);
+
         jMenuBar1.add(jmMantenimiento);
 
         jmnVentas.setText("Ventas");
@@ -569,26 +575,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
             }
         });
         jmReportes.add(jMenuItem6);
-
-        jMenu6.setText("Consultas");
-
-        mnuVentasDiarias1.setText("Ventas diarias");
-        mnuVentasDiarias1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuVentasDiariasActionPerformed(evt);
-            }
-        });
-        jMenu6.add(mnuVentasDiarias1);
-
-        mnuCreditosClientes1.setText("Creditos de clientes");
-        mnuCreditosClientes1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuCreditosClientesActionPerformed(evt);
-            }
-        });
-        jMenu6.add(mnuCreditosClientes1);
-
-        jmReportes.add(jMenu6);
 
         jMenuBar1.add(jmReportes);
 
@@ -867,6 +853,13 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        // TODO add your handling code here:
+        JDMantenimientoProveedor obj = new JDMantenimientoProveedor(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1070,10 +1063,10 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem15;
@@ -1115,12 +1108,10 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel lblHora;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenuItem mnuCreditosClientes;
-    private javax.swing.JMenuItem mnuCreditosClientes1;
     private javax.swing.JMenuItem mnuPagarVenta;
     private javax.swing.JMenuItem mnuPagoCredito;
     private javax.swing.JMenuItem mnuReporteVentasDiarias;
     private javax.swing.JMenuItem mnuVentasDiarias;
-    private javax.swing.JMenuItem mnuVentasDiarias1;
     // End of variables declaration//GEN-END:variables
 
     @Override

@@ -4,12 +4,12 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT * FROM producto WHERE vigencia=true]]>
+		<![CDATA[SELECT * FROM producto WHERE vigencia=true order by codproducto]]>
 	</queryString>
 	<field name="codproducto" class="java.lang.Integer"/>
 	<field name="nomproducto" class="java.lang.String"/>
 	<field name="descripcion" class="java.lang.String"/>
-	<field name="precio" class="java.math.BigDecimal"/>
+	<field name="precioventa" class="java.math.BigDecimal"/>
 	<field name="stock" class="java.lang.Integer"/>
 	<field name="vigencia" class="java.lang.Boolean"/>
 	<field name="codmarca" class="java.lang.Integer"/>
@@ -80,22 +80,19 @@
 				<textFieldExpression><![CDATA[$F{nomproducto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="295" y="0" width="136" height="24" uuid="df81812b-a0bf-42a9-9f0f-24514a6331c6"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="431" y="0" width="124" height="24" uuid="49c476af-96dc-4d54-bbaf-7ab3fb075751"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{stock}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="5" y="24" width="550" height="1" uuid="8498edf4-9753-429f-bf7b-3797014d526d"/>
-			</line>
+			<textField>
+				<reportElement x="295" y="0" width="135" height="25" uuid="16763ffc-65e6-41f3-90f5-bc46c2ff2803"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precioventa}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>

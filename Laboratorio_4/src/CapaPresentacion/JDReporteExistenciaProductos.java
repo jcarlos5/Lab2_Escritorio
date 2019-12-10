@@ -75,6 +75,7 @@ public class JDReporteExistenciaProductos extends javax.swing.JDialog {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         try {
+            this.vistaReporte.setVisible(false);
             Container contenedor = this.vistaReporte;
             contenedor.setLayout(new BorderLayout());
             JRViewer vistaReporte = new Reportes().reporteInterno("rp_existenciasProductos.jasper", null);

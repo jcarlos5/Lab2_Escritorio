@@ -7,7 +7,7 @@
 		<![CDATA[SELECT producto.*,categoria.nomcategoria,marca.nommarca FROM producto
 INNER JOIN categoria ON categoria.codcategoria=producto.codcategoria
 INNER JOIN marca ON marca.codmarca=producto.codmarca
-WHERE producto.vigencia = true and stock<=10]]>
+WHERE producto.vigencia = true and stock<=10 order by stock asc]]>
 	</queryString>
 	<field name="codproducto" class="java.lang.Integer"/>
 	<field name="nomproducto" class="java.lang.String"/>

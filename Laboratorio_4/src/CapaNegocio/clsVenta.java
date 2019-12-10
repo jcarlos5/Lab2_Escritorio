@@ -267,33 +267,29 @@ public class clsVenta {
     }
     
     public boolean cambiarProducto(int numven, int prod_old, int prod_new, int cant_new, int desc_new) throws Exception{
+        boolean rpta = false;
+        objConectar.conectar();
+        con = objConectar.getConnection();
         try {
-            boolean rpta = false;
-            objConectar.conectar();
-            con = objConectar.getConnection();
-            try {
-                con.setAutoCommit(false);
-                CallableStatement sentencia = con.prepareCall("SELECT fn_cambiarProducto(?, ?, ?, ?, ?)");
-                sentencia.setInt(1, numven);
-                sentencia.setInt(2, prod_old);
-                sentencia.setInt(3, prod_new);
-                sentencia.setInt(4, cant_new);
-                sentencia.setInt(5, desc_new);
-                ResultSet resultado = sentencia.executeQuery();
-                if (resultado.next()) 
-                {
-                    rpta = resultado.getBoolean("fn_cambiarProducto");
-                }
-                con.commit();
-                return rpta;
-            } catch (Exception e) {
-                con.rollback();
-                throw new Exception("Error ");
-            }finally{
-                objConectar.desconectar();
+            con.setAutoCommit(false);
+            CallableStatement sentencia = con.prepareCall("SELECT fn_cambiarProducto(?, ?, ?, ?, ?)");
+            sentencia.setInt(1, numven);
+            sentencia.setInt(2, prod_old);
+            sentencia.setInt(3, prod_new);
+            sentencia.setInt(4, cant_new);
+            sentencia.setInt(5, desc_new);
+            ResultSet resultado = sentencia.executeQuery();
+            if (resultado.next()) 
+            {
+                rpta = resultado.getBoolean("fn_cambiarProducto");
             }
+            con.commit();
+            return rpta;
         } catch (Exception e) {
+            con.rollback();
             throw new Exception("Error ");
+        }finally{
+            objConectar.desconectar();
         }
     }
     

@@ -108,7 +108,7 @@ public class JDReporteVentasCliente extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
-                .addGap(111, 111, 111)
+                .addGap(20, 20, 20)
                 .addComponent(vistaReporte))
         );
 
