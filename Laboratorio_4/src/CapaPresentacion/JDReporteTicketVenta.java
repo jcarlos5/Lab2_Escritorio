@@ -30,7 +30,6 @@ public class JDReporteTicketVenta extends javax.swing.JDialog {
     public JDReporteTicketVenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        JOptionPane.showMessageDialog(parent, v);
     }
 
     /**
@@ -79,8 +78,7 @@ public class JDReporteTicketVenta extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-
-           try {
+        try {
             this.vistaReporte.setVisible(false);
             Container contenedor = this.vistaReporte;
             contenedor.setLayout(new BorderLayout());

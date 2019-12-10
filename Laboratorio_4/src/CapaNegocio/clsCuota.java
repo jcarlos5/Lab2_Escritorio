@@ -77,17 +77,34 @@ public class clsCuota {
             //strSQL="UPDATE venta SET estadopago = " + tipo + ", tipopago = " + tipo + " WHERE numventa=" + datos[0][0] + ";";
             //sent.executeUpdate(strSQL);
             
-            for (String[] dato : datos) {
-                sentencia = con.prepareCall("INSERT INTO cuota VALUES (?, ?, ?, null, ?, null, null, ?);");
+            if (tipo){
+                for (String[] dato : datos) {
+                    sentencia = con.prepareCall("INSERT INTO cuota VALUES (?, ?, ?, current_date, ?, ?, ?, ?);");
 
-                sentencia.setInt(1, Integer.parseInt(dato[0]));
-                sentencia.setInt(2, Integer.parseInt(dato[1]));
-                sentencia.setDate(3, Date.valueOf(dato[2]));
-                sentencia.setBoolean(4, Boolean.parseBoolean(dato[4]));
-                sentencia.setFloat(5, Float.parseFloat(dato[7]));
-                sentencia.executeUpdate();
-                //strSQL="INSERT INTO cuota VALUES (" + dato[0] + ", " + dato[1] + ", '" + dato[2] + "' , " + dato[3] + " , " + dato[4] + ", " + dato[5] + " , " + dato[6] + ","+dato[7]+");";
-                //sent.executeUpdate(strSQL);
+                    sentencia.setInt(1, Integer.parseInt(dato[0]));
+                    sentencia.setInt(2, Integer.parseInt(dato[1]));
+                    sentencia.setDate(3, Date.valueOf(dato[2]));
+                    sentencia.setBoolean(4, Boolean.parseBoolean(dato[4]));
+                    sentencia.setFloat(5, Float.parseFloat(dato[5]));
+                    sentencia.setFloat(6, Float.parseFloat(dato[6]));
+                    sentencia.setFloat(7, Float.parseFloat(dato[7]));
+                    sentencia.executeUpdate();
+                    //strSQL="INSERT INTO cuota VALUES (" + dato[0] + ", " + dato[1] + ", '" + dato[2] + "' , " + dato[3] + " , " + dato[4] + ", " + dato[5] + " , " + dato[6] + ","+dato[7]+");";
+                    //sent.executeUpdate(strSQL);
+                }
+            }else{
+                for (String[] dato : datos) {
+                    sentencia = con.prepareCall("INSERT INTO cuota VALUES (?, ?, ?, null, ?, null, null, ?);");
+
+                    sentencia.setInt(1, Integer.parseInt(dato[0]));
+                    sentencia.setInt(2, Integer.parseInt(dato[1]));
+                    sentencia.setDate(3, Date.valueOf(dato[2]));
+                    sentencia.setBoolean(4, Boolean.parseBoolean(dato[4]));
+                    sentencia.setFloat(5, Float.parseFloat(dato[7]));
+                    sentencia.executeUpdate();
+                    //strSQL="INSERT INTO cuota VALUES (" + dato[0] + ", " + dato[1] + ", '" + dato[2] + "' , " + dato[3] + " , " + dato[4] + ", " + dato[5] + " , " + dato[6] + ","+dato[7]+");";
+                    //sent.executeUpdate(strSQL);
+                }
             }
             
             con.commit();

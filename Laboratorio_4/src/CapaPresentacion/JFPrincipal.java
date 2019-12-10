@@ -103,7 +103,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenu5 = new javax.swing.JMenu();
         mnuPagarVenta = new javax.swing.JMenuItem();
         mnuPagoCredito = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jmAlmacen = new javax.swing.JMenu();
@@ -114,6 +113,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         mnuVentasDiarias = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
         jmReportes = new javax.swing.JMenu();
         jMenuItem16 = new javax.swing.JMenuItem();
         mnuReporteVentasDiarias = new javax.swing.JMenuItem();
@@ -452,14 +452,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
 
         jmnVentas.add(jMenu5);
 
-        jMenuItem13.setText("Consultar Caja");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
-            }
-        });
-        jmnVentas.add(jMenuItem13);
-
         jMenuItem2.setText("Cambiar Producto");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -531,6 +523,14 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
             }
         });
         jmConsultas.add(jMenuItem4);
+
+        jMenuItem13.setText("Consultar Caja");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        jmConsultas.add(jMenuItem13);
 
         jMenuBar1.add(jmConsultas);
 
