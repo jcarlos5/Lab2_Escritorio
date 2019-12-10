@@ -562,20 +562,20 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jmReportes.add(jMenuItem6);
 
 
-        mnuVentasDiarias.setText("Ventas diarias");
+        /*mnuVentasDiarias.setText("Ventas diarias");
         mnuVentasDiarias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuVentasDiariasActionPerformed(evt);
             }
-        });
+        });*/
         //jMenu6.add(mnuVentasDiarias);
 
-        mnuCreditosClientes.setText("Creditos de clientes");
+        /*mnuCreditosClientes.setText("Creditos de clientes");
         mnuCreditosClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuCreditosClientesActionPerformed(evt);
             }
-        });
+        });*/
         //jMenu6.add(mnuCreditosClientes);
 
         //jMenuItem14.setText("Consultar Caja");
