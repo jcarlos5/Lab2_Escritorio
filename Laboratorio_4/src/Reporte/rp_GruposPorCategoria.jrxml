@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[SELECT p.codproducto, p.nomproducto, p.descripcion as desPro, p.precio, p.stock, p.codcategoria, c.nomcategoria, c.descripcion as desCate
+		<![CDATA[SELECT p.codproducto, p.nomproducto, p.descripcion as desPro, p.precioventa, p.stock, p.codcategoria, c.nomcategoria, c.descripcion as desCate
 FROM producto p
 INNER JOIN categoria c ON p.codcategoria = c.codcategoria
 WHERE p.vigencia=TRUE;]]>
@@ -12,7 +12,7 @@ WHERE p.vigencia=TRUE;]]>
 	<field name="codproducto" class="java.lang.Integer"/>
 	<field name="nomproducto" class="java.lang.String"/>
 	<field name="despro" class="java.lang.String"/>
-	<field name="precio" class="java.math.BigDecimal"/>
+	<field name="precioventa" class="java.math.BigDecimal"/>
 	<field name="stock" class="java.lang.Integer"/>
 	<field name="codcategoria" class="java.lang.Integer"/>
 	<field name="nomcategoria" class="java.lang.String"/>
@@ -55,7 +55,7 @@ WHERE p.vigencia=TRUE;]]>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="9"/>
+			<band height="31"/>
 		</groupFooter>
 	</group>
 	<background>
@@ -136,7 +136,7 @@ WHERE p.vigencia=TRUE;]]>
 			<textField>
 				<reportElement x="408" y="0" width="73" height="20" uuid="fcbf6272-8a6b-465f-aead-15a88a89c26f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{precioventa}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="481" y="0" width="74" height="20" uuid="9aafa977-d240-494e-b63a-24120fc42ca8"/>

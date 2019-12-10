@@ -55,7 +55,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem12 = new javax.swing.JMenuItem();
         jToolBar1 = new javax.swing.JToolBar();
         btnLogin = new javax.swing.JButton();
         btnContraseña = new javax.swing.JButton();
@@ -116,13 +115,13 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuItem13 = new javax.swing.JMenuItem();
         jmReportes = new javax.swing.JMenu();
         jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuItem17 = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         mnuReporteVentasDiarias = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
-
-        jMenuItem12.setText("jMenuItem12");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(".:SISTEMA DE COMERCIALIZACIÓN:.");
@@ -545,6 +544,15 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         });
         jmReportes.add(jMenuItem16);
 
+        jMenuItem17.setText("Reporte de Productos Por categoría");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem17ActionPerformed(evt);
+            }
+        });
+        jmReportes.add(jMenuItem17);
+        jmReportes.add(jSeparator3);
+
         mnuReporteVentasDiarias.setText("Reporte de ventas diarias");
         mnuReporteVentasDiarias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -876,6 +884,13 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
+    private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+        // TODO add your handling code here:
+        JDReporteCategoriasGrupo obj = new JDReporteCategoriasGrupo(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_jMenuItem17ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1083,11 +1098,11 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -1103,6 +1118,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JPanel jPanel5;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenu jmAlmacen;
     private javax.swing.JMenu jmConsultas;
