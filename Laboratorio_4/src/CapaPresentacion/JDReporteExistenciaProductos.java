@@ -80,7 +80,6 @@ public class JDReporteExistenciaProductos extends javax.swing.JDialog {
             JRViewer vistaReporte = new Reportes().reporteInterno("rp_existenciasProductos.jasper", null);
             contenedor.add(vistaReporte);
             this.vistaReporte.setVisible(true);
-            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
