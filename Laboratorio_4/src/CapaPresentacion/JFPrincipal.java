@@ -117,11 +117,9 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         mnuReporteVentasDiarias = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
         mnuVentasDiarias = new javax.swing.JMenuItem();
         mnuCreditosClientes = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
-        jmAlmacen = new javax.swing.JMenu();
+        //jMenuItem14 = new javax.swing.JMenuItem();
         jmiRegistrarCompra = new javax.swing.JMenuItem();
 
         jMenuItem12.setText("jMenuItem12");
@@ -563,7 +561,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         });
         jmReportes.add(jMenuItem6);
 
-        jMenu6.setText("Consultas");
 
         mnuVentasDiarias.setText("Ventas diarias");
         mnuVentasDiarias.addActionListener(new java.awt.event.ActionListener() {
@@ -571,7 +568,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                 mnuVentasDiariasActionPerformed(evt);
             }
         });
-        jMenu6.add(mnuVentasDiarias);
+        //jMenu6.add(mnuVentasDiarias);
 
         mnuCreditosClientes.setText("Creditos de clientes");
         mnuCreditosClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -579,17 +576,17 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
                 mnuCreditosClientesActionPerformed(evt);
             }
         });
-        jMenu6.add(mnuCreditosClientes);
+        //jMenu6.add(mnuCreditosClientes);
 
-        jMenuItem14.setText("Consultar Caja");
-        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+        //jMenuItem14.setText("Consultar Caja");
+        /*jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem14ActionPerformed(evt);
             }
-        });
-        jMenu6.add(jMenuItem14);
+        });*/
+        //jMenu6.add(jMenuItem14);
 
-        jmReportes.add(jMenu6);
+        //jmReportes.add(jMenu6);
 
         jMenuBar1.add(jmReportes);
 
