@@ -241,15 +241,12 @@ public class JDVentasPorFechas extends javax.swing.JDialog {
                     f2 = new Date(ffinal.getDate().getTime());
                 }
                 DefaultTableModel modelo = new DefaultTableModel(){
-                    @Override
-                    public boolean isCellEditable(int row, int column) {
-                        if (column == 10) {
-                            return true;
-                        } else{
-                            return false;
-                        }                        
-                    }            
-                };
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
                 modelo.addColumn("N°");
                 modelo.addColumn("Núm. Venta");
                 modelo.addColumn("Fecha");

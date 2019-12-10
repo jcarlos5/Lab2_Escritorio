@@ -191,7 +191,13 @@ public class JDEstadisticasVenta extends javax.swing.JDialog {
             }else {
                 try {
                     ResultSet rs = objVenta.ver_venta(Integer.parseInt(txtNumVenta.getText()));
-                    DefaultTableModel modelo = new DefaultTableModel();
+                    DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
                     modelo.addColumn("Producto");
                     modelo.addColumn("cantidad");
                     modelo.addColumn("decsuento");

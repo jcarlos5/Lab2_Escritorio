@@ -287,7 +287,13 @@ public class JDDevolucionVenta extends javax.swing.JDialog {
     }//GEN-LAST:event_txtIDKeyReleased
     private void listarVentas(){
         ResultSet rs;
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
         clsVenta objVenta = new clsVenta();
         try {
             model.addColumn("Codigo");
@@ -378,7 +384,13 @@ public class JDDevolucionVenta extends javax.swing.JDialog {
         ResultSet rsClientes = null;
         try {
             rsClientes = objCliente.filtrarClientes(txtID.getText());
-            DefaultTableModel modelo = new DefaultTableModel();
+            DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
             
             modelo.addColumn("DNI");
             modelo.addColumn("RUC");
@@ -399,7 +411,13 @@ public class JDDevolucionVenta extends javax.swing.JDialog {
             calcularTotal(numventa);
             clsVenta objV = new clsVenta();
             rs = objV.listarDetalleVenta(numventa);
-            DefaultTableModel modelo = new DefaultTableModel();
+            DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
             
             modelo.addColumn("Cod. Producto");
             modelo.addColumn("Nomb. Producto");

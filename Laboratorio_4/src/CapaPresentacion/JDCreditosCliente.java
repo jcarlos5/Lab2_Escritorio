@@ -177,15 +177,12 @@ public class JDCreditosCliente extends javax.swing.JDialog {
     private void listarCreditos(String cli){
         ResultSet rs;
         DefaultTableModel model = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                if (column == 7) {
-                    return true;
-                } else{
-                    return false;
-                }                        
-            }            
-        };
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
         clsVenta objVenta = new clsVenta();
         try {
             model.addColumn("Codigo");
@@ -224,7 +221,13 @@ public class JDCreditosCliente extends javax.swing.JDialog {
         ResultSet rsClientes = null;
         try {
             rsClientes = objCliente.filtrarClientes(txtID.getText());
-            DefaultTableModel modelo = new DefaultTableModel();
+            DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
             
             modelo.addColumn("DNI");
             modelo.addColumn("RUC");

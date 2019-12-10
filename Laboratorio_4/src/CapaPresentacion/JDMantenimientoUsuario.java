@@ -572,7 +572,13 @@ public class JDMantenimientoUsuario extends javax.swing.JDialog {
     
     private void listarUsuarios(){
         ResultSet rsUsuarios = null;
-        DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
         modelo.addColumn("CÓDIGO");
         modelo.addColumn("USUARIO");
         modelo.addColumn("NOMBRE");

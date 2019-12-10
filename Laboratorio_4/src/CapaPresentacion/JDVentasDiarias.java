@@ -231,15 +231,12 @@ public class JDVentasDiarias extends javax.swing.JDialog {
     private void listarVentas(Date fech){
         ResultSet rsMarcas = null;
         DefaultTableModel model = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                if (column == 7) {
-                    return true;
-                } else{
-                    return false;
-                }                        
-            }            
-        };
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
         try {
             model.addColumn("Codigo");
             model.addColumn("Fecha");

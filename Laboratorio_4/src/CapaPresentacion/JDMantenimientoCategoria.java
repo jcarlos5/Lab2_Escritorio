@@ -424,7 +424,13 @@ public class JDMantenimientoCategoria extends javax.swing.JDialog {
     
     private void listarCategorias(){
         ResultSet rsCategorias = null;
-        DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
         modelo.addColumn("CÓDIGO");
         modelo.addColumn("NOMBRE");
         modelo.addColumn("DESCRIPCIÓN");

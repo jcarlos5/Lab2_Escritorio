@@ -234,7 +234,13 @@ public class JDAñadirProductos extends javax.swing.JDialog {
 
     private void listarProductos(){
         ResultSet rsProductos = null;
-        DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
         modelo.addColumn("CÓDIGO");
         modelo.addColumn("NOMBRE");
         modelo.addColumn("DESCRIPCIÓN");

@@ -290,7 +290,13 @@ public class JDPagarVenta extends javax.swing.JDialog {
         ResultSet rs = null;
         try {
             rs = objVenta.listarVentaPagoPendiente(cod);
-            DefaultTableModel modelo = new DefaultTableModel();
+            DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
             
             modelo.addColumn("N°");
             modelo.addColumn("FECHA");
@@ -310,7 +316,13 @@ public class JDPagarVenta extends javax.swing.JDialog {
         ResultSet rsClientes = null;
         try {
             rsClientes = objCliente.filtrarClientes(txtDocumento.getText());
-            DefaultTableModel modelo = new DefaultTableModel();
+            DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
             
             modelo.addColumn("DNI");
             modelo.addColumn("RUC");

@@ -28,7 +28,13 @@ public class JDRegistrarCompra extends javax.swing.JDialog {
     clsProducto objP = new clsProducto();
     clsAlmacen objA = new clsAlmacen();
     clsProveedor objPro = new clsProveedor();
-    DefaultTableModel modeloP = new DefaultTableModel();
+    DefaultTableModel modeloP = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
     float subTotal;
     int rpta = -1;
     
@@ -590,7 +596,13 @@ public class JDRegistrarCompra extends javax.swing.JDialog {
         try {
             ResultSet rs = null;
             rs = objPro.listarProveedores();
-            DefaultTableModel modeloPro = new DefaultTableModel();
+            DefaultTableModel modeloPro = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
             modeloPro.addColumn("CÓDIGO");
             modeloPro.addColumn("RUC");
             modeloPro.addColumn("PROVEEDOR");

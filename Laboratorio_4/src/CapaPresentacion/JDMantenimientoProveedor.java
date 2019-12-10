@@ -463,7 +463,13 @@ public class JDMantenimientoProveedor extends javax.swing.JDialog {
         ResultSet rsProveedors = null;
         try {
             rsProveedors = objProveedor.listarProveedores();
-            DefaultTableModel modelo = new DefaultTableModel();
+            DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
             
             modelo.addColumn("CÓDIGO");
             modelo.addColumn("NOMBRE");

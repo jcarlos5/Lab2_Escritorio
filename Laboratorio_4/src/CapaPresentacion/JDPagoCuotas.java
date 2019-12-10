@@ -426,7 +426,13 @@ public class JDPagoCuotas extends javax.swing.JDialog {
         
         documento=txtDocumento.getText();
         ResultSet rscuota = null;
-        DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
         modelo.addColumn("Venta");
         modelo.addColumn("NumCuota");
         modelo.addColumn("Monto");
@@ -471,7 +477,13 @@ public class JDPagoCuotas extends javax.swing.JDialog {
         ResultSet rsClientes = null;
         try {
             rsClientes = objCliente.filtrarClientes(txtDocumento.getText());
-            DefaultTableModel modelo = new DefaultTableModel();
+            DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
             
             modelo.addColumn("DNI");
             modelo.addColumn("RUC");

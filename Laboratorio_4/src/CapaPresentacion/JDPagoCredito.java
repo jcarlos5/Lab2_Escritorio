@@ -313,7 +313,13 @@ public class JDPagoCredito extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowActivated
 
     private void generarCuotas(){
-        DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
         modelo.addColumn("N° Cuota");
         modelo.addColumn("Fecha");
         modelo.addColumn("Monto");

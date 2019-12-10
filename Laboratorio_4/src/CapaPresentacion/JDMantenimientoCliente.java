@@ -548,7 +548,13 @@ public class JDMantenimientoCliente extends javax.swing.JDialog {
         ResultSet rsClientes = null;
         try {
             rsClientes = objCliente.listarClientes();
-            DefaultTableModel modelo = new DefaultTableModel();
+            DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
             
             modelo.addColumn("CÓDIGO");
             modelo.addColumn("DNI");

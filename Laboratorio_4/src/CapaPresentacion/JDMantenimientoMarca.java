@@ -408,7 +408,13 @@ public class JDMantenimientoMarca extends javax.swing.JDialog {
     
     private void listarMarcas(){
         ResultSet rsMarcas = null;
-        DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
         modelo.addColumn("CÓDIGO");
         modelo.addColumn("NOMBRE");
         modelo.addColumn("VIGENCIA");

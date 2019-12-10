@@ -5,7 +5,9 @@
  */
 package CapaPresentacion;
 
+import CapaNegocio.clsCliente;
 import CapaNegocio.clsVenta;
+import java.awt.event.KeyEvent;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -26,10 +28,12 @@ public class JDBuscarVentas extends javax.swing.JDialog {
      * Creates new form JDBuscarVentas
      */
     clsVenta objVenta = new clsVenta();
+    clsCliente objCliente = new clsCliente();
     Integer numVenta =0;
     public JDBuscarVentas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        listarClientes();
     }
 
     /**
@@ -42,16 +46,16 @@ public class JDBuscarVentas extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        txtVenta = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtDNI = new javax.swing.JTextField();
+        txtDocumento = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblClientes = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl = new javax.swing.JTable();
-        btnReporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle(".:REPONER TICKET:.");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -60,60 +64,73 @@ public class JDBuscarVentas extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("N° Venta:");
+        jLabel2.setText("DNI/RUC:");
 
-        txtVenta.addActionListener(new java.awt.event.ActionListener() {
+        txtDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtVentaActionPerformed(evt);
+                txtDocumentoActionPerformed(evt);
+            }
+        });
+        txtDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDocumentoKeyReleased(evt);
             }
         });
 
-        jLabel2.setText("DNI:");
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
 
-        txtDNI.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDNIActionPerformed(evt);
+            }
+        ));
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
             }
         });
+        jScrollPane2.setViewportView(tblClientes);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
+                    .addComponent(txtDocumento))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
         tbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         tbl.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -123,31 +140,21 @@ public class JDBuscarVentas extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tbl);
 
-        btnReporte.setText("Ver Reporte");
-        btnReporte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReporteActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(190, 190, 190)
-                .addComponent(btnReporte))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(btnReporte))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,64 +165,109 @@ public class JDBuscarVentas extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDNIActionPerformed
+    private void txtDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDocumentoActionPerformed
         // TODO add your (handling code here:
-        if(txtDNI.getText().length()==8){
+        if(txtDocumento.getText().length()==8 || txtDocumento.getText().length()==11){
             try {
-                ResultSet rs = objVenta.listarVentasDNI(txtDNI.getText());
                 listarVentasDNI();
             } catch (Exception ex) {
                 Logger.getLogger(JDBuscarVentas.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
             JOptionPane.showMessageDialog(null, "DNI inválido");
+            listarVentas();
         }
-    }//GEN-LAST:event_txtDNIActionPerformed
+    }//GEN-LAST:event_txtDocumentoActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         listarVentas();
+        listarClientes();
     }//GEN-LAST:event_formWindowOpened
-
-    private void txtVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVentaActionPerformed
-        // TODO add your handling code here:
-        if(Integer.parseInt(txtVenta.getText())<=0){
-            JOptionPane.showMessageDialog(null, "N° de Venta Invalido"); 
-        }else{
-            listarVentaV();
-        }
-    }//GEN-LAST:event_txtVentaActionPerformed
-
-    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
-        // TODO add your handling code here:
-        JDReporteTicketVenta obj = new JDReporteTicketVenta((JFrame)this.getParent(), true);
-        obj.setLocationRelativeTo(this);
-        obj.obtener(numVenta);
-        obj.setVisible(true);
-    }//GEN-LAST:event_btnReporteActionPerformed
 
     private void tblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMouseClicked
         // TODO add your handling code here:
         numVenta=Integer.parseInt(String.valueOf(tbl.getValueAt(tbl.getSelectedRow(), 0)));
+        JDReporteTicketVenta obj = new JDReporteTicketVenta((JFrame)this.getParent(), true);
+        obj.setLocationRelativeTo(this);
+        obj.obtener(numVenta);
+        obj.setVisible(true);
     }//GEN-LAST:event_tblMouseClicked
+
+    private void txtDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDocumentoKeyReleased
+        // TODO add your handling code here:
+        if(txtDocumento.getText().length()>0 && evt.getKeyCode()==KeyEvent.VK_ENTER){
+            if(((DefaultTableModel)tblClientes.getModel()).getRowCount()==1 && (txtDocumento.getText().length()==8 || txtDocumento.getText().length()==11)){
+                listarVentasDNI();
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "El documento ingresado no existe");
+            }
+        }
+        listarClientes();
+    }//GEN-LAST:event_txtDocumentoKeyReleased
+
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+        // TODO add your handling code here:
+        String doc = "null";
+        if(String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0))!="null"){
+            doc = String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0));
+        }else{
+            doc = String.valueOf(tblClientes.getValueAt(tblClientes.getSelectedRow(), 1));
+        }
+        txtDocumento.setText(doc);
+        txtDocumentoActionPerformed(null);
+    }//GEN-LAST:event_tblClientesMouseClicked
     
-       private void listarVentasDNI(){
+    private void listarClientes(){
+        ResultSet rsClientes = null;
+        try {
+            rsClientes = objCliente.filtrarClientes(txtDocumento.getText());
+            DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
+            
+            modelo.addColumn("DNI");
+            modelo.addColumn("RUC");
+            modelo.addColumn("NOMBRE");
+            
+            while(rsClientes.next()){
+                modelo.addRow(new Object[]{rsClientes.getString("dni"), rsClientes.getString("ruc"), rsClientes.getString("nombres")});
+            }
+            tblClientes.setModel(modelo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+    }
+    
+    private void listarVentasDNI(){
         ResultSet rsMarcas = null;
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
         try {
             model.addColumn("Codigo");
             model.addColumn("Fecha");
@@ -225,7 +277,7 @@ public class JDBuscarVentas extends javax.swing.JDialog {
             model.addColumn("Total");
             model.addColumn("Estado de pago");
         
-            rsMarcas = objVenta.listarVentasDNI(txtDNI.getText());
+            rsMarcas = objVenta.listarVentasDNI(txtDocumento.getText());
             while (rsMarcas.next()){
                 String estpago = (rsMarcas.getBoolean("estadopago"))?"Pagado":"No pagado";
                 String tipoc = (rsMarcas.getBoolean("tipocomprobante")) ? "Boleta":"Factura" ;
@@ -245,9 +297,15 @@ public class JDBuscarVentas extends javax.swing.JDialog {
         }
     }
      
-       private void listarVentaV(){
+    private void listarVentaV(String cod){
         ResultSet rsMarcas = null;
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
         try {
             model.addColumn("Codigo");
             model.addColumn("Fecha");
@@ -257,7 +315,7 @@ public class JDBuscarVentas extends javax.swing.JDialog {
             model.addColumn("Total");
             model.addColumn("Estado de pago");
         
-            rsMarcas = objVenta.listarVentas(Integer.parseInt(txtVenta.getText()));
+            rsMarcas = objVenta.listarVentas(Integer.parseInt(cod));
             while (rsMarcas.next()){
                 String estpago = (rsMarcas.getBoolean("estadopago"))?"Pagado":"No pagado";
                 String tipoc = (rsMarcas.getBoolean("tipocomprobante")) ? "Boleta":"Factura" ;
@@ -280,7 +338,13 @@ public class JDBuscarVentas extends javax.swing.JDialog {
     
     private void listarVentas(){
         ResultSet rsMarcas = null;
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
         try {
             model.addColumn("Codigo");
             model.addColumn("Fecha");
@@ -356,14 +420,13 @@ public class JDBuscarVentas extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnReporte;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tbl;
-    private javax.swing.JTextField txtDNI;
-    private javax.swing.JTextField txtVenta;
+    private javax.swing.JTable tblClientes;
+    private javax.swing.JTextField txtDocumento;
     // End of variables declaration//GEN-END:variables
 }

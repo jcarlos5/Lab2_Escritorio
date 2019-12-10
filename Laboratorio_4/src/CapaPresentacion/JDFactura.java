@@ -344,7 +344,13 @@ public class JDFactura extends javax.swing.JDialog {
         try {
             ResultSet rs = obj.getDatos(Integer.parseInt(num));
             
-            DefaultTableModel modelo = new DefaultTableModel();
+            DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
             modelo.addColumn("Cantidad");
             modelo.addColumn("Descripción");
             modelo.addColumn("Prec. Unit.");

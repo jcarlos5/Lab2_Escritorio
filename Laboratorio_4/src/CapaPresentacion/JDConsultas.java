@@ -339,15 +339,12 @@ public class JDConsultas extends javax.swing.JDialog {
         ResultSet rsProductos = null;
         
         DefaultTableModel modelo = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                if (column == 8) {
-                    return true;
-                } else{
-                    return false;
-                }                        
-            }            
-        };
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
         modelo.addColumn("CÓDIGO");
         modelo.addColumn("NOMBRE");
         modelo.addColumn("DESCRIPCIÓN");

@@ -168,7 +168,13 @@ public class JDMantenimientoParametros extends javax.swing.JDialog {
         try {
             ResultSet rs = objParametro.listar();
             
-            DefaultTableModel modelo = new DefaultTableModel();
+            DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
             modelo.addColumn("CODIGO");
             modelo.addColumn("NOMBRE");
             modelo.addColumn("VALOR (%)");

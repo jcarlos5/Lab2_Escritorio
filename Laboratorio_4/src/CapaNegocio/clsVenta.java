@@ -237,12 +237,13 @@ public class clsVenta {
         }
     }
     
-        public ResultSet listarVentasDNI(String cliente) throws Exception{
+    public ResultSet listarVentasDNI(String cliente) throws Exception{
         try {
             objConectar.conectar();
             con = objConectar.getConnection();
-            CallableStatement sentencia = con.prepareCall("SELECT v.* FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE c.dni=? and estadopago=true;");
+            CallableStatement sentencia = con.prepareCall("SELECT v.* FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE estadopago=true and (c.dni=? or c.ruc = ?);");
             sentencia.setString(1, cliente);
+            sentencia.setString(2, cliente);
             rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {

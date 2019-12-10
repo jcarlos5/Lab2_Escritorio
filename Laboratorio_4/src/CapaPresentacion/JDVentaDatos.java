@@ -237,7 +237,13 @@ public class JDVentaDatos extends javax.swing.JDialog {
         try {
             clsVenta objV = new clsVenta();
             rs = objV.listarDetalleVenta(numventa);
-            DefaultTableModel modelo = new DefaultTableModel();
+            DefaultTableModel modelo = new DefaultTableModel(){
+                                            @Override
+                                            public boolean isCellEditable(int row, int col)
+                                            {
+                                                return false;
+                                            }
+                                            };
             
             modelo.addColumn("Cod. Producto");
             modelo.addColumn("Nomb. Producto");
