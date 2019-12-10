@@ -104,8 +104,12 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jmAlmacen = new javax.swing.JMenu();
+        jmiRegistrarCompra = new javax.swing.JMenuItem();
         jmConsultas = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
+        mnuCreditosClientes = new javax.swing.JMenuItem();
+        mnuVentasDiarias = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jmReportes = new javax.swing.JMenu();
@@ -469,6 +473,18 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
 
         jMenuBar1.add(jmnVentas);
 
+        jmAlmacen.setText("Almacén");
+
+        jmiRegistrarCompra.setText("Registrar Compra");
+        jmiRegistrarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRegistrarCompraActionPerformed(evt);
+            }
+        });
+        jmAlmacen.add(jmiRegistrarCompra);
+
+        jMenuBar1.add(jmAlmacen);
+
         jmConsultas.setText("Consultas");
 
         jMenuItem8.setText("Consultar Producto");
@@ -478,6 +494,22 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
             }
         });
         jmConsultas.add(jMenuItem8);
+
+        mnuCreditosClientes.setText("Creditos de clientes");
+        mnuCreditosClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCreditosClientesActionPerformed(evt);
+            }
+        });
+        jmConsultas.add(mnuCreditosClientes);
+
+        mnuVentasDiarias.setText("Ventas diarias");
+        mnuVentasDiarias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuVentasDiariasActionPerformed(evt);
+            }
+        });
+        jmConsultas.add(mnuVentasDiarias);
 
         jMenuItem15.setText("Ventas Por Rango de Fechas");
         jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
@@ -560,18 +592,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jmReportes.add(jMenu6);
 
         jMenuBar1.add(jmReportes);
-
-        jmAlmacen.setText("Almacén");
-
-        jmiRegistrarCompra.setText("Registrar Compra");
-        jmiRegistrarCompra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiRegistrarCompraActionPerformed(evt);
-            }
-        });
-        jmAlmacen.add(jmiRegistrarCompra);
-
-        jMenuBar1.add(jmAlmacen);
 
         setJMenuBar(jMenuBar1);
 
@@ -744,13 +764,6 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         obj.setLocationRelativeTo(this);
         obj.setVisible(true);
     }//GEN-LAST:event_mnuCreditosClientesActionPerformed
-
-    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        // TODO add your handling code here:
-        JDConsultasCaja obj = new JDConsultasCaja(this, true);
-        obj.setLocationRelativeTo(this);
-        obj.setVisible(true);
-    }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
         // TODO add your handling code here:
@@ -1051,13 +1064,11 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem2;
