@@ -136,6 +136,7 @@ public class JDAgregarProductos extends javax.swing.JDialog {
                 pasarDatos(cod, Integer.parseInt(ctd));
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, "Cantidad no válida");
+                prod = 0;
             }
         }
     }//GEN-LAST:event_tblProductosMouseClicked
@@ -153,6 +154,7 @@ public class JDAgregarProductos extends javax.swing.JDialog {
             }            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            prod = 0;
         }
     }
     
@@ -171,6 +173,7 @@ public class JDAgregarProductos extends javax.swing.JDialog {
                     pasarDatos(cod, Integer.parseInt(ctd));
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(rootPane, "Cantidad no válida");
+                    prod = 0;
                 }
             }
         }

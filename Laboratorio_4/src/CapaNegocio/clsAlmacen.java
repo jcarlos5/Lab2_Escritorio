@@ -29,6 +29,19 @@ public class clsAlmacen {
     Statement sent;
     float porcentaje_ganacia;
     
+    public clsAlmacen() {
+        try {
+            objConectar.conectar();
+            strSQL = "SELECT valor FROM parametro WHERE nombre='Ganancia';";
+            rs = objConectar.consultarBD(strSQL);
+            while(rs.next()){
+                this.porcentaje_ganacia = rs.getFloat("valor");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+    
     public Integer generarCodigoVenta() throws Exception{
         strSQL = "SELECT COALESCE(max(codInven),0)+1 AS codigo FROM almacen;" ;
         try {
@@ -66,8 +79,7 @@ public class clsAlmacen {
                 sentencia.executeUpdate();
                 
                 float precioCom = Float.parseFloat(tblProductos.getValueAt(i, 2).toString());
-                float ganancia = (precioCom * 20)/100 ;
-                float nuevoPrecio = precioCom + ganancia;
+                float nuevoPrecio = precioCom + (precioCom * porcentaje_ganacia/100);
                 sentencia = con.prepareCall("UPDATE producto SET precioventa = ? WHERE codproducto=?");
                 sentencia.setFloat(1, nuevoPrecio);
                 sentencia.setInt(2, Integer.parseInt(tblProductos.getValueAt(i, 0).toString()));
@@ -82,19 +94,4 @@ public class clsAlmacen {
             objConectar.desconectar();
         }
     }
-
-    public clsAlmacen() {
-        try {
-            objConectar.conectar();
-            strSQL = "SELECT valor FROM parametro WHERE nombre='Ganacia';";
-            rs = objConectar.consultarBD(strSQL);
-            while(rs.next()){
-                this.porcentaje_ganacia = rs.getFloat("valor");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }
-       
-    
 }
