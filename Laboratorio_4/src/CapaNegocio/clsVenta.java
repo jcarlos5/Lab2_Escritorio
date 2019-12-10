@@ -95,7 +95,18 @@ public class clsVenta {
         }
     }
     */
-    
+
+    public ResultSet listarVentaPagadas() throws Exception{
+        try {
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM venta WHERE estadopago=true;");
+            rs=sentencia.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al buscar ventas");
+        }
+    }    
     
     //para listar todas las ventas pendientes de pago - JDPAGO
     public ResultSet listarVentaPagoPendiente() throws Exception{
@@ -125,7 +136,19 @@ public class clsVenta {
         }
     }
     
-    
+        public ResultSet listarVentas(int venta) throws Exception{
+        try {
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT * FROM venta WHERE numventa=? and estadopago=true;");
+            sentencia.setInt(1, venta);
+            rs=sentencia.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error");
+        }
+    }
+        
     //para listar las ventas por fecha
     //el tipo de dato Date es de la libreria de sql 
     //para el jd ventas diarias 
@@ -207,6 +230,19 @@ public class clsVenta {
             con = objConectar.getConnection();
             CallableStatement sentencia = con.prepareCall("SELECT * FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE c.codcliente = ? and estadopago is not null;");
             sentencia.setInt(1, codcliente);
+            rs=sentencia.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error ");
+        }
+    }
+    
+        public ResultSet listarVentasDNI(String cliente) throws Exception{
+        try {
+            objConectar.conectar();
+            con = objConectar.getConnection();
+            CallableStatement sentencia = con.prepareCall("SELECT v.* FROM venta v inner join cliente c on v.codcliente=c.codcliente WHERE c.dni=? and estadopago=true;");
+            sentencia.setString(1, cliente);
             rs=sentencia.executeQuery();
             return rs;
         } catch (Exception e) {
