@@ -117,6 +117,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jMenuItem16 = new javax.swing.JMenuItem();
         mnuReporteVentasDiarias = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jmAlmacen = new javax.swing.JMenu();
         jmiRegistrarCompra = new javax.swing.JMenuItem();
 
@@ -559,6 +560,14 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         });
         jmReportes.add(jMenuItem1);
 
+        jMenuItem6.setText("Reporte de Agotamientos");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jmReportes.add(jMenuItem6);
+
         jMenuBar1.add(jmReportes);
 
         jmAlmacen.setText("Almacén");
@@ -845,6 +854,13 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
         jmiUsuarioActionPerformed(null);
     }//GEN-LAST:event_jmiMisDatosActionPerformed
 
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        JDReporteAgotamientos obj = new JDReporteAgotamientos(this, true);
+        obj.setLocationRelativeTo(this);
+        obj.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1061,6 +1077,7 @@ public class JFPrincipal extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
